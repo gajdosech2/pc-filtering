@@ -1,0 +1,14 @@
+target_sources(${PROJECT_NAME} PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/API.h
+  ${CMAKE_CURRENT_LIST_DIR}/ArrayObject.h
+  ${CMAKE_CURRENT_LIST_DIR}/FrameBuffer.h
+  ${CMAKE_CURRENT_LIST_DIR}/ShaderBuild.h
+  ${CMAKE_CURRENT_LIST_DIR}/ShaderProgram.h
+  ${CMAKE_CURRENT_LIST_DIR}/ShaderProgramList.h
+  ${CMAKE_CURRENT_LIST_DIR}/Texture.h
+  ${CMAKE_CURRENT_LIST_DIR}/UniformBuffer.h
+  ${CMAKE_CURRENT_LIST_DIR}/Utils.h
+  ${CMAKE_CURRENT_LIST_DIR}/Version.h
+  ${CMAKE_CURRENT_LIST_DIR}/WindowEventObserver.h
+  ${CMAKE_CURRENT_LIST_DIR}/Window.h
+)

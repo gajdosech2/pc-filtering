@@ -1,0 +1,784 @@
+03/09/2019 20:43:25 (Std) 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+03/09/2019 20:43:25 (Std) 	+                     Crazy Eddie's GUI System - Event log                    +
+03/09/2019 20:43:25 (Std) 	+                          (http://www.cegui.org.uk/)                         +
+03/09/2019 20:43:25 (Std) 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+03/09/2019 20:43:25 (Std) 	CEGUI::Logger singleton created. (000001AD0FC34CB0)
+03/09/2019 20:43:25 (Std) 	
+03/09/2019 20:43:25 (Std) 	********************************************************************************
+03/09/2019 20:43:25 (Std) 	* Important:                                                                   *
+03/09/2019 20:43:25 (Std) 	*     To get support at the CEGUI forums, you must post _at least_ the section *
+03/09/2019 20:43:25 (Std) 	*     of this log file indicated below.  Failure to do this will result in no  *
+03/09/2019 20:43:25 (Std) 	*     support being given; please do not waste our time.                       *
+03/09/2019 20:43:25 (Std) 	********************************************************************************
+03/09/2019 20:43:25 (Std) 	********************************************************************************
+03/09/2019 20:43:25 (Std) 	* -------- START OF ESSENTIAL SECTION TO BE POSTED ON THE FORUM       -------- *
+03/09/2019 20:43:25 (Std) 	********************************************************************************
+03/09/2019 20:43:25 (Std) 	---- Version: 0.8.7 (Build: Nov 20 2018 Microsoft Windows MSVC++ Unknown MSVC++ version 64 bit) ----
+03/09/2019 20:43:25 (Std) 	---- Renderer module is: CEGUI::OpenGL3Renderer - Official OpenGL 3.2 core based renderer module.  TextureTarget support enabled via FBO OGL 3.2 core implementation. ----
+03/09/2019 20:43:25 (Std) 	---- XML Parser module is: CEGUI::ExpatParser - Official expat based parser module for CEGUI ----
+03/09/2019 20:43:25 (Std) 	---- Image Codec module is: SILLYImageCodec - Official SILLY based image codec ----
+03/09/2019 20:43:25 (Std) 	---- Scripting module is: None ----
+03/09/2019 20:43:25 (Std) 	********************************************************************************
+03/09/2019 20:43:25 (Std) 	* -------- END OF ESSENTIAL SECTION TO BE POSTED ON THE FORUM         -------- *
+03/09/2019 20:43:25 (Std) 	********************************************************************************
+03/09/2019 20:43:25 (Std) 	
+03/09/2019 20:43:25 (Std) 	---- Begining CEGUI System initialisation ----
+03/09/2019 20:43:25 (Std) 	[CEGUI::ImageManager] Singleton created (000001AD0BD608D0)
+03/09/2019 20:43:25 (Std) 	[CEGUI::ImageManager] Registered Image type: BasicImage
+03/09/2019 20:43:25 (Std) 	CEGUI::FontManager singleton created. (000001AD0A1658E0)
+03/09/2019 20:43:25 (Std) 	CEGUI::WindowFactoryManager singleton created
+03/09/2019 20:43:25 (Std) 	CEGUI::WindowManager singleton created (000001AD0FE1A8C0)
+03/09/2019 20:43:25 (Std) 	CEGUI::SchemeManager singleton created. (000001AD100DBC70)
+03/09/2019 20:43:25 (Std) 	CEGUI::GlobalEventSet singleton created. (000001AD100A0F80)
+03/09/2019 20:43:25 (Std) 	CEGUI::AnimationManager singleton created (000001AD100B6B40)
+03/09/2019 20:43:25 (Std) 	CEGUI::WidgetLookManager singleton created. (000001AD100C5710)
+03/09/2019 20:43:25 (Std) 	CEGUI::WindowRendererManager singleton created (000001AD100C5C50)
+03/09/2019 20:43:25 (Std) 	CEGUI::RenderEffectManager singleton created (000001AD100A1280)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'DefaultWindow' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'DefaultWindow' windows added. (000001AD100D9A30)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'DragContainer' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'DragContainer' windows added. (000001AD100D9430)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'ScrolledContainer' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'ScrolledContainer' windows added. (000001AD100D9DF0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'ClippedContainer' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'ClippedContainer' windows added. (000001AD100D9EB0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/PushButton' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/PushButton' windows added. (000001AD100D9670)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/RadioButton' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/RadioButton' windows added. (000001AD100D9130)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Combobox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Combobox' windows added. (000001AD100D9C70)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ComboDropList' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ComboDropList' windows added. (000001AD100DA270)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Editbox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Editbox' windows added. (000001AD100D9730)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/FrameWindow' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/FrameWindow' windows added. (000001AD100D9F70)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ItemEntry' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ItemEntry' windows added. (000001AD100DA330)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Listbox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Listbox' windows added. (000001AD100DA4B0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ListHeader' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ListHeader' windows added. (000001AD100D94F0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ListHeaderSegment' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ListHeaderSegment' windows added. (000001AD100DA930)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Menubar' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Menubar' windows added. (000001AD100DA570)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/PopupMenu' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/PopupMenu' windows added. (000001AD100D8A70)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/MenuItem' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/MenuItem' windows added. (000001AD100D8B30)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/MultiColumnList' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/MultiColumnList' windows added. (000001AD100D8BF0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/MultiLineEditbox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/MultiLineEditbox' windows added. (000001AD100D8CB0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ProgressBar' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ProgressBar' windows added. (000001AD100D8D70)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ScrollablePane' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ScrollablePane' windows added. (000001AD100D8E30)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Scrollbar' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Scrollbar' windows added. (000001AD100D8EF0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Slider' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Slider' windows added. (000001AD100D8FB0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Spinner' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Spinner' windows added. (000001AD100D9070)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/TabButton' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/TabButton' windows added. (000001AD100E3070)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/TabControl' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/TabControl' windows added. (000001AD100E31F0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Thumb' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Thumb' windows added. (000001AD100E26B0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Titlebar' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Titlebar' windows added. (000001AD100E3130)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ToggleButton' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ToggleButton' windows added. (000001AD100E2830)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Tooltip' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Tooltip' windows added. (000001AD100E2B30)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/ItemListbox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/ItemListbox' windows added. (000001AD100E28F0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/GroupBox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/GroupBox' windows added. (000001AD100E2CB0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'CEGUI/Tree' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'CEGUI/Tree' windows added. (000001AD100E2770)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'LayoutCell' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'LayoutCell' windows added. (000001AD100E29B0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'HorizontalLayoutContainer' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'HorizontalLayoutContainer' windows added. (000001AD100E2A70)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'VerticalLayoutContainer' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'VerticalLayoutContainer' windows added. (000001AD100E2FB0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'GridLayoutContainer' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'GridLayoutContainer' windows added. (000001AD100E2BF0)
+03/09/2019 20:43:25 (Std) 	CEGUI::System singleton created. (000001AD0FE57F80)
+03/09/2019 20:43:25 (Std) 	---- CEGUI System initialisation completed ----
+03/09/2019 20:43:25 (Std) 	
+03/09/2019 20:43:25 (Std) 	Started creation of Scheme from XML specification:
+03/09/2019 20:43:25 (Std) 	---- CEGUI GUIScheme name: DarkHiro
+03/09/2019 20:43:25 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- CEGUI Imageset name: DarkHiroImg
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture file: DarkHiro.png
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: DarkHiroImg
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlTR' (000001AD0FA7B030) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlM' (000001AD0FA79F50) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlT' (000001AD0FA7D0D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlR' (000001AD0FA7B6F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlL' (000001AD0FA7CC50) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlBL' (000001AD0FA7B930) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlB' (000001AD0FA7C110) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlTL' (000001AD0FA7D1F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameControlBR' (000001AD0FA79530) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalTR' (000001AD0FA7BB70) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalM' (000001AD0FA7A2B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalT' (000001AD0FA7B150) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalR' (000001AD0FA7B390) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalL' (000001AD0FA7AA90) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalBL' (000001AD0FA7C590) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalB' (000001AD0FA79E30) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalTL' (000001AD0FA7ABB0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameNormalBR' (000001AD0FA7B4B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedTR' (000001AD0FA7C470) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedM' (000001AD0FA7D310) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedT' (000001AD0FA79BF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedR' (000001AD0FA7B5D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedL' (000001AD0FA7CE90) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedBL' (000001AD0FA7D670) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedB' (000001AD0FA7C7D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedTL' (000001AD0FA7BA50) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FramePushedBR' (000001AD0FA7CA10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/CheckboxNormal' (000001AD0FA7BC90) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/SlideHandleNormal' (000001AD0FA7BDB0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ScrollArrowRight' (000001AD0FA7D430) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ScrollArrowLeft' (000001AD0FA7CB30) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ScrollArrowUp' (000001AD0FA79890) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ScrollArrowDown' (000001AD0FA79D10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/SlideHorL' (000001AD0FA7BED0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/SlideHorR' (000001AD0FA7CD70) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/SlideHorM' (000001AD0FA7D550) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ArrowDown' (000001AD0FA7D790) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ArrowDown_copy' (000001AD0FA799B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/BrushWhite' (000001AD0FA7A190) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/WaitCircle' (000001AD0FA7A3D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/CheckboxHover' (000001AD0FA790B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/CheckMark' (000001AD0FA791D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteR' (000001AD0FA792F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteM' (000001AD0FA79650) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteTL' (000001AD0FA79770) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteT' (000001AD0FA7ACD0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteBR' (000001AD0FA79AD0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteBL' (000001AD0FA7F290) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteTR' (000001AD0FA7E090) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteL' (000001AD0FA7DE50) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/FrameWhiteB' (000001AD0FA7FA70) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ToggleMarkLeft' (000001AD0FA7FB90) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ToggleBar' (000001AD0FA7EAB0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'DarkHiroImg/ToggleMarkRight' (000001AD0FA7F950) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- CEGUI Imageset name: Icons
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture file: icons.png
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: Icons
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/edit' (000001AD0FA7F5F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/back' (000001AD0FA7E3F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/zoom' (000001AD0FA7D9D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/close' (000001AD0FA7F050) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/config' (000001AD0FA7E2D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/up' (000001AD0FA7DF70) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/down' (000001AD0FA7E750) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/pin' (000001AD0FA7E990) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/directory' (000001AD0FA7E870) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/settings' (000001AD0FA7DC10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/info' (000001AD0FA7EBD0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/home' (000001AD0FA7F170) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/right' (000001AD0FA7DD30) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/left' (000001AD0FA7ECF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/camera' (000001AD0FA7EE10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/poweroff' (000001AD0FA7EF30) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/save' (000001AD0FA7E510) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/sel_all' (000001AD0FA7F3B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/cube' (000001AD0FA7F4D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/stop' (000001AD0FA7F710) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/pause' (000001AD0FA7F830) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/file' (000001AD0FA7D8B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/sync' (000001AD0FA7DAF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/add' (000001AD0FA7FCB0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/download' (000001AD0FA7FDD0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/upload' (000001AD0FA7E630) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/sel_none' (000001AD0FA7FEF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons/remove' (000001AD0FA7E1B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- CEGUI Imageset name: Icons16px
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture file: icons-16px.png
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: Icons16px
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/edit' (000001AD0FA71CD0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/back' (000001AD0FA70BF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/zoom' (000001AD0FA740D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/close' (000001AD0FA70770) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/config' (000001AD0FA737D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/up' (000001AD0FA74310) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/down' (000001AD0FA738F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/pin' (000001AD0FA726F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/directory' (000001AD0FA72030) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/settings' (000001AD0FA70E30) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/info' (000001AD0FA71850) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/home' (000001AD0FA71610) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/right' (000001AD0FA741F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/left' (000001AD0FA72C90) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/camera' (000001AD0FA74430) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/poweroff' (000001AD0FA712B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/save' (000001AD0FA70D10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/sel_all' (000001AD0FA74790) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/cube' (000001AD0FA70410) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/stop' (000001AD0FA71DF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/pause' (000001AD0FA700B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/file' (000001AD0FA72270) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/sync' (000001AD0FA72390) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/add' (000001AD0FA74550) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/download' (000001AD0FA73230) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/upload' (000001AD0FA70F50) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/sel_none' (000001AD0FA73C50) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/remove' (000001AD0FA74670) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons16px/check' (000001AD0FA724B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- CEGUI Imageset name: Icons18px
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture file: icons-18px.png
+03/09/2019 20:43:25 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: Icons18px
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/edit' (000001AD0FA73110) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/back' (000001AD0FA71BB0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/zoom' (000001AD0FA73A10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/close' (000001AD0FA72FF0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/config' (000001AD0FA701D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/up' (000001AD0FA71070) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/down' (000001AD0FA71190) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/pin' (000001AD0FA73350) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/directory' (000001AD0FA70650) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/settings' (000001AD0FA713D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/info' (000001AD0FA702F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/home' (000001AD0FA73470) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/right' (000001AD0FA72DB0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/left' (000001AD0FA71F10) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/camera' (000001AD0FA725D0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/poweroff' (000001AD0FA70530) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/save' (000001AD0FA73590) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/sel_all' (000001AD0FA714F0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/cube' (000001AD0FA73B30) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/stop' (000001AD0FA736B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/pause' (000001AD0FA709B0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/file' (000001AD0FA72150) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/sync' (000001AD0FA70890) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/add' (000001AD0FA73D70) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/download' (000001AD0FA70AD0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/upload' (000001AD0FA72ED0) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/sel_none' (000001AD0FA71730) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/remove' (000001AD0FA72810) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	[ImageManager] Created image: 'Icons18px/check' (000001AD0FA71970) of type: BasicImage
+03/09/2019 20:43:25 (Std) 	===== Falagard 'root' element: look and feel parsing begins =====
+03/09/2019 20:43:25 (Warn)	Type 'VerticalTextFormat' wasn't recognized in property definition (name: 'LabelFormatVertical').
+03/09/2019 20:43:25 (Warn)	Type 'HorizontalTextFormat' wasn't recognized in property definition (name: 'LabelFormatHorizontal').
+03/09/2019 20:43:25 (Warn)	Type 'VerticalTextFormat' wasn't recognized in property definition (name: 'LabelFormatVertical').
+03/09/2019 20:43:25 (Warn)	Type 'HorizontalTextFormat' wasn't recognized in property definition (name: 'LabelFormatHorizontal').
+03/09/2019 20:43:25 (Warn)	Type 'VerticalTextFormat' wasn't recognized in property definition (name: 'LabelFormatVertical').
+03/09/2019 20:43:25 (Warn)	Type 'HorizontalTextFormat' wasn't recognized in property definition (name: 'LabelFormatHorizontal').
+03/09/2019 20:43:25 (Warn)	Type 'VerticalTextFormat' wasn't recognized in property definition (name: 'LabelFormatVertical').
+03/09/2019 20:43:25 (Warn)	Type 'HorizontalTextFormat' wasn't recognized in property definition (name: 'LabelFormatHorizontal').
+03/09/2019 20:43:25 (Std) 	===== Look and feel parsing completed =====
+03/09/2019 20:43:25 (Std) 	No window renderer factories specified for module 'CEGUICoreWindowRendererSet' - adding all available factories...
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Button' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Button' added. (000001AD101227B0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Default' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Default' added. (000001AD10122870)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Editbox' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Editbox' added. (000001AD101215B0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/FrameWindow' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/FrameWindow' added. (000001AD10121C70)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ItemEntry' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ItemEntry' added. (000001AD10122330)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ListHeader' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ListHeader' added. (000001AD10121AF0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ListHeaderSegment' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ListHeaderSegment' added. (000001AD10122DB0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Listbox' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Listbox' added. (000001AD101217F0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Menubar' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Menubar' added. (000001AD10122270)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/MenuItem' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/MenuItem' added. (000001AD101218B0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/MultiColumnList' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/MultiColumnList' added. (000001AD101223F0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/MultiLineEditbox' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/MultiLineEditbox' added. (000001AD10121970)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/PopupMenu' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/PopupMenu' added. (000001AD101230B0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ProgressBar' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ProgressBar' added. (000001AD10123170)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ScrollablePane' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ScrollablePane' added. (000001AD10121BB0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Scrollbar' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Scrollbar' added. (000001AD1036ACE0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Slider' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Slider' added. (000001AD1036B6A0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Static' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Static' added. (000001AD1036A4A0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/StaticImage' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/StaticImage' added. (000001AD1036AB60)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/StaticText' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/StaticText' added. (000001AD1036B220)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/TabButton' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/TabButton' added. (000001AD1036A620)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/TabControl' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/TabControl' added. (000001AD1036A6E0)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Titlebar' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Titlebar' added. (000001AD1036A560)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ToggleButton' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ToggleButton' added. (000001AD1036A260)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Tooltip' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Tooltip' added. (000001AD10369D20)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/ItemListbox' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/ItemListbox' added. (000001AD1036BA60)
+03/09/2019 20:43:25 (Std) 	Created WindowRendererFactory for 'Core/Tree' WindowRenderers.
+03/09/2019 20:43:25 (Std) 	WindowRendererFactory 'Core/Tree' added. (000001AD1036A320)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Panel' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/Panel' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/SeparatorHor' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/SeparatorHor' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/SeparatorVer' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/SeparatorVer' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Label' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/Label' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/PushButton' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'DarkHiro/PushButton' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/TouchPushButton' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'DarkHiro/TouchPushButton' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ToggleButton' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'DarkHiro/ToggleButton' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ToggleSlider' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'DarkHiro/ToggleSlider' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Checkbox' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'DarkHiro/Checkbox' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Editbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'DarkHiro/Editbox' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Thumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'DarkHiro/Thumb' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Slider' using base type 'CEGUI/Slider', window renderer 'Core/Slider' Look'N'Feel 'DarkHiro/Slider' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ScrollHandle' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'DarkHiro/ScrollHandle' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ScrollbarVer' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'DarkHiro/ScrollbarVer' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ScrollbarHor' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'DarkHiro/ScrollbarHor' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ScrollablePanel' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'DarkHiro/ScrollablePanel' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ScrollPanelTouch' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'DarkHiro/ScrollPanelTouch' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/VertScrollPanel' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'DarkHiro/VertScrollPanel' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/StaticImage' using base type 'DefaultWindow', window renderer 'Core/StaticImage' Look'N'Feel 'DarkHiro/StaticImage' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/WaitCircle' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/WaitCircle' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ColorRect' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/ColorRect' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Spinner' using base type 'CEGUI/Spinner', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/Spinner' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ItemListbox' using base type 'CEGUI/ItemListbox', window renderer 'Core/ItemListbox' Look'N'Feel 'DarkHiro/Listbox' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ListboxItem' using base type 'CEGUI/ItemEntry', window renderer 'Core/ItemEntry' Look'N'Feel 'DarkHiro/ListboxItem' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ComboDropList' using base type 'CEGUI/ComboDropList', window renderer 'Core/Listbox' Look'N'Feel 'DarkHiro/Listbox' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ComboEditbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'DarkHiro/ComboEditbox' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ComboButton' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'DarkHiro/ComboButton' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Combobox' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/Combobox' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'DarkHiro/ProgressBar' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/FrameWindow' using base type 'CEGUI/FrameWindow', window renderer 'Core/FrameWindow' Look'N'Feel 'DarkHiro/FrameWindow' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Titlebar' using base type 'CEGUI/Titlebar', window renderer 'Core/Titlebar' Look'N'Feel 'DarkHiro/Titlebar' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/StaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'DarkHiro/StaticText' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/Tooltip' using base type 'CEGUI/Tooltip', window renderer 'Core/Tooltip' Look'N'Feel 'DarkHiro/Tooltip' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ArrayPanel' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/ArrayPanel' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/StatusIcon' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/StatusIcon' and RenderEffect ''. (00000066E558C5D0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'WaitCircle' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'WaitCircle' windows added. (000001AD1036A7A0)
+03/09/2019 20:43:25 (Std) 	Removing falagard mapping for type 'DarkHiro/WaitCircle'.
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/WaitCircle' using base type 'WaitCircle', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/WaitCircle' and RenderEffect ''. (00000066E558E0B0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'DarkHiro/ArrayPanel' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'DarkHiro/ArrayPanel' windows added. (000001AD1036B3A0)
+03/09/2019 20:43:25 (Std) 	Removing falagard mapping for type 'DarkHiro/ArrayPanel'.
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/ArrayPanel' using base type 'DarkHiro/ArrayPanel', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/ArrayPanel' and RenderEffect ''. (00000066E558E0B0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'DarkHiro/StatusIcon' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'DarkHiro/StatusIcon' windows added. (000001AD1036AC20)
+03/09/2019 20:43:25 (Std) 	Removing falagard mapping for type 'DarkHiro/StatusIcon'.
+03/09/2019 20:43:25 (Std) 	Creating falagard mapping for type 'DarkHiro/StatusIcon' using base type 'DarkHiro/StatusIcon', window renderer 'Core/Default' Look'N'Feel 'DarkHiro/StatusIcon' and RenderEffect ''. (00000066E558E0B0)
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'DarkHiro/Combobox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'DarkHiro/Combobox' windows added. (000001AD10369DE0)
+03/09/2019 20:43:25 (Std) 	Window type alias named 'CEGUI/Combobox' added for window type 'DarkHiro/Combobox'.
+03/09/2019 20:43:25 (Std) 	Created WindowFactory for 'DarkHiro/Editbox' windows.
+03/09/2019 20:43:25 (Std) 	WindowFactory for 'DarkHiro/Editbox' windows added. (000001AD1036A020)
+03/09/2019 20:43:25 (Std) 	Window type alias named 'CEGUI/Editbox' added for window type 'DarkHiro/Editbox'.
+03/09/2019 20:43:25 (Std) 	---- Successfully completed loading of GUI layout from string ----
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: InriaSans-9-Normal_auto_glyph_images_0
+03/09/2019 20:43:25 (Std) 	---- Successfully completed loading of GUI layout from string ----
+03/09/2019 20:43:25 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:25 (Std) 	---- Successfully completed loading of GUI layout from string ----
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: _ogl_tt_tex_0
+03/09/2019 20:43:25 (Std) 	---- Successfully completed loading of GUI layout from string ----
+03/09/2019 20:43:25 (Std) 	Display resize: w=2498 h=1057
+03/09/2019 20:43:25 (Std) 	[OpenGLRenderer] Created texture: InriaSans-10-Bold_auto_glyph_images_0
+03/09/2019 20:43:26 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:29 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:29 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:30 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:30 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:31 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:31 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:33 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:33 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:34 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:34 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:36 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:36 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:38 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:38 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:39 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:39 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:42 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:42 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:43 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:43 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:43 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:43 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:44 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:44 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:44 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:44 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:45 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:45 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:46 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:46 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:49 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:49 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:54 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:54 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:55 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:55 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:56 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:56 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:56 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:56 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:57 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:57 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:58 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:58 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:43:59 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:43:59 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:02 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:02 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:03 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:03 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:09 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:09 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:10 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:10 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:12 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:12 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:13 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:13 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:14 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:14 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:14 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:14 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:22 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:22 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:22 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:22 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:23 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:23 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:23 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:23 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:24 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:24 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:25 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:25 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:27 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:27 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:27 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:27 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:30 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:30 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:30 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:30 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:30 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:30 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:31 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:31 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:31 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:31 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:33 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:33 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:35 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:35 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:44:59 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:44:59 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:01 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:01 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:02 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:02 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:02 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:02 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:03 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:03 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:03 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:03 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:03 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:03 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:04 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:04 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:05 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:05 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:05 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:05 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:05 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:05 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:06 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:06 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:06 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:06 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:07 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:07 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:07 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:07 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:09 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:09 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:10 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:10 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:10 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:10 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:10 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:10 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:11 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:11 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:11 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558DE90). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:11 (Std) 	---- Successfully completed loading of GUI layout from 'SidePanel.layout' ----
+03/09/2019 20:45:15 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558EA40). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:15 (Std) 	---- Begining CEGUI System destruction ----
+03/09/2019 20:45:15 (Std) 	[OpenGLRenderer] Destroyed texture: _ogl_tt_tex_0
+03/09/2019 20:45:15 (Error)	[WindowManager] Attempt to delete Window that does not exist!  Address was: (00000066E558E770). WARNING: This could indicate a double-deletion issue!!
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Tree' windows removed. (000001AD100E2770)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Tree' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'LayoutCell' windows removed. (000001AD100E29B0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'LayoutCell' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'WaitCircle' windows removed. (000001AD1036A7A0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'WaitCircle' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Thumb' windows removed. (000001AD100E26B0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Thumb' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Slider' windows removed. (000001AD100D8FB0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Slider' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Editbox' windows removed. (000001AD100D9730)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Editbox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Listbox' windows removed. (000001AD100DA4B0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Listbox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Menubar' windows removed. (000001AD100DA570)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Menubar' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Spinner' windows removed. (000001AD100D9070)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Spinner' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Tooltip' windows removed. (000001AD100E2B30)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Tooltip' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'DefaultWindow' windows removed. (000001AD100D9A30)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'DefaultWindow' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'DragContainer' windows removed. (000001AD100D9430)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'DragContainer' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Combobox' windows removed. (000001AD100D9C70)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Combobox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/GroupBox' windows removed. (000001AD100E2CB0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/GroupBox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/MenuItem' windows removed. (000001AD100D8B30)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/MenuItem' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Titlebar' windows removed. (000001AD100E3130)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Titlebar' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ItemEntry' windows removed. (000001AD100DA330)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ItemEntry' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/PopupMenu' windows removed. (000001AD100D8A70)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/PopupMenu' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/Scrollbar' windows removed. (000001AD100D8EF0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/Scrollbar' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/TabButton' windows removed. (000001AD100E3070)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/TabButton' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ListHeader' windows removed. (000001AD100D94F0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ListHeader' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/PushButton' windows removed. (000001AD100D9670)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/PushButton' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/TabControl' windows removed. (000001AD100E31F0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/TabControl' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'ClippedContainer' windows removed. (000001AD100D9EB0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'ClippedContainer' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'DarkHiro/Editbox' windows removed. (000001AD1036A020)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'DarkHiro/Editbox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/FrameWindow' windows removed. (000001AD100D9F70)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/FrameWindow' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ItemListbox' windows removed. (000001AD100E28F0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ItemListbox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ProgressBar' windows removed. (000001AD100D8D70)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ProgressBar' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/RadioButton' windows removed. (000001AD100D9130)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/RadioButton' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'DarkHiro/Combobox' windows removed. (000001AD10369DE0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'DarkHiro/Combobox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'ScrolledContainer' windows removed. (000001AD100D9DF0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'ScrolledContainer' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ToggleButton' windows removed. (000001AD100E2830)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ToggleButton' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ComboDropList' windows removed. (000001AD100DA270)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ComboDropList' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'DarkHiro/ArrayPanel' windows removed. (000001AD1036B3A0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'DarkHiro/ArrayPanel' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'DarkHiro/StatusIcon' windows removed. (000001AD1036AC20)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'DarkHiro/StatusIcon' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'GridLayoutContainer' windows removed. (000001AD100E2BF0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'GridLayoutContainer' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ScrollablePane' windows removed. (000001AD100D8E30)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ScrollablePane' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/MultiColumnList' windows removed. (000001AD100D8BF0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/MultiColumnList' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/MultiLineEditbox' windows removed. (000001AD100D8CB0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/MultiLineEditbox' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'CEGUI/ListHeaderSegment' windows removed. (000001AD100DA930)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'CEGUI/ListHeaderSegment' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'VerticalLayoutContainer' windows removed. (000001AD100E2FB0)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'VerticalLayoutContainer' windows.
+03/09/2019 20:45:15 (Std) 	WindowFactory for 'HorizontalLayoutContainer' windows removed. (000001AD100E2A70)
+03/09/2019 20:45:15 (Std) 	Deleted WindowFactory for 'HorizontalLayoutContainer' windows.
+03/09/2019 20:45:15 (Std) 	---- Begining cleanup of GUI Scheme system ----
+03/09/2019 20:45:15 (Std) 	CEGUI::SchemeManager singleton destroyed. (000001AD100DBC70)
+03/09/2019 20:45:15 (Std) 	CEGUI::WindowManager singleton destroyed (000001AD0FE1A8C0)
+03/09/2019 20:45:15 (Std) 	CEGUI::WindowFactoryManager singleton destroyed
+03/09/2019 20:45:15 (Std) 	CEGUI::WidgetLookManager singleton destroyed. (000001AD100C5710)
+03/09/2019 20:45:15 (Std) 	CEGUI::WindowRendererManager singleton destroyed (000001AD100C5C50)
+03/09/2019 20:45:15 (Std) 	CEGUI::AnimationManager singleton destroyed (000001AD100B6B40)
+03/09/2019 20:45:15 (Std) 	CEGUI::RenderEffectManager singleton destroyed (000001AD100A1280)
+03/09/2019 20:45:15 (Std) 	---- Begining cleanup of Font system ----
+03/09/2019 20:45:15 (Std) 	[OpenGLRenderer] Destroyed texture: InriaSans-10-Bold_auto_glyph_images_0
+03/09/2019 20:45:15 (Std) 	[OpenGLRenderer] Destroyed texture: InriaSans-9-Normal_auto_glyph_images_0
+03/09/2019 20:45:15 (Std) 	CEGUI::FontManager singleton destroyed. (000001AD0A1658E0)
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/up
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/add
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/pin
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/back
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/cube
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/down
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/edit
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/file
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/home
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/info
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/left
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/save
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/stop
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/sync
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/zoom
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/close
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/pause
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/right
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/camera
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/config
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/remove
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/upload
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/up
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/up
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/sel_all
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/add
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/pin
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/add
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/pin
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/download
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/poweroff
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/sel_none
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/settings
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/back
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/cube
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/down
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/edit
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/file
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/home
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/info
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/left
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/save
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/stop
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/sync
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/zoom
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/back
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/cube
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/down
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/edit
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/file
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/home
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/info
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/left
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/save
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/stop
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/sync
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/zoom
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons/directory
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/check
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/close
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/pause
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/right
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/check
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/close
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/pause
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/right
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/camera
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/config
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/remove
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/upload
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/camera
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/config
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/remove
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/upload
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/sel_all
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/sel_all
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/download
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/poweroff
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/sel_none
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/settings
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/download
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/poweroff
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/sel_none
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/settings
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons16px/directory
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: Icons18px/directory
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ArrowDown
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/CheckMark
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/SlideHorL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/SlideHorM
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/SlideHorR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ToggleBar
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/BrushWhite
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/WaitCircle
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteB
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteM
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteT
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalB
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalM
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalT
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedB
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedM
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedT
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteBL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteBR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteTL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameWhiteTR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/CheckboxHover
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlB
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlM
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlT
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalBL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalBR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalTL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameNormalTR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedBL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedBR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedTL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FramePushedTR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ScrollArrowUp
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ArrowDown_copy
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/CheckboxNormal
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlBL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlBR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlTL
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/FrameControlTR
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ToggleMarkLeft
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ScrollArrowDown
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ScrollArrowLeft
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ToggleMarkRight
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/ScrollArrowRight
+03/09/2019 20:45:15 (Std) 	[ImageManager] Deleted image: DarkHiroImg/SlideHandleNormal
+03/09/2019 20:45:15 (Std) 	[CEGUI::ImageManager] Unregistered Image type: BasicImage
+03/09/2019 20:45:15 (Std) 	[CEGUI::ImageManager] Singleton destroyed (000001AD0BD608D0)
+03/09/2019 20:45:15 (Std) 	CEGUI::GlobalEventSet singleton destroyed. (000001AD100A0F80)
+03/09/2019 20:45:15 (Std) 	CEGUI::System singleton destroyed. (000001AD0FE57F80)
+03/09/2019 20:45:15 (Std) 	---- CEGUI System destruction completed ----
+03/09/2019 20:45:15 (Std) 	CEGUI::Logger singleton destroyed. (000001AD0FC34CB0)

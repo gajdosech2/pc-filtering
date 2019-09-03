@@ -1,0 +1,339 @@
+﻿  Visualization.cpp
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(103,42): warning C4251:  'vis::Camera::position_': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'vis::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(104,54): warning C4251:  'vis::Camera::basis_z_': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'vis::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(105,53): warning C4251:  'vis::Camera::basis_y_': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'vis::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(106,36): warning C4251:  'vis::Camera::view_matrix_': class 'glm_ext::TransMat<4>' needs to have dll-interface to be used by clients of class 'vis::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtGLM.h(76): message :  see declaration of 'glm_ext::TransMat<4>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107,45): warning C4251:  'vis::Camera::listeners_': class 'std::vector<vis::Camera::CallbackOnChange,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'vis::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107,45): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107,45): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107,45): warning C4251:             _Ty=vis::Camera::CallbackOnChange
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107,45): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107): message :  see declaration of 'std::vector<vis::Camera::CallbackOnChange,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107): message :             _Ty=vis::Camera::CallbackOnChange
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(107): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(184,35): warning C4251:  'glw::ArrayObject::buffers_': class 'std::vector<std::_Vbase,std::allocator<std::_Vbase>>' needs to have dll-interface to be used by clients of class 'glw::ArrayObject'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(2164): message :  see declaration of 'std::vector<std::_Vbase,std::allocator<std::_Vbase>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185,41): warning C4251:  'glw::ArrayObject::elements_': class 'std::vector<glw::ArrayObject::ElementBuffer,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'glw::ArrayObject'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185,41): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185,41): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185,41): warning C4251:             _Ty=glw::ArrayObject::ElementBuffer
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185,41): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185): message :  see declaration of 'std::vector<glw::ArrayObject::ElementBuffer,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185): message :             _Ty=glw::ArrayObject::ElementBuffer
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(185): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136,50): warning C4251:  'glw::Program::attachedShaders': class 'std::map<glw::ShaderType,glw::PShader,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' needs to have dll-interface to be used by clients of class 'glw::Program'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136,50): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136,50): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136,50): warning C4251:             _Kty=glw::ShaderType,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136,50): warning C4251:             _Ty=glw::PShader
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136,50): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136): message :  see declaration of 'std::map<glw::ShaderType,glw::PShader,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136): message :             _Kty=glw::ShaderType,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136): message :             _Ty=glw::PShader
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgram.h(136): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(35,106): warning C4251:  'glw::ShaderPipeline::vert': struct 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetVert(void) const,void glw::ShaderPipeline::SetVert(const std::string &)>' needs to have dll-interface to be used by clients of struct 'glw::ShaderPipeline'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(35): message :  see declaration of 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetVert(void) const,void glw::ShaderPipeline::SetVert(const std::string &)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(36,106): warning C4251:  'glw::ShaderPipeline::tesc': struct 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetTesc(void) const,void glw::ShaderPipeline::SetTesc(const std::string &)>' needs to have dll-interface to be used by clients of struct 'glw::ShaderPipeline'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(36): message :  see declaration of 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetTesc(void) const,void glw::ShaderPipeline::SetTesc(const std::string &)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(37,106): warning C4251:  'glw::ShaderPipeline::tese': struct 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetTese(void) const,void glw::ShaderPipeline::SetTese(const std::string &)>' needs to have dll-interface to be used by clients of struct 'glw::ShaderPipeline'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(37): message :  see declaration of 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetTese(void) const,void glw::ShaderPipeline::SetTese(const std::string &)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(38,106): warning C4251:  'glw::ShaderPipeline::geom': struct 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetGeom(void) const,void glw::ShaderPipeline::SetGeom(const std::string &)>' needs to have dll-interface to be used by clients of struct 'glw::ShaderPipeline'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(38): message :  see declaration of 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetGeom(void) const,void glw::ShaderPipeline::SetGeom(const std::string &)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(39,106): warning C4251:  'glw::ShaderPipeline::frag': struct 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetFrag(void) const,void glw::ShaderPipeline::SetFrag(const std::string &)>' needs to have dll-interface to be used by clients of struct 'glw::ShaderPipeline'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(39): message :  see declaration of 'utils::Property<glw::ShaderPipeline,std::string,std::string glw::ShaderPipeline::GetFrag(void) const,void glw::ShaderPipeline::SetFrag(const std::string &)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(49,6): warning C4251:  'glw::ShaderPipeline::data_': class 'std::map<glw::ShaderType,std::string,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' needs to have dll-interface to be used by clients of struct 'glw::ShaderPipeline'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(49,6): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(49,6): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(49,6): warning C4251:             _Kty=glw::ShaderType,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(49,6): warning C4251:             _Ty=std::string
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(49,6): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(20): message :  see declaration of 'std::map<glw::ShaderType,std::string,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(20): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(20): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(20): message :             _Kty=glw::ShaderType,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(20): message :             _Ty=std::string
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(20): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88,51): warning C4251:  'glw::ProgramList::programs_': class 'std::map<std::string,glw::PProgram,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' needs to have dll-interface to be used by clients of class 'glw::ProgramList'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88,51): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88,51): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88,51): warning C4251:             _Kty=std::string,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88,51): warning C4251:             _Ty=glw::PProgram
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88,51): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88): message :  see declaration of 'std::map<std::string,glw::PProgram,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88): message :             _Kty=std::string,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88): message :             _Ty=glw::PProgram
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(88): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89,56): warning C4251:  'glw::ProgramList::shader_files_': class 'std::map<std::string,glw::ShaderPipeline,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' needs to have dll-interface to be used by clients of class 'glw::ProgramList'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89,56): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89,56): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89,56): warning C4251:             _Kty=std::string,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89,56): warning C4251:             _Ty=glw::ShaderPipeline
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89,56): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89): message :  see declaration of 'std::map<std::string,glw::ShaderPipeline,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89): message :             _Kty=std::string,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89): message :             _Ty=glw::ShaderPipeline
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ShaderProgramList.h(89): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Transform.h(118,41): warning C4251:  'cogs::Transform::position': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Transform'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Transform.h(119,37): warning C4251:  'cogs::Transform::rotation': struct 'glm::tquat<float,0>' needs to have dll-interface to be used by clients of class 'cogs::Transform'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\fwd.hpp(30): message :  see declaration of 'glm::tquat<float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Transform.h(120,40): warning C4251:  'cogs::Transform::scaling': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Transform'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Transform.h(122,47): warning C4251:  'cogs::Transform::matrix': struct 'glm::mat<4,4,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Transform'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_mat.hpp(303): message :  see declaration of 'glm::mat<4,4,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Transform.h(123,59): warning C4251:  'cogs::Transform::on_change_notifier': class 'std::function<void (void)>' needs to have dll-interface to be used by clients of class 'cogs::Transform'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Camera.h(28): message :  see declaration of 'std::function<void (void)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119,47): warning C4251:  'vis::PrimitiveDatabase::primitives_': class 'std::vector<glw::PArrayObject,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'vis::PrimitiveDatabase'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119,47): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119,47): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119,47): warning C4251:             _Ty=glw::PArrayObject
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119,47): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119): message :  see declaration of 'std::vector<glw::PArrayObject,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119): message :             _Ty=glw::PArrayObject
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(119): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120,38): warning C4251:  'vis::PrimitiveDatabase::geometries_': class 'std::vector<vis::Geometry,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'vis::PrimitiveDatabase'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120,38): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120,38): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120,38): warning C4251:             _Ty=vis::Geometry
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120,38): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120): message :  see declaration of 'std::vector<vis::Geometry,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120): message :             _Ty=vis::Geometry
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PrimitiveDatabase.h(120): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Object.h(98,44): warning C4251:  'vis::Object::styledata': class 'glw::UniformBuffer<vis::StyleData>' needs to have dll-interface to be used by clients of class 'vis::Object'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Object.h(98): message :  see declaration of 'glw::UniformBuffer<vis::StyleData>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Light.h(26,23): warning C4251:  'vis::Light::position': struct 'glm::vec<4,float,0>' needs to have dll-interface to be used by clients of struct 'vis::Light'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(351): message :  see declaration of 'glm::vec<4,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Light.h(33,22): warning C4251:  'vis::Light::padding': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of struct 'vis::Light'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(139,21): warning C4251:  'vis::Scene::Instance::object': class 'std::shared_ptr<vis::Object>' needs to have dll-interface to be used by clients of struct 'vis::Scene::Instance'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Object.h(103): message :  see declaration of 'std::shared_ptr<vis::Object>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(140,25): warning C4251:  'vis::Scene::Instance::style': class 'std::shared_ptr<vis::ObjectStyle>' needs to have dll-interface to be used by clients of struct 'vis::Scene::Instance'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Object.h(66): message :  see declaration of 'std::shared_ptr<vis::ObjectStyle>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152,36): warning C4251:  'vis::Scene::instances_': class 'std::deque<vis::Scene::Instance,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'vis::Scene'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152,36): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152,36): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152,36): warning C4251:             _Ty=vis::Scene::Instance
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152,36): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152): message :  see declaration of 'std::deque<vis::Scene::Instance,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152): message :             _Ty=vis::Scene::Instance
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(152): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(154,26): warning C4251:  'vis::Scene::viewport_': struct 'geom::TRect<int>' needs to have dll-interface to be used by clients of class 'vis::Scene'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\GeometryStructures.h(362): message :  see declaration of 'geom::TRect<int>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(163,35): warning C4251:  'vis::Scene::projection_': class 'glm_ext::TransMat<4>' needs to have dll-interface to be used by clients of class 'vis::Scene'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtGLM.h(76): message :  see declaration of 'glm_ext::TransMat<4>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(165,34): warning C4251:  'vis::Scene::lights_': class 'std::vector<std::_Vbase,std::allocator<std::_Vbase>>' needs to have dll-interface to be used by clients of class 'vis::Scene'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(2164): message :  see declaration of 'std::vector<std::_Vbase,std::allocator<std::_Vbase>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67,28): warning C4251:  'vis::TextRenderer::m': class 'std::unique_ptr<vis::TextRenderer::Impl,std::default_delete<_Ty>>' needs to have dll-interface to be used by clients of class 'vis::TextRenderer'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67,28): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67,28): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67,28): warning C4251:             _Ty=vis::TextRenderer::Impl
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67,28): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67): message :  see declaration of 'std::unique_ptr<vis::TextRenderer::Impl,std::default_delete<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67): message :             _Ty=vis::TextRenderer::Impl
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\TextRenderer.h(67): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Frustum.h(22,23): warning C4251:  'cogs::Frustum::position': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of struct 'cogs::Frustum'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Frustum.h(24,22): warning C4251:  'cogs::Frustum::forward': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of struct 'cogs::Frustum'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Frustum.h(26,17): warning C4251:  'cogs::Frustum::up': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of struct 'cogs::Frustum'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(31,28): warning C4251:  'hiro::Camera::scene': class 'std::shared_ptr<vis::Scene>' needs to have dll-interface to be used by clients of class 'hiro::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\Scene.h(173): message :  see declaration of 'std::shared_ptr<vis::Scene>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116,28): warning C4251:  'hiro::Camera::m': class 'std::unique_ptr<hiro::Camera::Impl,std::default_delete<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::Camera'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116,28): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116,28): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116,28): warning C4251:             _Ty=hiro::Camera::Impl
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116,28): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116): message :  see declaration of 'std::unique_ptr<hiro::Camera::Impl,std::default_delete<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116): message :             _Ty=hiro::Camera::Impl
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\Camera.h(116): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\DataId.h(20,28): warning C4251:  'hiro::DataId::name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'hiro::DataId'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\DataId.h(21,32): warning C4251:  'hiro::DataId::category': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'hiro::DataId'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(65,41): warning C4251:  'hiro::gui::Element::condition_': class 'std::function<bool (void)>' needs to have dll-interface to be used by clients of class 'hiro::gui::Element'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(41): message :  see declaration of 'std::function<bool (void)>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66,43): warning C4251:  'hiro::gui::Element::callbacks_': class 'std::vector<hiro::gui::Element::CallbackFunc,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::gui::Element'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66,43): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66,43): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66,43): warning C4251:             _Ty=hiro::gui::Element::CallbackFunc
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66,43): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66): message :  see declaration of 'std::vector<hiro::gui::Element::CallbackFunc,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66): message :             _Ty=hiro::gui::Element::CallbackFunc
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiTypes.h(66): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91,28): warning C4251:  'hiro::GuiGenerator::m': class 'std::unique_ptr<hiro::GuiGenerator::Impl,std::default_delete<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::GuiGenerator'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91,28): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91,28): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91,28): warning C4251:             _Ty=hiro::GuiGenerator::Impl
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91,28): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91): message :  see declaration of 'std::unique_ptr<hiro::GuiGenerator::Impl,std::default_delete<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91): message :             _Ty=hiro::GuiGenerator::Impl
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\GuiGenerator.h(91): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(34,57): warning C4251:  'cogs::PointCloud::POSITIONS': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(36,55): warning C4251:  'cogs::PointCloud::NORMALS': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(38,54): warning C4251:  'cogs::PointCloud::COLORS': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(40,51): warning C4251:  'cogs::PointCloud::UVS': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(42,59): warning C4251:  'cogs::PointCloud::INTENSITIES': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\xstring(4343): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(261,48): warning C4251:  'cogs::PointCloud::properties_': class 'std::vector<cogs::PointCloudProperty,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(261,48): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(261,48): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(261,48): warning C4251:             _Ty=cogs::PointCloudProperty
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(261,48): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(198): message :  see declaration of 'std::vector<cogs::PointCloudProperty,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(198): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(198): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(198): message :             _Ty=cogs::PointCloudProperty
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(198): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262,70): warning C4251:  'cogs::PointCloud::property_map_': class 'std::unordered_map<cogs::PointCloudProperty::Key,size_t,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' needs to have dll-interface to be used by clients of class 'cogs::PointCloud'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262,70): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262,70): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262,70): warning C4251:             _Kty=cogs::PointCloudProperty::Key,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262,70): warning C4251:             _Ty=size_t
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262,70): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262): message :  see declaration of 'std::unordered_map<cogs::PointCloudProperty::Key,size_t,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262): message :             _Kty=cogs::PointCloudProperty::Key,
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262): message :             _Ty=size_t
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\PointCloud.h(262): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PointCloudObject.h(63,36): warning C4251:  'vis::PointCloudObject::array_object_': class 'std::shared_ptr<glw::ArrayObject>' needs to have dll-interface to be used by clients of class 'vis::PointCloudObject'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\ArrayObject.h(94): message :  see declaration of 'std::shared_ptr<glw::ArrayObject>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\MeshObject.h(46,45): warning C4251:  'vis::MeshStyle::albedo_texture': class 'std::shared_ptr<glw::Texture2D>' needs to have dll-interface to be used by clients of struct 'vis::MeshStyle'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\Texture.h(150): message :  see declaration of 'std::shared_ptr<glw::Texture2D>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\MeshObject.h(47,45): warning C4251:  'vis::MeshStyle::normal_texture': class 'std::shared_ptr<glw::Texture2D>' needs to have dll-interface to be used by clients of struct 'vis::MeshStyle'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\GLW\Texture.h(150): message :  see declaration of 'std::shared_ptr<glw::Texture2D>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(40,45): warning C4251:  'cogs::Triangulation::faces_': class 'std::vector<glm::uvec3,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'cogs::Triangulation'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(40,45): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(40,45): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(40,45): warning C4251:             _Ty=glm::uvec3
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(40,45): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(30): message :  see declaration of 'std::vector<glm::uvec3,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(30): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(30): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(30): message :             _Ty=glm::uvec3
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Triangulation.h(30): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Mesh.h(22,49): warning C4251:  'cogs::Mesh::points': class 'std::shared_ptr<cogs::PointCloud>' needs to have dll-interface to be used by clients of struct 'cogs::Mesh'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Mesh.h(22): message :  see declaration of 'std::shared_ptr<cogs::PointCloud>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Mesh.h(23,51): warning C4251:  'cogs::Mesh::faces': class 'std::shared_ptr<cogs::Triangulation>' needs to have dll-interface to be used by clients of struct 'cogs::Mesh'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Mesh.h(23): message :  see declaration of 'std::shared_ptr<cogs::Triangulation>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Mesh.h(24,54): warning C4251:  'cogs::Mesh::material': class 'std::shared_ptr<cogs::MaterialModel>' needs to have dll-interface to be used by clients of struct 'cogs::Mesh'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Mesh.h(24): message :  see declaration of 'std::shared_ptr<cogs::MaterialModel>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(84,52): warning C4251:  'hiro::modules::PointCloudUnit::vis_object_': class 'std::shared_ptr<vis::PointCloudObject>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PointCloudObject.h(70): message :  see declaration of 'std::shared_ptr<vis::PointCloudObject>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(90,32): warning C4251:  'hiro::modules::PointCloudUnit::center_of_mass_': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(90,45): warning C4251:  'hiro::modules::PointCloudUnit::camera_pos_': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91,64): warning C4251:  'hiro::modules::PointCloudUnit::coloring_options_': class 'std::vector<std::vector<cogs::Color3f,std::allocator<_Ty>>,std::allocator<std::vector<_Ty,std::allocator<_Ty>>>>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91,64): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91,64): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91,64): warning C4251:             _Ty=cogs::Color3f
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91,64): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91): message :  see declaration of 'std::vector<std::vector<cogs::Color3f,std::allocator<_Ty>>,std::allocator<std::vector<_Ty,std::allocator<_Ty>>>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91): message :             _Ty=cogs::Color3f
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(91): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(92,54): warning C4251:  'hiro::modules::PointCloudUnit::coloring_option_names_': class 'std::vector<std::string,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(92,54): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(92,54): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(92,54): warning C4251:             _Ty=std::string
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(92,54): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :  see declaration of 'std::vector<std::string,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :             _Ty=std::string
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93,45): warning C4251:  'hiro::modules::PointCloudUnit::fdata_options_': class 'std::vector<hiro::modules::PointCloudUnit::DataRecord,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93,45): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93,45): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93,45): warning C4251:             _Ty=hiro::modules::PointCloudUnit::DataRecord
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93,45): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93): message :  see declaration of 'std::vector<hiro::modules::PointCloudUnit::DataRecord,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93): message :             _Ty=hiro::modules::PointCloudUnit::DataRecord
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(93): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(94,51): warning C4251:  'hiro::modules::PointCloudUnit::fdata_option_names_': class 'std::vector<std::string,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(94,51): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(94,51): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(94,51): warning C4251:             _Ty=std::string
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(94,51): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :  see declaration of 'std::vector<std::string,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :             _Ty=std::string
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\utils\ExtSTD.h(198): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\PointCloudUnit.h(136,35): warning C4251:  'hiro::modules::PointCloudInstance::style_': class 'std::shared_ptr<vis::PointCloudStyle>' needs to have dll-interface to be used by clients of class 'hiro::modules::PointCloudInstance'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\Visualizer\PointCloudObject.h(71): message :  see declaration of 'std::shared_ptr<vis::PointCloudStyle>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50,53): warning C4251:  'hiro::modules::MeshUnit::material_': class 'std::unique_ptr<cogs::MaterialModel,std::default_delete<_Ty>>' needs to have dll-interface to be used by clients of class 'hiro::modules::MeshUnit'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50,53): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50,53): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50,53): warning C4251:             _Ty=cogs::MaterialModel
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50,53): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50): message :  see declaration of 'std::unique_ptr<cogs::MaterialModel,std::default_delete<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50): message :             _Ty=cogs::MaterialModel
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\HIRO\modules\MeshUnit.h(50): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(24,48): warning C4251:  'cogs::Scan::CAMERA_SPACE_FORWARD': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(25,43): warning C4251:  'cogs::Scan::CAMERA_SPACE_UP': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(26,46): warning C4251:  'cogs::Scan::CAMERA_SPACE_RIGHT': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(127,37): warning C4251:  'cogs::Scan::index_grid_': class 'cogs::Grid<uint32_t>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(127): message :  see declaration of 'cogs::Grid<uint32_t>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(128,32): warning C4251:  'cogs::Scan::coords_': class 'std::vector<cogs::Scan::Coords,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(128,32): warning C4251:         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(128,32): warning C4251:         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(128,32): warning C4251:             _Ty=cogs::Scan::Coords
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(128,32): warning C4251:         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(94): message :  see declaration of 'std::vector<cogs::Scan::Coords,std::allocator<_Ty>>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(94): message :         with
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(94): message :         [
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(94): message :             _Ty=cogs::Scan::Coords
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(94): message :         ]
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(130,31): warning C4251:  'cogs::Scan::camera_position_': struct 'glm::vec<3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_vec.hpp(245): message :  see declaration of 'glm::vec<3,float,0>'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\COGS\Scan.h(131,28): warning C4251:  'cogs::Scan::camera_basis_': struct 'glm::mat<3,3,float,0>' needs to have dll-interface to be used by clients of class 'cogs::Scan'
+C:\Users\luk\pc-filtering\PCFiltering\SkeletexLibs\include\glm\detail\type_mat.hpp(177): message :  see declaration of 'glm::mat<3,3,float,0>'
+  Generating code
+  4 of 232 functions ( 1.7%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  PCFiltering.vcxproj -> C:\Users\luk\pc-filtering\PCFiltering\x64\Release\PCFiltering.exe

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DarkHiro/Panel" name="SidePanel" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{0,50}}" />
+        <Property name="Color" value="00454545" />
+        <Window type="DarkHiro/Panel" name="panel_header" >
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{0,24}}" />
+            <Property name="Color" value="FF5D5D5D" />
+            <Window type="DarkHiro/PushButton" name="btn_focus" >
+                <Property name="Area" value="{{0,0},{0,0},{0,24},{1,0}}" />
+                <Property name="Glyph" value="Icons16px/zoom" />
+                <Property name="RenderBackground" value="false" />
+            </Window>
+            <Window type="DarkHiro/Label" name="lab_title" >
+                <Property name="Area" value="{{0,28},{0,0},{0,248},{0,20}}" />
+                <Property name="Font" value="InriaSans-10-Bold" />
+                <Property name="Text" value="Title" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+                <Property name="VertFormatting" value="BottomAligned" />
+            </Window>
+            <Window type="DarkHiro/PushButton" name="btn_rollup" >
+                <Property name="Area" value="{{1,-48},{0,0},{1,-24},{1,0}}" />
+                <Property name="Glyph" value="Icons16px/up" />
+                <Property name="RenderBackground" value="false" />
+            </Window>
+            <Window type="DarkHiro/PushButton" name="btn_remove" >
+                <Property name="Area" value="{{1,-24},{0,0},{1,0},{1,0}}" />
+                <Property name="Glyph" value="Icons16px/close" />
+                <Property name="RenderBackground" value="false" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
