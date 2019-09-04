@@ -3,6 +3,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 
 #include "..\HeaderFiles\NeuralNetworkFormatter.h"
+#include "..\HeaderFiles\ImageGenerator.h"
 #include <COGS/Scan.h>
 #include <fstream>
 #include <direct.h>
@@ -39,7 +40,6 @@ bool NeuralNetworkFormatter::Import(std::string path)
 
         min_intensity_ = std::min(min_intensity_, intensity);
         max_intensity_ = std::max(max_intensity_, intensity);
-
         min_normal_ = std::min(min_normal_, normal.x);
         min_normal_ = std::min(min_normal_, normal.y);
         min_normal_ = std::min(min_normal_, normal.z);
@@ -59,83 +59,12 @@ bool NeuralNetworkFormatter::Import(std::string path)
   return true;
 }
 
-bool NeuralNetworkFormatter::GenerateBinaryMap()
+void NeuralNetworkFormatter::GenerateImageFiles()
 {
-  if (data_.size() == 0 || data_[0].size() == 0)
-  {
-    return false;
-  }
-  size_t height = data_.size();
-  size_t width = data_[0].size();
-  std::ofstream image;
-  image.open("Visualizations/" + file_name + "_bitmap.pbm");
-  image << "P1" << std::endl;
-  image << width << " " << height << std::endl;
-  for (uint32_t i = 0; i < height; i++)
-  {
-    for (uint32_t j = 0; j < width; j++)
-    {
-      image << (data_[i][j].intensity != 0) << " ";
-    }
-    image << std::endl;
-  }
-  image.close();
-  return true;
-}
-
-bool NeuralNetworkFormatter::GenerateGrayMap()
-{
-  if (data_.size() == 0 || data_[0].size() == 0)
-  {
-    return false;
-  }
-  int gray_levels = 255;
-  size_t height = data_.size();
-  size_t width = data_[0].size();
-  std::ofstream image;
-  image.open("Visualizations/" + file_name + "_bumpmap.pgm");
-  image << "P2" << std::endl;
-  image << width << " " << height << std::endl;
-  image << gray_levels << std::endl;
-  float a = (gray_levels * 2) / (max_intensity_ - min_intensity_);
-  float b = (gray_levels * 2) - a * max_intensity_;
-  for (uint32_t i = 0; i < height; i++)
-  {
-    for (uint32_t j = 0; j < width; j++)
-    {
-      int normalized_intensity = std::max(0, std::min((int)(a * data_[i][j].intensity + b), 255));
-      image << 255 - normalized_intensity << " ";
-    }
-    image << std::endl;
-  }
-  image.close();
-  return true;
-}
-
-bool NeuralNetworkFormatter::GenerateNormalMap()
-{
-  size_t height = data_.size();
-  size_t width = data_[0].size();
-  std::ofstream image;
-  image.open("Visualizations/" + file_name + "_normalmap.ppm");
-  image << "P3" << std::endl;
-  image << width << " " << height << std::endl;
-  image << 255 << std::endl;
-  float a = (255) / (max_normal_ - min_normal_);
-  float b = 255 - a * max_normal_;
-  for (uint32_t i = 0; i < height; i++)
-  {
-    for (uint32_t j = 0; j < width; j++)
-    {
-      int normalized_x = a * data_[i][j].normal_x + b;
-      int normalized_y = a * data_[i][j].normal_y + b;
-      int normalized_z = a * data_[i][j].normal_z + b;
-      image << normalized_x << " " << normalized_y << " " << normalized_z << " ";
-    }
-    image << std::endl;
-  }
-  image.close();
-  return true;
+	ImageGenerator image_generator(file_name_, &data_);
+	image_generator.GenerateBinaryMap();
+	image_generator.GenerateGrayMap(max_intensity_, min_intensity_);
+	image_generator.GenerateNormalMap(max_normal_, min_normal_);
 }
 
 TrimValues NeuralNetworkFormatter::FindTrimValues()
@@ -169,7 +98,7 @@ void NeuralNetworkFormatter::Trim(TrimValues trim_values)
   for (uint32_t i = trim_values.min_y; i <= trim_values.max_y; i++)
   {
     std::vector<PointFeatures> row;
-    for (uint32_t j = trim_values.min_x; j < trim_values.max_x; j++)
+    for (uint32_t j = trim_values.min_x; j <= trim_values.max_x; j++)
     {
       row.push_back(data_[i][j]);
     }
@@ -195,13 +124,11 @@ void NeuralNetworkFormatter::Pad(int size)
   }
   int pad_x = dif_x / 2;
   int pad_y = dif_y / 2;
-  int size_x = width + pad_x;
-  int size_y = height + pad_y;
   std::vector<std::vector<PointFeatures>> new_data;
-  for (int i = -pad_y; i < size_y; i++)
+  for (int i = -pad_y; i < height + pad_y; i++)
   {
     std::vector<PointFeatures> row;
-    for (int j = -pad_x; j < size_x; j++)
+    for (int j = -pad_x; j < width + pad_x; j++)
     {
       if (i < 0 || j < 0 || i >= height || j >= width)
       {
@@ -233,7 +160,7 @@ std::vector<PointFeatures> NeuralNetworkFormatter::GetNeighborhood(int i, int j,
 
 void NeuralNetworkFormatter::PrepareFileName(std::string path)
 {
-  file_name = "";
+  file_name_ = "";
   bool flag = false;
   for (int i = path.size(); i >= 0; i--)
   {
@@ -243,7 +170,7 @@ void NeuralNetworkFormatter::PrepareFileName(std::string path)
     }
     if (flag)
     {
-      file_name = path[i] + file_name;
+      file_name_ = path[i] + file_name_;
     }
     if (path[i] == '.')
     {
@@ -259,21 +186,22 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size)
   int outer_pad = tile_size / 2;
   int counter = 0;
   size_t size = height * width;
-  auto path = "NeuralNetworkFiles/" + file_name + "_data";
+  auto path = "NeuralNetworkFiles/" + file_name_ + "_data";
+  bool outer_dir_created = _mkdir("NeuralNetworkFiles");
   bool dir_removed = _rmdir(path.c_str());
   bool dir_created = _mkdir(path.c_str());
-  for (uint32_t i = 0; i < height; i++)
+  for (uint32_t i = outer_pad; i < height - outer_pad; i++)
   {
-    for (uint32_t j = 0; j < width; j++)
+    for (uint32_t j = outer_pad; j < width - outer_pad; j++)
     {
       if (counter % 1000 == 0)
       {
         std::cout << counter << " out of " << size << std::endl;
       }
-      if (i >= outer_pad && j >= outer_pad && i < height - outer_pad && j < width - outer_pad && data_[i][j].intensity != 0)
+      if (data_[i][j].intensity != 0)
       {
         std::ofstream data_file;
-        data_file.open("NeuralNetworkFiles/" + file_name + "_data/" + std::to_string(counter) + ".csv");
+        data_file.open("NeuralNetworkFiles/" + file_name_ + "_data/" + std::to_string(counter) + ".csv");
         data_file << counter << std::endl;
         auto neighborhood = GetNeighborhood(i, j, tile_size);
         for (PointFeatures &point : neighborhood)
@@ -282,8 +210,7 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size)
             << point.normal_y << ","
             << point.normal_z << ","
             << point.intensity << ","
-            << point.depth << ","
-            << std::endl;
+            << point.depth << std::endl;
         }
         data_file.close();
       }
@@ -292,8 +219,9 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size)
   }
 }
 
-void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path)
+void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path, int tile_size)
 {
+  int outer_pad = tile_size / 2;
   NeuralNetworkFormatter truth(truth_path);
   auto truth_data = truth.GetData();
   if (truth_data.size() != data_.size() || truth_data[0].size() != data_[0].size())
@@ -303,13 +231,13 @@ void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path)
     truth_data = truth.GetData();
   }
   std::ofstream prediction;
-  prediction.open("NeuralNetworkFiles/" + file_name + "_truth.csv");
+  prediction.open("NeuralNetworkFiles/" + file_name_ + "_truth.csv");
   size_t height = data_.size();
   size_t width = data_[0].size();
   int counter = 0;
-  for (uint32_t i = 0; i < height; i++)
+  for (uint32_t i = outer_pad; i < height - outer_pad; i++)
   {
-    for (uint32_t j = 0; j < width; j++)
+    for (uint32_t j = outer_pad; j < width - outer_pad; j++)
     {
       if (data_[i][j].intensity != 0)
       {

@@ -1,4 +1,4 @@
-
+#pragma once
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -37,11 +37,9 @@ public:
   NeuralNetworkFormatter() : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY) {};
   NeuralNetworkFormatter(std::string path);
   bool Import(std::string path);
-  bool GenerateBinaryMap();
-  bool GenerateGrayMap();
-  bool GenerateNormalMap();
+  void GenerateImageFiles();
   void GenerateDataFiles(int tile_size);
-  void GenerateTruthFile(std::string truth_path);
+  void GenerateTruthFile(std::string truth_path, int tile_size);
   TrimValues FindTrimValues();
   void Trim(TrimValues trim_values);
   void Trim();
@@ -53,7 +51,7 @@ private:
   void PrepareFileName(std::string path);
   std::vector<std::vector<PointFeatures>> data_;
   TrimValues last_trim_values_;
-  std::string file_name;
+  std::string file_name_;
   float min_intensity_;
   float max_intensity_;
   float min_normal_;

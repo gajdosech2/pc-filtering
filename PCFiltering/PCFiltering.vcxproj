@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SourceFiles\ImageGenerator.cpp" />
     <ClCompile Include="SourceFiles\NeuralNetworkFormatter.cpp" />
     <ClCompile Include="SourceFiles\PCFiltering.cpp" />
     <ClCompile Include="SourceFiles\PointFeatures.cpp" />
     <ClCompile Include="SourceFiles\Visualization.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HeaderFiles\ImageGenerator.h" />
     <ClInclude Include="HeaderFiles\NeuralNetworkFormatter.h" />
     <ClInclude Include="HeaderFiles\PointFeatures.h" />
     <ClInclude Include="HeaderFiles\Visualization.h" />
@@ -88,6 +90,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\SkeletexLibs\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\SkeletexLibs\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

@@ -1,7 +1,8 @@
+#pragma once
+
 struct PointFeatures
 {
 public:
-
   PointFeatures()
   {
     normal_x = normal_y = normal_z = intensity = depth = 0;
