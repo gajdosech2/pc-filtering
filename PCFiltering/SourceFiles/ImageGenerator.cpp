@@ -79,9 +79,9 @@ bool ImageGenerator::GenerateNormalMap(float max_normal, float min_normal)
 	{
 		for (uint32_t j = 0; j < width; j++)
 		{
-			int normalized_x = a * (*data_)[i][j].normal_x + b;
-			int normalized_y = a * (*data_)[i][j].normal_y + b;
-			int normalized_z = a * (*data_)[i][j].normal_z + b;
+			int normalized_x = (int)(a * (*data_)[i][j].normal_x + b);
+			int normalized_y = (int)(a * (*data_)[i][j].normal_y + b);
+			int normalized_z = (int)(a * (*data_)[i][j].normal_z + b);
 			image << normalized_x << " " << normalized_y << " " << normalized_z << " ";
 		}
 		image << std::endl;

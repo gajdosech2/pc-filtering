@@ -71,8 +71,8 @@ TrimValues NeuralNetworkFormatter::FindTrimValues()
 {
   size_t height = data_.size();
   size_t width = data_[0].size();
-  uint32_t min_x = width;
-  uint32_t min_y = height;
+  uint32_t min_x = (uint32_t)width;
+  uint32_t min_y = (uint32_t)height;
   uint32_t max_x = 0;
   uint32_t max_y = 0;
   for (uint32_t i = 0; i < height; i++)
@@ -114,8 +114,8 @@ void NeuralNetworkFormatter::Trim()
 
 void NeuralNetworkFormatter::Pad(int size)
 {
-  int height = data_.size();
-  int width = data_[0].size();
+  int height = (int)data_.size();
+  int width = (int)data_[0].size();
   int dif_x = size - width;
   int dif_y = size - height;
   if (dif_x < 0 || dif_y < 0)
@@ -162,7 +162,7 @@ void NeuralNetworkFormatter::PrepareFileName(std::string path)
 {
   file_name_ = "";
   bool flag = false;
-  for (int i = path.size(); i >= 0; i--)
+  for (int i = (int)path.size(); i >= 0; i--)
   {
     if (path[i] == '/' || path[i] == '\\')
     {
@@ -227,7 +227,7 @@ void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path, int tile_
   if (truth_data.size() != data_.size() || truth_data[0].size() != data_[0].size())
   {
     truth.Trim(last_trim_values_);
-    truth.Pad(data_.size());
+    truth.Pad((int)data_.size());
     truth_data = truth.GetData();
   }
   std::ofstream prediction;

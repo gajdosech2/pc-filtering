@@ -1,17 +1,20 @@
 
 #include "..\HeaderFiles\Visualization.h"
 #include "..\HeaderFiles\NeuralNetworkFormatter.h"
+#include "..\HeaderFiles\FormatterGUI.h"
 #include <iostream>
 
 int main()
 {
-  NeuralNetworkFormatter formatter;
-  formatter.Import("DataSets/toilet/toilet_01.cogs");
-  formatter.Trim();
+  //NeuralNetworkFormatter formatter;
+  //int tile_size = 11;
+  ///formatter.Import("DataSets/toilet/toilet_01.cogs");
+  //formatter.Trim();
   //formatter.Pad(192);
-  formatter.GenerateImageFiles();
-  //formatter.GenerateDataFiles(11);
-  //formatter.GenerateTruthFile("DataSets/apple/truth_02.cogs", 11);
-  return 0;
+  //formatter.GenerateImageFiles();
+  //formatter.GenerateDataFiles(tile_size);
+  //formatter.GenerateTruthFile("DataSets/apple/truth_02.cogs", tile_size);
+	FormateGUI::RunNana();
+	return 0;
 }
 
