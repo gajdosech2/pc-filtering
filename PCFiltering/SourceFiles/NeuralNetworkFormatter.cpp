@@ -17,6 +17,7 @@ NeuralNetworkFormatter::NeuralNetworkFormatter(std::string path) : min_intensity
 bool NeuralNetworkFormatter::Import(std::string path)
 {
   cogs::Scan scan;
+  path = "DataSets/" + path;
   scan.Import(path);
   uint32_t width = scan.GetWidth();
   uint32_t height = scan.GetHeight();
