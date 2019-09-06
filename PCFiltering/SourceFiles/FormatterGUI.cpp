@@ -16,11 +16,6 @@ void FormateGUI::RunNana()
 	nana::textbox file(fm);
 	file.caption("file path");
 
-	nana::spinbox size(fm);
-	size.range(3, 25, 2);
-	nana::label slabel(fm);
-	slabel.caption("  tile size");
-
 	nana::checkbox trim(fm);
 	trim.caption("trim");
 
@@ -34,6 +29,11 @@ void FormateGUI::RunNana()
 
 	nana::checkbox data(fm);
 	data.caption("generate data files");
+
+	nana::spinbox size(fm);
+	size.range(3, 25, 2);
+	nana::label slabel(fm);
+	slabel.caption("  tile size");
 
 	nana::textbox truth(fm);
 	truth.caption("truth path");
@@ -69,15 +69,15 @@ void FormateGUI::RunNana()
 		std::cout << "DONE!" << std::endl;
 		});
 
-	fm.div("vert<file>hor<<size><slabel>><trim>hor<<pad><plabel>><image><data><truth><run>");
+	fm.div("vert<file><trim>hor<<pad><plabel>><image><data>hor<<size><slabel>><truth><run>");
 	fm["file"] << file;
-	fm["size"] << size;
-	fm["slabel"] << slabel;
 	fm["trim"] << trim;
 	fm["pad"] << pad;
 	fm["plabel"] << plabel;
 	fm["image"] << image;
+	fm["size"] << size;
 	fm["data"] << data;
+	fm["slabel"] << slabel;
 	fm["truth"] << truth;
 	fm["run"] << run;
 	fm.collocate();
