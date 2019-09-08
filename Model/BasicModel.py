@@ -27,7 +27,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-train_data = load_train_files("apple_01_data")
-prediction = model.predict(train_data)
+#train_data = load_train_files("apple_01_data")
+#prediction = model.predict(train_data)
 
-print(prediction)
+#print(prediction)
