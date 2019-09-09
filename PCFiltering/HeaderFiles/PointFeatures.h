@@ -1,11 +1,13 @@
 #pragma once
 
+const float EMPTY_POINT_INTENSITY = -1;
+
 struct PointFeatures
 {
 public:
   PointFeatures()
   {
-    normal_x = normal_y = normal_z = intensity = depth = 0;
+    normal_x = normal_y = normal_z = intensity = depth = EMPTY_POINT_INTENSITY;
   }
 
   PointFeatures(float normal_x, float normal_y, float normal_z, float intensity, float depth)

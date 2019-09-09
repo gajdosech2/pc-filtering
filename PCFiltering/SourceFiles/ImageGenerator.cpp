@@ -26,7 +26,7 @@ bool ImageGenerator::GenerateBinaryMap()
 	{
 		for (uint32_t j = 0; j < width; j++)
 		{
-			image << ((*data_)[i][j].intensity != 0) << " ";
+			image << ((*data_)[i][j].intensity > EMPTY_POINT_INTENSITY) << " ";
 		}
 		image << std::endl;
 	}

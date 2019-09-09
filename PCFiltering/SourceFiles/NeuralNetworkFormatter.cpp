@@ -8,7 +8,6 @@
 #include <fstream>
 #include <direct.h>
 
-
 NeuralNetworkFormatter::NeuralNetworkFormatter(std::string path) : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY)
 {
   Import(path);
@@ -80,7 +79,7 @@ TrimValues NeuralNetworkFormatter::FindTrimValues()
   {
     for (uint32_t j = 0; j < width; j++)
     {
-      if (data_[i][j].intensity != 0)
+      if (data_[i][j].intensity > EMPTY_POINT_INTENSITY)
       {
         min_y = std::min(min_y, i);
         max_y = std::max(max_y, i);
@@ -123,13 +122,21 @@ void NeuralNetworkFormatter::Pad(int size)
   {
     return;
   }
-  int pad_x = dif_x / 2;
-  int pad_y = dif_y / 2;
+  int left_pad = dif_x / 2;
+  int right_pad = dif_x / 2;
+  if (dif_x % 2 != 0) {
+	  right_pad = dif_x / 2 + 1;
+  }
+  int top_pad = dif_y / 2;
+  int bottom_pad = dif_y / 2;
+  if (dif_y % 2 != 0) {
+	  bottom_pad = dif_y / 2 + 1;
+  }
   std::vector<std::vector<PointFeatures>> new_data;
-  for (int i = -pad_y; i < height + pad_y; i++)
+  for (int i = -top_pad; i < height + bottom_pad; i++)
   {
     std::vector<PointFeatures> row;
-    for (int j = -pad_x; j < width + pad_x; j++)
+    for (int j = -left_pad; j < width + right_pad; j++)
     {
       if (i < 0 || j < 0 || i >= height || j >= width)
       {
@@ -187,8 +194,8 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size)
   int outer_pad = tile_size / 2;
   int counter = 0;
   size_t size = height * width;
-  auto path = "NeuralNetworkFiles/" + file_name_ + "_data";
-  bool outer_dir_created = _mkdir("NeuralNetworkFiles");
+  auto path = "../Model/NeuralNetworkFiles/" + file_name_ + "_data";
+  bool outer_dir_created = _mkdir("../Model/NeuralNetworkFiles");
   bool dir_removed = _rmdir(path.c_str());
   bool dir_created = _mkdir(path.c_str());
   for (uint32_t i = outer_pad; i < height - outer_pad; i++)
@@ -199,10 +206,10 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size)
       {
         std::cout << counter << " out of " << size << std::endl;
       }
-      if (data_[i][j].intensity != 0)
+      if (data_[i][j].intensity > EMPTY_POINT_INTENSITY)
       {
         std::ofstream data_file;
-        data_file.open("NeuralNetworkFiles/" + file_name_ + "_data/" + std::to_string(counter) + ".csv");
+        data_file.open("../Model/NeuralNetworkFiles/" + file_name_ + "_data/" + std::to_string(counter) + ".csv");
         data_file << counter << std::endl;
         auto neighborhood = GetNeighborhood(i, j, tile_size);
         for (PointFeatures &point : neighborhood)
@@ -232,7 +239,7 @@ void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path, int tile_
     truth_data = truth.GetData();
   }
   std::ofstream prediction;
-  prediction.open("NeuralNetworkFiles/" + file_name_ + "_truth.csv");
+  prediction.open("../Model/NeuralNetworkFiles/" + file_name_ + "_truth.csv");
   size_t height = data_.size();
   size_t width = data_[0].size();
   int counter = 0;
@@ -240,13 +247,12 @@ void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path, int tile_
   {
     for (uint32_t j = outer_pad; j < width - outer_pad; j++)
     {
-      if (data_[i][j].intensity != 0)
+      if (data_[i][j].intensity > EMPTY_POINT_INTENSITY)
       {
-        prediction << counter << "," << (truth_data[i][j].intensity != 0) << std::endl;
+        prediction << counter << "," << (truth_data[i][j].intensity > EMPTY_POINT_INTENSITY) << std::endl;
       }
       counter++;
     }
   }
   prediction.close();
 }
-

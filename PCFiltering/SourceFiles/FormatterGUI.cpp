@@ -8,13 +8,15 @@
 #include <nana/gui/widgets/checkbox.hpp>
 #include <nana/gui/widgets/spinbox.hpp>
 
+const bool DEBUG = false;
+
 void FormateGUI::RunNana()
 {
 	nana::form fm;
 	fm.caption("Formatter");
 
 	nana::textbox file(fm);
-	file.caption("file path");
+	file.caption("file path in format: data_set_name/data.cogs");
 
 	nana::checkbox trim(fm);
 	trim.caption("trim");
@@ -36,19 +38,21 @@ void FormateGUI::RunNana()
 	slabel.caption("  tile size");
 
 	nana::textbox truth(fm);
-	truth.caption("truth path");
+	truth.caption("truth path in format: data_set_name/truth.cogs");
 
 	nana::button run(fm);
 	run.caption("RUN!");
 
 	run.events().click([&file, &size, &trim, &pad, &image, &data, &truth] {
-		std::cout << file.caption() << std::endl;
-		std::cout << size.value() << std::endl;
-		std::cout << trim.checked() << std::endl;
-		std::cout << pad.value() << std::endl;
-		std::cout << image.checked() << std::endl;
-		std::cout << data.checked() << std::endl;
-		std::cout << truth.caption() << std::endl;
+		if (DEBUG) {
+			std::cout << file.caption() << std::endl;
+			std::cout << size.value() << std::endl;
+			std::cout << trim.checked() << std::endl;
+			std::cout << pad.value() << std::endl;
+			std::cout << image.checked() << std::endl;
+			std::cout << data.checked() << std::endl;
+			std::cout << truth.caption() << std::endl;
+		}
 		NeuralNetworkFormatter formatter;
 		formatter.Import(file.caption());
 		if (trim.checked()) {
