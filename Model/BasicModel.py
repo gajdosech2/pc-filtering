@@ -13,7 +13,7 @@ input_count = tile_size * tile_size * feature_count
 
 def load_train_data(dataset_name: str) -> np.array:
     """
-    Load data files from the given folder.
+    Load data files for the given dataset.
 
     :param dataset_name: Name of the data set.
     :return: np.array of data files in (input_count, ) shape
@@ -29,10 +29,10 @@ def load_train_data(dataset_name: str) -> np.array:
 
 def load_train_labels(dataset_name: str) -> np.array:
     """
-    Load data labels.
+    Load data labels for the given dataset.
 
     :param dataset_name: Name of the data set.
-    :return: np.array of data files in (input_count, ) shape
+    :return: np.array of the data labels
     """
     labels_file = "NeuralNetworkFiles/" + dataset_name + "_truth.csv"
     labels = np.loadtxt(labels_file, delimiter=',')
@@ -46,7 +46,7 @@ def build_model() -> keras.Sequential:
     """
     Builds the neural network model.
 
-    :return: Neural network model as keras.Sequential object.
+    :return: Neural network model as the keras.Sequential object.
     """
     network_model = keras.Sequential([
         keras.layers.Dense(512, activation=tf.keras.activations.sigmoid, input_shape=(input_count,)),
@@ -62,8 +62,6 @@ def build_model() -> keras.Sequential:
 dataset = "small"
 train_data = load_train_data(dataset)
 train_labels = load_train_labels(dataset)
-print(train_data)
-print(train_labels)
 model = build_model()
 model.fit(train_data, train_labels, epochs=20)
 
