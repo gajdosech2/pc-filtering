@@ -67,7 +67,7 @@ void FormateGUI::RunNana()
 		if (data.checked()) {
 			formatter.GenerateDataFiles(size.to_int());
 		}
-		if (truth.caption().size() > 0 && truth.caption() != "truth path") {
+		if (truth.caption().size() > 0 && truth.caption() != "truth path in format: data_set_name/truth.cogs") {
 			formatter.GenerateTruthFile(truth.caption(), size.to_int());
 		}
 		std::cout << "DONE!" << std::endl;
