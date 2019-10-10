@@ -63,21 +63,23 @@ namespace cogs
     //! Resizes point count to the new value without initialization of data of newly created points.
     virtual void Resize(uint32_t new_size);
     //! Returns number of points currently stored in the cloud.
-    virtual uint32_t GetSize() const;
+    [[nodiscard]] virtual uint32_t GetSize() const;
     //! Changes capacity of cloud. This method is not adding any points.
     virtual void Reserve(uint32_t new_capacity);
     //! Returns how much points can be added with currently reserved memory.
-    uint32_t GetCapacity() const;
+    [[nodiscard]] uint32_t GetCapacity() const;
     //! Frees spare memory so that new capacity exactly matches size.
     virtual void ShrinkToFit();
     //! Removes all points from cloud.
-    void Clear();
+    virtual void Clear();
     /*!
       \brief
         Removes points with specific ids from cloud.
-        Sorts and validates input ids for further use in subclasses.
+
+        Every chunk of points that should be erased, is replaced with the points from the back
+        of cloud. This ensures the minimal copy operations as possible.
       \note
-        Method may change ordering of points.
+        Method changes ordering of points.
         Memory for erased points is not released, you should call ShrinkToFit afterwards,
         to free excess memory.
     */
@@ -98,14 +100,14 @@ namespace cogs
       \note
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::POSITIONS);
     */
-    glm::vec3 *GetPositions();
+    [[nodiscard]] glm::vec3 *GetPositions();
     /*!
       \brief
         Returns pointer to position data.
       \note
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::POSITIONS);
     */
-    const glm::vec3 *GetPositions() const;
+    [[nodiscard]] const glm::vec3 *GetPositions() const;
 
     /*!
       \brief
@@ -113,21 +115,21 @@ namespace cogs
       \note
         Equivalent to PointCloud::HasProperty(PointCloud::NORMALS);
     */
-    bool HasNormals() const;
+    [[nodiscard]] bool HasNormals() const;
     /*!
       \brief
         When normal property exists, returns the pointer to data, nullptr otherwise.
       \note
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::NORMALS);
     */
-    glm::vec3 *GetNormals();
+    [[nodiscard]] glm::vec3 *GetNormals();
     /*!
       \brief
         When normal property exists, returns the pointer to data, nullptr otherwise.
       \note
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::NORMALS);
     */
-    const glm::vec3 *GetNormals() const;
+    [[nodiscard]] const glm::vec3 *GetNormals() const;
     /*!
       \brief
         Creates PointCloud::NORMALS property buffer if it was not added already.
@@ -142,21 +144,21 @@ namespace cogs
       \note
         Equivalent to PointCloud::HasProperty(PointCloud::COLORS);
     */
-    bool HasColors() const;
+    [[nodiscard]] bool HasColors() const;
     /*!
       \brief
         When color property exists, returns the pointer to data, nullptr otherwise.
       \note
         Equivalent to PointCloud::GetData<COGS::Color3f>(PointCloud::COLORS);
     */
-    struct Color3f *GetColors();
+    [[nodiscard]] struct Color3f *GetColors();
     /*!
       \brief
       When color property exists, returns the pointer to data, nullptr otherwise.
       \note
       Equivalent to PointCloud::GetData<COGS::Color3f>(PointCloud::COLORS);
     */
-    const struct Color3f *GetColors() const;
+    [[nodiscard]] const struct Color3f *GetColors() const;
     /*!
       \brief
         Creates PointCloud::COLORS property buffer if it was not added already.
@@ -171,21 +173,21 @@ namespace cogs
       \note
         Equivalent to PointCloud::HasProperty(PointCloud::INTENSITIES);
     */
-    bool HasIntensities() const;
+    [[nodiscard]] bool HasIntensities() const;
     /*!
       \brief
         When intensity property exists, returns the pointer to data, nullptr otherwise.
       \note
         Equivalent to PointCloud::GetData<float>(PointCloud::INTENSITIES);
     */
-    float *GetIntensities();
+    [[nodiscard]] float *GetIntensities();
     /*!
       \brief
         When intensity property exists, returns the pointer to data, nullptr otherwise.
       \note
         Equivalent to PointCloud::GetData<float>(PointCloud::INTENSITIES);
     */
-    const float *GetIntensities() const;
+    [[nodiscard]] const float *GetIntensities() const;
     /*!
       \brief
         Creates PointCloud::INTENSITIES property buffer if it was not added already.
@@ -195,7 +197,7 @@ namespace cogs
     const PointCloudProperty &AddIntensities();
 
     //! Returns all available properties.
-    const std::vector<PointCloudProperty> &GetProperties() const;
+    [[nodiscard]] const std::vector<PointCloudProperty> &GetProperties() const;
 
     /*!
       \brief
@@ -228,43 +230,67 @@ namespace cogs
     //! Adds all properties, which are not already present in this.
     void ClonePropertiesOf(const PointCloud &pc);
     //! Checks whether a specific property exists.
-    bool HasProperty(const PointCloudProperty::Key &key) const;
+    [[nodiscard]] bool HasProperty(const PointCloudProperty::Key &key) const;
     //! Returns property with specified key if it exists, std::nullopt otherwise.
-    std::optional<PointCloudProperty> GetProperty(const PointCloudProperty::Key &key);
+    [[nodiscard]] std::optional<PointCloudProperty> GetProperty(const PointCloudProperty::Key &key);
     //! Returns property with specified key if it exists, std::nullopt otherwise.
-    std::optional<const PointCloudProperty> GetProperty(const PointCloudProperty::Key &key) const;
+    [[nodiscard]] std::optional<const PointCloudProperty> GetProperty(const PointCloudProperty::Key &key) const;
 
     //! When property exists, returns the pointer to data, nullptr otherwise.
-    virtual void *GetVoidData(const PointCloudProperty::Key &key);
+    [[nodiscard]] virtual void *GetVoidData(const PointCloudProperty::Key &key);
     //! When property exists, returns the pointer to data, nullptr otherwise.
-    const void *GetVoidData(const PointCloudProperty::Key &key) const;
+    [[nodiscard]] const void *GetVoidData(const PointCloudProperty::Key &key) const;
 
     //! When property exists, returns the pointer to data of a template type, nullptr otherwise.
-    template <typename T> T *GetData(const PointCloudProperty::Key &key);
+    template <typename T> [[nodiscard]] T *GetData(const PointCloudProperty::Key &key);
     //! When property exists, returns the pointer to data of a template type, nullptr otherwise.
-    template <typename T> const T *GetData(const PointCloudProperty::Key &key) const;
+    template <typename T> [[nodiscard]] const T *GetData(const PointCloudProperty::Key &key) const;
 
     //! Transforms point positions and normals
     virtual void Transform(const glm::mat4 &transform);
 
   protected:
 
+    //! A command for copying points.
+    struct CopyCommand
+    {
+      uint32_t source; //!< Index of the first point that should be copied.
+      uint32_t target; //!< Index of the first point that should be replaced.
+      uint32_t length; //!< Number of sequential points to copy.
+    };
+
     //! Make a deep copy of the source PointCloud.
     void MakeCloneOf(const PointCloud &source);
-    //! Manages memory during EraseProperty method
-    static void MoveChunkToGap(const size_t chunk_size, const size_t bytes_per_point, const size_t gap_size, char *data);
+    //! Copies chunks of points according to copy commands.
+    virtual void ExecuteCopyCommands(const std::vector<CopyCommand> &copy_info);
+    //! Decreases cloud size by the specified number of points.
+    virtual void TruncateSize(size_t delta_size);
 
   private:
+
+    //! Group of points in a sequence.
+    struct Chunk
+    {
+      uint32_t first; //!< First point belonging to the chunk.
+      uint32_t last;  //!< Last point belonging to the chunk.
+      Chunk(uint32_t first, uint32_t last);
+      //! Test whether first <= last.
+      [[nodiscard]] bool IsValid() const;
+      //! Returns number of points contained in the chunk.
+      [[nodiscard]] uint32_t GetSize() const;
+    };
 
     uint32_t capacity_;
     uint32_t size_;
     std::vector<PointCloudProperty> properties_;
     std::unordered_map<PointCloudProperty::Key, size_t> property_map_;
 
-    //! Erases values from single property.
-    void ErasePropertyValues(const std::vector<uint32_t> &sorted_ids_to_erase, PointCloudProperty &prop_to_erase);
     //! Creates new property record without initialization. In the case of duplicate property, throws std::runtime_error.
     PointCloudProperty &AddProperty(const PointCloudProperty::Key &key, const std::variant<DataType, size_t> type_or_size);
+    //! Converts indices to chunks. Sequential indices form a single chunk in the output.
+    [[nodiscard]] std::vector<Chunk> IndicesToChunks(const std::vector<uint32_t> &indices);
+    //! Creates copy commands to erase specified chunks.
+    [[nodiscard]] std::vector<CopyCommand> CreateEraseCopyCommands(std::vector<Chunk> chunks_to_erase);
   };
 
 
@@ -281,8 +307,8 @@ namespace cogs
     return reinterpret_cast<T *>(GetVoidData(key));
   }
 
-  COGS_API geom::AABB3 GetPointCloudAABB(const PointCloud *cloud);
-  COGS_API void ErasePointsOutsideAABB(const geom::AABB3 &aabb, PointCloud *cloud);
+  [[nodiscard]] COGS_API geom::AABB3 GetPointCloudAABB(const PointCloud &cloud);
+  COGS_API void ErasePointsOutsideAABB(const geom::AABB3 &aabb, PointCloud &cloud);
 
 }
 

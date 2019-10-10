@@ -29,6 +29,16 @@ namespace std_ext
 
   const std::string WHITESPACES = " \t\n\r\f\v";
 
+  /*!
+    \brief Convert single-byte std::string to std::wstring.
+    \note #TEMP This will be replaced with QString when we have moved to Qt library.
+    \warning This only works if all the characters are single byte, i.e. ASCII or ISO-8859-1. Anything multi-byte will fail miserably, including UTF-8. (https://stackoverflow.com/a/8969776/2621721)
+  */
+  inline std::wstring ToWString(const std::string &text)
+  {
+    return std::wstring(text.begin(), text.end());
+  }
+
   //! Counts how many of specified key_to_search substrings does text contain.
   inline size_t CountOccurrences(const std::string &text, const std::string &key_to_search)
   {
@@ -115,20 +125,30 @@ namespace std_ext
     return value ? "true" : "false";
   }
 
-  //! Converts double to string with decimal digits until the first zero or until max_digits are reached. (NOT WORKING !! TODO FIX)
+  /*!
+    \brief
+      Converts double to string with decimal digits until max_digits are reached.
+    \param value
+      Value which will be converted to string.
+    \param max_digits
+      Value that represents maximum number of decimal digits that will be converted.
+  */
   inline std::string ToStringAutoPrecision(const double value, int max_digits = 6)
   {
-    unsigned uvalue = (unsigned)std::abs(value * std::pow(10, max_digits));
+    unsigned uvalue = static_cast<unsigned>(std::round(std::abs(value * std::pow(10, max_digits))));
+    while (uvalue % 10 == 0)
+    {
+      uvalue /= 10;
+      max_digits--;
+    }
+
     std::string result;
     if (uvalue > 0)
     {
       while (uvalue > 0 && max_digits > 0)
       {
-        const unsigned digit = uvalue % 10;
-        if (digit != 0)
-        {
-          result += ('0' + uvalue % 1);
-        }
+        result += ('0' + uvalue % 10);
+
         uvalue /= 10;
         max_digits--;
       }
@@ -140,22 +160,15 @@ namespace std_ext
     std::reverse(result.begin(), result.end());
     if (result.empty())
     {
-      result = std::to_string((int)value);
+      result = std::to_string(static_cast<int>(value));
     }
-    else if ((int)value != 0)
+    else if (static_cast<int>(value) != 0)
     {
-      result = std::to_string((int)value) + "." + result;
+      result = std::to_string(static_cast<int>(value)) + "." + result;
     }
     else
     {
-      if (value > 0.0)
-      {
-        result = "0." + result;
-      }
-      else
-      {
-        result = "-0." + result;
-      }
+      result = value > 0.0 ? "0." + result : "-0." + result;
     }
     return result;
   }
@@ -345,6 +358,14 @@ namespace std_ext
   bool ContainsCommonElement(const std::vector<Type> &elements1, const std::set<Type> &elements2)
   {
     return AnyOf(elements1, [&elements2](const auto & el) { return elements2.find(el) != elements2.end(); });
+  }
+
+  //! Sorts the array and removes duplicate elements.
+  template <typename Type>
+  void SortAndRemoveDuplicates(std::vector<Type> &vec)
+  {
+    std::sort(vec.begin(), vec.end());
+    vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
   }
 
   //! Returns vector similar to input, but without duplicate elements.
@@ -601,20 +622,6 @@ namespace std_ext
   }
 
 
-
-  //! Reads a value from the binary stream, number of bytes red is determined by a template type.
-  template <typename T>
-  inline void Read(T *val, std::istream &str)
-  {
-    str.read(reinterpret_cast<char *>(val), sizeof(T));
-  }
-
-  //! Writes a value to the binary stream, bytes written are determined by a template type.
-  template <typename T>
-  inline void Write(const T *val, std::ostream &str)
-  {
-    str.write(reinterpret_cast<const char *>(val), sizeof(T));
-  }
 
   //! Reads a value from the binary stream, number of bytes red is determined by a template type.
   template <typename T>

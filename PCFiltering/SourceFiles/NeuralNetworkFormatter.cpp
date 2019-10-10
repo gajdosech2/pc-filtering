@@ -32,6 +32,7 @@ bool NeuralNetworkFormatter::Import(std::string path)
       if (scan.IsPointAt(coord))
       {
         auto index = scan.GetPointAt(coord);
+        std::cout << scan.GetPointAt(coord) << std::endl;
         auto normal = normals[index];
         auto intensity = intensities[index];
         auto depth = positions[index].z;
@@ -61,10 +62,10 @@ bool NeuralNetworkFormatter::Import(std::string path)
 
 void NeuralNetworkFormatter::GenerateImageFiles()
 {
-	ImageGenerator image_generator(file_name_, &data_);
-	image_generator.GenerateBinaryMap();
-	image_generator.GenerateGrayMap(max_intensity_, min_intensity_);
-	image_generator.GenerateNormalMap(max_normal_, min_normal_);
+  ImageGenerator image_generator(file_name_, &data_);
+  image_generator.GenerateBinaryMap();
+  image_generator.GenerateGrayMap(max_intensity_, min_intensity_);
+  image_generator.GenerateNormalMap(max_normal_, min_normal_);
 }
 
 TrimValues NeuralNetworkFormatter::FindTrimValues()
@@ -124,13 +125,15 @@ void NeuralNetworkFormatter::Pad(int size)
   }
   int left_pad = dif_x / 2;
   int right_pad = dif_x / 2;
-  if (dif_x % 2 != 0) {
-	  right_pad = dif_x / 2 + 1;
+  if (dif_x % 2 != 0)
+  {
+    right_pad = dif_x / 2 + 1;
   }
   int top_pad = dif_y / 2;
   int bottom_pad = dif_y / 2;
-  if (dif_y % 2 != 0) {
-	  bottom_pad = dif_y / 2 + 1;
+  if (dif_y % 2 != 0)
+  {
+    bottom_pad = dif_y / 2 + 1;
   }
   std::vector<std::vector<PointFeatures>> new_data;
   for (int i = -top_pad; i < height + bottom_pad; i++)

@@ -34,6 +34,11 @@ namespace cogs
     //! Move-construct C_Scan.
     C_Scan &operator=(C_Scan &&) noexcept = default;
 
+    //! Imports scan from a file.
+    virtual bool Import(const char *filename) override;
+    //! Exports scan to a file.
+    virtual bool Export(const char *filename) const override;
+
     /*!
       \brief
       Changes grid resolution new grid points are empty and old points may be erased.
@@ -86,8 +91,14 @@ namespace cogs
     //! Get coordinate
     static bool GetCameraUV(const glm::vec3 &point, const ScanCameraParams &cam_params, glm::vec2 &result);
 
-    //! Transforms pointcloud positions, normals and updates camera
+    //! Transforms point positions, normals and updates camera
     virtual void Transform(const glm::mat4 &transform) override;
+
+  protected:
+    //! Returns reference to the inner cogs::Scan.
+    class Scan &GetScan();
+    //! Returns const reference to the inner cogs::Scan.
+    const Scan &GetScan() const;
   };
 }
 

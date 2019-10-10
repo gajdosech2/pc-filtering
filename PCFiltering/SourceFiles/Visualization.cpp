@@ -7,31 +7,30 @@
 #include <HIRO/modules/GeometryUnit.h>
 #include <HIRO/modules/PointCloudUnit.h>
 #include <COGS/Scan.h>
+#include <sstream>
 
-void Visualization::Visualize()
+void Visualization::Visualize(std::string dataset)
 {
-	hiro::SetResourceDirectory("SkeletexLibs/hiro_resources");
-	hiro::SetIntermediateDirectory("Intermediate/");
+  hiro::SetResourceDirectory("SkeletexLibs/hiro_resources");
+  hiro::SetIntermediateDirectory("Intermediate/");
 
-	hiro::Initialize();
+  hiro::Initialize();
+  int number_of_files = 13;
+  for (int i = 1; i <= number_of_files; i++)
+  {
+    cogs::Scan scan;
+    std::stringstream s_import;
+    s_import << "DataSets/" << dataset << "/" << dataset << "_" << std::setfill('0') << std::setw(2) << i << ".cogs";
+    scan.Import(s_import.str());
+    scan.Transform(glm::mat4(20));
+    std::stringstream s_name;
+    s_name << "PointCloudUnit" << i;
+    auto pc_unit = std::make_shared<hiro::modules::PointCloudUnit>(s_name.str(), scan);
+    hiro::AddUnit(pc_unit);
+  }
 
-	cogs::Scan scan1;
-	scan1.Import("DataSets/apple/apple_02.cogs");
-	scan1.Transform(glm::mat4(20));
-	auto pc_unit1 = std::make_shared<hiro::modules::PointCloudUnit>("PointCloudUnit1", scan1);
-	hiro::AddUnit(pc_unit1);
-
-	cogs::Scan scan2;
-	scan2.Import("DataSets/apple/truth_02.cogs");
-	scan2.Transform(glm::mat4(20));
-	auto pc_unit2 = std::make_shared<hiro::modules::PointCloudUnit>("PointCloudUnit2", scan2);
-	hiro::AddUnit(pc_unit2);
-
-	auto geometry_unit = std::make_shared<hiro::modules::GeometryUnit>("GeometryUnit", vis::GeometryName::sphere_s2);
-	hiro::AddUnit(geometry_unit);
-
-	while (hiro::IsOpen())
-	{
-		hiro::Update();
-	}
+  while (hiro::IsOpen())
+  {
+    hiro::Update();
+  }
 }

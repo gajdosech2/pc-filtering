@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 
-class Visualization {
+class Visualization
+{
 public:
-	static void Visualize();
+  static void Visualize(std::string dataset);
 };

@@ -185,21 +185,15 @@ namespace cogs
     virtual void Transform(const glm::mat4 &transform);
 
   protected:
-    //! Creates a wrapper for given cogs::PointCloud
+    //! Creates a wrapper for given cogs::PointCloud.
     C_PointCloud(cogs::PointCloud *target);
-    /*!
-      \brief
-        Returns reference to the inner cogs::Pointcloud.
-    */
-    PointCloud *GetPointCloud();
 
-    /*!
-      \brief
-      Returns const reference to the inner cogs::Pointcloud.
-    */
-    const PointCloud *GetPointCloud() const;
+    //! Returns reference to the inner cogs::Pointcloud.
+    PointCloud &GetPointCloud();
+    //! Returns const reference to the inner cogs::Pointcloud.
+    const PointCloud &GetPointCloud() const;
 
-    //! Make a deep copy of the source C_PointCloud
+    //! Make a deep copy of the source C_PointCloud.
     void MakeCloneOf(const C_PointCloud &source);
 
   private:

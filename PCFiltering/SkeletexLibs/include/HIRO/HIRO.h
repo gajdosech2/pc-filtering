@@ -61,6 +61,9 @@ namespace hiro
   //! Initializes the library.
   HIRO_API void Initialize();
 
+  //! Terminates the library. Call to release all HIRO related data.
+  HIRO_API void Terminate();
+
   //! Check whether hiro window has not been closed by user.
   HIRO_API bool IsOpen();
 

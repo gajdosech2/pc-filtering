@@ -55,9 +55,7 @@ namespace cogs
     //! Frees spare memory so that new capacity exactly matches size.
     virtual void ShrinkToFit() override;
     //! Removes all points from cloud.
-    void Clear();
-    //! Removes points with specific ids from cloud. Caution, this method may change point indices.
-    virtual void Erase(std::vector<uint32_t> ids_to_erase) override;
+    virtual void Clear() override;
 
     //! Calls PointCloud::ClonePropertiesOf and additionally copies resolution and camera parameters.
     virtual void ClonePropertiesOf(const cogs::Scan &scan);
@@ -70,33 +68,33 @@ namespace cogs
     */
     void SetResolution(const glm::uvec2 &new_resolution);
     //! Returns current grid resolution.
-    glm::uvec2 GetResolution() const;
+    [[nodiscard]] glm::uvec2 GetResolution() const;
 
     //! Returns current grid width.
-    inline uint32_t GetWidth() const { return GetResolution()[0]; }
+    [[nodiscard]] inline uint32_t GetWidth() const { return GetResolution()[0]; }
     //! Returns current grid height.
-    inline uint32_t GetHeight() const { return GetResolution()[1]; }
+    [[nodiscard]] inline uint32_t GetHeight() const { return GetResolution()[1]; }
 
     //! Sets camera parameters to the new value.
     void SetCameraParams(const ScanCameraParams &new_params);
     //! Returns currently set camera parameters.
-    const ScanCameraParams &GetCameraParams() const;
+    [[nodiscard]] const ScanCameraParams &GetCameraParams() const;
     //! Sets camera position to the new value.
     void SetCameraPosition(const glm::vec3 &new_position);
     //! Returns currently set camera position.
-    const glm::vec3 &GetCameraPosition() const;
+    [[nodiscard]] const glm::vec3 &GetCameraPosition() const;
     //! Sets camera basis to the new value.
     void SetCameraBasis(const glm::mat3 &new_basis);
     //! Returns currently set camera basis.
-    const glm::mat3 &GetCameraBasis() const;
+    [[nodiscard]] const glm::mat3 &GetCameraBasis() const;
 
     //! Returns points coordinates.
-    const std::vector<Coords> &GetCoords() const;
+    [[nodiscard]] const std::vector<Coords> &GetCoords() const;
 
     //! Checks whether the coordinates are valid and occupied by a point.
-    bool IsPointAt(const glm::uvec2 &coord) const;
+    [[nodiscard]] bool IsPointAt(const glm::uvec2 &coord) const;
     //! Checks whether the coordinates are valid and occupied by a point.
-    bool IsPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
+    [[nodiscard]] bool IsPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
 
     //! Adds new point at grid coordinate. Returns point index.
     uint32_t AddPointAt(const glm::uvec2 &coord);
@@ -107,20 +105,24 @@ namespace cogs
     uint32_t AddPointsAt(const std::vector<glm::uvec2> &new_coords);
 
     //! Returns point index at grid coordinate. May return Scan::INVALID_INDEX if there is no point.
-    uint32_t GetPointAt(const glm::uvec2 &coord) const;
+    [[nodiscard]] uint32_t GetPointAt(const glm::uvec2 &coord) const;
     //! Returns point index at grid coordinate. May return Scan::INVALID_INDEX if there is no point.
-    uint32_t GetPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
+    [[nodiscard]] uint32_t GetPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
 
     //! Get coordinate
     static bool GetCameraUV(const glm::vec3 &point, const ScanCameraParams &cam_params, glm::vec2 &result);
 
-    //! Transforms pointcloud positions, normals and updates camera
+    //! Transforms point cloud positions, normals and updates camera
     virtual void Transform(const glm::mat4 &transform) override;
 
   protected:
 
     //! Deep-clone source Scan.
     void MakeCloneOf(const Scan &source);
+    //! Copies chunks of points according to copy commands.
+    void ExecuteCopyCommands(const std::vector<CopyCommand> &copy_cmd) override;
+    //! Decreases cloud size by the specified number of points.
+    void TruncateSize(size_t delta_size) override;
 
   private:
 
@@ -133,13 +135,12 @@ namespace cogs
 
     virtual void Resize(uint32_t new_size) override;
     virtual void Append(const PointCloud &pc) override;
-    //! Manages index grid during EraseProperty method
-    void MoveChunkToGapGrid(const size_t chunk_size, const size_t gap_size, const Coords *coords);
+
     void UpdateCameraViewMatrix();
 
     //! Checks whether the coordinates are valid and not occupied by a point.
-    bool IsNullPointAt(const glm::uvec2 &coord) const;
+    [[nodiscard]] bool IsNullPointAt(const glm::uvec2 &coord) const;
     //! Checks whether the coordinates are valid and not occupied by a point.
-    bool IsNullPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
+    [[nodiscard]] bool IsNullPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
   };
 }
