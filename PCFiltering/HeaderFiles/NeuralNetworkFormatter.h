@@ -38,8 +38,8 @@ public:
   NeuralNetworkFormatter(std::string path);
   bool Import(std::string path);
   void GenerateImageFiles();
-  void GenerateDataFiles(int tile_size);
-  void GenerateTruthFile(std::string truth_path, int tile_size);
+  void GenerateDataFiles(int tile_size, int step_size = 1);
+  void GenerateTruthFile(std::string truth_path, int tile_size, int step_size = 1);
   TrimValues FindTrimValues();
   void Trim(TrimValues trim_values);
   void Trim();
@@ -52,6 +52,7 @@ private:
   std::vector<std::vector<PointFeatures>> data_;
   TrimValues last_trim_values_;
   std::string file_name_;
+
   float min_intensity_;
   float max_intensity_;
   float min_normal_;

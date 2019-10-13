@@ -24,7 +24,7 @@
     <ClCompile Include="SourceFiles\ImageGenerator.cpp" />
     <ClCompile Include="SourceFiles\NeuralNetworkFormatter.cpp" />
     <ClCompile Include="SourceFiles\PCFiltering.cpp" />
-    <ClCompile Include="SourceFiles\PointFeatures.cpp" />
+    <ClCompile Include="SourceFiles\PredictionProcessor.cpp" />
     <ClCompile Include="SourceFiles\TilesGenerator.cpp" />
     <ClCompile Include="SourceFiles\Visualization.cpp" />
     <ClCompile Include="SourceFiles\WindowCutter.cpp" />
@@ -35,6 +35,7 @@
     <ClInclude Include="HeaderFiles\ImageGenerator.h" />
     <ClInclude Include="HeaderFiles\NeuralNetworkFormatter.h" />
     <ClInclude Include="HeaderFiles\PointFeatures.h" />
+    <ClInclude Include="HeaderFiles\PredictionProcessor.h" />
     <ClInclude Include="HeaderFiles\TilesGenerator.h" />
     <ClInclude Include="HeaderFiles\Visualization.h" />
     <ClInclude Include="HeaderFiles\WindowCutter.h" />

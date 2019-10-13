@@ -4,5 +4,5 @@
 class Visualization
 {
 public:
-  static void Visualize(std::string dataset);
+  static void Visualize(std::string dataset, int size);
 };

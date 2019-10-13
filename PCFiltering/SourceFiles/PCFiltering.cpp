@@ -3,34 +3,54 @@
 #include "..\HeaderFiles\NeuralNetworkFormatter.h"
 #include "..\HeaderFiles\FormatterGUI.h"
 #include "..\HeaderFiles\WindowCutter.h"
+#include "..\HeaderFiles\PredictionProcessor.h"
 #include <iostream>
-
-void formatter()
-{
-  NeuralNetworkFormatter formatter;
-  int tile_size = 11;
-  formatter.Import("toilet/toilet_01.cogs");
-  formatter.Trim();
-  formatter.Pad(192);
-  formatter.GenerateImageFiles();
-  formatter.GenerateDataFiles(tile_size);
-  formatter.GenerateTruthFile("apple/truth_02.cogs", tile_size);
-}
 
 void cutter()
 {
-  WindowCutter cutter;
-  cutter.Import("apple/apple_12.cogs");
-  cutter.Trim();
-  cutter.Cut(1100, 950, 1150, 1000);
-  cutter.Export();
+	WindowCutter cutter;
+	cutter.Import("corn/corn_10.cogs");
+	cutter.Trim();
+	cutter.Cut(1220, 950, 1320, 1050);
+	cutter.Export();
+}
+
+void formatter()
+{
+	NeuralNetworkFormatter formatter;
+	int tile_size = 15;
+	formatter.Import("parts/parts_04.cogs");
+	formatter.Trim();
+	formatter.GenerateImageFiles();
+	formatter.GenerateDataFiles(tile_size);
+	formatter.GenerateTruthFile("parts/truth_04.cogs", tile_size);
+}
+
+void imager() {
+	NeuralNetworkFormatter formatter;
+	formatter.Import("parts/truth_02.cogs");
+	formatter.Trim();
+	formatter.GenerateImageFiles();
+}
+
+void processor() {
+	PredictionProcessor processor;
+	processor.ProcessPrediction("parts_04_prediction.csv", "parts/parts_04.cogs");
+}
+
+void visualizer() {
+	Visualization::Visualize("parts", 5);
 }
 
 int main()
 {
-  //FormateGUI::RunNana();
-  Visualization::Visualize("apple");
-  //cutter();
-  return 0;
+	//FormateGUI::RunNana();
+
+	//cutter();
+	//formatter();
+	//imager();
+	//processor();
+	visualizer();
+	return 0;
 }
 

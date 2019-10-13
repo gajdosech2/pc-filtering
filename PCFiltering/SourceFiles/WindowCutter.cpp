@@ -1,9 +1,11 @@
 #include "..\HeaderFiles\WindowCutter.h"
 #include <sstream>
 
+const std::string DATASETS_ROOT = "DataSets/";
+
 bool WindowCutter::Import(std::string path)
 {
-  dataset_path = "DataSets/" + path;
+  dataset_path = DATASETS_ROOT + path;
   scan.Import(dataset_path);
 }
 
