@@ -86,9 +86,5 @@ TILE_SIZE = 15
 FEATURE_COUNT = 3
 INPUT_COUNT = ((TILE_SIZE * TILE_SIZE) - 1) * FEATURE_COUNT
 
-Q = train_parameters("train")
-make_prediction("test", export=True)
-
-
-
-
+Q = train_parameters("synthetic_01")
+make_prediction("synthetic_03", export=False)

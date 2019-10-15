@@ -92,5 +92,5 @@ FEATURE_COUNT = 3
 INPUT_COUNT = ((TILE_SIZE * TILE_SIZE) - 1) * FEATURE_COUNT
 
 model = build_model()
-train_model("parts_03")
-make_prediction("parts_03", export=True)
+train_model("synthetic_01")
+make_prediction("synthetic_03", export=False)
