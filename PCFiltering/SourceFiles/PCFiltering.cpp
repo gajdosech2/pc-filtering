@@ -4,6 +4,7 @@
 #include "..\HeaderFiles\FormatterGUI.h"
 #include "..\HeaderFiles\WindowCutter.h"
 #include "..\HeaderFiles\PredictionProcessor.h"
+#include "..\HeaderFiles\SyntheticDataGenerator.h"
 #include <iostream>
 
 void cutter()
@@ -19,11 +20,11 @@ void formatter()
 {
 	NeuralNetworkFormatter formatter;
 	int tile_size = 15;
-	formatter.Import("parts/parts_04.cogs");
+	formatter.Import("synthetic/synthetic_03.cogs");
 	formatter.Trim();
 	formatter.GenerateImageFiles();
 	formatter.GenerateDataFiles(tile_size);
-	formatter.GenerateTruthFile("parts/truth_04.cogs", tile_size);
+	formatter.GenerateTruthFile("synthetic/synthetic_04.cogs", tile_size);
 }
 
 void imager() {
@@ -39,7 +40,11 @@ void processor() {
 }
 
 void visualizer() {
-	Visualization::Visualize("parts", 5);
+	Visualization::Visualize("synthetic", 6);
+}
+
+void generator() {
+	SyntheticDataGenerator::GenerateData2();
 }
 
 int main()
@@ -47,10 +52,11 @@ int main()
 	//FormateGUI::RunNana();
 
 	//cutter();
-	//formatter();
+	formatter();
 	//imager();
 	//processor();
-	visualizer();
+	//visualizer();
+	//generator();
 	return 0;
 }
 

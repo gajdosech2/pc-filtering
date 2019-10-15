@@ -57,4 +57,6 @@ private:
   float max_intensity_;
   float min_normal_;
   float max_normal_;
+  float min_depth_;
+  float max_depth_;
 };

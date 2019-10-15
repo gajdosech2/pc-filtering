@@ -43,6 +43,8 @@ bool NeuralNetworkFormatter::Import(std::string path)
 
         min_intensity_ = std::min(min_intensity_, intensity);
         max_intensity_ = std::max(max_intensity_, intensity);
+		min_depth_ = std::min(min_depth_, depth);
+		max_depth_ = std::max(max_depth_, depth);
         min_normal_ = std::min(min_normal_, normal.x);
         min_normal_ = std::min(min_normal_, normal.y);
         min_normal_ = std::min(min_normal_, normal.z);
@@ -89,6 +91,7 @@ void NeuralNetworkFormatter::GenerateImageFiles()
   image_generator.GenerateBinaryMap();
   image_generator.GenerateGrayMap(max_intensity_, min_intensity_);
   image_generator.GenerateNormalMap(max_normal_, min_normal_);
+  image_generator.GenerateDepthMap(max_depth_, min_depth_);
 }
 
 TrimValues NeuralNetworkFormatter::FindTrimValues()

@@ -36,6 +36,36 @@ bool ImageGenerator::GenerateBinaryMap()
 	return true;
 }
 
+bool ImageGenerator::GenerateDepthMap(float max_depth, float min_depth)
+{
+	if (data_->size() == 0 || data_[0].size() == 0)
+	{
+		return false;
+	}
+	int gray_levels = 255;
+	size_t height = data_->size();
+	size_t width = (*data_)[0].size();
+	std::ofstream image;
+	image.open(VISUALIZATIONS_ROOT + file_name_ + "_depthmap.pgm");
+	image << "P2" << std::endl;
+	image << width << " " << height << std::endl;
+	image << gray_levels << std::endl;
+	float a = (gray_levels * 2) / (max_depth - min_depth);
+	float b = (gray_levels * 2) - a * max_depth;
+	for (uint32_t i = 0; i < height; i++)
+	{
+		for (uint32_t j = 0; j < width; j++)
+		{
+			int normalized_depth = (int)(a * (*data_)[i][j].depth + b);
+			normalized_depth = std::max(25, std::min(normalized_depth, 255));
+			image << normalized_depth << " ";
+		}
+		image << std::endl;
+	}
+	image.close();
+	return true;
+}
+
 bool ImageGenerator::GenerateGrayMap(float max_intensity, float min_intensity)
 {
 	if (data_->size() == 0 || data_[0].size() == 0)

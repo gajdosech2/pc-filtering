@@ -26,9 +26,6 @@ public:
 
   float DepthDifference(PointFeatures point) {
 	  float diff = point.depth - depth;
-	  if (diff < 0) {
-		  return -diff;
-	  }
 	  return diff;
   }
 
