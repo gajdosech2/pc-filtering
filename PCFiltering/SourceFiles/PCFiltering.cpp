@@ -20,11 +20,12 @@ void formatter()
 {
 	NeuralNetworkFormatter formatter;
 	int tile_size = 15;
-	formatter.Import("synthetic/synthetic_03.cogs");
+	formatter.Import("parts/parts_03.cogs");
 	formatter.Trim();
+	formatter.Pad(128);
 	formatter.GenerateImageFiles();
 	formatter.GenerateDataFiles(tile_size);
-	formatter.GenerateTruthFile("synthetic/synthetic_04.cogs", tile_size);
+	formatter.GenerateTruthFile("parts/truth_03.cogs", tile_size);
 }
 
 void imager() {
@@ -36,15 +37,15 @@ void imager() {
 
 void processor() {
 	PredictionProcessor processor;
-	processor.ProcessPrediction("parts_04_prediction.csv", "parts/parts_04.cogs");
+	processor.ProcessPrediction("parts_02_neuron_prediction.csv", "parts/parts_02.cogs");
 }
 
 void visualizer() {
-	Visualization::Visualize("synthetic", 6);
+	Visualization::Visualize("parts", 8);
 }
 
 void generator() {
-	SyntheticDataGenerator::GenerateData2();
+	SyntheticDataGenerator::GenerateData1();
 }
 
 int main()
@@ -52,10 +53,10 @@ int main()
 	//FormateGUI::RunNana();
 
 	//cutter();
-	formatter();
+	//formatter();
 	//imager();
 	//processor();
-	//visualizer();
+	visualizer();
 	//generator();
 	return 0;
 }

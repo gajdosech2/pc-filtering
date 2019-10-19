@@ -56,7 +56,7 @@ bool ImageGenerator::GenerateDepthMap(float max_depth, float min_depth)
 	{
 		for (uint32_t j = 0; j < width; j++)
 		{
-			int normalized_depth = (int)(a * (*data_)[i][j].depth + b);
+			int normalized_depth = (int)(a * (*data_)[i][j].pos_z + b);
 			normalized_depth = std::max(25, std::min(normalized_depth, 255));
 			image << normalized_depth << " ";
 		}

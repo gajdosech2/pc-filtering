@@ -31,20 +31,19 @@ bool NeuralNetworkFormatter::Import(std::string path)
     std::vector<PointFeatures> row;
     for (uint32_t j = 0; j < width; j++)
     {
-      auto coord = glm::uvec2(j, i);
-      if (scan.IsPointAt(coord))
+      if (scan.IsPointAt(j, i))
       {
-        auto index = scan.GetPointAt(coord);
+        auto index = scan.GetPointAt(j, i);
         auto normal = normals[index];
         auto intensity = intensities[index];
-        auto depth = positions[index].z;
-        PointFeatures point_feature(index, normal.x, normal.y, normal.z, intensity, depth);
+		auto position = positions[index];
+        PointFeatures point_feature(index, position.x, position.y, position.z, normal.x, normal.y, normal.z, intensity);
         row.push_back(point_feature);
 
         min_intensity_ = std::min(min_intensity_, intensity);
         max_intensity_ = std::max(max_intensity_, intensity);
-		min_depth_ = std::min(min_depth_, depth);
-		max_depth_ = std::max(max_depth_, depth);
+		min_depth_ = std::min(min_depth_, position.z);
+		max_depth_ = std::max(max_depth_, position.z);
         min_normal_ = std::min(min_normal_, normal.x);
         min_normal_ = std::min(min_normal_, normal.y);
         min_normal_ = std::min(min_normal_, normal.z);
@@ -204,7 +203,7 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size, int step_size)
   size_t width = data_[0].size();
   int outer_pad = tile_size / 2;
   int counter = 0;
-  size_t size = height * width;
+  size_t size = (height - 2*outer_pad) * (width - 2*outer_pad);
   auto path = NN_FILES_ROOT + file_name_ + "_data";
   bool outer_dir_created = _mkdir(NN_FILES_ROOT.c_str());
   bool dir_removed = _rmdir(path.c_str());
@@ -226,9 +225,9 @@ void NeuralNetworkFormatter::GenerateDataFiles(int tile_size, int step_size)
 		data_file << reference.index << std::endl;
         for (PointFeatures &point : neighborhood)
         {
-          data_file << reference.DepthDifference(point) << ","
-            << reference.IntensityDifference(point) << ","
-            << reference.NormalDistanceTo(point) << std::endl;
+		  data_file << std::fixed << reference.PositionDistanceTo(point) << ","
+			  << reference.IntensityDifference(point) << ","
+			  << reference.NormalDistanceTo(point) << std::endl;
         }
         data_file.close();
       }
@@ -252,15 +251,19 @@ void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path, int tile_
   size_t height = data_.size();
   size_t width = data_[0].size();
   int counter = 0;
+  int delete_count = 0;
   for (uint32_t i = outer_pad; i < height - outer_pad; i += step_size)
   {
     for (uint32_t j = outer_pad; j < width - outer_pad; j += step_size, counter++)
     {
       if (data_[i][j].intensity > EMPTY_POINT_INTENSITY)
       {
-        prediction << counter << "," << data_[i][j].index << "," << (truth_data[i][j].intensity > EMPTY_POINT_INTENSITY) << std::endl;
+		bool del = (truth_data[i][j].intensity > EMPTY_POINT_INTENSITY);
+		if (del == false) { delete_count += 1;  }
+        prediction << counter << "," << data_[i][j].index << "," << del << std::endl;
       }
     }
   }
+  std::cout << delete_count << std::endl;
   prediction.close();
 }

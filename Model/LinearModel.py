@@ -83,8 +83,9 @@ def export_prediction(dataset_name: str, indices: list, prediction: np.array) ->
 
 
 TILE_SIZE = 15
-FEATURE_COUNT = 3
+FEATURE_COUNT = 1
 INPUT_COUNT = ((TILE_SIZE * TILE_SIZE) - 1) * FEATURE_COUNT
 
 Q = train_parameters("synthetic_01")
-make_prediction("synthetic_03", export=False)
+Q = np.array([1] * (TILE_SIZE * TILE_SIZE))
+make_prediction("synthetic_01", export=False)

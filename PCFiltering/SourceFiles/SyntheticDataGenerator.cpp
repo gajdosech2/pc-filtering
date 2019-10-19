@@ -34,8 +34,8 @@ void SyntheticDataGenerator::GenerateData1()
 		for (uint32_t x = 0; x < SIZE; x++)
 		{
 			auto dirty_id = scan_dirty.AddPointAt(x, y);
-			if (rand() % 27 == 0) {
-				positions_dirty[dirty_id] = glm::vec3(x / 1000.0f, y / 1000.0f, 0.01f);
+			if (rand() % 20 == 0) {
+				positions_dirty[dirty_id] = glm::vec3(x / 1000.0f, y / 1000.0f, 0.1f);
 				normals_dirty[dirty_id] = glm::vec3(0, 0, 1);
 			}
 			else {
@@ -79,7 +79,7 @@ void SyntheticDataGenerator::GenerateData2()
 		{
 			auto dirty_id = scan_dirty.AddPointAt(x, y);
 			if (x < SIZE/2) {
-				positions_dirty[dirty_id] = glm::vec3(x / 1000.0f, y / 1000.0f, 0.01f);
+				positions_dirty[dirty_id] = glm::vec3(x / 1000.0f, y / 1000.0f, 0.1f);
 				normals_dirty[dirty_id] = glm::vec3(0, 0, 1);
 			}
 			else {

@@ -39,9 +39,11 @@ def load_indices(dataset_name: str) -> list:
 
 def build_model() -> keras.Sequential:
     network_model = keras.Sequential([
-        keras.layers.Dense(1, activation=tf.keras.activations.linear, input_shape=(INPUT_COUNT,))
+        keras.layers.Dense(32, activation=tf.keras.activations.relu, input_shape=(INPUT_COUNT,)),
+        keras.layers.Dense(16, activation=tf.keras.activations.relu),
+        keras.layers.Dense(1, activation=tf.keras.activations.relu)
     ])
-    network_model.compile(optimizer='adam',
+    network_model.compile(optimizer='Adam',
                           loss='mean_squared_error',
                           metrics=['accuracy'])
     return network_model
@@ -49,8 +51,9 @@ def build_model() -> keras.Sequential:
 
 def train_model(dataset_name: str) -> None:
     train_data = load_data(dataset_name)
+
     train_labels = load_labels(dataset_name)
-    model.fit(train_data, train_labels, epochs=64)
+    model.fit(train_data, train_labels, epochs=256)
 
 
 def make_prediction(dataset_name: str, export: bool = False, samples: int = float("inf")) -> np.array:
@@ -90,7 +93,6 @@ def export_prediction(dataset_name: str, indices: list, prediction: np.array) ->
 TILE_SIZE = 15
 FEATURE_COUNT = 3
 INPUT_COUNT = ((TILE_SIZE * TILE_SIZE) - 1) * FEATURE_COUNT
-
 model = build_model()
-train_model("synthetic_01")
-make_prediction("synthetic_03", export=False)
+train_model("parts_03")
+make_prediction("parts_03", export=True)
