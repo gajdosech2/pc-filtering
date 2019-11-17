@@ -1,0 +1,177 @@
+﻿  any.cpp
+  audio_device.cpp
+  audio_stream.cpp
+  buffer_preparation.cpp
+  player.cpp
+  basic_types.cpp
+  charset.cpp
+  datetime.cpp
+  deploy.cpp
+  platform_abstraction.cpp
+  platform_spec_windows.cpp
+  filesystem.cpp
+  animation.cpp
+  basis.cpp
+  basic_window.cpp
+  bedrock_pi.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(678,1): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\basic_types.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :  see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>> *std::vector<std::string,std::allocator<_Ty>>::_Emplace_reallocate<_Ty>(std::basic_string<char,std::char_traits<char>,std::allocator<char>> *const ,_Ty &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :             _Ty=std::string
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :         ] (compiling source file ..\..\source\basic_types.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :  see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>> *std::vector<std::string,std::allocator<_Ty>>::_Emplace_reallocate<_Ty>(std::basic_string<char,std::char_traits<char>,std::allocator<char>> *const ,_Ty &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :             _Ty=std::string
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :         ] (compiling source file ..\..\source\basic_types.cpp)
+  bedrock_windows.cpp
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\basic_types.cpp(281): message :  see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::emplace_back<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&)' being compiled
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\basic_types.cpp(281): message :         with
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\basic_types.cpp(281): message :         [
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\basic_types.cpp(281): message :             _Ty=std::string
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\basic_types.cpp(281): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\detail\platform_abstraction.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\filesystem\filesystem.cpp)
+  color_schemes.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\detail\platform_spec_windows.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\animation.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\bedrock_pi.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\basic_window.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\bedrock_windows.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\ostream(707,1): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\deploy.cpp)
+  drawer.cpp
+  element_store.cpp
+  events_operation.cpp
+  native_window_interface.cpp
+  window_layout.cpp
+  window_manager.cpp
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\deploy.cpp(128): message :  see reference to function template instantiation 'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\drawer.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\events_operation.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\native_window_interface.cpp)
+  dragdrop.cpp
+  dragger.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\element_store.cpp)
+  drawing.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\window_layout.cpp)
+  effects.cpp
+  element.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\detail\window_manager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\dragger.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\drawing.cpp)
+  filebox.cpp
+  layout_utility.cpp
+  msgbox.cpp
+  notifier.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\dragdrop.cpp)
+  place.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\effects.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\element.cpp)
+  programming_interface.cpp
+  screen.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\filebox.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\msgbox.cpp)
+  state_cursor.cpp
+  timer.cpp
+  tooltip.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\notifier.cpp)
+  button.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\place.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\programming_interface.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\screen.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\state_cursor.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\timer.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\tooltip.cpp)
+  categorize.cpp
+  checkbox.cpp
+  combox.cpp
+  date_chooser.cpp
+  float_listbox.cpp
+  form.cpp
+  group.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\button.cpp)
+  label.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\categorize.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\combox.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\checkbox.cpp)
+  listbox.cpp
+  menu.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\date_chooser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\group.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\label.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\float_listbox.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\form.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\menu.cpp)
+  menubar.cpp
+  panel.cpp
+  picture.cpp
+  progress.cpp
+  scroll.cpp
+  content_view.cpp
+  text_editor.cpp
+  slider.cpp
+  spinbox.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\listbox.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\menubar.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\panel.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\picture.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\skeletons\text_editor.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\skeletons\content_view.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\progress.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\scroll.cpp)
+  tabbar.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\slider.cpp)
+  textbox.cpp
+  toolbar.cpp
+  treebox.cpp
+  widget.cpp
+  wvl.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\spinbox.cpp)
+  internationalization.cpp
+  image_process_provider.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\tabbar.cpp)
+  native_paint_interface.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\textbox.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\toolbar.cpp)
+  graphics.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\treebox.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\widgets\widget.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\gui\wvl.cpp)
+  image.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\internationalization.cpp)
+  image_process_selector.cpp
+  pixel_buffer.cpp
+  text_renderer.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\paint\detail\native_paint_interface.cpp)
+  stdc++.cpp
+  dataexch.cpp
+  platform.cpp
+  shared_wrapper.cpp
+  timepiece.cpp
+  pool.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\paint\graphics.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\paint\image.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\paint\pixel_buffer.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\system\dataexch.cpp)
+  unicode_bidi.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\paint\text_renderer.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(678,1): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\unicode_bidi.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :  see reference to function template instantiation 'nana::unicode_bidi::remember *std::vector<nana::unicode_bidi::remember,std::allocator<_Ty>>::_Emplace_reallocate<nana::unicode_bidi::remember&>(nana::unicode_bidi::remember *const ,nana::unicode_bidi::remember &)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :             _Ty=nana::unicode_bidi::remember
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(653): message :         ] (compiling source file ..\..\source\unicode_bidi.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :  see reference to function template instantiation 'nana::unicode_bidi::remember *std::vector<nana::unicode_bidi::remember,std::allocator<_Ty>>::_Emplace_reallocate<nana::unicode_bidi::remember&>(nana::unicode_bidi::remember *const ,nana::unicode_bidi::remember &)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :             _Ty=nana::unicode_bidi::remember
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\vector(661): message :         ] (compiling source file ..\..\source\unicode_bidi.cpp)
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\unicode_bidi.cpp(553): message :  see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::emplace_back<nana::unicode_bidi::remember&>(nana::unicode_bidi::remember &)' being compiled
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\unicode_bidi.cpp(553): message :         with
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\unicode_bidi.cpp(553): message :         [
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\unicode_bidi.cpp(553): message :             _Ty=nana::unicode_bidi::remember
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\unicode_bidi.cpp(553): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\experimental\filesystem(2754,17): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc (compiling source file ..\..\source\system\platform.cpp)
+C:\Users\luk\Downloads\nana_1.7.2\nana\source\threads\pool.cpp(286,1): warning C4530:  C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+  nana.vcxproj -> C:\Users\luk\Downloads\nana_1.7.2\nana\build\vc2019\../bin/nana_v142_Release_x64.lib
