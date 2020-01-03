@@ -88,7 +88,7 @@ bool ImageGenerator::GenerateGrayMap(float max_intensity, float min_intensity)
 		{
 			int normalized_intensity = (int)(a * (*data_)[i][j].intensity + b);
 			normalized_intensity = std::max(0, std::min(normalized_intensity, 255));
-			image << 255 - normalized_intensity << " ";
+			image << normalized_intensity << " ";
 		}
 		image << std::endl;
 	}

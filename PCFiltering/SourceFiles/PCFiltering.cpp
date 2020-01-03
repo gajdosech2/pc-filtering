@@ -30,7 +30,7 @@ void formatter()
 
 void imager() {
 	NeuralNetworkFormatter formatter;
-	formatter.Import("parts/truth_02.cogs");
+	formatter.Import("small/toilet_01.cogs");
 	formatter.Trim();
 	formatter.GenerateImageFiles();
 }
@@ -41,7 +41,7 @@ void processor() {
 }
 
 void visualizer() {
-	Visualization::Visualize("parts", 8);
+	Visualization::Visualize("parts", 4);
 }
 
 void generator() {
@@ -51,12 +51,11 @@ void generator() {
 int main()
 {
 	//FormateGUI::RunNana();
-
 	//cutter();
 	//formatter();
-	//imager();
+	imager();
 	//processor();
-	visualizer();
+	//visualizer();
 	//generator();
 	return 0;
 }
