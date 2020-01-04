@@ -6,7 +6,7 @@ const std::string DATASETS_ROOT = "DataSets/";
 bool WindowCutter::Import(std::string path)
 {
   dataset_path = DATASETS_ROOT + path;
-  scan.Import(dataset_path);
+  return scan.Import(dataset_path);
 }
 
 void WindowCutter::Cut(unsigned int left_up_x, unsigned int left_up_y, unsigned int down_right_x, unsigned int down_right_y)

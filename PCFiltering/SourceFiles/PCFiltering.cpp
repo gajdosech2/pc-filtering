@@ -52,8 +52,8 @@ int main()
 {
 	//FormateGUI::RunNana();
 	//cutter();
-	//formatter();
-	imager();
+	formatter();
+	//imager();
 	//processor();
 	//visualizer();
 	//generator();
