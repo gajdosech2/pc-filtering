@@ -214,7 +214,7 @@ void NeuralNetworkFormatter::GenerateTruthFile(std::string truth_path, int tile_
       }
     }
   }
-  std::cout << delete_count << std::endl;
+  std::cout << "Number of deleted points: " << delete_count << std::endl;
   prediction.close();
 }
 

@@ -19,11 +19,9 @@ void cutter()
 void formatter()
 {
 	NeuralNetworkFormatter formatter;
-	int tile_size = 15;
+	int tile_size = 19;
 	formatter.Import("parts/parts_03.cogs");
 	formatter.Trim();
-	formatter.Pad(128);
-	formatter.GenerateImageFiles();
 	formatter.GenerateDataFiles(tile_size);
 	formatter.GenerateTruthFile("parts/truth_03.cogs", tile_size);
 }
