@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
 
 #include <COGS/PointCloud.h>
 
@@ -12,22 +12,22 @@ namespace cogs
   public:
     KdTree() = default;
     KdTree(const cogs::PointCloud &cloud);
-    KdTree(const std::vector<const cogs::PointCloud*> clouds);
+    KdTree(const std::vector<const cogs::PointCloud *> clouds);
     //! Initializes the KdTree with points of the input cloud.
-    void Initialize(const cogs::PointCloud& cloud);
+    void Initialize(const cogs::PointCloud &cloud);
     //! Initializes the KdTree with points of the input clouds.
-    void Initialize(const std::vector<const cogs::PointCloud*> clouds);
+    void Initialize(const std::vector<const cogs::PointCloud *> clouds);
     //! Returns true if any of included points is included in the input AABB, else returns false.
-    bool IsPointInRange(const geom::AABB3 &search_range) const;
+    bool IsPointInRange(const geom::Aabb3 &search_range) const;
     //! Returns vector of points that are included in the input AABB.
-    void GetPointsInRange(const geom::AABB3 &search_range, std::vector<uint32_t> *output) const;
+    void GetPointsInRange(const geom::Aabb3 &search_range, std::vector<uint32_t> *output) const;
 
   private:
     struct TreeNode
     {
       TreeNode() = default;
       void Include(std::vector<std::pair<uint32_t, glm::vec3>> &points, uint8_t dimension = 0);
-      bool QueryRange(const geom::AABB3 &search_range, std::vector<uint32_t> *output = nullptr) const;
+      bool QueryRange(const geom::Aabb3 &search_range, std::vector<uint32_t> *output = nullptr) const;
     private:
       glm::vec3 value_;
       uint32_t index_;

@@ -1,0 +1,41 @@
+#version 430
+#define ID gl_InvocationID
+
+#define TESSELATION_LEVEL 64
+
+/// INPUT
+layout (location = 0) in vec3 in_position[];
+layout (location = 1) in vec2 in_coord[];
+layout (location = 2) in vec3 in_normal[];
+layout (location = 3) in vec4 in_tangent[];
+layout (location = 4) in mat4 in_transform[];
+
+/// OUTPUT
+layout (vertices = 3) out;
+
+layout (location = 0) out vec3 out_position[];
+layout (location = 1) out vec2 out_coord[];
+layout (location = 2) out vec3 out_normal[];
+layout (location = 3) out vec4 out_tangent[];
+layout (location = 4) out mat4 out_transform[];
+
+/// SOURCE
+void main()
+{
+	out_position[ID] = in_position[ID];
+	out_coord[ID] = in_coord[ID];
+	out_normal[ID] = in_normal[ID];
+	out_tangent[ID] = in_tangent[ID];
+	out_transform[ID] = in_transform[ID];
+
+	if (ID == 0) 
+  {
+    gl_TessLevelInner[0] = TESSELATION_LEVEL;
+		gl_TessLevelInner[1] = TESSELATION_LEVEL;
+		
+    gl_TessLevelOuter[0] = TESSELATION_LEVEL;
+    gl_TessLevelOuter[1] = TESSELATION_LEVEL;
+    gl_TessLevelOuter[2] = TESSELATION_LEVEL;
+		gl_TessLevelOuter[3] = TESSELATION_LEVEL;
+	}
+}

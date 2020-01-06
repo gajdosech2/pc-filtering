@@ -1,7 +1,7 @@
 #pragma once
 
-#include <utils/Serializer.h>
-#include <utils/Serializables.h>
+#include <Utils/Serializer.h>
+#include <Utils/Serializables.h>
 
 #include <COGS/API.h>
 #include <COGS/MetaData.h>

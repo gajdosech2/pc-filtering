@@ -7,7 +7,6 @@
 #include <vector>
 #include <memory>
 #include <string>
-
 #include <COGS/API.h>
 
 
@@ -43,33 +42,33 @@ namespace cogs
   {
   public:
 
-    Exporter();
+    explicit Exporter();
     Exporter(const Exporter &other) = delete;
     Exporter(const Exporter &&other) = delete;
     Exporter &operator=(const Exporter &other) = delete;
     Exporter &operator=(const Exporter &&other) = delete;
     ~Exporter();
 
-    //! Saves all currently added data to a single file. Returns success.
+    //! Saves all currently added data to a single file. Returns whether everything was saved successfully.
     bool SaveToFile(const std::string &filename) const;
 
     //! Removes all previously added data from exporter.
     void Clear();
 
-    //! Adds a referenced object to the list of exported objects.
-    void AddPointCloud(const cogs::PointCloud *pointcloud);
+    //! Adds an object to the list of exported objects.
+    void AddPointCloud(const cogs::PointCloud &pointcloud);
 
-    //! Adds a referenced object to the list of exported objects.
-    void AddScan(const cogs::Scan *scan);
+    //! Adds an object to the list of exported objects.
+    void AddScan(const cogs::Scan &scan);
 
-    //! Adds a referenced object to the list of exported objects.
-    void AddMesh(const cogs::Mesh *mesh);
+    //! Adds an object to the list of exported objects.
+    void AddMesh(const cogs::Mesh &mesh);
 
   private:
     struct Impl;
     std::unique_ptr<Impl> m;
-    bool RunAssimpExporter(const std::string &filename) const;
-    bool RunCogsExporter(const std::string &filename) const;
+    [[nodiscard]] bool RunAssimpExporter(const std::string &filename) const;
+    [[nodiscard]] bool RunCogsExporter(const std::string &filename) const;
   };
 
 }

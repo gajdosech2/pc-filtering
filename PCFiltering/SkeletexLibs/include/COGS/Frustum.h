@@ -2,8 +2,8 @@
 
 #include <glm/glm.hpp>
 
-#include <utils/GeometryStructures.h>
-#include <utils/Exceptions.h>
+#include <Utils/GeometryStructures.h>
+#include <Utils/Exceptions.h>
 
 #include <COGS/API.h>
 

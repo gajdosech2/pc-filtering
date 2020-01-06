@@ -29,12 +29,16 @@ namespace glw
     //! Parameters used to initialize Window.
     struct InitParameters
     {
-      //! Initial resolution for window frame buffer.
+      //! Initial resolution of the window frame buffer.
       glm::uvec2 resolution = glm::uvec2(640, 480);
+      //! Minimum resolution of the window frame buffer.
+      glm::uvec2 min_resolution = glm::uvec2(0);
+      //! Maximum resolution of the window frame buffer.
+      glm::uvec2 max_resolution = glm::uvec2(0);
       //! Whether the window should be maximized on creation. Overrides resolution.
       bool maximized = false;
       //! Window title shown in frame top.
-      std::string caption = "GLE Window";
+      std::string caption = "GLW Window";
       //! Desired number of samples to use for multisampling; Zero disables multisampling; Negative lets the driver decide; Default is 8
       int8_t aa_samples = 8;
       //! Whether the windowed window will be initially visible.
@@ -43,16 +47,16 @@ namespace glw
       bool try_share_contexts = true;
       //! Whether the windowed window will be resizable by the use; default is true.
       bool resizable = true;
-      //! Specifies position of created windo; set to INT_MIN to decide automatically; default is INT_MIN.
-      glm::ivec2 position = glm::ivec2(INT_MIN);
+      //! Specifies position of created window; default is 100.
+      glm::ivec2 position = glm::ivec2(100);
       //! Whether the window will be windowed or fullscreen
       bool fullscreen = false;
       //! Whether the cursor will be hidden
       bool hidden_cursor = false;
     };
 
-    Window() = default;
-    Window(const InitParameters &params);
+    explicit Window();
+    explicit Window(const InitParameters &params);
     ~Window();
     /*!
       Registers observer for window callback events.
@@ -62,34 +66,49 @@ namespace glw
     //! Unregisters observer for window callback events.
     void ObserverRemove(WindowEventObserver *object);
 
-    bool IsVisible() const;
-    bool IsMaximized() const;
-    bool IsIconified() const;
+    [[nodiscard]] bool IsVisible() const;
+    [[nodiscard]] bool IsMaximized() const;
+    [[nodiscard]] bool IsIconified() const;
+    [[nodiscard]] bool IsFullscreen();
 
-    bool IsInitialized();
-    bool ShouldClose();
+    [[nodiscard]] bool IsInitialized();
+    [[nodiscard]] bool ShouldClose();
     void SetShouldClose();
 
-    bool IsContextShared();
+    [[nodiscard]] bool IsContextShared();
 
     //! Returns pointer to raw GLFW window.
-    GLFWwindow *GetWindowPtr();
+    [[nodiscard]] GLFWwindow *GetWindowPtr();
 
     //! Returns position of mouse, relative to the window position.
-    glm::vec2 GetMousePosition() const;
+    [[nodiscard]] glm::vec2 GetMousePosition() const;
     //! Returns screen position of window client area.
-    glm::ivec2 GetPosition() const;
+    [[nodiscard]] glm::ivec2 GetPosition() const;
     //! Returns resolution of window rendering buffer.
-    glm::uvec2 GetResolution() const;
+    [[nodiscard]] glm::uvec2 GetResolution() const;
     //! Returns width of window rendering buffer.
-    uint32_t GetWidth() const;
+    [[nodiscard]] uint32_t GetWidth() const;
     //! Returns height of window rendering buffer.
-    uint32_t GetHeight() const;
+    [[nodiscard]] uint32_t GetHeight() const;
+    /*!
+      \brief The content scale is the ratio between the current DPI
+      and the platform's default DPI.
+
+      The content scale may depend on both the monitor resolution and pixel
+      density and on user settings. It may be very different from the raw DPI
+      calculated from the physical size and current resolution.
+
+      On systems where each monitors can have its own content scale,
+      the window content scale will depend on which monitor the system
+      considers the window to be on.
+    */
+    [[nodiscard]] glm::vec2 GetContentScaling() const;
+
+    //! Window resolution modulated by a content scaling factor.
+    [[nodiscard]] glm::uvec2 GetUnscaledResolution() const;
 
     void SetWindowedMode(int width, int height, int posx = 0, int posy = 0);
     void SetFullscreenMode();
-
-    bool IsFullscreen();
 
     void PollEvents();
     void SwapBuffers();
@@ -102,7 +121,7 @@ namespace glw
       Window initialization procedure.
       When creating derived class, this method needs to be called at some point in window creation!
     */
-    void Initialize(const InitParameters &init);
+    bool Initialize(const InitParameters &init);
 
   private:
     std::array < std::set<WindowEventObserver *>, glw::Window::max_observer_priority + 1 > obs_priority_lists_;
@@ -147,6 +166,7 @@ namespace glw
   {
   public:
     HiddenWindow();
+    void SwapBuffers();
   protected:
     std::unique_ptr<Window> window_;
   };

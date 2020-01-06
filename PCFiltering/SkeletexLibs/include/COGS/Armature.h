@@ -34,10 +34,7 @@ namespace cogs
     const SkinningData *GetSkinningData() const;
 
   private:
-    friend class Importer;
-
     int32_t anim_frame_ = 0;
-
     Mesh mesh_;
     SkinningData skin_data_;
 

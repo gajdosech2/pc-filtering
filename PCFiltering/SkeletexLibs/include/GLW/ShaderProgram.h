@@ -7,10 +7,10 @@
 #include <memory>
 #include <vector>
 #include <map>
-
 #include <glbinding/gl/gl.h>
-
 #include <GLW/API.h>
+
+
 
 namespace glw
 {
@@ -23,7 +23,8 @@ namespace glw
     tess_eval	= (unsigned int)gl::GLenum::GL_TESS_EVALUATION_SHADER,
     geometry	= (unsigned int)gl::GLenum::GL_GEOMETRY_SHADER,
     fragment	= (unsigned int)gl::GLenum::GL_FRAGMENT_SHADER,
-    compute		= (unsigned int)gl::GLenum::GL_COMPUTE_SHADER
+    compute		= (unsigned int)gl::GLenum::GL_COMPUTE_SHADER,
+    none		= (unsigned int)gl::GLenum::GL_NONE
   };
 
   //! Creates ShaderType from extension of specified shader file name.
@@ -32,8 +33,6 @@ namespace glw
 
 
   using PShader = std::shared_ptr<class Shader>;
-
-
 
   //! Maintains the source code strings that defines a shader.
   class GLW_API Shader
@@ -70,28 +69,26 @@ namespace glw
     bool Compile();
 
     //! Checks, if last compilation was successful.
-    bool IsCompiled();
+    bool IsCompiled() const;
 
     //! Returns OpenGL reference id.
-    gl::GLuint GetID();
+    gl::GLuint GetID() const;
 
     //! Get type of this.
-    ShaderType GetType();
+    ShaderType GetType() const;
 
     //! Get log of last compilation with errors and warnings. If no errors, function returns empty string.
-    std::string GetCompilationLog();
+    std::string GetCompilationLog() const;
 
   private:
-    ShaderType type;
-    gl::GLuint shaderID = 0;
-    bool compiled_successfully = false;
+    ShaderType type_;
+    gl::GLuint shader_id_ = 0;
+    bool was_compiled_successfully_ = false;
   };
 
 
 
   using PProgram = std::shared_ptr <class Program>;
-
-
 
   //! Holds several compiled shaders which are used as a whole.
   class GLW_API Program
@@ -101,7 +98,7 @@ namespace glw
     static PProgram Create();
 
     //! Creates shader program.
-    Program();
+    explicit Program();
 
     //! Destroy program object and remove OpenGL references.
     ~Program();
@@ -113,27 +110,27 @@ namespace glw
     bool Link();
 
     //! Checks, whether last linking has finished successful.
-    bool IsLinked();
+    bool IsLinked() const;
 
     //! Returns OpenGL reference index.
-    gl::GLuint GetID();
+    gl::GLuint GetID() const;
 
     //! Returns log of last linking. When no errors nor warnings occurred, returned string is empty.
-    std::string GetLinkLog();
+    std::string GetLinkLog() const;
 
     //! Use this program as OpenGL current.
     void Use() const;
 
     //! Returns location of uniform variable with specified name.
-    gl::GLint GetUniformLocation(const std::string &name);
+    gl::GLint GetUniformLocation(const std::string &name) const;
 
     //! Returns location of uniform block with specified name.
-    gl::GLint GetUniformBlockLocation(const std::string &name);
+    gl::GLint GetUniformBlockLocation(const std::string &name) const;
 
   private:
-    gl::GLuint programID;
-    bool linked_successfuly = false;
-    std::map<ShaderType, PShader> attachedShaders;
+    gl::GLuint program_id_ = 0;
+    bool is_linked_successfuly = false;
+    std::map<ShaderType, PShader> attached_shaders_;
   };
 
 }

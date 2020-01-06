@@ -4,92 +4,98 @@
   Proprietary and confidential
 */
 #pragma once
-/*!
-  \file Main file providing basic functionality of HIRO library.
-*/
-
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
 #include <memory>
-#include <HIRO/DataUnit.h>
+#include <HIRO/Resource.h>
+#include <HIRO/Debugger.h>
 
 
 
 namespace hiro
 {
 
-  //! Defines the nature of how a unit was instanced.
-  enum class ActiveUnitNature
-  {
-    automatic,  //! Unit was created automatically.
-    selected    //! Unit was selected by user via gui.
-  };
+  /*!
+    \brief Information about currently active Resource objects.
 
-  //! Information about a currently active unit.
-  struct ActiveUnitInfo
+    Active Resource objects are the ones that were used to
+    create at least one Gadget ant it still exists.
+  */
+  struct ActiveResourceInfo
   {
-    //! Active data unit.
-    std::shared_ptr<hiro::DataUnit> unit;
-    //! Index of view where the unit is active.
+    //! Pointer to an active data resource.
+    std::shared_ptr<hiro::Resource> resource;
+    //! Index of view where the resource is active.
     uint32_t viewarea;
-    //! Defines how the unit was instanced.
-    ActiveUnitNature nature;
+    //! Defines whether the resource is selected. Otherwise it is pinned.
+    bool is_selected;
   };
 
 
 
   /*!
-    Sets up directory where hiro stores temporal cache data.
-    Needs to be called before initialization with hiro::Initialize().
+    \brief
+      Sets directory where hiro stores temporal cache data.
+    \warning
+      Needs to be called before initialization using hiro::Initialize().
   */
   HIRO_API void SetIntermediateDirectory(const std::string &dir);
 
   /*!
-    Sets up directory where are sub-folders "resources" and "shaders" present.
-    Needs to be called before initialization with hiro::Initialize().
+    \brief
+      Sets directory where are sub-folders "resources" and "shaders" present.
+    \warning
+      Needs to be called before initialization using hiro::Initialize().
   */
-  HIRO_API void SetResourceDirectory(const std::string &dir);
+  HIRO_API void SetAssetDirectory(const std::string &dir);
+
+  //! Initializes the library. From this moment the library can be fully used.
+  HIRO_API void Initialize();
 
   /*!
-    Initializes the library with custom look visuals of application on startup.
-    Not not available in educational version of HIRO library.
+    \brief
+      Initializes the library with custom look visuals of application on startup.
+    \note
+      Not not available in educational version of HIRO library.
   */
-  [[maybe_unused]] HIRO_API void Initialize(const std::string &custom_look);
-
-  //! Initializes the library.
-  HIRO_API void Initialize();
+  HIRO_API void Initialize(const std::string &custom_look);
 
   //! Terminates the library. Call to release all HIRO related data.
   HIRO_API void Terminate();
 
-  //! Check whether hiro window has not been closed by user.
+  //! Check whether hiro window has not been closed.
   HIRO_API bool IsOpen();
 
-  //! Updates and redraws viewing window is required.
+  /*!
+    \brief
+      Updates window and redraws if required.
+
+    Ensure that this function is called regularly in your application.
+    If not, it may cause window freezing and lag.
+  */
   HIRO_API void Update();
 
-  //! Add data unit to the list of units.
-  HIRO_API void AddUnit(const PDataUnit &data_unit);
+  //! Add specified resource to the list of available resources.
+  HIRO_API void AddResource(const PResource &resource);
 
-  //! Remove all data units from the list of units.
-  HIRO_API void RemoveAllDataUnits();
+  //! Remove all resources from the list of available resources.
+  HIRO_API void RemoveAllResources();
 
-  //! Remove all data units whose name includes prefix.
-  HIRO_API void RemoveUnitsWithPrefix(std::string prefix);
+  //! Remove all resources whose name includes prefix from the list of available resources
+  void RemoveResourcesWithPrefix(const std::string &prefix);
 
-  //! Capture render canvas of specified area and save to specified file.
-  HIRO_API void Screenshot(uint32_t viewarea_id, const std::string &file, const glm::uvec2 &resolution);
-
-  //! Returns information about all units currently active in context.
-  HIRO_API std::vector<ActiveUnitInfo> GetActiveUnits();
-
-#ifdef _WIN32
   /*!
-    Returns WIN API pointer to owned window.
-    Not not available in educational version of HIRO library.
+    \brief Returns information about all resources currently active in context.
+
+    Active Resource objects are the ones that were used to
+    create at least one Gadget ant it still exists.
   */
-  [[maybe_unused]] HIRO_API HWND GetWindowHandle();
-#endif
+  HIRO_API std::vector<ActiveResourceInfo> GetActiveResources();
+
+  /*!
+    \brief Returns internal visual debugger.
+
+    The visual debugger can be used for rendering primitive debug objects giving visual feedback.
+    When the library is not initialized, this function returns nullptr.
+  */
+  HIRO_API std::shared_ptr<hiro::Debugger> Debug();
+
 }

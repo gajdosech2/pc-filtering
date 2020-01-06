@@ -6,7 +6,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <COGS/DataType.h>
-#include "API.h"
+#include <COGS/API.h>
 
 namespace cogs
 {
@@ -154,22 +154,18 @@ namespace cogs
       \brief
       Creates new property buffer.
       \param key
-      Property identifier. If it already exists, verifies it is of the same type. otherwise throws.
+      Property identifier. If it already exists, does nothing and returns existing property.
       \param type
       Specific type of data in buffer.
-      \throws
-      std::runtime_error if the property key already exists and contains a different property then specified.
     */
     const cogs::PointCloudProperty AddProperty(const char *key, DataType type);
     /*!
       \brief
         Creates new property buffer.
       \param key
-         Property identifier. If it already exists, verifies it is of the same type. otherwise throws.
+         Property identifier. If it already exists, does nothing and returns existing property.
       \param bytes_per_point
         Number of bytes reserved for each point.
-      \throws
-        std::runtime_error if the property key already exists and contains a different property then specified.
     */
     const cogs::PointCloudProperty AddProperty(const char *key, size_t bytes_per_point);
     //! Remove a single property by key..

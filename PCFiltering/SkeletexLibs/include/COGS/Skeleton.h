@@ -5,34 +5,21 @@
 */
 #pragma once
 #include <map>
-#include <utils/GeometryStructures.h>
-
-#include <COGS/Bone.h>
+#include <Utils/GeometryStructures.h>
+#include <COGS/SkeletonPose.h>
 #include <COGS/API.h>
+
+
 
 namespace cogs
 {
-  //! Struct used for storage of specific configuration of bone transformations in a skeleton.
-  struct COGS_API Pose
-  {
-    //! Transformation matrix used for all bones in the skeleton.
-    Transform root_transform;
-    //! Per-bone specific transformations.
-    std::vector<BoneTransform> bone_transforms;
+  class Bone;
 
-    /*! \brief
-      Interpolates between this pose and target pose.
 
-      Target pose must be designed for same skeleton.
-      cogs::Transform::InterpolateWith is used for each corresponding pair of transformations.
-    */
-    void InterpolateWith(const Pose &target_pose, float target_weight, Pose *out_pose);
-  };
 
   //! 3D Graph structure, usually representing topology of a 3D model.
   class COGS_API Skeleton
   {
-    friend class Importer;
   public:
 
     //! Abstract helper class used for storage of skeleton properties.
@@ -75,27 +62,25 @@ namespace cogs
     //! Creates a copy of specified skeleton.
     Skeleton(const Skeleton &skeleton);
 
-    // #TODO remove or replace this constructor due to ambiguous meaning
-    //! Creates new skeleton which shares topology, bone captions and radiuses with source skeleton.
-    //! But has different bone head/tail positions and basis orientations.
-    Skeleton(const cogs::Skeleton &src_skeleton, const glm::vec3 &new_root_position, const std::vector<glm::vec3> &new_tail_positions);
-
     //! Creates a copy of specified skeleton.
     Skeleton &operator=(const Skeleton &skeleton);
 
     //! Destroys instance and free all its data.
     ~Skeleton();
 
+    //! Changes the name of this skeleton object.
     std::string GetName() const;
 
+    //! Returns the name of this skeleton object.
     void SetName(const std::string &new_name);
 
-    //! Returns all bones of skeleton.
+    //! Returns all bones.
     std::vector<Bone *> GetAllBones() const;
 
+    //! Returns captions of all bones.
     std::vector<std::string> GetAllBoneCaptions() const;
 
-    //! Returns all bones of skeleton.
+    //! Returns all bones that have specified captions.
     std::vector<Bone *> GetBones(const std::vector<std::string> &bone_captions) const;
 
     //! Returns bone with specified id.
@@ -140,7 +125,7 @@ namespace cogs
     void SortBySkeleton(const cogs::Skeleton &ref_skeleton);
 
     /*! /brief
-      Interpolates skeleton into target skeleton (same principle as Pose::InterpolateWith).
+      Interpolates skeleton into target skeleton (same principle as SkeletonPose::InterpolateWith).
 
       /param target_skel
       Target skeleton. Must have same number of bones and same bone names as this skeleton.
@@ -153,22 +138,26 @@ namespace cogs
     */
     void InterpolateTo(const cogs::Skeleton &target_skel, float target_weight, cogs::Skeleton *out_skeleton) const;
 
-    Pose GetActualPose() const;
-    Pose GetActualPose(const std::vector<std::string> &bone_order) const;
-    void ApplyPose(const Pose &pose, const bool ignore_root_transform = false);
+    //! Returns current skeleton pose.
+    SkeletonPose GetCurrentPose() const;
+
+    //! Returns current skeleton pose, with reordered bones.
+    SkeletonPose GetCurrentPose(const std::vector<std::string> &bone_order) const;
+
+    //! Applies pose to the skeleton bones.
+    void ApplyPose(const SkeletonPose &pose, bool ignore_root_transform = false);
 
     //! Sets default pose (pose with only identity matrices).
     void ApplyBindpose();
 
-    //! Applies current pose transformations on bones and sets pose transformations to identities.
+    //! Overwrites bind pose by current pose transformations. Current pose transformations will be identities.
     void ApplyCurrentPoseAsBindpose();
 
-
-    //! Returns specific skeleton property. If property do not exist, throws error.
+    //! Returns specific skeleton property.
     [[deprecated]]
     BaseProperty *GetProperty(const std::string &prop) const;
 
-    //! Returns specific skeleton property. If property do not exist, throws error.
+    //! Returns specific skeleton property.
     template<class T>
     [[deprecated]]
     T GetProperty(const std::string &prop) const
@@ -193,6 +182,7 @@ namespace cogs
     [[deprecated]]
     bool HasProperty(const std::string &prop) const;
 
+    //! Transformation of the entire skeleton.
     cogs::Transform transform;
 
   protected:
@@ -216,16 +206,12 @@ namespace cogs
   };
 
 
-
+  //! Converts bones of skeleton to the array of line segments ordered by bone ids.
   COGS_API std::vector<geom::LineSegment3> ToLineSegments(const cogs::Skeleton &skeleton);
 
   //! Splits skeleton into one bone skeletons.
   COGS_API std::vector<cogs::Skeleton> SplitIntoSingleBoneSkeletons(const cogs::Skeleton &skeleton);
 
-  COGS_API uint32_t FindClosestBoneToTriangle(const cogs::Skeleton &skeleton, const geom::Triangle3 &triangle);
-
-  //! Subdivides skeleton bones into segments of same lengths according their radii (greater the radius, greater the number of fragments).
-  COGS_API cogs::Skeleton TesselateSkeletonByRadiuses(const cogs::Skeleton &skeleton);
-
-  COGS_API geom::AABB3 GetAABB3(const Skeleton &skeleton);
+  //! Returns bounding box wrapping all skeleton bones.
+  COGS_API geom::Aabb3 GetAabb3(const Skeleton &skeleton);
 }

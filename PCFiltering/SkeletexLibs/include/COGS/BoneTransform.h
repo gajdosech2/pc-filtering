@@ -4,10 +4,9 @@
   Proprietary and confidential
 */
 #pragma once
-#include <COGS/Transform.h>
-
 #include <glm/glm.hpp>
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
+#include <COGS/Transform.h>
 
 
 namespace cogs
@@ -56,13 +55,13 @@ namespace cogs
     void SetLength(const float &new_length);
 
     //! Returns bone length.
-    const float &GetLength() const;
+    [[nodiscard]] const float &GetLength() const;
 
     //! Returns local transformation matrix, with origin according to the bone head position.
-    const glm::mat4 &GetHeadMat4() const;
+    [[nodiscard]] const glm::mat4 &GetHeadMat4() const;
 
     //! Returns local transformation matrix, with origin according to the bone tail position.
-    const glm::mat4 &GetTailMat4() const;
+    [[nodiscard]] const glm::mat4 &GetTailMat4() const;
 
     /*!
       \brief

@@ -22,6 +22,7 @@ void formatter()
 	int tile_size = 19;
 	formatter.Import("parts/parts_03.cogs");
 	formatter.Trim();
+	formatter.GenerateImageFiles();
 	formatter.GenerateDataFiles(tile_size);
 	formatter.GenerateTruthFile("parts/truth_03.cogs", tile_size);
 }
@@ -39,7 +40,7 @@ void processor() {
 }
 
 void visualizer() {
-	Visualization::Visualize("parts", 4);
+	Visualization::Visualize("parts", 8);
 }
 
 void generator() {

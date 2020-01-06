@@ -4,14 +4,13 @@
 
 #include "..\HeaderFiles\Visualization.h"
 #include <HIRO/HIRO.h>
-#include <HIRO/modules/GeometryUnit.h>
-#include <HIRO/modules/PointCloudUnit.h>
+#include <HIRO/modules/PointCloudResource.h>
 #include <COGS/Scan.h>
 #include <sstream>
 
 void Visualization::Visualize(std::string dataset, int size)
 {
-  hiro::SetResourceDirectory("SkeletexLibs/hiro_resources");
+  hiro::SetAssetDirectory("SkeletexLibs/assets");
   hiro::SetIntermediateDirectory("Intermediate/");
 
   hiro::Initialize();
@@ -27,8 +26,8 @@ void Visualization::Visualize(std::string dataset, int size)
     scan.Transform(glm::mat4(20));
     std::stringstream s_name;
     s_name << "PointCloudUnit" << i;
-    auto pc_unit = std::make_shared<hiro::modules::PointCloudUnit>(s_name.str(), scan);
-    hiro::AddUnit(pc_unit);
+    auto pc_unit = std::make_shared<hiro::modules::PointCloudResource>(s_name.str(), scan);
+    hiro::AddResource(pc_unit);
   }
 
   while (hiro::IsOpen())

@@ -11,8 +11,8 @@
 #include <limits>
 
 #include <glm/glm.hpp>
-//#include <utils/Meshes.h>
-#include <utils/GeometryStructures.h>
+//#include <Utils/Meshes.h>
+#include <Utils/GeometryStructures.h>
 
 #include <GEOM/API.h>
 

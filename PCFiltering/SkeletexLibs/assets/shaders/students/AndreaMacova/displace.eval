@@ -1,0 +1,303 @@
+#version 430
+#include "include/math.glsl"
+#include "api_definitions.glsl"
+
+/// INPUT
+layout (triangles, equal_spacing, ccw) in;
+layout (location = 0) in vec3 in_position[];
+layout (location = 1) in vec2 in_coord[];
+layout (location = 2) in vec3 in_normal[];
+layout (location = 3) in vec4 in_tangent[];
+layout (location = 4) in mat4 in_transform[];
+
+
+/// OUTPUT
+layout (location = 0) out vec3 out_position_eye;
+
+
+/// UNIFORMS
+layout (location = ULOC_CUSTOM_0) uniform float global_time;
+
+struct DisplaceParams
+  {
+    float height;
+    float radius;
+    float width1;
+    float width2;
+  };
+
+layout (std140, binding = UBIND_CUSTOM_1) uniform DisplaceParamsBlock { DisplaceParams params; };
+
+/// SOURCE
+vec3 GetDisplacement(in vec2 coord)
+{
+	float d, height, xa, ya, r,h,c,a,v,w,u;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r = params.radius;   //polomer
+	h = params.height;   //vyska
+	c = 3;     //fixne
+	a = 0.4;   //ovplyvnuje vysku ako pri vlnkach
+	w = params.width1;     //sirka hribika (cim vacsie, tym sirsia je "vrchna" cast a "spodna" uzsia)
+	u = params.width2;     //ovplyvnuje len "vrchnu" sirku hribika (cim vacsie, tym sirsie)
+	height = h*(cos(c*PI*d/r+(c-1)*PI)+1)/2 + h*(cos(PI*d/r)+1)/2;
+	v= (cos(PI*d/r)*(r-d))/(d+0.1)*0.1/r*w;
+	if(d<r/2)
+	{
+		v=u*v;
+	}
+	if(d>r)
+	{
+		height=0;
+		v=0;
+	}
+	xa = (coord.x - 0.5)*2;
+	ya = (coord.y - 0.5)*2;
+	return vec3 (v*xa,height,v*ya);
+}
+
+void main ()
+{
+
+	vec3 position = gl_TessCoord[0] * in_position[0] + gl_TessCoord[1] * in_position[1] + gl_TessCoord[2] * in_position[2];
+	vec2 coord = gl_TessCoord[0] * in_coord[0] + gl_TessCoord[1] * in_coord[1] + gl_TessCoord[2] * in_coord[2];
+	vec3 normal = gl_TessCoord[0] * in_normal[0] + gl_TessCoord[1] * in_normal[1] + gl_TessCoord[2] * in_normal[2];
+	vec3 tangent = (gl_TessCoord[0] * in_tangent[0] + gl_TessCoord[1] * in_tangent[1] + gl_TessCoord[2] * in_tangent[2]).xyz;
+	normal = normalize(normal);
+
+	float delta_size = 0.0;
+	if (length(tangent) > 0.01)
+	{
+		vec3 binormal = normalize(cross(normal,tangent));
+		tangent = normalize(cross(binormal,normal));
+
+		vec3 displacement_tan = GetDisplacement(coord);
+		mat3 m = inverse(mat3(tangent,normal,binormal));
+		vec3 displacement = displacement_tan*m;
+
+		position = position + displacement;
+
+		delta_size = clamp(length(displacement)*100, 0.0f, 1.0f);
+	}
+	/// filling output variables
+	out_position_eye = (in_transform[0] * vec4(position, 1.0)).xyz;
+	vec3 binormal = normalize(cross(normal,tangent.xyz));
+}
+
+/*
+///PARAMETRICKE VEKTOROVE FUNKCIE
+
+//hribik (bez vlnkovej funkcie)
+	float d, height, xa, ya, r,h,c,a,v,w,u;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.4;   //polomer
+	h=0.5;   //vyska
+	c=3;     //fixne
+	a=0.4;   //ovplyvnuje vysku ako pri vlnkach
+	w=1;     //sirka hribika (cim vacsie, tym sirsia je "vrchna" cast a "spodna" uzsia)
+	u=1;     //ovplyvnuje len "vrchnu" sirku hribika (cim vacsie, tym sirsie)
+	height = h*(cos(PI*d/r)+1)/2;
+	v= (cos(PI*d/r)*(r-d))/(d+0.1)*0.1/r*w;
+	if(d<r/2)
+	{
+		v=u*v;
+	}
+	if(d>r)
+	{
+		height=0;
+		v=0;
+	}
+	xa = (coord.x - 0.5)*2;
+	ya = (coord.y - 0.5)*2;
+	return vec3 (v*xa,height,v*ya);
+
+
+//hribik 2.0 (s vlnkovou funkciou)
+	float d, height, xa, ya, r,h,c,a,v,w,u;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.4;   //polomer
+	h=0.5;   //vyska
+	c=3;     //fixne
+	a=0.4;   //ovplyvnuje vysku ako pri vlnkach
+	w=1;     //sirka hribika (cim vacsie, tym sirsia je "vrchna" cast a "spodna" uzsia)
+	u=10;     //ovplyvnuje len "vrchnu" sirku hribika (cim vacsie, tym sirsie)
+	height = h*(cos(c*PI*d/r+(c-1)*PI)+1)/2 + h*(cos(PI*d/r)+1)/2;
+	v= (cos(PI*d/r)*(r-d))/(d+0.1)*0.1/r*w;
+	if(d<r/2)
+	{
+		v=u*v;
+	}
+	if(d>r)
+	{
+		height=0;
+		v=0;
+	}
+	xa = (coord.x - 0.5)*2;
+	ya = (coord.y - 0.5)*2;
+	return vec3 (v*xa,height,v*ya);
+
+
+//vlnky
+	float d, height, v, xa, ya, r,h,c,a,n;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.4;   //polomer
+	h=0.2;   //vyska
+	n=1;   // neparne = stredne vlnky su vyssie, parne = stredne vlnky su nizsie
+	c=4;   //pocet vlniek (resp. cast periody kosinusu
+	a=1;   //cim mensie, tym vacsi rozdiel medzi vyskami vlniek (spodna hranicna hodnota a=r pre n neparne), ak a = 1 ziaden rozdiel
+	height = pow(-1,n)*(pow(d,2)+pow(-1,n)*a*a)/(a*a)*h*(cos(c*PI*d/r+(c-1)*PI)+1)/2-pow(-1,n)*(pow(r,2)+pow(-1,n)*a*a)/(a*a)*h*(cos(c*PI*r/r+(c-1)*PI)+1)/2;
+	if(d>r)
+	{
+		height=0;
+
+	}
+	xa = (coord.x - 0.5)*2;
+	ya = (coord.y - 0.5)*2;
+	return vec3 (0,height,0);
+
+
+//supina (parabola)
+	float ya,c,h,w,p;
+	ya = 0;
+	p=0.9;  //vrchol paraboly
+	w=5;    //sirka paraboly/supiny  (cim vacsie, tym uzsia)
+	h= 0.5;  //vyska supiny
+	c=0.8;   //posun v smere y
+	float height = 0;
+	if(coord.y<-w*(coord.x-0.5)*(coord.x-0.5)+p)
+	{
+		height = h*coord.y;
+		ya = c*height;
+	}
+	return vec3 (0,height,ya);
+
+
+//pichliac (arctan)
+	float d, height, r,c,h;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.5;  //polomer
+	c=35;   //cim vyssie c, tym menej ostry vrchol
+	h=0.5;  //vyska
+	height = h*(-atan(c*d-c*r/2)+atan(c*r/2))/(2*atan(c*r/2));
+	if(d>r)
+	{
+		height=0;
+	}
+	return vec3 (0,height,0);
+
+
+//deformovany hladky pichliac (bez deformacie xd=yd=0)
+	float a = .7; //hrubka pichliaca
+	float xd =0.1; //velkost posunu v smere x
+	float yd =0.1; //velkost posunu v smere y
+	float x = a*(coord.x-0.5);
+	float y = a*(coord.y-0.5);
+	float xa, ya;
+	float h=0.7; //vyska pichliaca
+	float s=1;  //pocet vlniek v smere osi z
+	float height = h*(coord.x-1)*coord.x*coord.y*(coord.y-1)/(15*(pow(x,2)+pow(y,2))+0.1);
+	if(coord.x>1 || coord.x<0 || coord.y >1 ||coord.y<0)
+	{
+		height=0;
+	}
+	xa = sin(height*PI*s/h);
+	ya = sin(height*PI*s/h);
+	return vec3 (xd*xa,height, yd*ya);
+
+
+//deformovany pichliac (bez deformacie xd=yd=0)
+	float s, xd, yd, d, r, c, h, height, xa, ya;
+	s=5; //pocet vlniek(extremov) v smere z
+	xd=0.02; //veľkosť posunu v smere x
+	yd=0.02; //veľkosť posunu v smere y
+
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.45;
+	c=3;  //strmosť funkcie
+	h=1;  //výška
+	height = h*pow((r-d),c)/(pow(r,c));
+	xa = xd*sin(height*PI*s/h);
+	ya = yd*sin(height*PI*s/h);
+	if(d>r)
+	{
+		height=0;
+		xa=0;
+		ya=0;
+	}
+
+	return vec3 (xa,height,ya);
+
+
+
+
+//parametrizovana supina elipsoid (polgula h = rx = ry , vy=vx=0)
+	float r,h,rx, ry,sx,sy, ya,xa,vx,vy;
+	h=0.5;   //vyska elipsoidu
+	rx=0.3;  //polomer v smere x
+	ry=0.2;  //polomer v smere y
+	sx=0.4;  //x-suradnica stredu elipsy
+	sy=0.5;  //y-suradnica stredu elipsy
+	vx=0.9;     //velkost posunu v smere y
+	vy=0.5;     //velkost posunu v smere x
+	float height = 0;
+	if(pow(coord.x-sx,2)/(rx*rx)+pow(coord.y-sy,2)/(ry*ry)<=1)
+	{
+		height = h*pow(1-pow(coord.x-sx,2)/(rx*rx)-pow(coord.y-sy,2)/(ry*ry), 0.5) ;
+	}
+	ya=height*vy;
+	xa=height*vx;
+	return vec3 (xa,height,ya);
+
+
+
+
+///GLOBAL TIME - ANIMACIE
+
+// vlnky vlnenie (bez zmeny poctu vlniek)
+    float d, height,r,h,c;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.4;  //polomer vln
+	h=0.1;  //vyska vln
+	c=3;  //pocet vlniek
+	height = h*(cos(c*PI*d/r+(c-1)*PI+2*global_time)-1*(cos(c*PI+(c-1)*PI+2*global_time)));
+	if(d>r)
+	{
+		height=0;
+	}
+	return vec3 (0,height,0);
+
+//vlnenie so zmenou poctu vlniek
+	float d, height,r,h,c,v,n;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.4;  //polomer vlniek
+	h=0.1;  //vyska vlniek
+	v=0.5; //rychlost vlnenia
+	n=2; //polovica poctu vlniek
+	c=n*(1+sin(v*global_time));
+	height = h*(cos(c*PI*d/r+(c-1)*PI)-1*(cos(c*PI+(c-1)*PI)));
+	if(d>r)
+	{
+		height=0;
+	}
+	return vec3 (0,height,0);
+
+//tancujuci hribik
+	float d, height, xa, ya, r,h,c,a,v,w,p;
+	d = sqrt(pow(0.5-coord.x,2)+pow(0.5-coord.y,2));
+	r=0.4; //polomer hribiku
+	h=0.5+0.2*sin(2*global_time);  //vyska hribika
+	c=3;  //fixne
+	a=0.4; //fixne
+	p=6;  //sirka hribika
+	w=p+p*sin(global_time);
+	height = -(pow(d,2)-a*a)/(a*a)*h*(cos(c*PI*d/r+(c-1)*PI)+1)/2 + h*(cos(PI*d/r)+1)/2;;
+	v= (cos(PI*d/r)*(r-d))/(d+0.1)*0.1/r*w;
+	if(d>r)
+	{
+		height=0;
+		v=0;
+	}
+	xa = (coord.x - 0.5)*2;
+	ya = (coord.y - 0.5)*2;
+	return vec3 (v*xa,height,v*ya);
+
+*/

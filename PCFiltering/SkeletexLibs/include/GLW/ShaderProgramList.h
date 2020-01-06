@@ -4,9 +4,10 @@
   Proprietary and confidential
 */
 #pragma once
+#include <Utils/Property.h>
 #include <GLW/ShaderProgram.h>
 
-#include <utils/Property.h>
+
 
 namespace glw
 {
@@ -55,14 +56,11 @@ namespace glw
   {
   public:
 
-    static inline PProgramList Create()
-    {
-      return std::make_shared<ProgramList>();
-    };
+    static PProgramList Create();;
 
   public:
 
-    ProgramList() = default;
+    explicit ProgramList();
 
     ~ProgramList();
 
@@ -70,9 +68,9 @@ namespace glw
 
     void Reload();
 
-    void AddFromFile(std::string program_name, const ShaderPipeline &files, const std::map<std::string, std::string> replace_map = std::map<std::string, std::string>());
+    void AddFromFile(const std::string &program_name, const ShaderPipeline &files, const std::map<std::string, std::string> replace_map = std::map<std::string, std::string>());
 
-    void AddFromSource(std::string program_name, const ShaderPipeline &sources, const std::map<std::string, std::string> replace_map = std::map<std::string, std::string>());
+    void AddFromSource(const std::string &program_name, const ShaderPipeline &sources, const std::map<std::string, std::string> replace_map = std::map<std::string, std::string>());
 
     bool Exist(const std::string &program_name);
 
@@ -89,9 +87,7 @@ namespace glw
     std::map<std::string, ShaderPipeline> shader_files_;
 
     bool LinkAndShowMessages(const glw::PProgram &program_ptr, const std::string &program_name);
-    glw::PProgram &CreateProgram(const std::string &id);
+    glw::PProgram CreateProgram(const std::string &id);
   };
-
-  extern ProgramList global_program;
 
 }

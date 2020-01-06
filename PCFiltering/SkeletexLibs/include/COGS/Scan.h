@@ -32,7 +32,7 @@ namespace cogs
     using Coords = glm::uvec2;
 
     //! Creates a new scan with zero resolution and no points.
-    Scan() = default;
+    Scan();
     //! Destroys cloud, frees all property data and destroys grid.
     ~Scan() override = default;
 
@@ -133,8 +133,8 @@ namespace cogs
     glm::mat3 camera_basis_;
     ScanCameraParams camera_params_;
 
-    virtual void Resize(uint32_t new_size) override;
-    virtual void Append(const PointCloud &pc) override;
+    virtual bool Resize(uint32_t new_size) override;
+    virtual bool Append(const PointCloud &pc) override;
 
     void UpdateCameraViewMatrix();
 

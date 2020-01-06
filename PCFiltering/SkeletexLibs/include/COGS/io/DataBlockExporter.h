@@ -6,7 +6,6 @@
 #pragma once
 #include <vector>
 #include <memory>
-
 #include <COGS/io/DataBlockManager.h>
 
 
@@ -45,58 +44,94 @@ namespace cogs
       static uint8_t VERSION;
 
       //! Creates exporter with default DataBlockManager object.
-      DataBlockExporter();
+      explicit DataBlockExporter();
 
       //! Creates exporter with custom DataBlockManager object.
       DataBlockExporter(const std::shared_ptr<DataBlockManager> &datablock_manager);
 
-      //! Exports currently added data to a file.
-      bool SaveToFile(const std::string &filename);
+      virtual ~DataBlockExporter();
+      DataBlockExporter(const DataBlockExporter &) = delete;
+      DataBlockExporter &operator=(const DataBlockExporter &) = delete;
+      DataBlockExporter(const DataBlockExporter &&) = delete;
+      DataBlockExporter &operator=(const DataBlockExporter &&) = delete;
+
+      /*!
+        \brief Opens file into which the data blocks can be written.
+        \param filename Name of the file. When extension is not provided, sets to "cogs".
+        \param overwrite_existing Set to true is you wish to rewrite the file that already exists.
+        \returns True, if the file was successfully opened and can be used for writing.
+      */
+      [[nodiscard]] bool OpenFile(const std::string &filename, bool overwrite_existing = false);
+
+      //! Finishes and closes currently opened file, disabling writers.
+      void CloseFile();
 
       /*!
         \brief Adds the object to the export list.
         \param object_ref Reference to object. Must be valid until saved.
         \return Index of data block for added object type.
       */
-      DataBlockIndex AddPointCloud(const cogs::PointCloud *object_ref);
+      [[nodiscard]] DataBlockIndex WritePointCloud(const cogs::PointCloud &cloud);
+
       /*!
         \brief Adds the object to the export list.
         \param object_ref Reference to object. Must be valid until saved.
         \return Index of data block for added object type.
       */
-      DataBlockIndex AddScan(const cogs::Scan *object_ref);
+      [[nodiscard]] DataBlockIndex WriteScan(const cogs::Scan &scan);
+
       /*!
         \brief Adds the object to the export list.
         \param object_ref Reference to object. Must be valid until saved.
         \return Index of data block for added object type.
       */
-      DataBlockIndex AddMesh(const cogs::Mesh *object_ref);
+      [[nodiscard]] DataBlockIndex WriteMesh(const cogs::Mesh &mesh);
+
+    private:
+
+      struct DataBlockInfo
+      {
+        //! Type of data block that was exported.
+        DataBlockType type;
+        //! Export version of data block in the file.
+        uint8_t version;
+        //! Position of data block in the file.
+        uint64_t position;
+      };
+
+      std::ofstream file_;
+      std::streampos nav_reference_position_;
+      std::vector<DataBlockInfo> navigation_;
+      std::shared_ptr<DataBlockManager> datablock_manager_;
+      std::unordered_map<DataBlockType, DataBlockIndex> index_counter_;
+
       /*!
         \brief Creates and adds custom data block to the export list.
         \param type Type identifier of data block to create.
         \return Pointer to data block and its file index.
       */
-      std::pair<DataBlock *, DataBlockIndex> AddCustom(DataBlockType type);
+      [[nodiscard]] std::unique_ptr<cogs::io::DataBlock> WriteCustom(const DataBlockType &type);
+
       /*!
         \brief Creates and adds custom data block to the export list.
         \param type Type identifier of data block to create.
         \return Pointer to data block, static casted to the template type T, and its file index.
       */
       template <typename T>
-      std::pair<T *, DataBlockIndex> AddCustom(DataBlockType type)
+      std::unique_ptr<T> WriteCustom(const DataBlockType &type)
       {
-        auto val = AddCustom(type);
-        return std::make_pair(
-            static_cast<T *>(val.first),
-            val.second
-          );
+        auto dtb_ptr = WriteCustom(type);
+        return std::unique_ptr<T> { static_cast<T *>(dtb_ptr.release()) };
       }
 
-    private:
-      std::shared_ptr<DataBlockManager> datablock_manager_;
-      std::unordered_map<DataBlockType, DataBlockIndex> index_counter_;
-      std::vector<std::shared_ptr<DataBlock>> datablocks_;
-      void ExportHeader(std::ostream &out_s);
+      //! Exports header information.
+      void ExportHeader();
+
+      //! Exports file navigation.
+      void ExportNavigation();
+
+      //! Exports defines data block and stores its info in navigation.
+      [[nodiscard]] bool ExportDatablock(DataBlock &dtb);
     };
 
   }

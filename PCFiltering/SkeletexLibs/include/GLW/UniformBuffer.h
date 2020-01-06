@@ -44,7 +44,7 @@ namespace glw
     void Reset(const std::vector<T> &data);
 
     //! Bind this buffer onto specified shader location.
-    void Bind(gl::GLuint index);
+    void Bind(uint32_t index);
 
     /*!
       Set array of data elements into the buffer at defined position. Does not change the size of buffer.
@@ -56,10 +56,10 @@ namespace glw
       Set single data element into the buffer at defined position. Does not change the size of buffer.
       When data should be written outside buffer, writing is ignored.
     */
-    void SetData(const T &data, const uint32_t position);
+    void SetData(const T &data, const uint32_t position = 0);
 
   private:
-    gl::GLuint buffer_ = 0u;
+    uint32_t buffer_ = 0u;
     uint32_t actual_size_ = 0u;
   };
 
@@ -136,7 +136,7 @@ namespace glw
   }
 
   template<typename T>
-  void UniformBuffer<T>::Bind(gl::GLuint index)
+  void UniformBuffer<T>::Bind(uint32_t index)
   {
     gl::glBindBufferBase(gl::GLenum::GL_UNIFORM_BUFFER, index, buffer_);
   }

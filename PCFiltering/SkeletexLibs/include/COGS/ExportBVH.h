@@ -17,9 +17,10 @@ namespace cogs
   class Skeleton;
 }
 
-namespace cogs_io
+namespace cogs
 {
 
+  //! Exports skeleton bone hierarchy to BVH file.
   bool COGS_API ExportBVH( const std::string &filename, const cogs::Skeleton &skeleton);
 
 }

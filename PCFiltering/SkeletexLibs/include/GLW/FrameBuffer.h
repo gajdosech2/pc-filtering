@@ -8,7 +8,6 @@
 #include <glbinding/gl/gl.h>
 #include <string>
 #include <vector>
-
 #include <GLW/Texture.h>
 
 namespace glw
@@ -21,29 +20,46 @@ namespace glw
   {
   public:
 
+    //! Possible depth buffer types.
     enum class DepthBufferType
     {
-      none    = 0, //! no depth buffer
-      hidden  = 1, //! default render buffer
-      texture = 2  //! custom texture object
+      none    = 0, //!< No depth buffer.
+      hidden  = 1, //!< Hidden depth buffer using render buffer.
+      texture = 2  //!< Accessible depth buffer using texture object.
     };
 
+    //! Settings defining frame buffer properties.
     struct Settings
     {
-      uint32_t width = 1;
-      uint32_t height = 1;
-      uint32_t layers = 1;
-      uint32_t samples = 0;
-      DepthBufferType depth_buffer_type = DepthBufferType::hidden;
-      DepthDataFormat depth_format = DepthDataFormat::uint24_norm;
+      //! Horizontal frame buffer resolution.
+      uint32_t width{ 1 };
+      //! Vertical frame buffer resolution.
+      uint32_t height{ 1 };
+      //! Whether frame buffer should use multi-sampled attachments.
+      bool multisample_enabled{ false };
+      //! Number of samples. Used only when multi-sample enabled.
+      uint32_t multisample_samples{ 4 };
+      //! Type of depth buffer.
+      DepthBufferType depth_buffer_type{ DepthBufferType::hidden };
+      //! Data format of depth buffer. Used when depth buffer type is not DepthBufferType::none.
+      DepthDataFormat depth_format{ DepthDataFormat::uint24_norm };
+      //! Color format for every color attachment. Vector size defines number of attachments.
       std::vector<gl::GLenum> color_format;
       Settings() = default;
     };
 
-    //! Creates initialized FrameBuffer object. Returns nullptr when OpenGL version is not sufficient.
+    /*!
+      \brief
+      Creates initialized FrameBuffer object. Returns nullptr when OpenGL version is not sufficient.
+      \param settings
+        Settings used for FrameBuffer initialization.
+    */
     static PFrameBuffer Create(const FrameBuffer::Settings &settings);
 
-    //! Creates object. Needs to be initialized before use.
+    /*!
+      \brief
+      Creates object. Needs to be initialized before use.
+    */
     FrameBuffer();
 
     //! Destroys object and allocated resources.

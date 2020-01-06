@@ -42,14 +42,16 @@ namespace cogs
     {
     public:
 
-      //! Current importer version.
-      static uint8_t VERSION;
-
       //! Creates importer with default DataBlockManager object.
-      DataBlockImporter();
+      explicit DataBlockImporter();
 
       //! Creates importer with custom DataBlockManager object.
       DataBlockImporter(const std::shared_ptr<DataBlockManager> &datablock_manager);
+
+      DataBlockImporter(const DataBlockImporter &) = delete;
+      DataBlockImporter &operator=(const DataBlockImporter &) = delete;
+      DataBlockImporter(const DataBlockImporter &&) = delete;
+      DataBlockImporter &operator=(const DataBlockImporter &&) = delete;
 
       //! Opens file for reading and fetches file header information.
       bool OpenFile(const std::string &filename);
@@ -58,38 +60,25 @@ namespace cogs
       void CloseFile();
 
       //! Checks if a file is currently open.
-      bool IsFileOpen() const;
+      [[nodiscard]] bool IsFileOpen() const;
 
       //! Returns number of available all point cloud objects.
-      size_t GetNumOfPointClouds() const;
+      [[nodiscard]] size_t GetPointCloudCount() const;
 
       //! Loads object with specified index from file. Returns success.
-      bool GetPointCloud(cogs::PointCloud *out_cloud, DataBlockIndex id = 0);
+      bool ReadPointCloud(cogs::PointCloud &out_cloud, DataBlockIndex id = 0);
 
       //! Returns number of available point cloud objects with scan information.
-      size_t GetNumOfScans() const;
+      [[nodiscard]] size_t GetScanCount() const;
 
       //! Loads object with specified index from file. Returns success.
-      bool GetScan(cogs::Scan *out_scan, DataBlockIndex id = 0);
+      bool ReadScan(cogs::Scan &out_scan, DataBlockIndex id = 0);
 
       //! Returns number of available mesh objects.
-      size_t GetNumOfMeshes() const;
+      [[nodiscard]] size_t GetMeshCount() const;
 
       //! Loads object with specified index from file. Returns success.
-      bool GetMesh(cogs::Mesh *out_mesh, DataBlockIndex id = 0);
-
-      //! Returns number of available data blocks of specified type.
-      size_t GetNumOfCustoms(DataBlockType type) const;
-
-      //! Returns data block of specified type and index. Returns null when no such block exists.
-      DataBlock *GetCustom(DataBlockType type, DataBlockIndex id = 0);
-
-      //! Returns data block of specified type and index. Returns null when no such block exists.
-      template <typename T>
-      T *GetCustom(DataBlockType type, DataBlockIndex id = 0)
-      {
-        return static_cast<T *>(GetCustom(type, id));
-      }
+      bool ReadMesh(cogs::Mesh &out_mesh, DataBlockIndex id = 0);
 
     private:
 
@@ -105,8 +94,26 @@ namespace cogs
 
       std::shared_ptr<DataBlockManager> datablock_manager_;
       std::ifstream file_;
+      uint8_t file_version_;
       std::unordered_map<DataBlockType, std::vector<DataBlockInfo>> navigation_;
+
+      //! Returns number of available data blocks of specified type.
+      [[nodiscard]] size_t GetDatablockCount(const DataBlockType &type) const;
+
+      //! Returns data block of specified type and index. Returns null when no such block exists.
+      DataBlock *GoToDatablock(const DataBlockType &type, DataBlockIndex id = 0);
+
+      //! Returns data block of specified type and index. Returns null when no such block exists.
+      template <typename T>
+      T *GoToDatablock(const DataBlockType &type, DataBlockIndex id = 0)
+      {
+        return static_cast<T *>(GoToDatablock(type, id));
+      }
+
+      //! Imports header information. Returns true if header is correct and version supported.
       bool ImportHeader(std::istream &in_s);
+
+      //! Imports file navigation and stores it.
       bool ImportNavigation(std::istream &in_s);
     };
 

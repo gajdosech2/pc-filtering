@@ -97,17 +97,18 @@ namespace glw
   class GLW_API ArrayObject
   {
   public:
-    using BufferName = size_t;        //! Identifier of vertex buffer.
-    using ElementBufferName = size_t; //! Identifier of element buffer.
+    using BufferName = size_t;        //!< Identifier of vertex buffer.
+    using ElementBufferName = size_t; //!< Identifier of element buffer.
 
-    static constexpr size_t invalid_name = UINT32_MAX; //! Element buffer or vertex buffer name which do not represent valid buffer.
+    //! Element buffer or vertex buffer name which do not represent valid buffer.
+    static const BufferName INVALID_NAME { UINT32_MAX };
 
 
     //! Crate a shared pointer with new instance of ArrayObject class.
     static PArrayObject Create(const size_t vertex_count);
 
     //! Creates new object. Defined vertex count is expected for a setters of this instance.
-    ArrayObject(size_t vertex_count);
+    explicit ArrayObject(size_t vertex_count);
 
     //! Destructs array object and frees all allocated OpenGL buffers.
     ~ArrayObject();

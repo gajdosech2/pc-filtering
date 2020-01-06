@@ -1,3 +1,8 @@
+/*
+  Copyright (C) Skeletex Research, s.r.o. - All Rights Reserved
+  Unauthorized copying of this file, via any medium is strictly prohibited
+  Proprietary and confidential
+*/
 #pragma once
 #include <HIRO/Version.h>
 
@@ -11,13 +16,12 @@
 # define HIRO_API __attribute__ ((visibility("default")))
 #endif
 
-//! Global HIRO engine namespace.
+//! Global engine namespace containing core definitions.
 namespace hiro
 {
-  //! Default data modules included with HIRO build.
+  //! Default modules included directly in the library.
   namespace modules {}
 
-  //! Control structures for customization of automatically generated gui.
+  //! Control structures for customization and automatic generation of GUI.
   namespace gui {}
-
 }

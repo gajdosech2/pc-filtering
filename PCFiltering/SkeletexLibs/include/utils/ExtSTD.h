@@ -1,3 +1,8 @@
+/*
+  Copyright (C) Skeletex Research, s.r.o. - All Rights Reserved
+  Unauthorized copying of this file, via any medium is strictly prohibited
+  Proprietary and confidential
+*/
 #pragma once
 #include <optional>
 #include <vector>
@@ -313,7 +318,7 @@ namespace std_ext
     return std::find(vector.begin(), vector.end(), element) != vector.end();
   }
 
-  //! Is an element exists in the vector, returns its index.
+  //! If an element exists in the vector, returns its index.
   template <typename Type>
   std::optional<size_t> GetIndex(const Type element, const std::vector<Type> &vector)
   {
@@ -406,6 +411,21 @@ namespace std_ext
       return true;
     }
     return false;
+  }
+
+  //! Collect all indices of elements in a vector with a specified value.
+  template <typename IndicesType, typename Type>
+  std::vector<IndicesType> CollectIndices(const std::vector<Type> &vector, const Type value)
+  {
+    std::vector<IndicesType> indices;
+    for (IndicesType i = 0; i < static_cast<IndicesType>(vector.size()); ++i)
+    {
+      if (vector[i] == value)
+      {
+        indices.emplace_back(i);
+      }
+    }
+    return indices;
   }
 
 
@@ -525,30 +545,36 @@ namespace std_ext
       : Sum(vector) * (1.0f / vector.size());
   }
 
-  //! Wrapper for std::accumulate - values transformed by a function.
-  template <typename T>
+  /*!
+    \brief Wrapper for std::accumulate - https://en.cppreference.com/w/cpp/algorithm/accumulate - values transformed by a function.
+    \note This will make a sum of every element of the input vector transformed by a function plus the initial element.
+    \param vector The input vector (will be transformed by a function).
+    \param initial_value The initial_value will be added to the resulting sum.
+    \param function The function that will transform every element of the vector.
+  */
+  template <typename T, typename F>
   [[nodiscard]]
-  inline auto AccumulateValue(const std::vector<T> &vector, const T start_value)
+  inline auto Accumulate(const std::vector<T> &vector, const T initial_value, const F &function)
   {
-    return std::accumulate(vector.begin(), vector.end(), start_value);
+    return std::accumulate(vector.begin(), vector.end(), initial_value, [&function](const T total, const T value)->T { return function(value) + total; });
   }
 
   //! Sum all elements in a vector transformed by a function.
-  template <typename T>
+  template <typename T, typename F>
   [[nodiscard]]
-  inline auto SumValue(const std::vector<T> &vector)
+  inline auto Sum(const std::vector<T> &vector, const F &function)
   {
-    return AccumulateValue(vector, static_cast<T>(0));
+    return Accumulate(vector, static_cast<T>(0), function);
   }
 
-  //! Compute average element of a vector transformed by a function. In case of empty vector, return 0.
-  template <typename T>
+  //! Compute average element of a vector transformed by a function. In case of empty vector, return 0.0f.
+  template <typename T, typename F>
   [[nodiscard]]
-  inline auto AverageValue(const std::vector<T> &vector)
+  inline float Average(const std::vector<T> &vector, const F &function)
   {
     return vector.empty()
-      ? static_cast<T>(0)
-      : SumValue(vector) / (1.0f / vector.size());
+      ? 0.0f
+      : Sum(vector, function) / static_cast<float>(vector.size());
   }
 
 
@@ -574,22 +600,25 @@ namespace std_ext
   }
 
   //! Trims characters from beginning of string (left).
-  inline void TrimBegin(std::string &s, const std::string &t = WHITESPACES)
+  inline std::string &TrimBegin(std::string &s, const std::string &t = WHITESPACES)
   {
     s.erase(0, s.find_first_not_of(t));
+    return s;
   }
 
   //! Trims characters from end of string (right).
-  inline void TrimEnd(std::string &s, const std::string &t = WHITESPACES)
+  inline std::string &TrimEnd(std::string &s, const std::string &t = WHITESPACES)
   {
     s.erase(s.find_last_not_of(t) + 1);
+    return s;
   }
 
   //! Trims from both ends of string (left & right).
-  inline void Trim(std::string &s, const std::string &t = WHITESPACES)
+  inline std::string &Trim(std::string &s, const std::string &t = WHITESPACES)
   {
     TrimBegin(s, t);
     TrimEnd(s, t);
+    return s;
   }
 
   //! Trim the end of a string to removes forward and backward slashes (/, \) and add one single forward slash /.
@@ -798,6 +827,13 @@ namespace std_ext
     C result_false;
     std::partition_copy(container.begin(), container.end(), std::back_inserter(result_true), std::back_inserter(result_false), Predicate);
     return std::make_pair(result_true, result_false);
+  }
+
+  //! Creates binding for an object method with a single argument.
+  template<typename F, typename O>
+  inline auto Bind1(F method, O object)
+  {
+    return std::bind(method, object, std::placeholders::_1);
   }
 
 }

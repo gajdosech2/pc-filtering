@@ -1,3 +1,8 @@
+/*
+  Copyright (C) Skeletex Research, s.r.o. - All Rights Reserved
+  Unauthorized copying of this file, via any medium is strictly prohibited
+  Proprietary and confidential
+*/
 #pragma once
 
 #include <string>
@@ -7,7 +12,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/epsilon.hpp>
 #include <glm/gtx/norm.hpp>
-#include <utils/ExtSTD.h>
+#include <Utils/ExtSTD.h>
 
 
 

@@ -1,7 +1,8 @@
 #pragma once
 #include <algorithm>
 
-#include <utils/GeometryStructures.h>
+#include <Utils/Exceptions.h>
+#include <Utils/GeometryStructures.h>
 #include <COGS/API.h>
 
 namespace cogs
@@ -20,7 +21,7 @@ namespace cogs
     Grid() = default;
 
     //! Creates exact copy of provided grid.
-    Grid(const cogs::Grid<Type> &source)
+    explicit Grid(const cogs::Grid<Type> &source)
     {
       width_ = source.width_;
       height_ = source.height_;
@@ -87,8 +88,9 @@ namespace cogs
     //! Sets specified area in grid to a defined value.
     void Fill(const geom::URect &area, const Type value)
     {
-      if (!width_ || !height_)
+      if (width_ == 0 || height_ == 0)
       {
+        ulog::Warn("Nothing to fill. Grid size is zero.", "cogs::Grid::Fill");
         return;
       }
 
@@ -104,55 +106,55 @@ namespace cogs
     };
 
     //! Checks whether a combination of xy correspond to valid grid cell.
-    bool IsInBounds(const size_t x, const size_t y) const
+    [[nodiscard]] bool IsInBounds(const size_t x, const size_t y) const
     {
       return x < width_ && y < height_;
     }
 
     //! Returns a reference to the cell at position xy.
-    Type &At(const size_t x, const size_t y)
+    [[nodiscard]] Type &At(const size_t x, const size_t y)
     {
 #ifndef COGS_NO_ERROR_CHECKING
       if (!IsInBounds(x, y))
       {
-        throw std::range_error("Grid element index (" + std::to_string(x) + ", " + std::to_string(y) + ") out of bounds");
+        throw std_ext::OutOfBounds(x, y, "cogs::Grid::At");
       }
 #endif
       return data_[x][y];
     };
 
     //! Returns a reference to the cell at position xy.
-    const Type &At(const size_t x, const size_t y) const
+    [[nodiscard]] const Type &At(const size_t x, const size_t y) const
     {
 #ifndef COGS_NO_ERROR_CHECKING
       if (!IsInBounds(x, y))
       {
-        throw std::range_error("Grid element index (" + std::to_string(x) + ", " + std::to_string(y) + ") out of bounds");
+        throw std_ext::OutOfBounds(x, y, "cogs::Grid::At");
       }
 #endif
       return data_[x][y];
     };
 
     //! Returns a reference to the cell at position xy.
-    Type &operator()(const size_t x, const size_t y)
+    [[nodiscard]] Type &operator()(const size_t x, const size_t y)
     {
 #ifndef COGS_NO_ERROR_CHECKING
       if (!IsInBounds(x, y))
       {
-        throw std::range_error("Grid element index (" + std::to_string(x) + ", " + std::to_string(y) + ") out of bounds");
+        throw std_ext::OutOfBounds(x, y, "cogs::Grid::operator()");
       }
 #endif
       return data_[x][y];
     };
 
     //! Returns current width of grid.
-    size_t GetWidth() const
+    [[nodiscard]] size_t GetWidth() const
     {
       return width_;
     };
 
     //! Returns current height of grid.
-    size_t GetHeight() const
+    [[nodiscard]] size_t GetHeight() const
     {
       return height_;
     };
@@ -174,8 +176,8 @@ namespace cogs
 
   private:
     std::vector<std::vector<Type>> data_;
-    size_t width_ = 0;
-    size_t height_ = 0;
+    size_t width_{ 0 };
+    size_t height_{ 0 };
   };
 
 }

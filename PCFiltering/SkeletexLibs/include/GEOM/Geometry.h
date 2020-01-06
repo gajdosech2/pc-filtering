@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
 
 #include <GEOM/API.h>
 
@@ -66,7 +66,7 @@ namespace geom
   GEOM_API glm::vec3 GetProjection(const glm::vec3 &point, const Line3 &line);
 
   // return whether a primitive contains specified point
-  GEOM_API bool Contains(const AABB3 &aabb, const glm::vec3 &point);
+  GEOM_API bool Contains(const Aabb3 &aabb, const glm::vec3 &point);
 
   //float LineLineClosestsPoints(const geom::LineSegment3 &line1, const geom::LineSegment3 &line2, glm::vec3 *point1, glm::vec3 *point2);
 
@@ -76,7 +76,7 @@ namespace geom
   GEOM_API bool GetIntersection(const geom::Line3 &line, const geom::HalfPlane &half_plane, glm::vec3 *out_intersection_point);
   GEOM_API bool GetIntersection(const geom::LineSegment3 &linesegment, const geom::HalfPlane &half_plane, glm::vec3 *out_intersection_point);
   GEOM_API bool GetIntersection(const geom::Triangle3 &triangle, const geom::HalfPlane &halfplane, geom::LineSegment3 *out_intersection = nullptr);
-  GEOM_API bool GetIntersection(const geom::Line3 &line, const geom::AABB3 &aabb);
+  GEOM_API bool GetIntersection(const geom::Line3 &line, const geom::Aabb3 &aabb);
 
   GEOM_API glm::vec3 Barycentric(const glm::vec3 &p, const Triangle3 &triangle);
 

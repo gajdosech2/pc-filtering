@@ -29,6 +29,8 @@ namespace cogs
     Color3b(const Color4hex &col);
     Color3b operator+(const Color3b &col) const;
     Color3b &operator+=(const Color3b &col);
+    uint8_t *GetPtr();
+    const uint8_t *GetPtr() const;
     Color3b Mix(const Color3b &col, float weight) const;
   };
 
@@ -45,6 +47,8 @@ namespace cogs
     Color4b(const Color4hex &col);
     Color4b operator+(const Color4b &col) const;
     Color4b &operator+=(const Color4b &col);
+    uint8_t *GetPtr();
+    const uint8_t *GetPtr() const;
     Color4b Mix(const Color4b &col, float weight) const;
   };
 
@@ -92,12 +96,16 @@ namespace cogs
   {
     Color3hex() = default;
     Color3hex(const char *hex_color);
+    Color3hex &operator=(const char *hex_color);
+    Color3hex(const Color3hex &col);
+    Color3hex &operator =(const Color3hex &col);
     explicit Color3hex(const Color3b &col);
     explicit Color3hex(const Color3f &col);
     explicit Color3hex(const Color4b &col);
     explicit Color3hex(const Color4f &col);
     explicit Color3hex(const Color4hex &col);
     const char *GetPtr() const;
+
   private:
     char hex[7] = "000000";
   };
@@ -107,6 +115,9 @@ namespace cogs
   {
     Color4hex() = default;
     Color4hex(const char *hex_color);
+    Color4hex &operator=(const char *hex_color);
+    Color4hex(const Color4hex &col);
+    Color4hex &operator =(const Color4hex &col);
     explicit Color4hex(const Color3b &col);
     explicit Color4hex(const Color3f &col);
     explicit Color4hex(const Color4b &col);
@@ -123,6 +134,13 @@ namespace cogs
   COGS_API bool operator ==(const Color4f &a, const Color4f &b);
   COGS_API bool operator ==(const Color3hex &a, const Color3hex &b);
   COGS_API bool operator ==(const Color4hex &a, const Color4hex &b);
+
+  COGS_API bool operator !=(const Color3b &a, const Color3b &b);
+  COGS_API bool operator !=(const Color4b &a, const Color4b &b);
+  COGS_API bool operator !=(const Color3f &a, const Color3f &b);
+  COGS_API bool operator !=(const Color4f &a, const Color4f &b);
+  COGS_API bool operator !=(const Color3hex &a, const Color3hex &b);
+  COGS_API bool operator !=(const Color4hex &a, const Color4hex &b);
 
   COGS_API Color3f operator* (const float factor, const Color3f &col);
   COGS_API Color3f operator* (const Color3f &col, const float factor);

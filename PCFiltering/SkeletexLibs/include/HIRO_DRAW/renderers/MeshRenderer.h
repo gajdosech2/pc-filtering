@@ -1,0 +1,54 @@
+/*
+  Copyright (C) Skeletex Research, s.r.o. - All Rights Reserved
+  Unauthorized copying of this file, via any medium is strictly prohibited
+  Proprietary and confidential
+*/
+#pragma once
+#include <GLW/Texture.h>
+#include <HIRO_DRAW/renderers/GeometryRenderer.h>
+
+
+
+namespace cogs { struct Mesh; }
+
+namespace hiro::draw
+{
+
+  //! Stylization of the rendered mesh.
+  using MeshStyle = GeometryStyle;
+
+
+
+  //! Renderer used for rendering meshes.
+  class HIRO_DRAW_API MeshRenderer : public GeometryRenderer
+  {
+  public:
+    //! Creates a renderer with the specified mesh.
+    MeshRenderer(const cogs::Mesh &mesh);
+
+    MeshRenderer(const MeshRenderer &source) = delete;
+    MeshRenderer &operator=(const MeshRenderer &source) = delete;
+    MeshRenderer(MeshRenderer &&) noexcept = delete;
+    MeshRenderer &operator=(MeshRenderer &&) noexcept = delete;
+    virtual ~MeshRenderer() = default;
+
+    //! Set custom color for every point in the mesh. Used when color source set to ColorSource::custom.
+    void SetCustomColors(const std::vector<cogs::Color3f> &colors);
+    //! Test whether specified style is compatible with the object.
+    bool IsCompatibileWithStyle(const Style *style) override;
+
+  private:
+    //! Array buffer object that holds the mesh vertices.
+    glw::PArrayObject array_object_;
+    //! Name of the buffer that holds custom colors.
+    glw::ArrayObject::BufferName color_buffer_ { glw::ArrayObject::INVALID_NAME };
+  };
+
+
+
+  //! Shared pointer to an object of the type MeshStyle.
+  using PMeshStyle = std::shared_ptr<MeshStyle>;
+  //! Shared pointer to an object of the type MeshRenderer.
+  using PMeshRenderer = std::shared_ptr<MeshRenderer>;
+
+}

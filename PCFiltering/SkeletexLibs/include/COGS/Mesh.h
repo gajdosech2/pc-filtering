@@ -19,18 +19,19 @@ namespace cogs
   */
   struct COGS_API Mesh
   {
-    std::shared_ptr<PointCloud> points = nullptr;
-    std::shared_ptr<Triangulation> faces = nullptr;
-    std::shared_ptr<MaterialModel> material = nullptr;
+  public:
+    std::shared_ptr<PointCloud> points;
+    std::shared_ptr<Triangulation> faces;
+    std::shared_ptr<MaterialModel> material;
 
-    [[nodiscard]]
-    bool HasPoints() const;
+    //! Returns true when mesh has points assigned - non nullptr.
+    [[nodiscard]] bool HasPoints() const;
 
-    [[nodiscard]]
-    bool HasFaces() const;
+    //! Returns true when mesh has faces assigned - non nullptr.
+    [[nodiscard]] bool HasFaces() const;
 
-    [[nodiscard]]
-    bool HasMaterial() const;
+    //! Returns true when mesh has material assigned - non nullptr.
+    [[nodiscard]] bool HasMaterial() const;
 
     //! Import from a file. Return success.
     virtual bool Import(const std::string &filename);
@@ -38,5 +39,16 @@ namespace cogs
     //! Import to a file. Create a directory hierarchy if necessary. Return success.
     virtual bool Export(const std::string &filename) const;
   };
+
+  /*!
+    \brief Calculates tangent vectors for each point of an input mesh.
+
+    \returns
+        Array of size equal to the point count of an input mesh.
+        Each element of the array contains tangent vector in its xyz components.
+        Component w holds information about bi-tangent orientation.
+        If w is negative, bi-tangent is equal to the cross(T,N), otherwise cross(N,T).
+  */
+  std::vector<glm::vec4> COGS_API CalculateTangentArray(const cogs::Mesh &mesh);
 
 }

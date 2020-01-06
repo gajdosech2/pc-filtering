@@ -11,7 +11,7 @@
 #include <variant>
 
 #include <glm/glm.hpp>
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
 
 #include <COGS/DataType.h>
 #include <COGS/PointCloudProperty.h>
@@ -61,7 +61,7 @@ namespace cogs
     virtual bool Export(const std::string &filename) const;
 
     //! Resizes point count to the new value without initialization of data of newly created points.
-    virtual void Resize(uint32_t new_size);
+    virtual bool Resize(uint32_t new_size);
     //! Returns number of points currently stored in the cloud.
     [[nodiscard]] virtual uint32_t GetSize() const;
     //! Changes capacity of cloud. This method is not adding any points.
@@ -74,7 +74,7 @@ namespace cogs
     virtual void Clear();
     /*!
       \brief
-        Removes points with specific ids from cloud.
+        Removes points with specific indices from cloud.
 
         Every chunk of points that should be erased, is replaced with the points from the back
         of cloud. This ensures the minimal copy operations as possible.
@@ -82,8 +82,13 @@ namespace cogs
         Method changes ordering of points.
         Memory for erased points is not released, you should call ShrinkToFit afterwards,
         to free excess memory.
+      \param indices_to_erase
+        Indices of points to erase.
+      \param replacement_map
+        Optional output parameter - vector representing the mapping old_index->new_index.
     */
-    virtual void Erase(std::vector<uint32_t> ids_to_erase);
+
+    virtual bool Erase(std::vector<uint32_t> indices_to_erase, std::vector<int> *replacement_map = nullptr);
     /*!
       \brief
         Increments size of this by the size of pc and copies property data available in both.
@@ -92,7 +97,7 @@ namespace cogs
         To add also properties not currently available in this,
         use PointCloud::ClonePropertiesOf before calling this function.
     */
-    virtual void Append(const PointCloud &pc);
+    virtual bool Append(const PointCloud &pc);
 
     /*!
       \brief
@@ -203,11 +208,9 @@ namespace cogs
       \brief
         Creates new property buffer.
       \param key
-         Property identifier. If it already exists, verifies it is of the same type. otherwise throws.
+         Property identifier. If it already exists, does nothing and returns existing property.
       \param type
         Specific type of data in buffer.
-      \throws
-        std::runtime_error if the property key already exists and contains a different property then specified.
       \return
         Newly created property.
     */
@@ -216,11 +219,9 @@ namespace cogs
       \brief
         Creates new property buffer.
       \param key
-         Property identifier. If it already exists, verifies it is of the same type. otherwise throws.
+         Property identifier. If it already exists, does nothing and returns existing property.
       \param bytes_per_point
         Number of bytes reserved for each point.
-      \throws
-        std::runtime_error if the property key already exists and contains a different property then specified.
       \return
         Newly created property.
     */
@@ -285,12 +286,15 @@ namespace cogs
     std::vector<PointCloudProperty> properties_;
     std::unordered_map<PointCloudProperty::Key, size_t> property_map_;
 
-    //! Creates new property record without initialization. In the case of duplicate property, throws std::runtime_error.
-    PointCloudProperty &AddProperty(const PointCloudProperty::Key &key, const std::variant<DataType, size_t> type_or_size);
+    //! Creates new property record without initialization.
+    PointCloudProperty &AddProperty(
+      const PointCloudProperty::Key &key,
+      const std::variant<DataType, size_t> type_or_size);
     //! Converts indices to chunks. Sequential indices form a single chunk in the output.
     [[nodiscard]] std::vector<Chunk> IndicesToChunks(const std::vector<uint32_t> &indices);
     //! Creates copy commands to erase specified chunks.
-    [[nodiscard]] std::vector<CopyCommand> CreateEraseCopyCommands(std::vector<Chunk> chunks_to_erase);
+    [[nodiscard]] std::vector<CopyCommand> CreateEraseCopyCommands(
+      std::vector<Chunk> chunks_to_erases);
   };
 
 
@@ -307,8 +311,8 @@ namespace cogs
     return reinterpret_cast<T *>(GetVoidData(key));
   }
 
-  [[nodiscard]] COGS_API geom::AABB3 GetPointCloudAABB(const PointCloud &cloud);
-  COGS_API void ErasePointsOutsideAABB(const geom::AABB3 &aabb, PointCloud &cloud);
+  [[nodiscard]] COGS_API geom::Aabb3 GetPointCloudAabb(const PointCloud &cloud);
+  COGS_API void ErasePointsOutsideAabb(const geom::Aabb3 &aabb, PointCloud &cloud);
 
 }
 

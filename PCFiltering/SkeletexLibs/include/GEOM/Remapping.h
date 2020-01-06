@@ -11,8 +11,8 @@
 
 #include <glm/glm.hpp>
 #include <Eigen/Dense>
-//#include <utils/Meshes.h>
-#include <utils/ExtGLM.h>
+//#include <Utils/Meshes.h>
+#include <Utils/ExtGLM.h>
 
 #include <GEOM/API.h>
 #include <GEOM/Geometry.h>

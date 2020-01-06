@@ -37,7 +37,7 @@ namespace glw
 
   /*!
     \brief
-      Texture filtering type. Defines how colors are pulled from texture image
+      Texture filtering types. Define how colors are pulled from texture image
       when picking from between multiple texel points.
   */
   enum class Filtering
@@ -111,7 +111,7 @@ namespace glw
   class GLW_API Texture
   {
   public:
-
+    explicit Texture();
     virtual ~Texture();
     void Initialize(const gl::GLenum internal_format);
 
@@ -151,20 +151,36 @@ namespace glw
 
 
 
-  //! Two dimensional texture. Used mostly to store color images or results of internal rendering.
+//! Two dimensional texture. Used mostly to store color images or results of internal rendering.
   class GLW_API Texture2D : public Texture
   {
   public:
 
-    static PTexture2D Create(const uint32_t width, const uint32_t height, const gl::GLenum internal_format = gl::GLenum::GL_RGBA8);
-    static PTexture2D CreateLayered(const uint32_t width, const uint32_t height, const uint32_t layer_count, const gl::GLenum internal_format = gl::GLenum::GL_RGBA8);
-    static PTexture2D CreateFromFile(const std::string &image_file_name, const bool load_as_float = false);
+    static PTexture2D Create(
+      const uint32_t width,
+      const uint32_t height,
+      const gl::GLenum internal_format = gl::GLenum::GL_RGBA8);
+    static PTexture2D CreateLayered(
+      const uint32_t width,
+      const uint32_t height,
+      const uint32_t layer_count,
+      const gl::GLenum internal_format = gl::GLenum::GL_RGBA8);
+    static PTexture2D CreateFromFile(
+      const std::string &image_file_name,
+      const bool load_as_float = false);
 
   public:
     //! Creates a single 2D texture.
-    Texture2D(const uint32_t width, const uint32_t height, const gl::GLenum internal_format = gl::GLenum::GL_RGBA8);
+    Texture2D(
+      const uint32_t width,
+      const uint32_t height,
+      const gl::GLenum internal_format = gl::GLenum::GL_RGBA8);
     //! Creates array of 2D textures, represented as layers.
-    Texture2D(const uint32_t width, const uint32_t height, const uint32_t layer_count, const gl::GLenum internal_format);
+    Texture2D(
+      const uint32_t width,
+      const uint32_t height,
+      const uint32_t layer_count,
+      const gl::GLenum internal_format);
 
     virtual ~Texture2D() override;
 
@@ -173,17 +189,24 @@ namespace glw
     glm::uvec2 GetResolution();
     uint32_t GetLayerCount();
 
-    void SetData(const gl::GLenum data_format, const gl::GLenum data_type, const void *data_ptr);
-    void SetDataLayer(const uint32_t layer, const gl::GLenum data_format, const gl::GLenum data_type, const void *data_ptr);
+    void SetData(
+      const gl::GLenum data_format,
+      const gl::GLenum data_type,
+      const void *data_ptr);
+    void SetDataLayer(
+      const uint32_t layer,
+      const gl::GLenum data_format,
+      const gl::GLenum data_type,
+      const void *data_ptr);
 
-    bool SaveToFile(const std::string &image_file_name, const bool confirm_on_overwrite = true);
+    bool SaveToFile(const std::string &image_file_name);
 
   protected:
 
     gl::GLenum GetTarget() override;
     void ReserveMemory() override;
   private:
-    gl::GLenum target_ = gl::GLenum::GL_TEXTURE_2D;
+    const gl::GLenum target_;
     uint32_t width_ = 0, height_ = 0;
     uint32_t layers_ = 1;
   };
@@ -194,11 +217,20 @@ namespace glw
 
 
 
-  //! Similar to Texture2D, uses multi-sampling for anti-aliasing effects.
+  /*!
+    \brief Similar to Texture2D, uses multi-sampling for anti-aliasing effects.
+
+    .. hint::
+        When used in shader it must be decalred as `sampler2DMS` and accessed via `texelFetch()`.
+  */
   class GLW_API Texture2dMultisample : public Texture
   {
   public:
-    Texture2dMultisample(const uint32_t width, const uint32_t height, const gl::GLenum internal_format, const uint8_t sample_count);
+    Texture2dMultisample(
+      const uint32_t width,
+      const uint32_t height,
+      const gl::GLenum internal_format,
+      const uint8_t sample_count);
     uint8_t GetSampleCount();
     uint32_t GetWidth();
     uint32_t GetHeight();
@@ -209,8 +241,7 @@ namespace glw
     gl::GLenum GetTarget() override;
     void ReserveMemory() override;
   private:
-    //In shader sampler2DMS and texelFetch() required.
-    gl::GLenum target_ = gl::GLenum::GL_TEXTURE_2D_MULTISAMPLE;
+    const gl::GLenum target_ = gl::GLenum::GL_TEXTURE_2D_MULTISAMPLE;
     uint32_t width_ = 0, height_ = 0;
     uint8_t sample_count_ = 0;
   };

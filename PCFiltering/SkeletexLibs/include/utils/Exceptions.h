@@ -1,6 +1,12 @@
+/*
+  Copyright (C) Skeletex Research, s.r.o. - All Rights Reserved
+  Unauthorized copying of this file, via any medium is strictly prohibited
+  Proprietary and confidential
+*/
 #pragma once
 
 #include <stdexcept>
+#include <Utils/Ulog.h>
 
 
 
@@ -24,6 +30,16 @@ namespace std_ext
   {
   public:
     AuthenticationError(const std::string &description) : std::runtime_error(description) {}
+  };
+
+  class OutOfBounds : public std::out_of_range
+  {
+  public:
+    OutOfBounds(size_t x, size_t y, std::string caller)
+      : std::out_of_range("Grid element index (" + std::to_string(x) + ", " + std::to_string(y) + ") out of bounds")
+    {
+      ulog::Crash(what(), caller);
+    }
   };
 
 }

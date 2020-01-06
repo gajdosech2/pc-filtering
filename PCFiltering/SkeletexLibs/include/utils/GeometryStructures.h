@@ -1,9 +1,14 @@
+/*
+  Copyright (C) Skeletex Research, s.r.o. - All Rights Reserved
+  Unauthorized copying of this file, via any medium is strictly prohibited
+  Proprietary and confidential
+*/
 #pragma once
 #include <stdexcept>
 
 #include <glm/glm.hpp>
-#include <utils/ExtGLM.h>
-#include <utils/Property.h>
+#include <Utils/ExtGLM.h>
+#include <Utils/Property.h>
 
 
 
@@ -63,10 +68,6 @@ namespace geom
 
     LineSegment() = default;
 
-    LineSegment(float x1, float y1, float x2, float y2)
-      : point1(Vec(x1, y1)), point2(Vec(x2, y2))
-    {};
-
     LineSegment(const Vec &init_point1, const Vec &init_point2)
       : point1(init_point1), point2(init_point2)
     {};
@@ -97,10 +98,32 @@ namespace geom
   };
 
   //! Definition of a line segment in a 2 dimensional space.
-  using LineSegment2 = LineSegment<2>;
+  struct LineSegment2 : public LineSegment<2>
+  {
+    LineSegment2() = default;
+
+    LineSegment2(float x1, float y1, float x2, float y2)
+      : LineSegment(Vec(x1, y1), Vec(x2, y2))
+    { };
+
+    LineSegment2(const Vec &init_point1, const Vec &init_point2)
+      : LineSegment(init_point1, init_point2)
+    {};
+  };
 
   //! Definition of a line segment in a 3 dimensional space.
-  using LineSegment3 = LineSegment<3>;
+  struct LineSegment3 : public LineSegment<3>
+  {
+    LineSegment3() = default;
+
+    LineSegment3(float x1, float y1, float z1, float x2, float y2, float z2)
+      : LineSegment(Vec(x1, y1, z1), Vec(x2, y2, z2))
+    { };
+
+    LineSegment3(const Vec &init_point1, const Vec &init_point2)
+      : LineSegment(init_point1, init_point2)
+    {};
+  };
 
   //! Template line in an arbitrary dimension.
   template <size_t N>
@@ -135,10 +158,10 @@ namespace geom
   };
 
   //! Definition of a ray in a 2 dimensional space.
-  using Ray2 = Line<2>;
+  using Ray2 = Ray<2>;
 
   //! Definition of a ray in a 3 dimensional space.
-  using Ray3 = Line<3>;
+  using Ray3 = Ray<3>;
 
   //! Template spheroid of in an arbitrary dimension.
   template <int N, typename T>
@@ -366,14 +389,14 @@ namespace geom
 
   //! Template axis aligned bounding box in an arbitrary dimension.
   template <int dimensions, typename Type>
-  struct TAABB
+  struct TAabb
   {
     using Vec = glm::vec<dimensions, Type, glm::highp>;
     Vec min = Vec(std::numeric_limits<Type>::max());
     Vec max = Vec(std::numeric_limits<Type>::lowest());
 
-    TAABB() {};
-    TAABB(const Vec &corner1, const Vec &corner2)
+    TAabb() {};
+    TAabb(const Vec &corner1, const Vec &corner2)
     {
       min = (glm::min)(corner1, corner2);
       max = (glm::max)(corner1, corner2);
@@ -424,7 +447,7 @@ namespace geom
     };
 
     //! Enlarges aabb so that it covers also area of specified aabb.
-    void Include(const TAABB<dimensions, Type> &aabb)
+    void Include(const TAabb<dimensions, Type> &aabb)
     {
       min = glm::min(min, aabb.min);
       max = glm::max(max, aabb.max);
@@ -437,9 +460,9 @@ namespace geom
     }
 
     //! Returns smaller bounding box computed as an intersection.
-    TAABB<dimensions, Type> GetIntersection(const TAABB<dimensions, Type> &aabb) const
+    TAabb<dimensions, Type> GetIntersection(const TAabb<dimensions, Type> &aabb) const
     {
-      TAABB<dimensions, Type> result;
+      TAabb<dimensions, Type> result;
 
       result.min = glm::max(min, aabb.min);
       result.max = glm::min(max, aabb.max);
@@ -448,7 +471,7 @@ namespace geom
     }
 
     //! Checks if aabb has an intersection with defined bounding box.
-    bool AreIntersected(const TAABB<dimensions, Type> &aabb) const
+    bool AreIntersected(const TAabb<dimensions, Type> &aabb) const
     {
       return
         aabb.min.x < max.x && min.x < aabb.max.x
@@ -475,84 +498,91 @@ namespace geom
       max = Vec(std::numeric_limits<Type>::lowest());
     }
 
-    TAABB<dimensions, Type> &operator+=(const TAABB<dimensions, Type> &other)
+    //! Inflate in all directions.
+    void Inflate(float d)
+    {
+      min -= d;
+      max += d;
+    }
+
+    TAabb<dimensions, Type> &operator+=(const TAabb<dimensions, Type> &other)
     {
       min += other.min;
       max += other.max;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator+=(const Type &other)
+    TAabb<dimensions, Type> &operator+=(const Type &other)
     {
       min += other;
       max += other;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator+=(const Vec &vector)
+    TAabb<dimensions, Type> &operator+=(const Vec &vector)
     {
       min += vector;
       max += vector;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator-=(const TAABB<dimensions, Type> &other)
+    TAabb<dimensions, Type> &operator-=(const TAabb<dimensions, Type> &other)
     {
       min -= other.min;
       max -= other.max;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator-=(const Type &other)
+    TAabb<dimensions, Type> &operator-=(const Type &other)
     {
       min -= other;
       max -= other;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator-=(const Vec &vector)
+    TAabb<dimensions, Type> &operator-=(const Vec &vector)
     {
       min -= vector;
       max -= vector;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator*=(const Type &factor)
+    TAabb<dimensions, Type> &operator*=(const Type &factor)
     {
       min *= factor;
       max *= factor;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator*(const Type &factor)
+    TAabb<dimensions, Type> &operator*(const Type &factor)
     {
       min *= factor;
       max *= factor;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator*=(const Vec &vector)
+    TAabb<dimensions, Type> &operator*=(const Vec &vector)
     {
       min *= vector;
       max *= vector;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator/=(const Type &divisor)
+    TAabb<dimensions, Type> &operator/=(const Type &divisor)
     {
       min /= divisor;
       max /= divisor;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator/(const Type &divisor)
+    TAabb<dimensions, Type> &operator/(const Type &divisor)
     {
       min /= divisor;
       max /= divisor;
       return *this;
     };
 
-    TAABB<dimensions, Type> &operator/=(const Vec &vector)
+    TAabb<dimensions, Type> &operator/=(const Vec &vector)
     {
       min /= vector;
       max /= vector;
@@ -561,11 +591,12 @@ namespace geom
 
   };
 
-  //! Definition of a 2 dimensional AABB.
-  using AABB2 = TAABB<2, float>;
+  //! Two dimensional axis aligned bounding box.
+  using Aabb2 = TAabb<2, float>;
 
-  //! Definition of a 3 dimensional AABB.
-  using AABB3 = TAABB<3, float>;
+  //! Three dimensional axis aligned bounding box.
+  using Aabb3 = TAabb<3, float>;
+
 
   //! Definition of a 3 dimensional plane.
   struct Plane
