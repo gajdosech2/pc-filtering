@@ -4,6 +4,11 @@ PC-Filtering
 Links
 -----
 
+*Required ignored files:*
+Model/DataFiles (.csv)
+PCFiltering/DataSets (.cogs)
+PCFiltering/Visualizations (.imgs)
+
 *Neural Networks:*
 
 *Nana GUI:*
