@@ -43,7 +43,7 @@ void processor()
 
 void visualizer()
 {
-  Visualization::Visualize("parts", 8);
+  Visualization::Visualize("bmw", 1);
 }
 
 void generator()
@@ -55,10 +55,10 @@ int main()
 {
   //FormateGUI::RunNana();
   //cutter();
-  formatter();
+  //formatter();
   //imager();
   //processor();
-  //visualizer();
+  visualizer();
   //generator();
   return 0;
 }
