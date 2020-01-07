@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="SourceFiles\FormatterGUI.cpp" />
     <ClCompile Include="SourceFiles\ImageGenerator.cpp" />
-    <ClCompile Include="SourceFiles\NeuralNetworkFormatter.cpp" />
+    <ClCompile Include="SourceFiles\DataFormatter.cpp" />
     <ClCompile Include="SourceFiles\PCFiltering.cpp" />
     <ClCompile Include="SourceFiles\PredictionProcessor.cpp" />
     <ClCompile Include="SourceFiles\SyntheticDataGenerator.cpp" />
@@ -31,7 +31,7 @@
   <ItemGroup>
     <ClInclude Include="HeaderFiles\FormatterGUI.h" />
     <ClInclude Include="HeaderFiles\ImageGenerator.h" />
-    <ClInclude Include="HeaderFiles\NeuralNetworkFormatter.h" />
+    <ClInclude Include="HeaderFiles\DataFormatter.h" />
     <ClInclude Include="HeaderFiles\PointFeatures.h" />
     <ClInclude Include="HeaderFiles\PredictionProcessor.h" />
     <ClInclude Include="HeaderFiles\SyntheticDataGenerator.h" />
