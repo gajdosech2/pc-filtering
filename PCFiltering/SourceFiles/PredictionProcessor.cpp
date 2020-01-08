@@ -45,9 +45,9 @@ std::map<int, int> PredictionProcessor::ReadPredictionFile(std::string predictio
     while (getline(prediction_file, line))
     {
       std::istringstream stream(line);
-      int index, value;
-      char delimiter, end;
-      stream >> index >> delimiter >> value;
+      int counter, index, value;
+      char del1, del2, end;
+      stream >> counter >> del1 >> index >> del2 >> value;
       res[index] = value;
     }
     prediction_file.close();

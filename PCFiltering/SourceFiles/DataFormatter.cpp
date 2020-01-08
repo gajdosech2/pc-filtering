@@ -10,7 +10,7 @@
 
 const std::string DATASETS_ROOT = "DataSets/";
 const std::string DATA_FILES_ROOT = "../Model/DataFiles/";
-const int FILE_LIMIT = 150000;
+const int FILE_LIMIT = 15000;
 
 DataFormatter::DataFormatter(std::string path) : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY)
 {

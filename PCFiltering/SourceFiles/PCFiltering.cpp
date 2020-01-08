@@ -10,9 +10,9 @@
 void cutter()
 {
   WindowCutter cutter;
-  cutter.Import("corn/corn_10.cogs");
-  cutter.Trim();
-  cutter.Cut(1220, 950, 1320, 1050);
+  cutter.Import("fruit/truth_02.cogs");
+  cutter.Cut(1200, 1000, 2000, 1500);
+  //cutter.Trim();
   cutter.Export();
 }
 
@@ -20,30 +20,30 @@ void formatter()
 {
   DataFormatter formatter;
   int tile_size = 19;
-  formatter.Import("bmw/bmw_01.cogs");
+  formatter.Import("fruit/fruit_01.cogs");
   formatter.Trim();
-  formatter.GenerateImageFiles();
+  //formatter.GenerateImageFiles();
   formatter.GenerateDataFiles(tile_size);
-  formatter.GenerateTruthFile("bmw/truth_01.cogs", tile_size);
+  formatter.GenerateTruthFile("fruit/truth_01.cogs", tile_size);
 }
 
 void imager()
 {
   DataFormatter formatter;
-  formatter.Import("small/toilet_01.cogs");
-  formatter.Trim();
+  formatter.Import("fruit/fruit_02EXPORT.cogs");
+  //formatter.Trim();
   formatter.GenerateImageFiles();
 }
 
 void processor()
 {
   PredictionProcessor processor;
-  processor.ProcessPrediction("parts_02_neuron_prediction.csv", "parts/parts_02.cogs");
+  processor.ProcessPrediction("fruit_02_truth.csv", "fruit/fruit_02.cogs");
 }
 
 void visualizer()
 {
-  Visualization::Visualize("bmw", 1);
+  Visualization::Visualize("fruit", 3);
 }
 
 void generator()
