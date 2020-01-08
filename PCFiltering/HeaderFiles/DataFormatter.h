@@ -40,6 +40,7 @@ public:
   void GenerateImageFiles();
   void GenerateDataFiles(int tile_size, int step_size = 1);
   void GenerateTruthFile(std::string truth_path, int tile_size, int step_size = 1);
+  void GenerateSegmentationMask(std::string truth_path);
   TrimValues FindTrimValues();
   void Trim(TrimValues trim_values);
   void Trim();

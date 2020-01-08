@@ -10,7 +10,7 @@
 
 const std::string DATASETS_ROOT = "DataSets/";
 const std::string DATA_FILES_ROOT = "../Model/DataFiles/";
-const int FILE_LIMIT = 15000;
+const int FILE_LIMIT = 1000000;
 
 DataFormatter::DataFormatter(std::string path) : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY)
 {
@@ -153,7 +153,7 @@ void DataFormatter::GenerateDataFiles(int tile_size, int step_size)
   size_t height = data_.size();
   size_t width = data_[0].size();
   int outer_pad = tile_size / 2;
-  int counter = 0;
+  long counter = 0;
   size_t size = (height - 2 * outer_pad) * (width - 2 * outer_pad);
   auto path = DATA_FILES_ROOT + file_name_ + "_data";
   bool outer_dir_created = _mkdir(DATA_FILES_ROOT.c_str());
@@ -161,10 +161,6 @@ void DataFormatter::GenerateDataFiles(int tile_size, int step_size)
   bool dir_created = _mkdir(path.c_str());
   for (uint32_t i = outer_pad; i < height - outer_pad; i += step_size)
   {
-    if (counter > FILE_LIMIT)
-    {
-      break;
-    }
     for (uint32_t j = outer_pad; j < width - outer_pad; j += step_size, counter++)
     {
       if (counter % 1000 == 0)
@@ -205,14 +201,10 @@ void DataFormatter::GenerateTruthFile(std::string truth_path, int tile_size, int
   prediction.open(DATA_FILES_ROOT + file_name_ + "_truth.csv");
   size_t height = data_.size();
   size_t width = data_[0].size();
-  int counter = 0;
+  long counter = 0;
   int delete_count = 0;
   for (uint32_t i = outer_pad; i < height - outer_pad; i += step_size)
   {
-    if (counter > FILE_LIMIT)
-    {
-      break;
-    }
     for (uint32_t j = outer_pad; j < width - outer_pad; j += step_size, counter++)
     {
       if (data_[i][j].intensity > EMPTY_POINT_INTENSITY)
@@ -269,10 +261,24 @@ void DataFormatter::Pad(int size)
   data_ = new_data;
 }
 
+void DataFormatter::GenerateSegmentationMask(std::string truth_path)
+{
+  DataFormatter truth(truth_path);
+  auto truth_data = truth.GetData();
+  if (truth_data.size() != data_.size() || truth_data[0].size() != data_[0].size())
+  {
+    truth.Trim(last_trim_values_);
+    //truth.Pad((int)data_.size());
+    truth_data = truth.GetData();
+  }
+  ImageGenerator image_generator(file_name_ + "_truth", &truth_data);
+  image_generator.GenerateBinaryMap();
+}
+
 void DataFormatter::GenerateImageFiles()
 {
   ImageGenerator image_generator(file_name_, &data_);
-  image_generator.GenerateBinaryMap();
+  //image_generator.GenerateBinaryMap();
   image_generator.GenerateGrayMap(max_intensity_, min_intensity_);
   image_generator.GenerateNormalMap(max_normal_, min_normal_);
   image_generator.GenerateDepthMap(max_depth_, min_depth_);

@@ -6,13 +6,14 @@
 #include "..\HeaderFiles\PredictionProcessor.h"
 #include "..\HeaderFiles\SyntheticDataGenerator.h"
 #include <iostream>
+#include <iomanip>
+#include <sstream> 
 
 void cutter()
 {
   WindowCutter cutter;
-  cutter.Import("fruit/truth_02.cogs");
-  cutter.Cut(1200, 1000, 2000, 1500);
-  //cutter.Trim();
+  cutter.Import("bmw/bmw_06.cogs");
+  cutter.Cut(900, 1150, 2000, 1300);
   cutter.Export();
 }
 
@@ -20,30 +21,43 @@ void formatter()
 {
   DataFormatter formatter;
   int tile_size = 19;
-  formatter.Import("fruit/fruit_01.cogs");
-  formatter.Trim();
-  //formatter.GenerateImageFiles();
+  formatter.Import("fruit/fruit_05.cogs");
   formatter.GenerateDataFiles(tile_size);
-  formatter.GenerateTruthFile("fruit/truth_01.cogs", tile_size);
+  formatter.GenerateTruthFile("fruit/truth_05.cogs", tile_size);
 }
 
 void imager()
 {
   DataFormatter formatter;
-  formatter.Import("fruit/fruit_02EXPORT.cogs");
-  //formatter.Trim();
+  formatter.Import("full_bmw/bmw_13.cogs");
+  formatter.Trim();
   formatter.GenerateImageFiles();
+  formatter.GenerateSegmentationMask("full_bmw/truth_13.cogs");
+}
+
+void batch_imager()
+{
+    for (int i = 1; i <= 12; i++) {
+        std::stringstream ss;
+        ss << std::setfill('0') << std::setw(2) << i;
+        std::string s = ss.str();
+        DataFormatter formatter;
+        formatter.Import("corn/corn_" + s + ".cogs");
+        formatter.Trim();
+        formatter.GenerateImageFiles();
+        formatter.GenerateSegmentationMask("corn/truth_corn_" + s + ".cogs");
+    }
 }
 
 void processor()
 {
   PredictionProcessor processor;
-  processor.ProcessPrediction("fruit_02_truth.csv", "fruit/fruit_02.cogs");
+  processor.ProcessPrediction("fruit_05_prediction.csv", "fruit/fruit_05.cogs");
 }
 
 void visualizer()
 {
-  Visualization::Visualize("fruit", 3);
+  Visualization::Visualize("fruit", 6);
 }
 
 void generator()
@@ -57,8 +71,9 @@ int main()
   //cutter();
   //formatter();
   //imager();
+  batch_imager();
   //processor();
-  visualizer();
+  //visualizer();
   //generator();
   return 0;
 }

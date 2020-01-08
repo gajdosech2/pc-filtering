@@ -3,13 +3,13 @@
 #include <algorithm>
 #include <direct.h>
 
-const std::string VISUALIZATIONS_ROOT = "Visualizations/";
+const std::string IMAGES_ROOT = "Images/";
 
 ImageGenerator::ImageGenerator(std::string file_name, std::vector<std::vector<PointFeatures>> *data)
 {
 	this->data_ = data;
 	this->file_name_ = file_name;
-	bool directory_made = _mkdir(VISUALIZATIONS_ROOT.c_str());
+	bool directory_made = _mkdir(IMAGES_ROOT.c_str());
 }
 
 bool ImageGenerator::GenerateBinaryMap()
@@ -21,7 +21,7 @@ bool ImageGenerator::GenerateBinaryMap()
 	size_t height = data_->size();
 	size_t width = (*data_)[0].size();
 	std::ofstream image;
-	image.open(VISUALIZATIONS_ROOT + file_name_ + "_bitmap.pbm");
+	image.open(IMAGES_ROOT + file_name_ + "_bitmap.pbm");
 	image << "P1" << std::endl;
 	image << width << " " << height << std::endl;
 	for (uint32_t i = 0; i < height; i++)
@@ -46,7 +46,7 @@ bool ImageGenerator::GenerateDepthMap(float max_depth, float min_depth)
 	size_t height = data_->size();
 	size_t width = (*data_)[0].size();
 	std::ofstream image;
-	image.open(VISUALIZATIONS_ROOT + file_name_ + "_depthmap.pgm");
+	image.open(IMAGES_ROOT + file_name_ + "_depthmap.pgm");
 	image << "P2" << std::endl;
 	image << width << " " << height << std::endl;
 	image << gray_levels << std::endl;
@@ -76,7 +76,7 @@ bool ImageGenerator::GenerateGrayMap(float max_intensity, float min_intensity)
 	size_t height = data_->size();
 	size_t width = (*data_)[0].size();
 	std::ofstream image;
-	image.open(VISUALIZATIONS_ROOT + file_name_ + "_graymap.pgm");
+	image.open(IMAGES_ROOT + file_name_ + "_graymap.pgm");
 	image << "P2" << std::endl;
 	image << width << " " << height << std::endl;
 	image << gray_levels << std::endl;
@@ -101,7 +101,7 @@ bool ImageGenerator::GenerateNormalMap(float max_normal, float min_normal)
 	size_t height = data_->size();
 	size_t width = (*data_)[0].size();
 	std::ofstream image;
-	image.open(VISUALIZATIONS_ROOT + file_name_ + "_normalmap.ppm");
+	image.open(IMAGES_ROOT + file_name_ + "_normalmap.ppm");
 	image << "P3" << std::endl;
 	image << width << " " << height << std::endl;
 	image << 255 << std::endl;
