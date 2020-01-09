@@ -34,7 +34,7 @@ struct TrimValues
 class DataFormatter
 {
 public:
-  DataFormatter() : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY) {};
+  DataFormatter() : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY), min_depth_(INFINITY), max_depth_(-INFINITY) {};
   DataFormatter(std::string path);
   bool Import(std::string path);
   void GenerateImageFiles();

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <algorithm>
 #include <direct.h>
+#include <iostream>
 
 const std::string IMAGES_ROOT = "Images/";
 
@@ -50,14 +51,20 @@ bool ImageGenerator::GenerateDepthMap(float max_depth, float min_depth)
 	image << "P2" << std::endl;
 	image << width << " " << height << std::endl;
 	image << gray_levels << std::endl;
+	float offset = 0;
+	if (min_depth < 0) {
+		offset = -min_depth;
+		max_depth += offset;
+		min_depth = 0;
+	}
 	float a = (gray_levels * 2) / (max_depth - min_depth);
 	float b = (gray_levels * 2) - a * max_depth;
 	for (uint32_t i = 0; i < height; i++)
 	{
 		for (uint32_t j = 0; j < width; j++)
 		{
-			int normalized_depth = (int)(a * (*data_)[i][j].pos_z + b);
-			normalized_depth = std::max(25, std::min(normalized_depth, 255));
+			int normalized_depth = (int)(a * ((*data_)[i][j].pos_z + offset) + b);
+			normalized_depth = std::max(0, std::min(normalized_depth, 255));
 			image << normalized_depth << " ";
 		}
 		image << std::endl;

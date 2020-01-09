@@ -12,8 +12,8 @@
 void cutter()
 {
   WindowCutter cutter;
-  cutter.Import("bmw/bmw_06.cogs");
-  cutter.Cut(900, 1150, 2000, 1300);
+  cutter.Import("toilet/truth_02.cogs");
+  cutter.Cut(350, 0, 800, 1111);
   cutter.Export();
 }
 
@@ -29,10 +29,10 @@ void formatter()
 void imager()
 {
   DataFormatter formatter;
-  formatter.Import("full_bmw/bmw_13.cogs");
+  formatter.Import("toilet/toilet_03.cogs");
   formatter.Trim();
   formatter.GenerateImageFiles();
-  formatter.GenerateSegmentationMask("full_bmw/truth_13.cogs");
+  formatter.GenerateSegmentationMask("toilet/truth_03.cogs");
 }
 
 void batch_imager()
@@ -52,12 +52,12 @@ void batch_imager()
 void processor()
 {
   PredictionProcessor processor;
-  processor.ProcessPrediction("fruit_05_prediction.csv", "fruit/fruit_05.cogs");
+  processor.ProcessPrediction("fruit_01_prediction_rfc.csv", "fruit/fruit_01.cogs");
 }
 
 void visualizer()
 {
-  Visualization::Visualize("fruit", 6);
+  Visualization::Visualize("toilet", 2);
 }
 
 void generator()
@@ -70,8 +70,8 @@ int main()
   //FormateGUI::RunNana();
   //cutter();
   //formatter();
-  //imager();
-  batch_imager();
+  imager();
+  //batch_imager();
   //processor();
   //visualizer();
   //generator();
