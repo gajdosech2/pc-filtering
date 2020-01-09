@@ -12,8 +12,8 @@
 void cutter()
 {
   WindowCutter cutter;
-  cutter.Import("toilet/truth_02.cogs");
-  cutter.Cut(350, 0, 800, 1111);
+  cutter.Import("apple/apple_08.cogs");
+  cutter.Cut(1223, 1001, 1286, 1064);
   cutter.Export();
 }
 
@@ -29,10 +29,10 @@ void formatter()
 void imager()
 {
   DataFormatter formatter;
-  formatter.Import("toilet/toilet_03.cogs");
+  formatter.Import("apple/apple_13.cogs");
   formatter.Trim();
   formatter.GenerateImageFiles();
-  formatter.GenerateSegmentationMask("toilet/truth_03.cogs");
+  //formatter.GenerateSegmentationMask("toilet/truth_03.cogs");
 }
 
 void batch_imager()
@@ -57,7 +57,7 @@ void processor()
 
 void visualizer()
 {
-  Visualization::Visualize("toilet", 2);
+  Visualization::Visualize("apple", 12);
 }
 
 void generator()
