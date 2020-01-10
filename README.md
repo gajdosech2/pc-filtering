@@ -6,7 +6,6 @@ Links
 
 *Ignored files:*
 - Model/DataFiles (.csv)
-- PCFiltering/DataSets (.cogs)
 - PCFiltering/Visualizations (.imgs)
 
 *Neural Networks:*
