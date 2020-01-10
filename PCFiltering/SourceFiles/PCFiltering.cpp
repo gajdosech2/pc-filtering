@@ -29,7 +29,7 @@ void formatter()
 void imager()
 {
   DataFormatter formatter;
-  formatter.Import("apple/apple_13.cogs");
+  formatter.Import("toilet/toilet_04.cogs");
   formatter.Trim();
   formatter.GenerateImageFiles();
   //formatter.GenerateSegmentationMask("toilet/truth_03.cogs");
@@ -57,7 +57,7 @@ void processor()
 
 void visualizer()
 {
-  Visualization::Visualize("apple", 12);
+  Visualization::Visualize("fruit", 10);
 }
 
 void generator()
