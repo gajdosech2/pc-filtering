@@ -4,10 +4,10 @@ PC-Filtering
 Links
 -----
 
-*Required ignored files:*
-Model/DataFiles (.csv)
-PCFiltering/DataSets (.cogs)
-PCFiltering/Visualizations (.imgs)
+*Ignored files:*
+- Model/DataFiles (.csv)
+- PCFiltering/DataSets (.cogs)
+- PCFiltering/Visualizations (.imgs)
 
 *Neural Networks:*
 
@@ -17,7 +17,6 @@ PCFiltering/Visualizations (.imgs)
 *TensorFlow:*
 
 *Keras:*
-
 
 *Python Documentation:*
  - https://stackoverflow.com/questions/3898572/what-is-the-standard-python-docstring-format
