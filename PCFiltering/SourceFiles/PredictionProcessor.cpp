@@ -9,7 +9,7 @@
 #include <sstream>
 
 const std::string DATASETS_ROOT = "DataSets/";
-const std::string DATA_FILES_ROOT = "../Model/DataFiles/";
+const std::string DATA_FILES_ROOT = "../Models/DataFiles/";
 
 void PredictionProcessor::ProcessPrediction(std::string prediction_file_path, std::string cogs_file_path)
 {
@@ -38,6 +38,7 @@ std::map<int, int> PredictionProcessor::ReadPredictionFile(std::string predictio
 {
   std::map<int, int> res;
   prediction_file_path = DATA_FILES_ROOT + prediction_file_path;
+  std::cout << prediction_file_path << std::endl;
   std::ifstream prediction_file(prediction_file_path);
   if (prediction_file.is_open())
   {

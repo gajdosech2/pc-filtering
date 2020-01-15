@@ -52,7 +52,7 @@ void batch_imager()
 void processor()
 {
   PredictionProcessor processor;
-  processor.ProcessPrediction("fruit_01_prediction_rfc.csv", "fruit/fruit_01.cogs");
+  processor.ProcessPrediction("fruit_01_prediction_svm.csv", "fruit/fruit_01.cogs");
 }
 
 void visualizer()
@@ -70,9 +70,9 @@ int main()
   //FormateGUI::RunNana();
   //cutter();
   //formatter();
-  imager();
+  //imager();
   //batch_imager();
-  //processor();
+  processor();
   //visualizer();
   //generator();
   return 0;
