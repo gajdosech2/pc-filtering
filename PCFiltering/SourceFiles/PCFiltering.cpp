@@ -72,9 +72,10 @@ int main()
   //formatter();
   //imager();
   //batch_imager();
-  processor();
+  //processor();
   //visualizer();
   //generator();
+  Visualization::Hiro();
   return 0;
 }
 

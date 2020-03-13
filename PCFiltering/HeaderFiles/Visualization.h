@@ -5,4 +5,5 @@ class Visualization
 {
 public:
   static void Visualize(std::string dataset, int size);
+  static void Hiro();
 };
