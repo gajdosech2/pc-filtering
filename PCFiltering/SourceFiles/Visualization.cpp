@@ -52,21 +52,21 @@ void Visualization::Hiro()
     auto pc_unit = std::make_shared<hiro::modules::PointCloudResource>("PointCloud", scan);
     hiro::AddResource(pc_unit);
 
-    //hiro::Debug()->Log("HIRO Debugger showcase!");
-    //const geom::Aabb3 box{ glm::vec3(-0.5f), glm::vec3(0.5f) };
-    //hiro::Debug()->Box(box, cogs::color::LIME, 60);
+    hiro::Debug()->Log("HIRO Debugger showcase!");
+    const geom::Aabb3 box{ glm::vec3(-0.5f), glm::vec3(0.5f) };
+    hiro::Debug()->Box(box, cogs::color::LIME, 60);
 
-    //const geom::Sphere sphere{ glm::vec3(0.0f), 0.3f };
-    //hiro::Debug()->Sphere(sphere, cogs::color::YELLOW, 60);
+    const geom::Sphere sphere{ glm::vec3(0.0f), 0.3f };
+    hiro::Debug()->Sphere(sphere, cogs::color::YELLOW, 60);
 
-    //std::vector<geom::LineSegment3> lines{ geom::LineSegment3(0,-1,0, 0,1,0) };
-    //hiro::Debug()->Lines(lines, cogs::color::LIME, 60);
+    std::vector<geom::LineSegment3> lines{ geom::LineSegment3(0,-1,0, 0,1,0) };
+    hiro::Debug()->Lines(lines, cogs::color::LIME, 60);
 
-    //auto resource = std::make_shared<hiro::modules::GeometryResource>(
-    //    "Single Resource",
-    //    hiro::draw::GeometryName::sphere_s2
-    //    );
-    //hiro::AddResource(resource);
+    auto resource = std::make_shared<hiro::modules::GeometryResource>(
+        "Single Resource",
+        hiro::draw::GeometryName::sphere_s2
+        );
+    hiro::AddResource(resource);
 
     cogs::Mesh mesh;
     mesh.Import("DataSets/other/cog.fbx");

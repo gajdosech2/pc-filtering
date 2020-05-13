@@ -29,10 +29,10 @@ void formatter()
 void imager()
 {
   DataFormatter formatter;
-  formatter.Import("toilet/toilet_04.cogs");
+  formatter.Import("cooler/cooler_01.cogs");
   formatter.Trim();
   formatter.GenerateImageFiles();
-  //formatter.GenerateSegmentationMask("toilet/truth_03.cogs");
+  formatter.GenerateSegmentationMask("cooler/cooler_02.cogs");
 }
 
 void batch_imager()
@@ -57,7 +57,7 @@ void processor()
 
 void visualizer()
 {
-  Visualization::Visualize("fruit", 10);
+  Visualization::Visualize("cooler", 2);
 }
 
 void generator()
@@ -73,9 +73,7 @@ int main()
   //imager();
   //batch_imager();
   //processor();
-  //visualizer();
-  //generator();
-  Visualization::Hiro();
+  visualizer();
   return 0;
 }
 
