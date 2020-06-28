@@ -31,6 +31,7 @@ Links
 https://github.com/ROCmSoftwarePlatform/tensorflow-upstream
 https://rocmdocs.amd.com/en/latest/
 https://github.com/tensorflow/models
+https://github.com/plaidml/plaidml
 
 https://github.com/tensorflow/tensorflow/issues/40751
 https://github.com/RadeonOpenCompute/ROCm/issues/125
