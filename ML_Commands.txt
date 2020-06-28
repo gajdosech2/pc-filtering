@@ -1,0 +1,36 @@
+Terminal
+
+rocm-smi - show gpus
+
+rocminfo
+
+lspci - show devices
+
+export PYTHONPATH=$PYTHONPATH:~/models
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm/hip/lib - dynamic library error fix
+
+
+
+Python3
+
+from tensorflow.python.client import device_lib
+device_lib.list_local_devices()
+
+tf.add(1, 2).numpy()
+
+tf.test.is_gpu_available()
+
+tf.config.list_physical_devices('GPU')
+
+tf.__version__
+
+
+
+Links
+https://github.com/ROCmSoftwarePlatform/tensorflow-upstream
+https://rocmdocs.amd.com/en/latest/
+https://github.com/tensorflow/models
+
+https://github.com/tensorflow/tensorflow/issues/40751
+https://github.com/RadeonOpenCompute/ROCm/issues/125
