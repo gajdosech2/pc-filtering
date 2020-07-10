@@ -1,0 +1,14 @@
+target_sources(${PROJECT_NAME} PRIVATE
+	${CMAKE_CURRENT_LIST_DIR}/API.h
+	${CMAKE_CURRENT_LIST_DIR}/Constructors.h
+	${CMAKE_CURRENT_LIST_DIR}/Depricated.h
+	${CMAKE_CURRENT_LIST_DIR}/Filtering.h
+	${CMAKE_CURRENT_LIST_DIR}/Geometry.h
+	${CMAKE_CURRENT_LIST_DIR}/Graphs.h
+	${CMAKE_CURRENT_LIST_DIR}/Meshes.h
+	${CMAKE_CURRENT_LIST_DIR}/MeshSimplification.h
+	${CMAKE_CURRENT_LIST_DIR}/Quadrics.h
+	${CMAKE_CURRENT_LIST_DIR}/Remapping.h
+	${CMAKE_CURRENT_LIST_DIR}/Triangulation.h
+	${CMAKE_CURRENT_LIST_DIR}/Version.h
+)

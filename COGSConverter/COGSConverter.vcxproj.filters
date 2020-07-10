@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="SourceFiles">
+      <UniqueIdentifier>{8be21dd9-3d57-4050-ae8f-f741a0feacbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HeaderFiles">
+      <UniqueIdentifier>{1d54d56b-7afb-48b9-8947-e8ae5697a218}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HeaderFiles\DataFormatter.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\ImageGenerator.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\PointFeatures.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SourceFiles\COGSConverter.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\DataFormatter.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\ImageGenerator.cpp">
+      <Filter>SourceFiles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SkeletexLibs\bin\Release\assimp-vc140-mt.dll" />
+    <None Include="SkeletexLibs\bin\Release\COGS.dll" />
+    <None Include="SkeletexLibs\bin\Release\GEOM.dll" />
+    <None Include="SkeletexLibs\bin\Release\Utils.dll" />
+  </ItemGroup>
+</Project>
