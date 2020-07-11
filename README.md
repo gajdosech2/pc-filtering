@@ -16,6 +16,8 @@ Links
 *TensorFlow:*
 
 *Keras:*
+ - https://towardsdatascience.com/step-by-step-implementation-3d-convolutional-neural-network-in-keras-12efbdd7b130
+ - https://towardsdatascience.com/implementing-a-fully-convolutional-network-fcn-in-tensorflow-2-3c46fb61de3b
 
 *Python Documentation:*
  - https://stackoverflow.com/questions/3898572/what-is-the-standard-python-docstring-format
