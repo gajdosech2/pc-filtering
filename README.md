@@ -23,4 +23,5 @@ Links
  - http://queirozf.com/entries/python-docstrings-reference-examples
  
  *Ubuntu:*
- - https://stackoverflow.com/questions/40177006/c-variant-no-such-file-or-directory + clang-8
+ - https://stackoverflow.com/questions/40177006/c-variant-no-such-file-or-directory
+ - sudo apt install clang-8
