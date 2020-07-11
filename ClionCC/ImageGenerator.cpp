@@ -164,11 +164,11 @@ bool ImageGenerator::GenerateAll(float max_depth, float min_depth, float max_int
 	{
 		for (uint32_t j = 0; j < width; j++)
 		{
-			binary_map << ((*data_)[i][j].intensity > EMPTY_POINT) << " ";
+			binary_map << ((*data_)[i][j].intensity <= EMPTY_POINT) << " ";
 
-			int normalized_x = (int)(a_normal * (*data_)[i][j].normal_x + b_normal);
-			int normalized_y = (int)(a_normal * (*data_)[i][j].normal_y + b_normal);
-			int normalized_z = (int)(a_normal * (*data_)[i][j].normal_z + b_normal);
+			int normalized_x = std::max(0,(int)(a_normal * (*data_)[i][j].normal_x + b_normal));
+			int normalized_y = std::max(0,(int)(a_normal * (*data_)[i][j].normal_y + b_normal));
+			int normalized_z = std::max(0,(int)(a_normal * (*data_)[i][j].normal_z + b_normal));
 			normal_map << normalized_x << " " << normalized_y << " " << normalized_z << " ";
 
 			int normalized_intensity = (int)(a_gray * (*data_)[i][j].intensity + b_gray);
