@@ -2,6 +2,7 @@
 #include <fstream>
 #include <algorithm>
 #include <iostream>
+#include <pngwriter.h>
 
 const std::string IMAGES_ROOT = "";
 
@@ -183,4 +184,51 @@ bool ImageGenerator::GenerateAll(float max_depth, float min_depth, float max_int
 	normal_map.close();
 	intensity_map.close();
 	return true;
+}
+
+bool ImageGenerator::GeneratePNGs(float max_depth, float min_depth, float max_intensity, float min_intensity, float max_normal, float min_normal, std::string out)
+{
+    if (data_->empty() || data_[0].empty())
+    {
+        return false;
+    }
+    size_t height = data_->size();
+    size_t width = (*data_)[0].size();
+
+    if (!out.empty())
+    {
+        out = out + "/";
+    }
+
+    pngwriter binary_map(width,height,0, (out + file_name_ + "_bitmap.png").c_str());
+    pngwriter intensity_map(width,height,0, (out +  file_name_ + "_intensitymap.png").c_str());
+    pngwriter normal_map(width,height,0, (out + file_name_ + "_normalmap.png").c_str());
+
+    double a_normal = (1.0) / (max_normal - min_normal);
+    double b_normal = 1.0 - a_normal * max_normal;
+
+    double a_gray = (1.0 * 2) / (max_intensity - min_intensity);
+    double b_gray = (1.0 * 2) - a_gray * max_intensity;
+
+    for (uint32_t i = 0; i < height; i++)
+    {
+        for (uint32_t j = 0; j < width; j++)
+        {
+            int binary = ((*data_)[i][j].intensity > EMPTY_POINT) * 65535;
+            binary_map.plot(j, height - i, binary, binary, binary);
+
+            double normalized_x = std::max(0.0,(a_normal * (*data_)[i][j].normal_x + b_normal));
+            double normalized_y = std::max(0.0,(a_normal * (*data_)[i][j].normal_y + b_normal));
+            double normalized_z = std::max(0.0,(a_normal * (*data_)[i][j].normal_z + b_normal));
+            normal_map.plot(j, height - i, normalized_x, normalized_y, normalized_z);
+
+            double normalized_intensity = (a_gray * (*data_)[i][j].intensity + b_gray);
+            normalized_intensity = std::max(0.0, std::min(normalized_intensity, 1.0));
+            intensity_map.plot(j, height - i, normalized_intensity, normalized_intensity, normalized_intensity);
+        }
+    }
+    binary_map.close();
+    normal_map.close();
+    intensity_map.close();
+    return true;
 }

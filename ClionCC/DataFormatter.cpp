@@ -1,4 +1,3 @@
-#pragma once
 #pragma warning(disable: 4996)
 #define GLM_ENABLE_EXPERIMENTAL
 
@@ -180,8 +179,8 @@ void DataFormatter::GenerateSegmentationMask(std::string truth_path)
   image_generator.GenerateBinaryMap();
 }
 
-void DataFormatter::GenerateImageFiles()
+void DataFormatter::GenerateImageFiles(std::string out)
 {
   ImageGenerator image_generator(file_name_, &data_);
-  image_generator.GenerateAll(max_depth_, min_depth_, max_intensity_, min_intensity_, max_normal_, min_normal_);
+  image_generator.GeneratePNGs(max_depth_, min_depth_, max_intensity_, min_intensity_, max_normal_, min_normal_, out);
 }

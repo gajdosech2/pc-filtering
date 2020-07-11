@@ -5,10 +5,18 @@ int main(int argc, char* argv[])
 {
     DataFormatter formatter;
     formatter.Import(argv[1]);
-    if (argc > 2 && strcmp("--trim", argv[2]) == 0)
+
+    std::string out;
+
+    if (argc == 3 && strcmp("--trim", argv[2]) == 0)
     {
         formatter.Trim();
     }
-    formatter.GenerateImageFiles();
+    else if (argc == 4 && strcmp("--trim", argv[3]) == 0)
+    {
+        formatter.Trim();
+        out = argv[2];
+    }
+    formatter.GenerateImageFiles(out);
     return 0;
 }
