@@ -26,4 +26,5 @@ Links
  
  *Ubuntu:*
  - https://stackoverflow.com/questions/40177006/c-variant-no-such-file-or-directory
+ - https://askubuntu.com/questions/508934/how-to-install-libpng-and-zlib
  - sudo apt install clang-8
