@@ -8,7 +8,8 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include <utils/ExtGLM.h>
+#include <Utils/ExtGLM.h>
+#include <Utils/Ulog.h>
 #include <glm/gtx/spline.hpp>
 
 #include <COGS/API.h>
@@ -18,18 +19,18 @@ namespace cogs
 {
 
   template<typename Type>
-  inline Type Interpolate(const Type val1, const Type val2, const float weight)
+  [[nodiscard]] inline Type Interpolate(const Type val1, const Type val2, const float weight)
   {
     return glm::mix(val1, val2, weight);
   }
 
-  inline glm::quat Interpolate(const glm::quat val1, const glm::quat val2, const float weight)
+  [[nodiscard]] inline glm::quat Interpolate(const glm::quat val1, const glm::quat val2, const float weight)
   {
     return glm::slerp(val1, val2, weight);
   }
 
   template<typename Type>
-  inline glm::quat InterpolateCubic(const Type val1, const Type val2, const Type val3, const Type val4, const float weight)
+  [[nodiscard]] inline glm::quat InterpolateCubic(const Type val1, const Type val2, const Type val3, const Type val4, const float weight)
   {
     return glm::cubic(val1, val2, val3, val4, weight);
   }
@@ -45,7 +46,8 @@ namespace cogs
   {
   public:
     //! Creates an Action with no keys.
-    Interpolator() = default;
+    explicit Interpolator()
+    {}
 
     //! Creates an Action from list of <time,value> pairs.
     Interpolator(const std::initializer_list<std::pair<float, Type>> &keys)
@@ -75,13 +77,13 @@ namespace cogs
     }
 
     //! Returns true when no key exist.
-    bool IsEmpty() const
+    [[nodiscard]] bool IsEmpty() const
     {
       return keys_.empty();
     }
 
     //! Returns number of key frames.
-    size_t GetKeyCount() const
+    [[nodiscard]] size_t GetKeyCount() const
     {
       return keys_.size();
     }
@@ -102,11 +104,12 @@ namespace cogs
           Value of last key if time is higher or equal to the time of first key.
           Otherwise, an interpolated value between two closest keys.
     */
-    Type GetValueAtTime(const float time) const
+    [[nodiscard]] Type GetValueAtTime(const float time) const
     {
       if (keys_.empty())
       {
-        throw std::logic_error("Requested value interpolation when no key frames are present in Action.");
+        ulog::Fail("Can not interpolate to time " + std::to_string(time) + " when no key frames available.", "cogs::Interpolator::GetValueAtTime");
+        return {};
       }
       if (keys_.front().time >= time)
       {
@@ -123,11 +126,12 @@ namespace cogs
     }
 
 
-    Type GetValueAtTimeCubic(const float time) const
+    [[nodiscard]] Type GetValueAtTimeCubic(const float time) const
     {
       if (keys_.empty())
       {
-        throw std::logic_error("Requested value interpolation when no key frames are present in Action.");
+        ulog::Fail("Can not interpolate to time " + std::to_string(time) + " when no key frames available.", "cogs::Interpolator::GetValueAtTimeCubic");
+        return {};
       }
       if (keys_.front().time >= time)
       {
@@ -158,13 +162,13 @@ namespace cogs
     }
 
     //! Returns value of key on specified index (position in array ordered by time).
-    Type GetKeyValue(const size_t key_index) const
+    [[nodiscard]] Type GetKeyValue(const size_t key_index) const
     {
       return keys_.at(key_index).value;
     }
 
     //! Returns time of key on specified index.
-    float GetTimeValue(const size_t key_index) const
+    [[nodiscard]] float GetTimeValue(const size_t key_index) const
     {
       return keys_.at(key_index).time;
     }
@@ -176,7 +180,7 @@ namespace cogs
     }
 
     //! Returns time of last existing key frame.
-    float GetLastKeyTime() const
+    [[nodiscard]] float GetLastKeyTime() const
     {
       return keys_.empty() ? 0.0f : keys_.back().time;
     }
@@ -188,7 +192,7 @@ namespace cogs
           A highest key index for which key.time <= time.
           Returns -1 if keys are empty or specified time is lower then time of any key.
     */
-    int32_t GetKeyBefore(const float time) const
+    [[nodiscard]] int32_t GetKeyBefore(const float time) const
     {
       if (keys_.empty())
       {

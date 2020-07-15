@@ -7,7 +7,6 @@
 #include <vector>
 #include <string>
 #include <memory>
-
 #include <COGS/API.h>
 
 
@@ -46,8 +45,8 @@ namespace cogs
   {
   public:
 
-    Importer();
-    Importer(const std::string &filename);
+    explicit Importer();
+    explicit Importer(const std::string &filename);
     Importer(const Importer &other) = delete;
     Importer(const Importer &&other) = delete;
     Importer &operator=(const Importer &other) = delete;
@@ -59,60 +58,67 @@ namespace cogs
     //! When loaded file was in COGS file format, closes it. Otherwise, does nothing.
     void CloseFile();
 
+    //! Returns number of point clouds contained in a loaded file.
+    [[nodiscard]] size_t GetPointCloudCount() const;
     /*!
       \brief Requests point cloud structure from the loaded file.
       \param out_cloud Object, to which should data be loaded.
       \param id Index of object in the file when there are more of the same type.
       \returns Whether load finished successfully, and output is valid.
     */
-    bool GetPointCloud(cogs::PointCloud *out_cloud, size_t id = 0) const;
+    bool GetPointCloud(cogs::PointCloud &out_cloud, size_t id = 0) const;
+
+    //! Returns number of scans contained in a loaded file.
+    [[nodiscard]] size_t GetScanCount() const;
     /*!
       \brief Requests scan structure from the loaded file.
       \param out_scan Object, to which should data be loaded.
       \param id Index of object in the file when there are more of the same type.
       \returns Whether load finished successfully, and output is valid.
     */
-    bool GetScan(cogs::Scan *out_scan, size_t id = 0) const;
+    bool GetScan(cogs::Scan &out_scan, size_t id = 0) const;
 
     //! Returns number of meshes contained in a loaded file.
-    size_t GetMeshCount() const;
+    [[nodiscard]] size_t GetMeshCount() const;
     /*!
       \brief Requests mesh structure from the loaded file.
       \param out_meshmodel Object, to which should data be loaded.
       \param id Index of object in the file when there are more of the same type.
       \returns Whether load finished successfully, and output is valid.
     */
-    bool GetMesh(cogs::Mesh *out_meshmodel, size_t id = 0) const;
+    bool GetMesh(cogs::Mesh &out_meshmodel, size_t id = 0) const;
+    //! Returns all meshes from the loaded file.
+    std::vector<cogs::Mesh> GetAllMeshes() const;
 
     //! Returns names of all loaded meshes. Not supported by cogs files.
-    std::vector<std::string> GetMeshNames() const;
+    [[nodiscard]] std::vector<std::string> GetMeshNames() const;
     /*!
       \brief Finds and requests mesh structure from the loaded file.
       \param out_meshmodel Object, to which should data be loaded.
       \param name Name identifier of an object.
       \returns Whether load finished successfully, and output is valid.
     */
-    bool GetMeshByName(const std::string &name, cogs::Mesh *out_meshmodel) const;
+    bool GetMeshByName(const std::string &name, cogs::Mesh &out_meshmodel) const;
 
     //! Returns number of skeletons contained in a loaded file.
-    uint32_t GetSkeletonCount() const;
+    [[nodiscard]] uint32_t GetSkeletonCount() const;
     /*!
        \brief Requests skeleton structure from the loaded file.
        \param out_skeleton Object, to which should data be loaded.
        \param id Index of object in the file when there are more of the same type.
        \returns Whether load finished successfully, and output is valid.
     */
-    bool GetSkeleton(cogs::Skeleton *out_skeleton, size_t id = 0) const;
+    bool GetSkeleton(cogs::Skeleton &out_skeleton, size_t id = 0) const;
 
     //! Returns names of all loaded skeletons. Not supported by cogs files.
-    std::vector<std::string> GetSkeletonNames() const;
+    [[nodiscard]] std::vector<std::string> GetSkeletonNames() const;
     /*!
        \brief Finds and requests mesh structure from the loaded file.
        \param out_skeleton Object, to which should data be loaded.
        \param name Name identifier of an object to find.
        \returns Whether load finished successfully, and output is valid.
     */
-    bool GetSkeletonByName(const std::string &name, cogs::Skeleton *out_skeleton) const;
+    bool GetSkeletonByName(const std::string &name, cogs::Skeleton &out_skeleton) const;
 
     /*!
        \brief Requests armature structure from the loaded file.
@@ -120,21 +126,21 @@ namespace cogs
        \param id Index of object in the file when there are more of the same type.
        \returns Whether load finished successfully, and output is valid.
     */
-    bool GetArmature(cogs::Armature *out_armature) const;
+    bool GetArmature(cogs::Armature &out_armature) const;
 
     /*!
        \brief Requests all skeleton actions from the loaded file.
        \param out_actions Array in which output should be stored.
        \returns Whether load finished successfully, and output is valid.
     */
-    bool GetAllSkeletonActions(std::vector<cogs::SkeletonAction> *out_actions) const;
+    bool GetAllSkeletonActions(std::vector<cogs::SkeletonAction> &out_actions) const;
     /*!
        \brief Requests all skeleton actions from the loaded file, compatible with specific skeleton.
        \param skeleton_name Name of skeleton object, actions should be compatible with.
        \param out_actions Array in which output should be stored.
        \returns Whether load finished successfully, and output is valid.
     */
-    bool GetAllSkeletonActions(const std::string &skeleton_name, std::vector<cogs::SkeletonAction> *out_actions) const;
+    bool GetAllSkeletonActions(const std::string &skeleton_name, std::vector<cogs::SkeletonAction> &out_actions) const;
     /*!
        \brief Requests a skeleton action from the loaded file, compatible with specific skeleton.
        \param skeleton_name Name of skeleton object, actions should be compatible with.
@@ -142,7 +148,7 @@ namespace cogs
        \param out_actions Object, to which should data be loaded.
        \returns Whether load finished successfully, and output is valid.
     */
-    bool GetSkeletonActionByName(const std::string &skeleton_name, const std::string &action_name, cogs::SkeletonAction *out_action) const;
+    bool GetSkeletonActionByName(const std::string &skeleton_name, const std::string &action_name, cogs::SkeletonAction &out_action) const;
 
   private:
     struct Impl;

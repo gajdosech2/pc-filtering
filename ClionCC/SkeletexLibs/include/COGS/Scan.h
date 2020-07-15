@@ -32,7 +32,7 @@ namespace cogs
     using Coords = glm::uvec2;
 
     //! Creates a new scan with zero resolution and no points.
-    Scan() = default;
+    Scan();
     //! Destroys cloud, frees all property data and destroys grid.
     ~Scan() override = default;
 
@@ -109,20 +109,18 @@ namespace cogs
     //! Returns point index at grid coordinate. May return Scan::INVALID_INDEX if there is no point.
     [[nodiscard]] uint32_t GetPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
 
-    //! Get coordinate
+    //! Returns coordinate for given point.
     static bool GetCameraUV(const glm::vec3 &point, const ScanCameraParams &cam_params, glm::vec2 &result);
 
-    //! Transforms point cloud positions, normals and updates camera
+    //! Transforms point cloud positions, normals and updates camera.
     virtual void Transform(const glm::mat4 &transform) override;
 
   protected:
 
     //! Deep-clone source Scan.
     void MakeCloneOf(const Scan &source);
-    //! Copies chunks of points according to copy commands.
-    void ExecuteCopyCommands(const std::vector<CopyCommand> &copy_cmd) override;
     //! Decreases cloud size by the specified number of points.
-    void TruncateSize(size_t delta_size) override;
+    virtual void TruncateSize(size_t delta_size) override;
 
   private:
 
@@ -133,8 +131,10 @@ namespace cogs
     glm::mat3 camera_basis_;
     ScanCameraParams camera_params_;
 
-    virtual void Resize(uint32_t new_size) override;
-    virtual void Append(const PointCloud &pc) override;
+    virtual bool Resize(uint32_t new_size) override;
+    virtual bool Append(const PointCloud &pc) override;
+    //! Copies chunks of points according to copy commands.
+    virtual void ExecuteCopyCommands(const std::vector<CopyCommand> &copy_cmd) override;
 
     void UpdateCameraViewMatrix();
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
 
 #include <COGS/PointCloud.h>
 

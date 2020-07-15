@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
 
 #include <GEOM/API.h>
 

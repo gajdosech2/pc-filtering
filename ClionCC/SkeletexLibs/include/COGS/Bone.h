@@ -4,7 +4,7 @@
   Proprietary and confidential
 */
 #pragma once
-#include <utils/GeometryStructures.h>
+#include <Utils/GeometryStructures.h>
 
 #include <COGS/API.h>
 #include <COGS/BoneTransform.h>
@@ -41,7 +41,7 @@ namespace cogs
       IGNORED_NEIGHBOUR
     };
 
-    //! Returns the specific bone property. If the property do not exist, throws an error.
+    //! Returns the specific bone property. If the property do not exist, returns zero.
     float GetProperty(const PropertyType prop) const;
 
     //! Returns the specific bone property. If the property do not exist, returns default value.

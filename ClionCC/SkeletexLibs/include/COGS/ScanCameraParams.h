@@ -4,27 +4,14 @@
   Proprietary and confidential
 */
 #pragma once
-#include <glm/glm.hpp>
+#include <Utils/IntrinsicParams.h>
+#include <COGS/API.h>
 
 namespace cogs
 {
-  /*!
-    \brief Parameters of a camera used to capture Scan.
-
-    More information about intrinsic camera parameters can be found on Wikipedia
-    https://en.wikipedia.org/wiki/Camera_resectioning and distortion coefficients
-    at https://docs.opencv.org/2.4/doc/tutorials/calib3d/camera_calibration/camera_calibration.html
-  */
-  struct ScanCameraParams
+  //! Parameters of a camera used to capture Scan.
+  struct ScanCameraParams : public utils::IntrinsicParams
   {
-    //! Intrinsic parameter - x focal length in terms of pixels.
-    float fx;
-    //! Intrinsic parameter - y focal length in terms of pixels.
-    float fy;
-    //! Intrinsic parameter - x coordinate of a principal point.
-    float cx;
-    //! Intrinsic parameter - y coordinate of a principal point.
-    float cy;
     //! Distortion radial coefficient k1.
     float k1 = 0.0f;
     //! Distortion radial coefficient k2.
