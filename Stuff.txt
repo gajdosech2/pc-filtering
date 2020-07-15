@@ -1,5 +1,7 @@
 Terminal
 
+mesa-opencl-icd
+
 rocm-smi - show gpus
 
 rocminfo
