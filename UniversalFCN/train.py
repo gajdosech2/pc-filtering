@@ -1,4 +1,6 @@
-import tensorflow as tf
+#import tensorflow as tf
+import time
+
 from model import generate_model
 from generator import Generator
 
@@ -12,15 +14,15 @@ def train(model, train_generator, val_generator, epochs=50):
     return history
 
 
-def enable_gpu():
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    if gpus:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
+#def enable_gpu():
+#    gpus = tf.config.experimental.list_physical_devices('GPU')
+#    if gpus:
+#        for gpu in gpus:
+#            tf.config.experimental.set_memory_growth(gpu, True)
 
 
 if __name__ == "__main__":
-    enable_gpu()
+    #enable_gpu()
 
     model = generate_model()
 
@@ -32,6 +34,7 @@ if __name__ == "__main__":
     val_generator = Generator(val_dir, BATCH_SIZE, shuffle_images=True, image_min_side=24)
 
     EPOCHS = 10
+    start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
-
-    model.save_weights('weights.keras')
+    print(f"Elapsed time: {time.time() - start} seconds")
+    #model.save_weights('weights.keras')

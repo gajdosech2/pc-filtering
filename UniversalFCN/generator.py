@@ -2,6 +2,9 @@ import os
 import numpy as np
 import cv2
 import imageio
+
+#os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+
 import keras
 import matplotlib.pyplot as plt
 
@@ -26,10 +29,14 @@ class Generator(keras.utils.Sequence):
                 name = file[:first_underscore + second_underscore + 1]
                 intensity_image = imageio.imread(dataset_path + "/" + name + "_intensitymap.png") / 255
                 normals_image = imageio.imread(dataset_path + "/" + name + "_normalmap.png") / 255
-                feature_image = np.dstack((intensity_image,
+                print(intensity_image.shape)
+                print(file)
+                feature_image = np.dstack((intensity_image[:, :, 0],
                                            normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
                 self.feature_images.append(feature_image)
                 mask_image = imageio.imread(dataset_path + "/" + file) / 255
+                mask_image = mask_image[:, :, 0]
+                print(mask_image.shape)
                 mask_image = np.expand_dims(mask_image, axis=2)
                 self.masks.append(mask_image)
 
