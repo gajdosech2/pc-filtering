@@ -1,4 +1,3 @@
-from model import generate_model
 #import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,6 +5,7 @@ import imageio
 import sys
 import time
 
+from model import generate_model
 
 #def enable_gpu():
 #    gpus = tf.config.experimental.list_physical_devices('GPU')
