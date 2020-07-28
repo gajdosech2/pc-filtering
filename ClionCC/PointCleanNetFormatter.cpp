@@ -160,17 +160,24 @@ void PointCleanNetFormatter::GenerateOutliersFile(std::string truth_path)
     size_t height = data_.size();
     size_t width = data_[0].size();
 
+    int o = 0;
+    int t = 0;
     for (uint32_t i = 0; i < height; i++)
     {
         for (uint32_t j = 0; j < width; j++)
         {
             if (data_[i][j].intensity > EMPTY_POINT)
             {
+                o++;
                 bool present = (truth_data[i][j].intensity > EMPTY_POINT);
+                if (present)
+                {
+                    t++;
+                }
                 outliers << !present << ".000000000000000000e+00" << std::endl;
             }
         }
     }
-
+    std::cout << t << "/" << o << std::endl;
     outliers.close();
 }
