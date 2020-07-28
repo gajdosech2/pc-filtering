@@ -1,10 +1,9 @@
 import os
+#os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+
 import numpy as np
 import cv2
 import imageio
-
-#os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-
 import keras
 import matplotlib.pyplot as plt
 

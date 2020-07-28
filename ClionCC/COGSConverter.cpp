@@ -1,6 +1,8 @@
 #include "DataFormatter.h"
+#include "PointCleanNetFormatter.h"
 #include <cstring>
 
+/*
 int main(int argc, char* argv[])
 {
     DataFormatter formatter;
@@ -19,4 +21,19 @@ int main(int argc, char* argv[])
     }
     formatter.GenerateImageFiles(out);
     return 0;
+}
+ */
+
+// PointCleanNet
+int main(int argc, char* argv[])
+{
+    PointCleanNetFormatter formatter;
+    formatter.Import(argv[1]);
+    formatter.Trim();
+    formatter.GenerateInputFile();
+
+    if (argc > 2)
+    {
+        formatter.GenerateOutliersFile(argv[2]);
+    }
 }

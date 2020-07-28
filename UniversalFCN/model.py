@@ -1,6 +1,5 @@
 import os
-
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+#os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 
 import keras
 
@@ -8,12 +7,12 @@ import keras
 def generate_model():
     i = keras.layers.Input(shape=(None, None, 4))
 
-    x = keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu')(i)
-    x = keras.layers.Conv2D(filters=64, kernel_size=3, activation='relu')(x)
-    x = keras.layers.Conv2D(filters=128, kernel_size=3, activation='relu')(x)
-    x = keras.layers.Conv2DTranspose(filters=128, kernel_size=3)(x)
-    x = keras.layers.Conv2DTranspose(filters=64, kernel_size=3)(x)
-    x = keras.layers.Conv2DTranspose(filters=32, kernel_size=3)(x)
+    x = keras.layers.Conv2D(filters=4, kernel_size=3, activation='relu')(i)
+    x = keras.layers.Conv2D(filters=8, kernel_size=3, activation='relu')(x)
+    x = keras.layers.Conv2D(filters=16, kernel_size=3, activation='relu')(x)
+    x = keras.layers.Conv2DTranspose(filters=16, kernel_size=3)(x)
+    x = keras.layers.Conv2DTranspose(filters=8, kernel_size=3)(x)
+    x = keras.layers.Conv2DTranspose(filters=4, kernel_size=3)(x)
 
     o = keras.layers.Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x)
 

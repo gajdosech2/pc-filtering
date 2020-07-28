@@ -22,7 +22,7 @@ def train(model, train_generator, val_generator, epochs=50):
 
 
 if __name__ == "__main__":
-    #enable_gpu()
+#    enable_gpu()
 
     model = generate_model()
 
@@ -37,4 +37,4 @@ if __name__ == "__main__":
     start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
     print(f"Elapsed time: {time.time() - start} seconds")
-    #model.save_weights('weights.keras')
+    model.save_weights('weights.keras')
