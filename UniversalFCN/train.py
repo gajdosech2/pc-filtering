@@ -6,6 +6,8 @@ from generator import Generator
 
 
 def train(model, train_generator, val_generator, epochs=50):
+    class_weight = {0: 1., 1: 50.}
+
     history = model.fit_generator(generator=train_generator,
                                   steps_per_epoch=len(train_generator),
                                   epochs=epochs,
@@ -33,7 +35,7 @@ if __name__ == "__main__":
     train_generator = Generator(train_dir, BATCH_SIZE, shuffle_images=True, image_min_side=24)
     val_generator = Generator(val_dir, BATCH_SIZE, shuffle_images=True, image_min_side=24)
 
-    EPOCHS = 10
+    EPOCHS = 50
     start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
     print(f"Elapsed time: {time.time() - start} seconds")

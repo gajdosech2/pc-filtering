@@ -165,7 +165,7 @@ void DataFormatter::Pad(int size)
   data_ = new_data;
 }
 
-void DataFormatter::GenerateSegmentationMask(std::string truth_path)
+void DataFormatter::GenerateSegmentationMask(std::string truth_path, std::string out)
 {
   DataFormatter truth(truth_path);
   auto truth_data = truth.GetData();
@@ -176,7 +176,7 @@ void DataFormatter::GenerateSegmentationMask(std::string truth_path)
     truth_data = truth.GetData();
   }
   ImageGenerator image_generator(file_name_ + "_truth", &truth_data);
-  image_generator.GenerateBinaryMap();
+  image_generator.GenerateBinaryPNG(out);
 }
 
 void DataFormatter::GenerateImageFiles(std::string out)

@@ -12,6 +12,8 @@ public:
 	bool GenerateGrayMap(float max_intensity, float min_intensity);
 	bool GenerateNormalMap(float max_normal, float min_normal);
 	bool GenerateAll(float max_depth, float min_depth, float max_intensity, float min_intensity, float max_normal, float min_normal);
+
+    bool GenerateBinaryPNG(std::string out);
 	bool GeneratePNGs(float max_depth, float min_depth, float max_intensity, float min_intensity, float max_normal, float min_normal, std::string out);
 
 private:

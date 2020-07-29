@@ -35,6 +35,9 @@ class Generator(keras.utils.Sequence):
                 self.feature_images.append(feature_image)
                 mask_image = imageio.imread(dataset_path + "/" + file) / 255
                 mask_image = mask_image[:, :, 0]
+                mask_image = 0.6 * mask_image
+                #print(mask_image[:10][:10])
+                #mask_image = mask_image.ravel()
                 print(mask_image.shape)
                 mask_image = np.expand_dims(mask_image, axis=2)
                 self.masks.append(mask_image)
@@ -70,7 +73,9 @@ class Generator(keras.utils.Sequence):
         batch = np.zeros((self.batch_size,) + max_shape, dtype='float32')
 
         for image_index, image in enumerate(image_group):
-            if len(image.shape) == 2:
+            if len(image.shape) == 1:
+                batch[image_index, :image.shape[0]] = image
+            elif len(image.shape) == 2:
                 batch[image_index, :image.shape[0], :image.shape[1]] = image
             else:
                 batch[image_index, :image.shape[0], :image.shape[1], :image.shape[2]] = image

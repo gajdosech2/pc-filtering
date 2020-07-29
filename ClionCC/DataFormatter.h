@@ -18,7 +18,7 @@ public:
   bool Import(std::string path);
   void PrepareFileName(std::string path);
   void GenerateImageFiles(std::string out = "");
-  void GenerateSegmentationMask(std::string truth_path);
+  void GenerateSegmentationMask(std::string truth_path, std::string out = "");
   TrimValues FindTrimValues();
   void Trim(TrimValues trim_values);
   void Trim();

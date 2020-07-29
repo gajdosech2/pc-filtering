@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     intensity_image = imageio.imread(d + f + "_intensitymap.png") / 255
     normals_image = imageio.imread(d + f + "_normalmap.png") / 255
-    feature_image = np.dstack((intensity_image,
+    feature_image = np.dstack((intensity_image[:, :, 0],
                                normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
 
     feature_image = np.expand_dims(feature_image, axis=0)

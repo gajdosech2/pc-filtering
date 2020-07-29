@@ -200,7 +200,7 @@ bool ImageGenerator::GeneratePNGs(float max_depth, float min_depth, float max_in
         out = out + "/";
     }
 
-    pngwriter binary_map(width,height,0, (out + file_name_ + "_bitmap.png").c_str());
+    //pngwriter binary_map(width,height,0, (out + file_name_ + "_bitmap.png").c_str());
     pngwriter intensity_map(width,height,0, (out +  file_name_ + "_intensitymap.png").c_str());
     pngwriter normal_map(width,height,0, (out + file_name_ + "_normalmap.png").c_str());
 
@@ -215,7 +215,7 @@ bool ImageGenerator::GeneratePNGs(float max_depth, float min_depth, float max_in
         for (uint32_t j = 0; j < width; j++)
         {
             int binary = ((*data_)[i][j].intensity > EMPTY_POINT) * 65535;
-            binary_map.plot(j, height - i, binary, binary, binary);
+            //binary_map.plot(j, height - i, binary, binary, binary);
 
             double normalized_x = std::max(0.0,(a_normal * (*data_)[i][j].normal_x + b_normal));
             double normalized_y = std::max(0.0,(a_normal * (*data_)[i][j].normal_y + b_normal));
@@ -227,8 +227,35 @@ bool ImageGenerator::GeneratePNGs(float max_depth, float min_depth, float max_in
             intensity_map.plot(j, height - i, normalized_intensity, normalized_intensity, normalized_intensity);
         }
     }
-    binary_map.close();
+    //binary_map.close();
     normal_map.close();
     intensity_map.close();
+    return true;
+}
+
+bool ImageGenerator::GenerateBinaryPNG(std::string out) {
+    if (data_->empty() || data_[0].empty())
+    {
+        return false;
+    }
+    size_t height = data_->size();
+    size_t width = (*data_)[0].size();
+
+    if (!out.empty())
+    {
+        out = out + "/";
+    }
+
+    pngwriter binary_map(width,height,0, (out + file_name_ + "_bitmap.png").c_str());
+
+    for (uint32_t i = 0; i < height; i++)
+    {
+        for (uint32_t j = 0; j < width; j++)
+        {
+            int binary = ((*data_)[i][j].intensity > EMPTY_POINT) * 65535;
+            binary_map.plot(j, height - i, binary, binary, binary);
+        }
+    }
+    binary_map.close();
     return true;
 }

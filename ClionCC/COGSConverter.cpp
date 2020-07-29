@@ -2,28 +2,30 @@
 #include "PointCleanNetFormatter.h"
 #include <cstring>
 
-/*
 int main(int argc, char* argv[])
 {
+    // ./CC INPUT_FILE GROUND_TRUTH_FILE EXPORT_PATH
     DataFormatter formatter;
     formatter.Import(argv[1]);
-
+    formatter.Trim();
     std::string out;
-
-    if (argc == 3 && strcmp("--trim", argv[2]) == 0)
+    switch(argc)
     {
-        formatter.Trim();
-    }
-    else if (argc == 4 && strcmp("--trim", argv[3]) == 0)
-    {
-        formatter.Trim();
-        out = argv[2];
+        case 2:
+            break;
+        case 3:
+            formatter.GenerateSegmentationMask(argv[2]);
+            break;
+        case 4:
+            out = argv[3];
+            formatter.GenerateSegmentationMask(argv[2], out);
+            break;
     }
     formatter.GenerateImageFiles(out);
     return 0;
 }
- */
 
+/*
 // PointCleanNet
 int main(int argc, char* argv[])
 {
@@ -37,3 +39,4 @@ int main(int argc, char* argv[])
         formatter.GenerateOutliersFile(argv[2]);
     }
 }
+ */
