@@ -42,8 +42,15 @@ if __name__ == "__main__":
     predictions = model.predict(feature_image)
     print(f"Elapsed time: {time.time() - start} seconds")
 
+    start = time.time()
+    predictions = model.predict(feature_image)
+    print(f"Elapsed time: {time.time() - start} seconds")
+
     print(predictions.shape)
-    show(np.round(predictions[0]))
+    p = np.round(predictions[0])
+    print(p.shape)
+    imageio.imwrite(f + "prediction.png", p)
+    show(p)
 
 
 

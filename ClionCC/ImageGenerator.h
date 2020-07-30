@@ -16,7 +16,10 @@ public:
     bool GenerateBinaryPNG(std::string out);
 	bool GeneratePNGs(float max_depth, float min_depth, float max_intensity, float min_intensity, float max_normal, float min_normal, std::string out);
 
+	static std::vector<std::vector<int>> ReadPNG(const char* file);
+
 private:
 	std::string file_name_;
 	std::vector<std::vector<PointFeatures>> *data_;
+
 };

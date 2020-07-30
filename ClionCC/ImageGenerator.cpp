@@ -259,3 +259,22 @@ bool ImageGenerator::GenerateBinaryPNG(std::string out) {
     binary_map.close();
     return true;
 }
+
+std::vector<std::vector<int>> ImageGenerator::ReadPNG(const char* file) {
+
+    pngwriter img;
+    img.readfromfile(file);
+    std::vector<std::vector<int>> data;
+
+    for (uint32_t i = 0; i < img.getheight(); i++)
+    {
+        std::vector<int> row;
+        for (uint32_t j = 0; j < img.getwidth(); j++)
+        {
+            row.push_back(img.read(j, img.getheight() - i - 1));
+        }
+        data.push_back(row);
+    }
+
+    return data;
+}

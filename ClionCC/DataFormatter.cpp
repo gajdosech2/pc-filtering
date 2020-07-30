@@ -32,7 +32,7 @@ bool DataFormatter::Import(std::string path)
         auto normal = normals[index];
         auto intensity = intensities[index];
         auto position = positions[index];
-        PointFeatures point_feature(index, position.x, position.y, position.z, normal.x, normal.y, normal.z, intensity);
+        PointFeatures point_feature(index, position.x, position.y, position.z, normal.x, normal.y, normal.z, intensity, j, i);
         row[j] = point_feature;
 
         min_intensity_ = std::min(min_intensity_, intensity);
@@ -48,13 +48,46 @@ bool DataFormatter::Import(std::string path)
       }
       else
       {
-        row[j] = PointFeatures();
+        row[j] = PointFeatures(j, i);
       }
     }
     data_[i] = row;
   }
   PrepareFileName(path);
   return true;
+}
+
+bool DataFormatter::Process(std::string cogs_file, std::string segmentation_mask)
+{
+    cogs::Scan scan;
+    scan.Import(cogs_file);
+
+    Import(cogs_file);
+    Trim();
+
+    auto mask = ImageGenerator::ReadPNG(segmentation_mask.c_str());
+
+    std::cout << "data size: " << data_[0].size() << "," << data_.size() << std::endl;
+    std::cout << "mask size: " << mask[0].size() << "," << mask.size() << std::endl;
+
+    std::vector<uint32_t> to_delete;
+    for (uint32_t i = 0; i < mask.size(); i++)
+    {
+        for (uint32_t j = 0; j < mask[0].size(); j++)
+        {
+            auto cogs_x = data_[i][j].coord_x;
+            auto cogs_y = data_[i][j].coord_y;
+            if (mask[i][j] == 0 && scan.IsPointAt(cogs_x, cogs_y))
+            {
+                auto index = scan.GetPointAt(cogs_x, cogs_y);
+                to_delete.push_back(index);
+            }
+        }
+    }
+
+    scan.Erase(to_delete);
+    scan.Export("processed_" + cogs_file);
+    return true;
 }
 
 void DataFormatter::PrepareFileName(std::string path)
@@ -153,7 +186,7 @@ void DataFormatter::Pad(int size)
     {
       if (i < 0 || j < 0 || i >= height || j >= width)
       {
-        row.push_back(PointFeatures());
+        row.push_back(PointFeatures(j, i));
       }
       else
       {

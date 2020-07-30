@@ -31,7 +31,7 @@ bool PointCleanNetFormatter::Import(std::string path)
         auto normal = normals[index];
         auto intensity = intensities[index];
         auto position = positions[index];
-        PointFeatures point_feature(index, position.x, position.y, position.z, normal.x, normal.y, normal.z, intensity);
+        PointFeatures point_feature(index, position.x, position.y, position.z, normal.x, normal.y, normal.z, intensity, j, i);
         row.push_back(point_feature);
 
         min_intensity_ = std::min(min_intensity_, intensity);
@@ -47,7 +47,7 @@ bool PointCleanNetFormatter::Import(std::string path)
       }
       else
       {
-        row.push_back(PointFeatures());
+        row.push_back(PointFeatures(j, i));
       }
     }
     data_.push_back(row);

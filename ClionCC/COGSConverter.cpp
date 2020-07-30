@@ -2,6 +2,7 @@
 #include "PointCleanNetFormatter.h"
 #include <cstring>
 
+/*
 int main(int argc, char* argv[])
 {
     // ./CC INPUT_FILE GROUND_TRUTH_FILE EXPORT_PATH
@@ -24,6 +25,16 @@ int main(int argc, char* argv[])
     formatter.GenerateImageFiles(out);
     return 0;
 }
+ */
+
+// Prediction Process
+int main(int argc, char* argv[])
+{
+    // ./CC COGS_FILE SEGMENTATION_MASK.PNG
+    DataFormatter formatter;
+    formatter.Process(argv[1], argv[2]);
+    return 0;
+}
 
 /*
 // PointCleanNet
@@ -38,5 +49,6 @@ int main(int argc, char* argv[])
     {
         formatter.GenerateOutliersFile(argv[2]);
     }
+    return 0;
 }
  */

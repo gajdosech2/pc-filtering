@@ -16,6 +16,7 @@ public:
   DataFormatter() : min_intensity_(INFINITY), max_intensity_(-INFINITY), min_normal_(INFINITY), max_normal_(-INFINITY), min_depth_(INFINITY), max_depth_(-INFINITY) {};
   DataFormatter(std::string path);
   bool Import(std::string path);
+  bool Process(std::string cogs_file, std::string segmentation_mask);
   void PrepareFileName(std::string path);
   void GenerateImageFiles(std::string out = "");
   void GenerateSegmentationMask(std::string truth_path, std::string out = "");
