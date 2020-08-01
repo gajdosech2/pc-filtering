@@ -1,4 +1,4 @@
-#import tensorflow as tf
+import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 import imageio
@@ -7,11 +7,11 @@ import time
 
 from model import generate_model
 
-#def enable_gpu():
-#    gpus = tf.config.experimental.list_physical_devices('GPU')
-#    if gpus:
-#        for gpu in gpus:
-#            tf.config.experimental.set_memory_growth(gpu, True)
+def enable_gpu():
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    if gpus:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
 
 
 def show(result):
@@ -22,11 +22,11 @@ def show(result):
 
 
 if __name__ == "__main__":
-    #enable_gpu()
+    enable_gpu()
     model = generate_model()
     model.load_weights("weights.keras")
 
-    d = 'data/inference/'
+    d = "data/inference/"
 
     f = sys.argv[1]
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     print(predictions.shape)
     p = np.round(predictions[0])
     print(p.shape)
-    imageio.imwrite(f + "prediction.png", p)
+    imageio.imwrite(f + "_prediction.png", p)
     show(p)
 
 
