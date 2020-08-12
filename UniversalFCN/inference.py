@@ -4,6 +4,7 @@ import numpy as np
 import imageio
 import sys
 import time
+import os
 
 from model import generate_model
 
@@ -26,31 +27,32 @@ if __name__ == "__main__":
     model = generate_model()
     model.load_weights("weights.keras")
 
-    d = 'data/inference/'
+    d = "data/inference/"
+    files = os.listdir(d)
+    for i, f in enumerate(files):
+        if "intensitymap" not in f:
+            continue
+        f = '_'.join(f.split('_')[:2])
+        print("processing: " + f)
+        intensity_image = imageio.imread(d + f + "_intensitymap.png") / 255
+        normals_image = imageio.imread(d + f + "_normalmap.png") / 255
+        feature_image = np.dstack((intensity_image[:, :, 0],
+                                   normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
 
-    f = sys.argv[1]
+        feature_image = np.expand_dims(feature_image, axis=0)
+        print(feature_image.shape)
 
-    intensity_image = imageio.imread(d + f + "_intensitymap.png") / 255
-    normals_image = imageio.imread(d + f + "_normalmap.png") / 255
-    feature_image = np.dstack((intensity_image[:, :, 0],
-                               normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
+        start = time.time()
+        predictions = model.predict(feature_image)
+        print(f"Elapsed time: {time.time() - start} seconds")
 
-    feature_image = np.expand_dims(feature_image, axis=0)
-    print(feature_image.shape)
 
-    start = time.time()
-    predictions = model.predict(feature_image)
-    print(f"Elapsed time: {time.time() - start} seconds")
-
-    start = time.time()
-    predictions = model.predict(feature_image)
-    print(f"Elapsed time: {time.time() - start} seconds")
-
-    print(predictions.shape)
-    p = np.round(predictions[0])
-    print(p.shape)
-    imageio.imwrite(f + "prediction.png", p)
-    show(p)
+        print(predictions.shape)
+        p = np.round(predictions[0])
+        print(p.shape)
+        imageio.imwrite("predictions/" + f + "_prediction.png", p)
+        if i == len(files) - 1:
+            show(p)
 
 
 
