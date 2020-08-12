@@ -1,4 +1,4 @@
-#import tensorflow as tf
+import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 import imageio
@@ -8,11 +8,11 @@ import os
 
 from model import generate_model
 
-#def enable_gpu():
-#    gpus = tf.config.experimental.list_physical_devices('GPU')
-#    if gpus:
-#        for gpu in gpus:
-#            tf.config.experimental.set_memory_growth(gpu, True)
+def enable_gpu():
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    if gpus:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
 
 
 def show(result):
@@ -23,11 +23,12 @@ def show(result):
 
 
 if __name__ == "__main__":
-    #enable_gpu()
+    enable_gpu()
     model = generate_model()
     model.load_weights("weights.keras")
 
     d = "data/inference/"
+
     files = os.listdir(d)
     for i, f in enumerate(files):
         if "intensitymap" not in f:
@@ -46,13 +47,11 @@ if __name__ == "__main__":
         predictions = model.predict(feature_image)
         print(f"Elapsed time: {time.time() - start} seconds")
 
-
         print(predictions.shape)
         p = np.round(predictions[0])
         print(p.shape)
         imageio.imwrite("predictions/" + f + "_prediction.png", p)
         if i == len(files) - 1:
             show(p)
-
 
 
