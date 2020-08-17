@@ -70,6 +70,12 @@ class Generator(keras.utils.Sequence):
     def construct_batch(self, image_group):
         max_shape = tuple(max(image.shape[d] for image in image_group) for d in range(len(image_group[0].shape)))
 
+        #if max_shape[0] % 2 == 1:
+        #    max_shape = (max_shape[0]+1, max_shape[1], max_shape[2])
+
+        #if max_shape[1] % 2 == 1:
+        #    max_shape = (max_shape[0], max_shape[1]+1, max_shape[2])
+
         batch = np.zeros((self.batch_size,) + max_shape, dtype='float32')
 
         for image_index, image in enumerate(image_group):
