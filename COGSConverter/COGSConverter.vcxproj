@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClInclude Include="include\FormattingUtilities.h" />
     <ClInclude Include="include\lodepng.h" />
+    <ClInclude Include="include\PointCleanNetFormatter.h" />
     <ClInclude Include="include\ScanFormatter.h" />
     <ClInclude Include="include\ScanImager.h" />
     <ClInclude Include="include\ScanTabler.h" />
@@ -94,6 +95,7 @@
     <ClCompile Include="src\COGSConverter.cpp" />
     <ClCompile Include="src\FormattingUtilities.cpp" />
     <ClCompile Include="src\lodepng.cpp" />
+    <ClCompile Include="src\PointCleanNetFormatter.cpp" />
     <ClCompile Include="src\ScanFormatter.cpp" />
     <ClCompile Include="src\ScanImager.cpp" />
   </ItemGroup>

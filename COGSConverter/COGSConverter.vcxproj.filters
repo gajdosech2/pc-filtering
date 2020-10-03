@@ -16,6 +16,9 @@
     <ClInclude Include="include\lodepng.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\PointCleanNetFormatter.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FormattingUtilities.cpp">
@@ -31,6 +34,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\lodepng.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PointCleanNetFormatter.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
