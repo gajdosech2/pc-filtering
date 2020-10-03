@@ -57,7 +57,7 @@ void processor()
 
 void visualizer()
 {
-  Visualization::Visualize("zoo", 3);
+  Visualization::Visualize("apple", 12);
 }
 
 void generator()

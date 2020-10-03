@@ -49,8 +49,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\SkeletexLibs\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\SkeletexLibs\lib\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\include;$(SolutionDir)\libs\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -80,24 +80,22 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>COGS.lib;GEOM.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>COGS_msvc141_v0.1.0.lib;GEOM_msvc141_v0.1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="HeaderFiles\DataFormatter.h" />
-    <ClInclude Include="HeaderFiles\ImageGenerator.h" />
-    <ClInclude Include="HeaderFiles\PointFeatures.h" />
+    <ClInclude Include="include\FormattingUtilities.h" />
+    <ClInclude Include="include\lodepng.h" />
+    <ClInclude Include="include\ScanFormatter.h" />
+    <ClInclude Include="include\ScanImager.h" />
+    <ClInclude Include="include\ScanTabler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SourceFiles\COGSConverter.cpp" />
-    <ClCompile Include="SourceFiles\DataFormatter.cpp" />
-    <ClCompile Include="SourceFiles\ImageGenerator.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SkeletexLibs\bin\Release\assimp-vc140-mt.dll" />
-    <None Include="SkeletexLibs\bin\Release\COGS.dll" />
-    <None Include="SkeletexLibs\bin\Release\GEOM.dll" />
-    <None Include="SkeletexLibs\bin\Release\Utils.dll" />
+    <ClCompile Include="src\COGSConverter.cpp" />
+    <ClCompile Include="src\FormattingUtilities.cpp" />
+    <ClCompile Include="src\lodepng.cpp" />
+    <ClCompile Include="src\ScanFormatter.cpp" />
+    <ClCompile Include="src\ScanImager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
