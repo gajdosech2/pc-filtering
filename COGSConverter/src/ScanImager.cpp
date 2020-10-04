@@ -5,6 +5,7 @@
 void ScanImager::GenerateInput(std::string out_path)
 {
     FindNormalizingValues();
+    std::cout << "going to generate images" << std::endl;
     GenerateNormalMap(out_path);
     GenerateIntensityMap(out_path);
 }
@@ -14,6 +15,7 @@ void ScanImager::GenerateTruth(std::string out_path, std::string truth_path)
     cogs::Scan truth;
     truth.Import(truth_path);
     FormattingUtilities::Trim(truth, true);
+    std::cout << "going to generate truth" << std::endl;
     GenerateBinaryMap(out_path, truth);
 }
 
@@ -141,7 +143,7 @@ void ScanImager::GenerateBinaryMap(std::string out_path, cogs::Scan scan)
             image[4 * width * y + 4 * x + 3] = 255;
         }
     }
-    unsigned error = lodepng::encode(out_path + file_name_ + "_truth.png", image, width, height);
+    unsigned error = lodepng::encode(out_path + file_name_ + "_truthmask.png", image, width, height);
     if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 

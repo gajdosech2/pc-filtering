@@ -6,8 +6,8 @@ class ScanImager : public ScanFormatter
 {
 public:
 	void GenerateInput(std::string out) override;
-	void GenerateTruth(std::string out, std::string truth);
-	void ProcessPrediction(std::string original_file, std::string prediction);
+	void GenerateTruth(std::string out, std::string truth) override;
+	void ProcessPrediction(std::string original_file, std::string prediction) override;
 
 private:
 	void GenerateNormalMap(std::string out);

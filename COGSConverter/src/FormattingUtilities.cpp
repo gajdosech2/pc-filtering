@@ -36,14 +36,15 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
     new_scan.AddIntensities();
     new_scan.AddNormals();
 
-    for (uint32_t i = 0; i < new_resolution.y; i++)
+    std::cout << "trimming itself" << std::endl;
+    for (uint32_t y = 0; y < new_resolution.y; y++)
     {
-        for (uint32_t j = 0; j < new_resolution.x; j++)
+        for (uint32_t x = 0; x < new_resolution.x; x++)
         {
-            if (scan.IsPointAt(j + trim_values.min_x, i + trim_values.min_y))
+            if (scan.IsPointAt(x + trim_values.min_x, y + trim_values.min_y))
             {
-                auto old_id = scan.GetPointAt(j + trim_values.min_x, i + trim_values.min_y);
-                auto new_id = new_scan.AddPointAt(j, i);
+                auto old_id = scan.GetPointAt(x + trim_values.min_x, y + trim_values.min_y);
+                auto new_id = new_scan.AddPointAt(x, y);
 
                 new_scan.GetPositions()[new_id] = scan.GetPositions()[old_id];
                 new_scan.GetNormals()[new_id] = scan.GetNormals()[old_id];
@@ -51,6 +52,7 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
             }
         }
     }
+    std::cout << "after trim" << std::endl;
     scan = new_scan;
 }
 
