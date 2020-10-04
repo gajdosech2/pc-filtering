@@ -6,11 +6,8 @@
 
 bool ScanFormatter::Import(std::string path)
 {
-    std::cout << "going to import" << std::endl;
     data_.Import(path);
-    std::cout << "going to trim" << std::endl;
     FormattingUtilities::Trim(data_);
-    std::cout << "going to prepare name" << std::endl;
     PrepareFileName(path);
     return true;
 }

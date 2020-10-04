@@ -5,7 +5,6 @@
 void ScanImager::GenerateInput(std::string out_path)
 {
     FindNormalizingValues();
-    std::cout << "going to generate images" << std::endl;
     GenerateNormalMap(out_path);
     GenerateIntensityMap(out_path);
 }
@@ -15,7 +14,6 @@ void ScanImager::GenerateTruth(std::string out_path, std::string truth_path)
     cogs::Scan truth;
     truth.Import(truth_path);
     FormattingUtilities::Trim(truth, true);
-    std::cout << "going to generate truth" << std::endl;
     GenerateBinaryMap(out_path, truth);
 }
 
@@ -149,13 +147,13 @@ void ScanImager::GenerateBinaryMap(std::string out_path, cogs::Scan scan)
 
 void ScanImager::FindNormalizingValues()
 {
-    for (uint32_t i = 0; i < data_.GetHeight(); i++)
+    for (uint32_t y = 0; y < data_.GetHeight(); y++)
     {
-        for (uint32_t j = 0; j < data_.GetWidth(); j++)
+        for (uint32_t x = 0; x < data_.GetWidth(); x++)
         {
-            if (data_.IsPointAt(j, i))
+            if (data_.IsPointAt(x, y))
             {
-                auto id = data_.GetPointAt(j, i);
+                auto id = data_.GetPointAt(x, y);
                 auto normal = data_.GetNormals()[id];
                 auto intensity = data_.GetIntensities()[id];
                 auto position = data_.GetPositions()[id];

@@ -12,7 +12,10 @@ def process(datasets_path, export_path):
         print('processing: ' + f)
         dirty_file = datasets_path + dataset_name + '_dirty/' + f
         clean_file = datasets_path + dataset_name + '_clean/truth_' + f
-        os.system('./LCC --generate ' + dirty_file + ' ' + clean_file + ' ' + export_path)
+        if os.name == 'nt':
+          os.system('CC.exe --generate ' + dirty_file + ' ' + clean_file + ' ' + export_path)
+        else:
+          os.system('./LCC --generate ' + dirty_file + ' ' + clean_file + ' ' + export_path)
 
 
 if __name__ == "__main__":

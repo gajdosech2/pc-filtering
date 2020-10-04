@@ -30,13 +30,13 @@ TrimValues FormattingUtilities::FindTrimValues(cogs::Scan &scan)
 void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
 {
     last = trim_values;
-    cogs::Scan new_scan(scan);
+    cogs::Scan new_scan;
     const glm::uvec2 new_resolution(trim_values.max_x - trim_values.min_x + 1, trim_values.max_y - trim_values.min_y + 1);
     new_scan.SetResolution(new_resolution);
     new_scan.AddIntensities();
     new_scan.AddNormals();
+    new_scan.Reserve(new_resolution.x * new_resolution.y);
 
-    std::cout << "trimming itself" << std::endl;
     for (uint32_t y = 0; y < new_resolution.y; y++)
     {
         for (uint32_t x = 0; x < new_resolution.x; x++)
@@ -52,7 +52,6 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
             }
         }
     }
-    std::cout << "after trim" << std::endl;
     scan = new_scan;
 }
 
