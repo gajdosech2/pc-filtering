@@ -4,6 +4,9 @@ import sys
 
 def process(datasets_path, export_path):
   datasets = os.listdir(datasets_path)
+  if not os.path.exists(export_path):
+    os.makedirs(export_path, exist_ok=True)
+    
   for d in datasets:
     if 'dirty' in d:
       dataset_name = d.split('_')[0]

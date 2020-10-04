@@ -27,7 +27,7 @@ def enable_gpu():
             
 def cogs_files():
     files = os.listdir(d)
-    os.mkdir(e)
+    os.makedirs(e, exist_ok=True)
     for f in files:
         if '.cogs' in f and 'processed' not in f:
             if os.name == 'nt':
