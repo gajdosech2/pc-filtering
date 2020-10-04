@@ -81,9 +81,9 @@ def autoencoder(i):
 def simple(i):
     x = Conv2D(filters=8, kernel_size=3, activation='relu')(i)
     x = Conv2D(filters=16, kernel_size=3, activation='relu')(x)
-    x = Conv2D(filters=24, kernel_size=5, activation='relu')(x)
+    x = Conv2D(filters=32, kernel_size=3, activation='relu')(x)
     
-    x = Conv2DTranspose(filters=24, kernel_size=5)(x)
+    x = Conv2DTranspose(filters=32, kernel_size=3)(x)
     x = Conv2DTranspose(filters=16, kernel_size=3)(x)
     x = Conv2DTranspose(filters=8, kernel_size=3)(x)
     o = Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x)

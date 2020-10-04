@@ -10,6 +10,7 @@ from model import generate_model
 
 d = 'process/'
 e = 'result/'
+POWER_UP = True
 
 def show(result):
     plt.figure()
@@ -64,13 +65,14 @@ def generate_feature_image(f):
     normals_image = imageio.imread(d + f + "_normalmap.png") / 255
     feature_image = np.dstack((intensity_image, normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
   
-    shape = feature_image.shape
-    i1 = 2**math.ceil(math.log2(shape[0])) - shape[0]
-    i2 = 2**math.ceil(math.log2(shape[1])) - shape[1]
-    shape = (shape[0]+i1, shape[1]+i2, shape[2])
-    resized = np.zeros(shape, dtype='float32')    
-    resized[:feature_image.shape[0], :feature_image.shape[1], :] = feature_image
-    feature_image = resized
+    if POWER_UP:
+        shape = feature_image.shape
+        i1 = 2**math.ceil(math.log2(shape[0])) - shape[0]
+        i2 = 2**math.ceil(math.log2(shape[1])) - shape[1]
+        shape = (shape[0]+i1, shape[1]+i2, shape[2])
+        resized = np.zeros(shape, dtype='float32')    
+        resized[:feature_image.shape[0], :feature_image.shape[1], :] = feature_image
+        feature_image = resized
     
     feature_image = np.expand_dims(feature_image, axis=0)
     return feature_image, intensity_image.shape[0], intensity_image.shape[1]

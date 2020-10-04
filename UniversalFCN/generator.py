@@ -7,6 +7,7 @@ import math
 import matplotlib.pyplot as plt
 
 POWER_UP = True
+WEIGHT = 0.9
 
 class Generator(keras.utils.Sequence):
     def __init__(self, dataset_path, batch_size=2, shuffle_images=True, image_min_side=24):
@@ -14,10 +15,10 @@ class Generator(keras.utils.Sequence):
         self.masks = []
         self.image_groups = []
         self.mask_groups = []
-        self.load_data(dataset_path)
         self.image_min_side = image_min_side
         self.batch_size = batch_size
         self.shuffle_images = shuffle_images
+        self.load_data(dataset_path)
         self.create_image_groups()
 
     def load_data(self, dataset_path):
@@ -35,7 +36,7 @@ class Generator(keras.utils.Sequence):
                 self.feature_images.append(feature_image)
                 
                 mask_image = imageio.imread(dataset_path + "/" + file) / 255
-                mask_image = 0.6 * mask_image
+                mask_image = WEIGHT * mask_image
                 mask_image = np.expand_dims(mask_image, axis=2)
                 self.masks.append(mask_image)
 
