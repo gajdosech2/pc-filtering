@@ -9,23 +9,23 @@ void ScanImager::GenerateInput(std::string out_path)
     GenerateIntensityMap(out_path);
 }
 
-void ScanImager::GenerateTruth(std::string out_path, std::string truth_path)
+void ScanImager::GenerateTruth(std::string truth_path, std::string out_path)
 {
     cogs::Scan truth;
     truth.Import(truth_path);
     FormattingUtilities::Trim(truth, true);
-    GenerateBinaryMap(out_path, truth);
+    GenerateBinaryMap(truth, out_path);
 }
 
-void ScanImager::ProcessPrediction(std::string original_file, std::string prediction)
+void ScanImager::ProcessPrediction(std::string original_path, std::string prediction_path, std::string out_path)
 {
     std::vector<unsigned char> image;
     unsigned width, height;
-    unsigned error = lodepng::decode(image, width, height, prediction);
+    unsigned error = lodepng::decode(image, width, height, prediction_path);
     if (error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
     cogs::Scan scan;
-    scan.Import(original_file);
+    scan.Import(original_path);
     auto trim_values = FormattingUtilities::FindTrimValues(scan);
     std::vector<uint32_t> to_delete;
     for (uint32_t y = 0; y < height; y++)
@@ -40,7 +40,8 @@ void ScanImager::ProcessPrediction(std::string original_file, std::string predic
         }
     }
     scan.Erase(to_delete);
-    scan.Export("processed_" + original_file);
+    PrepareFileName(original_path);
+    scan.Export(out_path + file_name_ + "_processed.cogs");
 }
 
 void ScanImager::GenerateNormalMap(std::string out_path)
@@ -89,27 +90,23 @@ void ScanImager::GenerateIntensityMap(std::string out_path)
         out_path = out_path + "/";
     }
 
-    int gray_levels = 255;
-    auto width = data_.GetWidth();
-    auto height = data_.GetHeight();
+    const int gray_levels = 255;
+    const auto width = data_.GetWidth();
+    const auto height = data_.GetHeight();
    
-    float a = (gray_levels * 2) / (max_intensity_ - min_intensity_);
-    float b = (gray_levels * 2) - a * max_intensity_;
+    const float a = (gray_levels * 2) / (max_intensity_ - min_intensity_);
+    const float b = (gray_levels * 2) - a * max_intensity_;
 
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
     {
         for (unsigned x = 0; x < width; x++) {
-            int n_i;
+            int n_i = 0;
             if (data_.IsPointAt(x, y))
             {
                 auto id = data_.GetPointAt(x, y);
                 n_i = std::min(255, (int)(a * data_.GetIntensities()[id] + b));
-            }
-            else
-            {
-                n_i = 0;
             }
             image[4 * width * y + 4 * x + 0] = n_i;
             image[4 * width * y + 4 * x + 1] = n_i;
@@ -121,14 +118,12 @@ void ScanImager::GenerateIntensityMap(std::string out_path)
     if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-void ScanImager::GenerateBinaryMap(std::string out_path, cogs::Scan scan)
+void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path)
 {
-    if (!out_path.empty())
-    {
-        out_path = out_path + "/";
-    }
-    auto width = scan.GetWidth();
-    auto height = scan.GetHeight();
+    if (!out_path.empty()) out_path = out_path + "/";
+    
+    const auto width = scan.GetWidth();
+    const auto height = scan.GetHeight();
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)

@@ -13,9 +13,9 @@ public:
 	ScanFormatter(std::string path) { Import(path); };
 	bool Import(std::string path);
 
-	virtual void GenerateInput(std::string out) = 0;
-	virtual void GenerateTruth(std::string out, std::string truth) = 0;
-	virtual void ProcessPrediction(std::string original_file, std::string prediction) = 0;
+	virtual void GenerateInput(std::string out_path) = 0;
+	virtual void GenerateTruth(std::string truth_path, std::string out_path) = 0;
+	virtual void ProcessPrediction(std::string original_path, std::string prediction_path, std::string out_path="") = 0;
 
 protected:
 	void PrepareFileName(std::string path);
