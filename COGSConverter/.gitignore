@@ -1,2 +1,4 @@
 .vs
 x64
+libs/lib/Release/libassimp.a
+libs/lib/Release/libCOGS_Clang8.0.1_v0.1.0.so
