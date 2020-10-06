@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ScanImager.h"
 #include "ScanSegmentation.h"
+#include <COGS/Scan.h>
 
 void GenerateImages(int argc, char* argv[])
 {

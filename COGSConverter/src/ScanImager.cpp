@@ -2,6 +2,7 @@
 #include "FormattingUtilities.h"
 #include "lodepng.h"
 #include <limits>
+#include <glm/gtc/matrix_transform.hpp>
 
 void ScanImager::GenerateInput(std::string out_path)
 {
@@ -48,10 +49,7 @@ void ScanImager::ProcessPrediction(std::string original_path, std::string predic
 
 void ScanImager::GenerateNormalMap(std::string out_path)
 {
-    if (!out_path.empty())
-    {
-        out_path = out_path + "/";
-    }
+    if (!out_path.empty()) out_path = out_path + "/";
 
     auto a = (255) / (max_normal_ - min_normal_);
     auto b = 255 - a * max_normal_;
@@ -87,10 +85,7 @@ void ScanImager::GenerateNormalMap(std::string out_path)
 
 void ScanImager::GenerateIntensityMap(std::string out_path)
 {
-    if (!out_path.empty())
-    {
-        out_path = out_path + "/";
-    }
+    if (!out_path.empty()) out_path = out_path + "/";
 
     const int gray_levels = 255;
     const auto width = data_.GetWidth();
@@ -180,13 +175,14 @@ void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path)
 
 void ScanImager::FindNormalizingValues()
 {
-    auto cam_pos = data_.GetCameraPosition();
     min_intensity_ = std::numeric_limits<float>::max();
     max_intensity_ = std::numeric_limits<float>::min();
     min_normal_ = std::numeric_limits<float>::max();
     max_normal_ = std::numeric_limits<float>::min();
     min_camdist_ = std::numeric_limits<float>::max();
     max_camdist_ = std::numeric_limits<float>::min();
+    
+    auto cam_pos = data_.GetCameraPosition();
     for (uint32_t y = 0; y < data_.GetHeight(); y++)
     {
         for (uint32_t x = 0; x < data_.GetWidth(); x++)

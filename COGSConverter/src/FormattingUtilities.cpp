@@ -36,6 +36,7 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
     new_scan.AddIntensities();
     new_scan.AddNormals();
     new_scan.Reserve(new_resolution.x * new_resolution.y);
+    new_scan.SetCameraPosition(scan.GetCameraPosition());
 
     for (uint32_t y = 0; y < new_resolution.y; y++)
     {
