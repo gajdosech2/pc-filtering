@@ -89,6 +89,7 @@
     <ClInclude Include="include\PointCleanNetFormatter.h" />
     <ClInclude Include="include\ScanFormatter.h" />
     <ClInclude Include="include\ScanImager.h" />
+    <ClInclude Include="include\ScanSegmentation.h" />
     <ClInclude Include="include\ScanTabler.h" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,7 @@
     <ClCompile Include="src\PointCleanNetFormatter.cpp" />
     <ClCompile Include="src\ScanFormatter.cpp" />
     <ClCompile Include="src\ScanImager.cpp" />
+    <ClCompile Include="src\ScanSegmentation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

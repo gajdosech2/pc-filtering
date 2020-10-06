@@ -1,12 +1,14 @@
 #include "ScanImager.h"
 #include "FormattingUtilities.h"
 #include "lodepng.h"
+#include <limits>
 
 void ScanImager::GenerateInput(std::string out_path)
 {
     FindNormalizingValues();
     GenerateNormalMap(out_path);
     GenerateIntensityMap(out_path);
+    GenerateDepthMap(out_path);
 }
 
 void ScanImager::GenerateTruth(std::string truth_path, std::string out_path)
@@ -118,6 +120,42 @@ void ScanImager::GenerateIntensityMap(std::string out_path)
     if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
+void ScanImager::GenerateDepthMap(std::string out_path)
+{
+    if (!out_path.empty()) out_path = out_path + "/";
+
+    const int gray_levels = 255;
+    const auto width = data_.GetWidth();
+    const auto height = data_.GetHeight();
+
+    const float a = (gray_levels) / (max_camdist_ - min_camdist_);
+    const float b = (gray_levels) - a * max_camdist_;
+
+    std::vector<unsigned char> image;
+    image.resize(width * height * 4);
+
+    auto cam_pos = data_.GetCameraPosition();
+
+    for (unsigned y = 0; y < height; y++)
+    {
+        for (unsigned x = 0; x < width; x++) {
+
+            int n_d = 0;
+            if (data_.IsPointAt(x, y))
+            {
+                auto id = data_.GetPointAt(x, y);
+                n_d = 255 - std::min(255, (int)(a * glm::distance(cam_pos, data_.GetPositions()[id]) + b));
+            }
+            image[4 * width * y + 4 * x + 0] = n_d;
+            image[4 * width * y + 4 * x + 1] = n_d;
+            image[4 * width * y + 4 * x + 2] = n_d;
+            image[4 * width * y + 4 * x + 3] = 255;
+        }
+    }
+    unsigned error = lodepng::encode(out_path + file_name_ + "_depthmap.png", image, width, height);
+    if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+}
+
 void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path)
 {
     if (!out_path.empty()) out_path = out_path + "/";
@@ -142,6 +180,13 @@ void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path)
 
 void ScanImager::FindNormalizingValues()
 {
+    auto cam_pos = data_.GetCameraPosition();
+    min_intensity_ = std::numeric_limits<float>::max();
+    max_intensity_ = std::numeric_limits<float>::min();
+    min_normal_ = std::numeric_limits<float>::max();
+    max_normal_ = std::numeric_limits<float>::min();
+    min_camdist_ = std::numeric_limits<float>::max();
+    max_camdist_ = std::numeric_limits<float>::min();
     for (uint32_t y = 0; y < data_.GetHeight(); y++)
     {
         for (uint32_t x = 0; x < data_.GetWidth(); x++)
@@ -163,6 +208,9 @@ void ScanImager::FindNormalizingValues()
                 max_normal_ = std::max(max_normal_, normal.x);
                 max_normal_ = std::max(max_normal_, normal.y);
                 max_normal_ = std::max(max_normal_, normal.z);
+                auto distance = glm::distance(position, cam_pos);
+                min_camdist_ = std::min(min_camdist_, distance);
+                max_camdist_ = std::max(max_camdist_, distance);
             }
         }
     }

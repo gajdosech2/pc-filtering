@@ -33,6 +33,5 @@ public:
     static void Trim(cogs::Scan &scan, bool use_last = false);
     static void Pad(cogs::Scan &scan, int size);
 
-private:
     inline static TrimValues last;
 };
