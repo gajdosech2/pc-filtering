@@ -92,14 +92,14 @@ def simple(i):
 
 def generate_model():
     i = Input(shape=(None, None, 4))
-    o = autoencoder(i)
+    o = skip(i)
    
     model = Model(inputs=i, outputs=o)
     
     print(model.summary())
     print(f'Total number of layers: {len(model.layers)}')
 
-    model.compile(optimizer=keras.optimizers.Adam(lr=0.0001),
+    model.compile(optimizer=keras.optimizers.Adam(lr=0.00005),
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 

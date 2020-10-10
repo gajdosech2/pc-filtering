@@ -30,7 +30,7 @@ def cogs_files():
     files = os.listdir(d)
     os.makedirs(e, exist_ok=True)
     for f in files:
-        if '.cogs' in f and 'processed' not in f:
+        if '.cogs' in f and 'processed' not in f and 'truth' not in f:
             if os.name == 'nt':
                 os.system('"utils\WCC.exe"' + 
                             ' --process ' + 
@@ -44,12 +44,17 @@ def cogs_files():
 def input_files():
     files = os.listdir(d)
     for f in files:
-        if '.cogs' in f and 'processed' not in f:
+        if '.cogs' in f and 'processed' not in f and 'truth' not in f:
+            print("processing: " + f)
+            t = ""
+            if os.path.isfile(d + "truth_" + f):
+                t = d + "truth_" + f
             if os.name == 'nt':
                 os.system('"utils\WCC.exe"' + 
                             ' --generate ' + 
                             d + f + ' ' + 
-                            d)
+                            d + ' ' +
+                            t)
             else:
                 pass
                 
@@ -95,6 +100,38 @@ def inference():
             prediction = prediction[:original_width, :original_height, :]
 
             imageio.imwrite(d + f + "_prediction.png", prediction)
+            
+            
+def evaluation():
+    size = 0
+    metric = 0
+    max_metric = 0
+    min_metric = 1
+    files = os.listdir(d)
+    for truth in files:
+        if "truthmask" in truth:
+            size += 1
+            name = truth[:-14]
+            prediction = name + "_prediction.png"
+            prediction = np.asarray(imageio.imread(d + prediction) / 255, dtype=np.int)
+            truth = np.asarray(imageio.imread(d + truth) / 255, dtype=np.int)
+            
+            intersection = np.sum(prediction * truth)
+            union = np.sum(truth) + np.sum(prediction) - intersection
+            iou = intersection / union
+            metric += iou
+            max_metric = max(iou, max_metric)
+            min_metric = min(iou, min_metric)
+            with open (e + name + "_eval.txt", "w") as result:
+                print(iou, file=result)
+    
+    if size > 0:
+        metric /= size
+        print("Average IoU: " + str(metric))
+        print("Max IoU: " + str(max_metric))
+        print("Min IoU: " + str(min_metric))
+        with open (e + "average_iou.txt", "w") as result:
+            print(metric, file=result)
 
 
 if __name__ == "__main__":
@@ -102,7 +139,9 @@ if __name__ == "__main__":
     input_files()
     inference()
     cogs_files()
-    clean_up()
-    print(f"Elapsed time: {time.time() - start} seconds")
+    stop = time.time()
+    evaluation()
+    #clean_up()
+    print(f"Elapsed time: {stop - start} seconds")
 
 
