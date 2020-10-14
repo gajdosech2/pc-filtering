@@ -29,7 +29,7 @@ void PointCleanNetFormatter::GenerateInput(std::string out)
     data_file.close();
 }
 
-void PointCleanNetFormatter::GenerateTruth(std::string out, std::string truth_path)
+void PointCleanNetFormatter::GenerateTruth(std::string truth_path, std::string out)
 {
     cogs::Scan truth;
     truth.Import(truth_path);
@@ -60,4 +60,8 @@ void PointCleanNetFormatter::GenerateTruth(std::string out, std::string truth_pa
     }
     std::cout << t << "/" << o << std::endl;
     outliers.close();
+}
+
+void PointCleanNetFormatter::ProcessPrediction(std::string original_path, std::string prediction_path, std::string out_path)
+{
 }

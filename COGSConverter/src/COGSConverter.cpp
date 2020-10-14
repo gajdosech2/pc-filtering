@@ -1,13 +1,13 @@
 #include <iostream>
 #include "ScanImager.h"
 #include "ScanSegmentation.h"
+#include "PointCleanNetFormatter.h"
 #include <COGS/Scan.h>
 
-void GenerateImages(int argc, char* argv[])
+void Generate(int argc, char* argv[], ScanFormatter *formatter)
 {
-    // ./CC --generate INPUT_FILE EXPORT_PATH GROUND_TRUTH_FILE 
-    ScanImager formatter;
-    formatter.Import(argv[2]);
+    // ./CC --MODE INPUT_FILE EXPORT_PATH GROUND_TRUTH_FILE 
+    formatter->Import(argv[2]);
     std::string out = "";
     switch (argc)
     {
@@ -16,29 +16,10 @@ void GenerateImages(int argc, char* argv[])
         break;
     case 5:
         out = argv[3];
-        formatter.GenerateTruth(argv[4], out);
+        formatter->GenerateTruth(argv[4], out);
         break;
     }
-    formatter.GenerateInput(out);
-}
-
-void GenerateSegmentation(int argc, char* argv[])
-{
-    // ./CC --segment INPUT_FILE EXPORT_PATH LABELS_FILE
-    ScanSegmentation formatter;
-    formatter.Import(argv[2]);
-    std::string out = "";
-    switch (argc)
-    {
-    case 4:
-        out = argv[3];
-        break;
-    case 5:
-        out = argv[3];
-        formatter.GenerateTruth(argv[4], out);
-        break;
-    }
-    formatter.GenerateInput(out);
+    formatter->GenerateInput(out);
 }
 
 void ProcessMask(int argc, char* argv[])
@@ -64,15 +45,22 @@ int main(int argc, char* argv[])
     }
     if ((std::string)argv[1] == "--generate")
     {
-        GenerateImages(argc, argv);
+        ScanImager formatter;
+        Generate(argc, argv, &formatter);
+    }
+    else if ((std::string)argv[1] == "--segment")
+    {
+        ScanSegmentation formatter;
+        Generate(argc, argv, &formatter);
+    }
+    else if ((std::string)argv[1] == "--xyz")
+    {
+        PointCleanNetFormatter formatter;
+        Generate(argc, argv, &formatter);
     }
     else if ((std::string)argv[1] == "--process")
     {
         ProcessMask(argc, argv);
-    }
-    else if ((std::string)argv[1] == "--segment")
-    {
-        GenerateSegmentation(argc, argv);
     }
     return 0;
 }
