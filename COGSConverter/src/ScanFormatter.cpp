@@ -4,10 +4,13 @@
 #include "ScanFormatter.h"
 #include "FormattingUtilities.h"
 
-bool ScanFormatter::Import(std::string path)
+bool ScanFormatter::Import(std::string path, bool trim)
 {
     data_.Import(path);
-    FormattingUtilities::Trim(data_);
+    if (trim)
+    {
+        FormattingUtilities::Trim(data_);
+    }
     PrepareFileName(path);
     return true;
 }

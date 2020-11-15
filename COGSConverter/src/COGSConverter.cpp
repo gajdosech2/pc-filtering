@@ -4,10 +4,10 @@
 #include "PointCleanNetFormatter.h"
 #include <COGS/Scan.h>
 
-void Generate(int argc, char* argv[], ScanFormatter *formatter)
+void Generate(int argc, char* argv[], ScanFormatter *formatter, bool trim = true)
 {
     // ./CC --MODE INPUT_FILE EXPORT_PATH GROUND_TRUTH_FILE 
-    formatter->Import(argv[2]);
+    formatter->Import(argv[2], trim);
     std::string out = "";
     switch (argc)
     {

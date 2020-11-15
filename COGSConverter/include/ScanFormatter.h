@@ -10,8 +10,8 @@ class ScanFormatter
 {
 public:
 	ScanFormatter() = default;
-	ScanFormatter(std::string path) { Import(path); };
-	bool Import(std::string path);
+	ScanFormatter(std::string path, bool trim = true) { Import(path, trim); };
+	bool Import(std::string path, bool trim = true);
 
 	virtual void GenerateInput(std::string out_path) = 0;
 	virtual void GenerateTruth(std::string truth_path, std::string out_path) = 0;
