@@ -1,0 +1,11 @@
+data/raw/
+Images
+Labels
+__pycache__/
+*/__pycache__/
+*.h5
+*.hdf5
+
+yolov1-keras/VOCdevkit
+yolov1-keras/backup
+yolov1-keras/checkpoints

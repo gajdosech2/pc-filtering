@@ -19,18 +19,20 @@ def train(model, train_generator, val_generator, epochs=50):
                         validation_data=val_generator,
                         validation_steps=len(val_generator))
     return history
+    
+def visualize_process():
+    # TO-DO GRAPHS
+    pass
 
 if __name__ == "__main__":
+    enable_gpu()
     model = generate_model()
 
-    train_dir = 'data/train'
-    val_dir = 'data/test'
-
     BATCH_SIZE = 1
-    train_generator = Generator(train_dir, BATCH_SIZE)
-    val_generator = Generator(val_dir, BATCH_SIZE)
+    train_generator = Generator('train', BATCH_SIZE)
+    val_generator = Generator('val', BATCH_SIZE)
 
-    EPOCHS = 32
+    EPOCHS = 64
     start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
     print(f"Elapsed time: {time.time() - start} seconds")

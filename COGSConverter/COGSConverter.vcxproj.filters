@@ -22,6 +22,9 @@
     <ClInclude Include="include\ScanSegmentation.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\ScanBoxes.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FormattingUtilities.cpp">
@@ -43,6 +46,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\ScanSegmentation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScanBoxes.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

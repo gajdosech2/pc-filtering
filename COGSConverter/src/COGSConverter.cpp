@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ScanImager.h"
 #include "ScanSegmentation.h"
+#include "ScanBoxes.h"
 #include "PointCleanNetFormatter.h"
 #include <COGS/Scan.h>
 
@@ -52,6 +53,11 @@ int main(int argc, char* argv[])
     {
         ScanSegmentation formatter;
         Generate(argc, argv, &formatter);
+    }
+    else if ((std::string)argv[1] == "--boxes")
+    {
+        ScanBoxes formatter;
+        Generate(argc, argv, &formatter, false);
     }
     else if ((std::string)argv[1] == "--xyz")
     {

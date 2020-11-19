@@ -1,5 +1,6 @@
 import os
 
+import cv2
 import numpy as np
 import imageio
 import keras
@@ -7,10 +8,14 @@ import math
 import matplotlib.pyplot as plt
 
 POWER_UP = True
+DOWN_SCALE = True
 WEIGHT = 1
 
+def down_scale_image(img):
+  return cv2.resize(img, dsize=(img.shape[1] // 2, img.shape[0] // 2), interpolation=cv2.INTER_NEAREST)
+
 class Generator(keras.utils.Sequence):
-    def __init__(self, dataset_path, batch_size=2, shuffle_images=True, image_min_side=24):
+    def __init__(self, data_type, batch_size=2, shuffle_images=True, image_min_side=24):
         self.feature_images = []
         self.masks = []
         self.image_groups = []
@@ -18,27 +23,46 @@ class Generator(keras.utils.Sequence):
         self.image_min_side = image_min_side
         self.batch_size = batch_size
         self.shuffle_images = shuffle_images
-        self.load_data(dataset_path)
+        self.load_data(data_type)
         self.create_image_groups()
 
-    def load_data(self, dataset_path):
-        files = os.listdir(dataset_path)
-        for file in files:
-            if "segmask" in file:
-                first_underscore = file.find("_")
-                second_underscore = file[first_underscore + 1:].find("_")
-                name = file[:first_underscore + second_underscore + 1]
-                depth_image = imageio.imread(dataset_path + "/" + name + "_depthmap.png") / 255
-                normals_image = imageio.imread(dataset_path + "/" + name + "_normalmap.png") / 255
+    def load_data(self, data_type):
+        datasets = os.listdir("data/" + data_type)
+        for dataset in datasets:
+            parts = os.listdir("data/" + data_type + "/" + dataset)
+            for part in parts:
+              path = "data/" + data_type + "/" + dataset + "/" + part
+              files = os.listdir(path)
+              for file in files:
+                if "segmask" in file:
+                  first_underscore = file.find("_")
+                  second_underscore = file[first_underscore + 1:].find("_")
+                  name = file[:first_underscore + second_underscore + 1]
+                  
+                  depth_image = imageio.imread(path + "/" + name + "_depthmap.png")
+                  if DOWN_SCALE:
+                    depth_image = down_scale_image(depth_image)
+                  depth_image = depth_image / 255
+                  
+                  normals_image = imageio.imread(path + "/" + name + "_normalmap.png")
+                  if DOWN_SCALE:
+                    normals_image = down_scale_image(normals_image)
+                  normals_image = normals_image / 255
   
-                feature_image = np.dstack((depth_image,
-                                           normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
-                self.feature_images.append(feature_image)
+                  feature_image = np.dstack((depth_image,
+                                             normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
+                  self.feature_images.append(feature_image)
                 
-                mask_image = imageio.imread(dataset_path + "/" + file) / 255
-                mask_image = WEIGHT * mask_image
-                mask_image = np.expand_dims(mask_image, axis=2)
-                self.masks.append(mask_image)
+                  mask_image = imageio.imread(path + "/" + file) 
+                  if DOWN_SCALE:
+                    mask_image = down_scale_image(mask_image)
+                  mask_image = mask_image / 255
+                  mask_image = WEIGHT * mask_image
+                  mask_image = np.expand_dims(mask_image, axis=2)
+                  
+
+                  
+                  self.masks.append(mask_image)
 
     def create_image_groups(self):
         if self.shuffle_images:
@@ -57,9 +81,9 @@ class Generator(keras.utils.Sequence):
         max_shape = tuple(max(image.shape[d] for image in image_group) for d in range(len(image_group[0].shape)))
         
         if POWER_UP:
-            i1 = 2**math.ceil(math.log2(max_shape[0])) - max_shape[0]
-            i2 = 2**math.ceil(math.log2(max_shape[1])) - max_shape[1]
-            max_shape = (max_shape[0]+i1, max_shape[1]+i2, max_shape[2])
+            i1 = 2**math.ceil(math.log2(max_shape[0]))
+            i2 = 2**math.ceil(math.log2(max_shape[1]))
+            max_shape = (i1, i2, max_shape[2])
 
         batch = np.zeros((self.batch_size,) + max_shape, dtype='float32')
 
@@ -103,7 +127,7 @@ def show(image, mask):
 
 
 if __name__ == "__main__":
-    train_generator = Generator('data/train')
+    train_generator = Generator('train')
     print(len(train_generator))
     
     image_batch, mask_batch = train_generator[0]
