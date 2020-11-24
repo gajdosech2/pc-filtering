@@ -63,15 +63,15 @@ def process(dataset_type, dataset_name):
                     data_path)
         else:
           pass
-          
-    join_labels(dataset_type, dataset_name)
 
 
 if __name__ == "__main__":
   if len(sys.argv) == 1:
     process('train', 'basic')
+    join_labels('train', 'basic')
   elif len(sys.argv) == 2:
     join_labels('train', 'basic')
   elif len(sys.argv) == 3:
     process(sys.argv[1], sys.argv[2])
+    join_labels(sys.argv[1], sys.argv[2])
 

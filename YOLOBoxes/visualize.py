@@ -58,7 +58,7 @@ if __name__ == "__main__":
   if len(sys.argv) == 1:
     visualize('Images', 'Labels')
   elif len(sys.argv) == 2:
-    visualize('data/train/basic/dataset_0', 'data/train/basic/dataset_0')
+    visualize('data/train/basic/dataset_1', 'data/train/basic/dataset_1')
   elif len(sys.argv) == 3:
     visualize(sys.argv[1], sys.argv[2])
 

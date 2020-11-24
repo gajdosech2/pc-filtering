@@ -5,6 +5,8 @@ __pycache__/
 */__pycache__/
 *.h5
 *.hdf5
+*.keras
+*.weights
 
 yolov1-keras/VOCdevkit
 yolov1-keras/backup
