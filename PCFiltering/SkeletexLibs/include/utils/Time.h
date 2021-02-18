@@ -269,4 +269,30 @@ namespace time_m
     using TimeLogger::MeasureEnd;
   };
 
+
+
+  //! The result of profiling function execution. Contains the actual result and the run time.
+  template<typename T>
+  struct ProfilingResult
+  {
+    T result;
+    std::chrono::milliseconds time;
+
+    ProfilingResult(const T &r, std::chrono::milliseconds t)
+      : result(r)
+      , time(t)
+    {}
+  };
+
+  //! Execute and profile a function.
+  template<typename T>
+  inline ProfilingResult<T> ProfileFunctionRun(std::function<T()> Function)
+  {
+    StopWatch stop_watch;
+    stop_watch.Start();
+    const auto result = Function();
+    stop_watch.Stop();
+    const auto time = std::chrono::milliseconds(static_cast<uint32_t>(std::round(stop_watch.GetFinalTime())));
+    return time_m::ProfilingResult(result, time);
+  }
 }

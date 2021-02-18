@@ -51,4 +51,7 @@ namespace cogs
   */
   std::vector<glm::vec4> COGS_API CalculateTangentArray(const cogs::Mesh &mesh);
 
+
+  cogs::Mesh COGS_API JoinMeshes(const std::vector<cogs::Mesh> &meshes_to_join);
+
 }

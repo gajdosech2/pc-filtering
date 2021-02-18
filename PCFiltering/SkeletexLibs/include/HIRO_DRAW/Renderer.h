@@ -20,6 +20,7 @@
 namespace hiro::draw
 {
   class TextRenderer;
+  class Scene;
 
   //! Base class for setting rendering style of an arbitrary render object.
   struct HIRO_DRAW_API Style
@@ -48,7 +49,7 @@ namespace hiro::draw
   public:
     Renderer();
     //! Test whether specified style is compatible with object.
-    virtual bool IsCompatibileWithStyle(const Style *style) = 0;
+    virtual bool IsCompatibileWithStyle(const hiro::draw::Style *style) = 0;
 
   protected:
     //! Override this method to load specialized shader programs for your object.
@@ -71,26 +72,42 @@ namespace hiro::draw
 
     //! Override this method to specify custom rendering behavior in 2D rendering pass.
     virtual void Render2D(const std::string &program);
+    /*!
+      \brief Provides the possibility to render shapes using a simple color shader.
+
+      <b>Vertex attributes:</b><br/>
+      vec3 in_position; at location 0
+      vec3 in_color;    at location 1
+
+      <b>Uniforms:</b><br/>
+      bool use_uniform_color = false;   at location ULOC_CUSTOM_0
+      vec3 uniform_color = vec3(0,0,0); at location ULOC_CUSTOM_1
+    */
+    virtual void OnRenderSimple2D();
+
     //! Override this method to define texts to be rendered.
     virtual void FillTextRenderer(hiro::draw::TextRenderer *t_renderer);
 
     //! Obtain currently set object style of specific type. Can be used only in Update-Render stage!
     template <typename StyleType>
-    const StyleType *GetStyle();
+    const StyleType *GetStyle() const;
+
+    const Scene *GetScene() const;
 
   private: // changes to this section are made only by RenderSystem
     const Style *style_;
+    const Scene *scene_;
   };
 
   template <typename StyleType>
-  const StyleType *hiro::draw::Renderer::GetStyle()
+  const StyleType *hiro::draw::Renderer::GetStyle() const
   {
     return static_cast<const StyleType *>(style_);
   }
 
 
 
-  using PStyle = std::shared_ptr<Style>;
-  using PRenderer = std::shared_ptr<Renderer>;
+  using PStyle = std::shared_ptr<hiro::draw::Style>;
+  using PRenderer = std::shared_ptr<hiro::draw::Renderer>;
 
 }

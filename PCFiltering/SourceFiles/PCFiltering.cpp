@@ -57,7 +57,7 @@ void processor()
 
 void visualizer()
 {
-  Visualization::Visualize("apple", 12);
+  Visualization::Visualize("hover", 31);
 }
 
 void generator()

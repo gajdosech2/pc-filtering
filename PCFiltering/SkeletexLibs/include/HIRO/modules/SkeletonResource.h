@@ -16,7 +16,7 @@ namespace hiro::modules
 {
 
   //! Resource that allows visualization of a cogs::Skeleton structure.
-  class HIRO_API SkeletonResource : public Resource
+  class HIRO_API SkeletonResource : public hiro:: Resource
   {
   public:
     const geom::Aabb3 AABB;
@@ -40,15 +40,15 @@ namespace hiro::modules
     //! Returns assigned skeleton action.
     const cogs::SkeletonAction *GetAction() const;
   protected:
-    SkeletonResource(const ResourceId &dataid, const cogs::Skeleton &skeleton);
-    virtual PGadget CreateGadget() override;
+    SkeletonResource(const hiro::ResourceId &dataid, const cogs::Skeleton &skeleton);
+    virtual hiro::PGadget CreateGadget() override;
     cogs::SkeletonPose restpose_, pose_;
     cogs::Skeleton skeleton_;
     std::unique_ptr<cogs::SkeletonAction> skeleton_action_;
   };
 
   //! Shared pointer to an object of the type SkeletonResource.
-  using PSkeletonResource = std::shared_ptr<SkeletonResource>;
+  using PSkeletonResource = std::shared_ptr<hiro::modules::SkeletonResource>;
 
   //! Creates new skeleton resource from the specified cogs::Skeleton and adds it to HIRO.
   HIRO_API PSkeletonResource AddSkeleton(

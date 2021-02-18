@@ -1,0 +1,29 @@
+{
+	"hiro": {
+		"caption" :  "Hiro Viewer",
+		"version": "1.0",
+		"options-enabled": true,
+		"maximized": true,
+		"fullscreen": false,
+		"width": 800,
+		"height": 600,
+		"key-shortcuts-enabled": true,
+		"views": [
+			{
+				"position": "0,0;0,0",
+				"size": "1,0;1,0",
+				"axes": true,
+				"sidebar-enabled": true,
+				"units": [
+					{
+						"id": "ImporterResource:Importer",
+						"select-enabled": false,
+						"permanent": true
+					}
+				]
+			}
+		]
+
+
+	} 
+}

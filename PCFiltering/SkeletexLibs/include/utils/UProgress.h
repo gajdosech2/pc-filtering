@@ -24,6 +24,12 @@ namespace uprogress
   //! Increment progress value by an amount of percentage. Clamped to range <0,1>.
   UTILS_API void Add(float percentage_increment);
 
-  //! Subscribes a function that will be called whenever a percentage has changed.
-  UTILS_API void Subscribe(std::function<void()> subscriber);
+  //! Subscribes a function that will be called whenever a percentage has changed. For later unsubscription, you can set an id.
+  UTILS_API void Subscribe(std::function<void()> subscriber, const std::string &id = "default");
+
+  //! Unsubscribe all functions with the input id.
+  UTILS_API void UnSubscribe(const std::string &id);
+
+  //! Unsubscribe all functions.
+  UTILS_API void UnSubscribeAll();
 }

@@ -19,7 +19,7 @@ namespace hiro
   public:
 
     //! Default constructor, object is automatically created by the HIRO Engine and should not be created manually.
-    Debugger(const std::string &name);
+    explicit Debugger(const std::string &name);
 
     //! Default destructor, properly removes the Impl pointer.
     ~Debugger();
@@ -34,7 +34,7 @@ namespace hiro
       \param lifetime
         Lifetime in seconds, sphere will be removed after it expires. Value of 0 means visibility for one frame only.
     */
-    void Sphere(const geom::Sphere &sphere, const cogs::Color3f &color = cogs::color::LIME, float lifetime = 0.0f);
+    void DrawSphere(const geom::Sphere &sphere, const cogs::Color3f &color = cogs::color::LIME, float lifetime = 0.0f);
 
     /*!
       \brief
@@ -46,7 +46,7 @@ namespace hiro
       \param lifetime
         Lifetime in seconds, box will be removed after it expires. Value of 0 means visibility for one frame only.
     */
-    void Box(const geom::Aabb3 &box, const cogs::Color3f &color = cogs::color::LIME, float lifetime = 0.0f);
+    void DrawBox(const geom::Aabb3 &box, const cogs::Color3f &color = cogs::color::LIME, float lifetime = 0.0f);
 
     /*!
       \brief
@@ -58,7 +58,7 @@ namespace hiro
       \param lifetime
         Lifetime in seconds, lines will be removed after it expires. Value of 0 means visibility for one frame only.
     */
-    void Lines(const std::vector<geom::LineSegment3> &segments, const cogs::Color3f &color = cogs::color::LIME, float lifetime = 0.0f);
+    void DrawLines(const std::vector<geom::LineSegment3> &segments, const cogs::Color3f &color = cogs::color::LIME, float lifetime = 0.0f);
 
     /*!
       \brief
@@ -69,11 +69,11 @@ namespace hiro
       \param lifetime
         Lifetime in seconds, text will be removed after it expires. Value of 0 means visibility for one frame only.
     */
-    void Log(const std::string &text, float lifetime = 3.0f);
+    void LogMessage(const std::string &text, float lifetime = 3.0f);
 
   private:
     struct Impl;
-    Impl *m = nullptr;
+    hiro::Debugger::Impl *m = nullptr;
 
     //! Automatically called by the HIRO engine to create a Gadget object.
     hiro::PGadget CreateGadget() override;
@@ -88,7 +88,7 @@ namespace hiro
     */
     void Update(const float delta_time) override;
 
-    using Resource::ResetGadgets;
+    using hiro::Resource::ResetGadgets;
   };
 
 }

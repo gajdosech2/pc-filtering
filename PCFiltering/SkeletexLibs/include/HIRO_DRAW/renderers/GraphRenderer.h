@@ -17,7 +17,7 @@ namespace hiro::draw
 {
 
   //! Stylization of the rendered graph.
-  struct HIRO_DRAW_API GraphStyle : public Style
+  struct HIRO_DRAW_API GraphStyle : public hiro::draw::Style
   {
     //! Graph name label.
     std::string caption{ "" };
@@ -41,7 +41,7 @@ namespace hiro::draw
 
 
   //! Renderer used for rendering 2D graphs.
-  class HIRO_DRAW_API GraphRenderer : public Renderer
+  class HIRO_DRAW_API GraphRenderer : public hiro::draw::Renderer
   {
   public:
     //! Creates a graph with data points of specified y values.
@@ -49,14 +49,14 @@ namespace hiro::draw
     //! Creates a graph with data points of specified values. Sorted by x value before used.
     GraphRenderer(std::vector<glm::vec2> values);
 
-    GraphRenderer(const GraphRenderer &source) = delete;
-    GraphRenderer &operator=(const GraphRenderer &source) = delete;
-    GraphRenderer(GraphRenderer &&) noexcept = delete;
-    GraphRenderer &operator=(GraphRenderer &&) noexcept = delete;
+    GraphRenderer(const hiro::draw::GraphRenderer &source) = delete;
+    GraphRenderer &operator=(const hiro::draw::GraphRenderer &source) = delete;
+    GraphRenderer(hiro::draw::GraphRenderer &&) noexcept = delete;
+    GraphRenderer &operator=(hiro::draw::GraphRenderer &&) noexcept = delete;
     virtual ~GraphRenderer() = default;
 
     //! Test whether specified style is compatible with the object.
-    bool IsCompatibileWithStyle(const Style *style) override;
+    bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
 
   protected:
     //! Defines 2d rendering behavior.
@@ -89,8 +89,6 @@ namespace hiro::draw
 
     //! Initializes all required properties.
     void Initialize(const std::vector<glm::vec2> &values);
-    //! Converts 1D to 2D graph data, adding x coordinate equivalent to the vector position.
-    std::vector<glm::vec2> TransformTo2dData(const std::vector<float> &values_y) const;
     //! Calculates graph grids and steps.
     void CalculateGridPoints(uint8_t hor_grid_steps_count, uint8_t ver_grid_steps_count);
     //! Transforms point in graph data space to screen space.
@@ -100,7 +98,7 @@ namespace hiro::draw
 
 
   //! Shared pointer to an object of the type GraphStyle.
-  using PGraphStyle = std::shared_ptr<GraphStyle>;
+  using PGraphStyle = std::shared_ptr<hiro::draw::GraphStyle>;
   //! Shared pointer to an object of the type GraphRenderer.
-  using PGraphRenderer = std::shared_ptr<GraphRenderer>;
+  using PGraphRenderer = std::shared_ptr<hiro::draw::GraphRenderer>;
 }

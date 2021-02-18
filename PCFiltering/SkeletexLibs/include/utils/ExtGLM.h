@@ -12,6 +12,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/epsilon.hpp>
 #include <glm/gtx/norm.hpp>
+#include <glm/gtx/polar_coordinates.hpp>
 #include <Utils/ExtSTD.h>
 
 
@@ -445,4 +446,35 @@ namespace glm_ext
     return (glm::exp)(-0.5f * (glm_ext::sqr)((x - mean) / sigma));
   }
 
+  //! Returns random number in interval <0,1>, with specified precision (defaults to 3 digits).
+  inline float Rand01(int precision = 1000)
+  {
+    return float(rand() % (precision + 1)) / precision;
+  }
+
+  //! Returns random number in specified interval, with specified precision (defaults to 3 digits).
+  inline float RandomInRange(float min, float max, int precision = 1000)
+  {
+    return min + Rand01(precision) * (max - min);
+  }
+
+  inline glm::vec3 RandomVec3()
+  {
+    const auto polar_angle = glm::vec2(
+        glm_ext::RandomInRange(-HALF_PI, HALF_PI),
+        glm_ext::RandomInRange(-PI, PI)
+      );
+    return glm::euclidean(polar_angle);
+  }
+
+  inline glm::quat RandomQuat()
+  {
+    return glm::rotate(glm::quat(), RandomInRange(0, TWO_PI), RandomVec3());
+  }
+
+  template <typename T>
+  bool IsInRange(T value, T min, T max)
+  {
+    return value >= min && value <= max;
+  }
 }

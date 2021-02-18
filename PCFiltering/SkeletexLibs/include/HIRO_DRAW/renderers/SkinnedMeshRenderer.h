@@ -18,22 +18,22 @@ namespace cogs
 namespace hiro::draw
 {
 
-  using SkinnedMeshStyle = MeshStyle;
+  using SkinnedMeshStyle = hiro::draw::MeshStyle;
 
 
 
-  class HIRO_DRAW_API SkinnedMeshRenderer : public MeshRenderer
+  class HIRO_DRAW_API SkinnedMeshRenderer : public hiro::draw::MeshRenderer
   {
   public:
     SkinnedMeshRenderer(const cogs::Armature &armature);
-    SkinnedMeshRenderer(const SkinnedMeshRenderer &object_ptr) = delete;
+    SkinnedMeshRenderer(const hiro::draw::SkinnedMeshRenderer &object_ptr) = delete;
     virtual ~SkinnedMeshRenderer() = default;
 
     void SetPose(const cogs::SkeletonPose &pose);
 
   protected:
     void LoadRequiredShaderPrograms(glw::ProgramList *programs) override;
-    bool IsCompatibileWithStyle(const Style *style) override;
+    bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
     void Render(const std::string &program) override;
 
   private:
@@ -46,7 +46,7 @@ namespace hiro::draw
 
 
 
-  using PSkinnedMeshStyle = std::shared_ptr<SkinnedMeshStyle>;
-  using PSkinnedMeshRenderer = std::shared_ptr<SkinnedMeshRenderer>;
+  using PSkinnedMeshStyle = std::shared_ptr<hiro::draw::SkinnedMeshStyle>;
+  using PSkinnedMeshRenderer = std::shared_ptr<hiro::draw::SkinnedMeshRenderer>;
 
 }

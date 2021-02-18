@@ -5,9 +5,13 @@
 */
 #pragma once
 #include <memory>
+#include <Utils/Version.h>
 #include <HIRO/Resource.h>
 #include <HIRO/Debugger.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 
 namespace hiro
@@ -17,19 +21,23 @@ namespace hiro
     \brief Information about currently active Resource objects.
 
     Active Resource objects are the ones that were used to
-    create at least one Gadget ant it still exists.
+    create at least one Gadget and it still exists.
   */
   struct ActiveResourceInfo
   {
     //! Pointer to an active data resource.
     std::shared_ptr<hiro::Resource> resource;
-    //! Index of view where the resource is active.
+    //! Index of viewarea where the resource is active.
     uint32_t viewarea;
-    //! Defines whether the resource is selected. Otherwise it is pinned.
+    //! Defines whether the resource is selected. If false, the resource is pinned.
     bool is_selected;
   };
 
+  using FileDropCallback = std::function<void(const std::vector<std::string> &)>;
+  using KeyCallback = std::function<void(const hiro::Key &, const hiro::ModKeys &)>;
 
+  //! Returns current library version.
+  HIRO_API utils::Version GetVersion();
 
   /*!
     \brief
@@ -54,7 +62,7 @@ namespace hiro
     \brief
       Initializes the library with custom look visuals of application on startup.
     \note
-      Not not available in educational version of HIRO library.
+      Not available in educational version of HIRO library.
   */
   HIRO_API void Initialize(const std::string &custom_look);
 
@@ -74,7 +82,7 @@ namespace hiro
   HIRO_API void Update();
 
   //! Add specified resource to the list of available resources.
-  HIRO_API void AddResource(const PResource &resource);
+  HIRO_API void AddResource(const hiro::PResource &resource);
 
   //! Remove all resources from the list of available resources.
   HIRO_API void RemoveAllResources();
@@ -88,14 +96,38 @@ namespace hiro
     Active Resource objects are the ones that were used to
     create at least one Gadget ant it still exists.
   */
-  HIRO_API std::vector<ActiveResourceInfo> GetActiveResources();
+  HIRO_API std::vector<hiro::ActiveResourceInfo> GetActiveResources();
 
   /*!
-    \brief Returns internal visual debugger.
+    \brief Returns handle to visual debugger.
 
-    The visual debugger can be used for rendering primitive debug objects giving visual feedback.
-    When the library is not initialized, this function returns nullptr.
+    The visual debugger provides visualization of debug objects, useful fo visual feedback.
+    When the library is not initialized yet, this function throws std::runtime_error.
   */
-  HIRO_API std::shared_ptr<hiro::Debugger> Debug();
+  HIRO_API hiro::Debugger &Debug();
 
+  //! Sets a unique function called when files are dropped onto an active HIRO window.
+  HIRO_API void SetFileDropCallback(const FileDropCallback &);
+
+  //! Sets a unique function called when a key is pressed in an active HIRO window.
+  HIRO_API void SetKeyDownCallback(const KeyCallback &);
+
+  //! Sets a unique function called when a key is released in an active HIRO window.
+  HIRO_API void SetKeyUpCallback(const KeyCallback &);
+
+  //! Returns axes visibility state in the viewarea with the given id.
+  HIRO_API bool IsAxesVisible(uint8_t viewarea_id);
+
+  //! Sets axes visibility in the viewarea with the given id.
+  HIRO_API void SetAxesVisible(uint8_t viewarea_id, bool visible);
+
+#ifdef _WIN32
+  /*!
+    \brief
+      Returns WIN API pointer to owned window.
+    \note
+      Not available in educational version of HIRO library.
+  */
+  HIRO_API HWND GetWindowHandle();
+#endif
 }

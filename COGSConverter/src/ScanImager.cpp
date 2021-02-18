@@ -7,7 +7,10 @@
 void ScanImager::GenerateInput(std::string out_path)
 {
     FindNormalizingValues();
-    GenerateNormalMap(out_path);
+    if (data_.HasNormals())
+    {
+        GenerateNormalMap(out_path);
+    }
     GenerateIntensityMap(out_path);
     GenerateDepthMap(out_path);
 }
@@ -189,8 +192,7 @@ void ScanImager::FindNormalizingValues()
         {
             if (data_.IsPointAt(x, y))
             {
-                auto id = data_.GetPointAt(x, y);
-                auto normal = data_.GetNormals()[id];
+                auto id = data_.GetPointAt(x, y);               
                 auto intensity = data_.GetIntensities()[id];
                 auto position = data_.GetPositions()[id];
 
@@ -198,12 +200,18 @@ void ScanImager::FindNormalizingValues()
                 max_intensity_ = std::max(max_intensity_, intensity);
                 min_depth_ = std::min(min_depth_, position.z);
                 max_depth_ = std::max(max_depth_, position.z);
-                min_normal_ = std::min(min_normal_, normal.x);
-                min_normal_ = std::min(min_normal_, normal.y);
-                min_normal_ = std::min(min_normal_, normal.z);
-                max_normal_ = std::max(max_normal_, normal.x);
-                max_normal_ = std::max(max_normal_, normal.y);
-                max_normal_ = std::max(max_normal_, normal.z);
+
+                if (data_.HasNormals())
+                {
+                    auto normal = data_.GetNormals()[id];
+                    min_normal_ = std::min(min_normal_, normal.x);
+                    min_normal_ = std::min(min_normal_, normal.y);
+                    min_normal_ = std::min(min_normal_, normal.z);
+                    max_normal_ = std::max(max_normal_, normal.x);
+                    max_normal_ = std::max(max_normal_, normal.y);
+                    max_normal_ = std::max(max_normal_, normal.z);
+                }
+
                 auto distance = glm::distance(position, cam_pos);
                 min_camdist_ = std::min(min_camdist_, distance);
                 max_camdist_ = std::max(max_camdist_, distance);

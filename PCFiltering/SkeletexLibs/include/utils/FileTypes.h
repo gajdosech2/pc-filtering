@@ -31,6 +31,7 @@ namespace file_types
   */
   enum class Type : uint8_t
   {
+    // 3d objects
     praw,
     cogs,
     ply,
@@ -39,6 +40,13 @@ namespace file_types
     stl,
     fbx,
     bvh,
+    // images
+    jpg,
+    png,
+    gif,
+    bmp,
+    exr,
+    __count
   };
 
 
@@ -54,6 +62,11 @@ namespace file_types
     { Type::stl, "stl" },
     { Type::fbx, "fbx" },
     { Type::bvh, "bvh" },
+    { Type::jpg, "jpg" },
+    { Type::png, "png" },
+    { Type::gif, "gif" },
+    { Type::bmp, "bmp" },
+    { Type::exr, "exr" },
   };
 
   //! All file types defined.
@@ -61,11 +74,13 @@ namespace file_types
       file_extensions,
       [](const std::pair<Type, std::string> &pair)->Type { return pair.first; });
 
+
+
   /*!
-    \brief    Recognized file types that can have a scan.
-    \warning  Whether they do have a scan or not is not guaranteed!
+    \brief    Recognized file types that can have a scan and that we can import.
+    \warning  Whether they do contain a scan or not is not guaranteed!
   */
-  static const std::vector<Type> supported_scan_types
+  static const std::vector<Type> importable_scan_types
   {
     Type::praw,
     Type::cogs,
@@ -78,20 +93,44 @@ namespace file_types
   static const std::vector<Type> exportable_scan_types
   {
     Type::cogs,
+    Type::ply
+  };
+
+  /*!
+    \brief    Recognized file types that can have a point cloud and that we can import.
+    \warning  Whether they do contain a point cloud or not is not guaranteed!
+  */
+  static const std::vector<Type> importable_point_cloud_types
+  {
+    Type::cogs,
+    Type::obj,
+    Type::fbx,
     Type::ply,
   };
 
   /*!
-    \brief    Recognized file types that can have a mesh.
-    \warning  Whether they do have a mesh or not is not guaranteed!
+    \brief    Recognized file types that can have a point cloud and that we can export.
   */
-  static const std::vector<Type> supported_mesh_types
+  static const std::vector<Type> exportable_point_cloud_types
   {
     Type::cogs,
+    Type::obj,
     Type::fbx,
-    Type::dae,
-    Type::stl,
     Type::ply,
+  };
+
+  /*!
+    \brief    Recognized file types that can have a mesh and that we can import.
+    \warning  Whether they do have a mesh or not is not guaranteed!
+  */
+  static const std::vector<Type> importable_mesh_types
+  {
+    Type::cogs,
+    Type::dae,
+    Type::obj,
+    Type::fbx,
+    Type::ply,
+    Type::stl,
   };
 
   /*!
@@ -100,8 +139,34 @@ namespace file_types
   static const std::vector<Type> exportable_mesh_types
   {
     Type::cogs,
-    Type::stl,
+    Type::dae,
+    Type::obj,
+    Type::fbx,
     Type::ply,
+    Type::stl,
+  };
+
+  //! Recognized file types that can store images.
+  static const std::vector<Type> image_types
+  {
+    Type::jpg,
+    Type::png,
+    Type::gif,
+    Type::bmp,
+    Type::exr,
+  };
+
+  /*!
+    \brief    Recognized assimp file types that can have a scan and/or mesh.
+  */
+  static const std::vector<Type> assimp_importable_types
+  {
+    Type::bvh,
+    Type::dae,
+    Type::obj,
+    Type::fbx,
+    Type::ply,
+    Type::stl
   };
 
   /*!
@@ -113,13 +178,46 @@ namespace file_types
   };
 
 
-  //! Get extension from a file type.
-  static inline const std::string Ext(const Type type)
+  //! Get extension from a file type. If can not deduce extension from type, returns empty string.
+  [[nodiscard]]
+  static inline std::string GetExt(const Type type)
   {
-    if (!std_ext::Contains(type, file_extensions))
+    if (std_ext::Contains(type, file_extensions))
     {
-      throw std::runtime_error("FileTypes: Specified file type has no extension defined.");
+      return file_extensions.at(type);
     }
-    return file_extensions.at(type);
+    return "";
   }
+
+  //! Get extension from a file type.
+  [[nodiscard]]
+  static inline std::optional<file_types::Type> GetType(const std::string &filename)
+  {
+    static const std::unordered_map<std::string, Type> type_for_ext = []()
+    {
+      std::unordered_map<std::string, Type> type_map;
+      for (uint8_t i = 0; i < static_cast<uint8_t>(Type::__count); ++i)
+      {
+        const auto type = static_cast<Type>(i);
+        type_map[GetExt(type)] = type;
+      }
+      return type_map;
+    }
+    ();
+    const auto ext = std_ext::Lowercase(filename.substr(filename.find_last_of('.') + 1));
+    if (std_ext::Contains(ext, type_for_ext))
+    {
+      return type_for_ext.at(ext);
+    }
+    return std::nullopt;
+  }
+
+  //! Checks if specified extension corresponds with specified type.
+  [[nodiscard]]
+  static inline bool IsType(const std::string &ext, file_types::Type type)
+  {
+    const auto etype = GetType(ext);
+    return etype.has_value() && etype == type;
+  }
+
 }

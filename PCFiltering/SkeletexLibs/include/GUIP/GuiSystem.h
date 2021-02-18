@@ -31,7 +31,7 @@ namespace guip
     void Initialize(const std::string &resource_dir, std::shared_ptr<glw::Window> window);
 
     // Updates GUI state.
-    void Update(const float time_delta);
+    void Update(float time_delta);
     //! Renders GUI into currently bound gl frame buffer.
     void Draw();
     //! Whether GUI should be rendered.
@@ -54,10 +54,10 @@ namespace guip
 
   private:
 
-    class LoggerProxi : public CEGUI::Logger
+    class LoggerProxy : public CEGUI::Logger
     {
     public:
-      LoggerProxi();
+      LoggerProxy();
       void logEvent(const CEGUI::String &message, CEGUI::LoggingLevel level = CEGUI::LoggingLevel::Standard) override;
       void setLogFilename(const CEGUI::String &filename, bool append = false) override;
     };
@@ -70,6 +70,7 @@ namespace guip
     CEGUI::GUIContext *context_ {nullptr};
     CEGUI::Window *root_widget_;
     std::shared_ptr<glw::Window> window_;
+
     void InitializeCegui(const std::string &resource_dir);
     void InitializeLogging();
     void UpdateFramebuffer();

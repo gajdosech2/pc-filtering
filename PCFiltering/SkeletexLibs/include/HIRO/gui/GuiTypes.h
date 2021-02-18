@@ -80,7 +80,7 @@ namespace hiro
 
     //! A general element containing basic interface methods.
     template <typename C>
-    class HIRO_API TElement : public Element
+    class HIRO_API TElement : public hiro::gui::Element
     {
     public:
       /*!
@@ -109,11 +109,11 @@ namespace hiro
           A function used to test the variable against. If the variable
           passes the function, the condition is satisfied.
       */
-      C *SetConditionBool(bool *var, BoolFunc func = BoolFunc::equals_true)
+      C *SetConditionBool(bool *var, hiro::BoolFunc func = hiro::BoolFunc::equals_true)
       {
         SetConditionFuncImpl([var, func]()
         {
-          return *var == (func == BoolFunc::equals_true);
+          return *var == (func == hiro::BoolFunc::equals_true);
         });
         return  reinterpret_cast<C *>(this);
       }
@@ -131,7 +131,7 @@ namespace hiro
       }
 
 #ifdef HIRO_ENABLE_CEGUI
-      TElement(CEGUI::Window *win) : Element(win)
+      TElement(CEGUI::Window *win) : hiro::gui::Element::Element(win)
       {
       }
 #endif
@@ -154,7 +154,7 @@ namespace hiro
 
     //! An element which can be interpreted as a variable of a specific type.
     template <typename T, typename C>
-    class HIRO_API LinkedElement : public TElement<C>
+    class HIRO_API LinkedElement : public hiro::gui::TElement<C>
     {
     public:
       /*!
@@ -181,7 +181,7 @@ namespace hiro
         return reinterpret_cast<C *>(this);
       }
 #ifdef HIRO_ENABLE_CEGUI
-      LinkedElement(CEGUI::Window *win) : TElement<C>(win) {};
+      LinkedElement(CEGUI::Window *win) : hiro::gui::TElement<C>(win) {};
 #endif
     protected:
       void NotifyChange() const override
@@ -190,7 +190,7 @@ namespace hiro
         {
           *link_ptr_ = Get();
         }
-        TElement<C>::NotifyChange();
+        hiro::gui::TElement<C>::NotifyChange();
       };
     private:
       T *link_ptr_ = nullptr;
@@ -198,7 +198,7 @@ namespace hiro
 
 
     //! A panel that contains other elements within.
-    class Panel : public hiro::gui::TElement<Panel>
+    class Panel : public hiro::gui::TElement<hiro::gui::Panel>
     {
     public:
 #ifdef HIRO_ENABLE_CEGUI
@@ -213,11 +213,11 @@ namespace hiro
 
       Subscribe the element to receive click events.
     */
-    class HIRO_API Button : public TElement<Button>
+    class HIRO_API Button : public hiro::gui::TElement<hiro::gui::Button>
     {
     public:
       //! Set a text that will be shown on the button.
-      Button *SetCaption(const std::string &caption);
+      hiro::gui::Button *SetCaption(const std::string &caption);
       //! Returns text that is currently shown on the button.
       std::string GetCaption() const;
 #ifdef HIRO_ENABLE_CEGUI
@@ -231,11 +231,11 @@ namespace hiro
 
 
     //! Non-editable text element.
-    class HIRO_API Label : public TElement<Label>
+    class HIRO_API Label : public hiro::gui::TElement<hiro::gui::Label>
     {
     public:
       //! Set the text of the label.
-      Label *Set(const std::string &text);
+      hiro::gui::Label *Set(const std::string &text);
       //! Get the text of the label.
       std::string Get() const;
 #ifdef HIRO_ENABLE_CEGUI
@@ -248,11 +248,11 @@ namespace hiro
 
 
     //! Selectable checkbox that can be linked to a boolean variable.
-    class HIRO_API Checkbox : public LinkedElement<bool, Checkbox>
+    class HIRO_API Checkbox : public hiro::gui::LinkedElement<bool, hiro::gui::Checkbox>
     {
     public:
       //! Set the state of the checkbox. Default false
-      Checkbox *Set(bool state) override;
+      hiro::gui::Checkbox *Set(bool state) override;
       //! Get current state of the checkbox.
       bool Get() const override;
 #ifdef HIRO_ENABLE_CEGUI
@@ -268,23 +268,23 @@ namespace hiro
     /*!
       \brief Editbox that can contain only numeric integer values.
     */
-    class HIRO_API NumericInt : public LinkedElement<int32_t, NumericInt>
+    class HIRO_API NumericInt : public hiro::gui::LinkedElement<int32_t, hiro::gui::NumericInt>
     {
     public:
       //! Set value to numeric. Values outside of min max range are clipped. Default 0
-      NumericInt *Set(int32_t value) override;
+      hiro::gui::NumericInt *Set(int32_t value) override;
       //! Define the minimal value that can be set. Default -32768
-      NumericInt *SetMin(int32_t min_val);
+      hiro::gui::NumericInt *SetMin(int32_t min_val);
       //! Define the maximal value that can be set. Default 32767
-      NumericInt *SetMax(int32_t max_val);
+      hiro::gui::NumericInt *SetMax(int32_t max_val);
       /*!
         \brief Define the minimal and the maximal values that can be set.
 
         Default for minimal is -32768 and for maximal is 32767.
       */
-      NumericInt *SetMinMax(int32_t min, int32_t max);
+      hiro::gui::NumericInt *SetMinMax(int32_t min, int32_t max);
       //! Set step by which the value changes when clicked on the up and down. Default 1
-      NumericInt *SetStep(int32_t val_step);
+      hiro::gui::NumericInt *SetStep(int32_t val_step);
 
       //! Returns current value of numeric.
       int32_t Get() const override;
@@ -307,23 +307,23 @@ namespace hiro
     /*!
       \brief  Edit box which can contain only numeric float values.
     */
-    class HIRO_API NumericFloat: public LinkedElement<float, NumericFloat>
+    class HIRO_API NumericFloat: public hiro::gui::LinkedElement<float, hiro::gui::NumericFloat>
     {
     public:
       //! Set value to numeric. Values outside of min max range are clipped. Default 0
-      NumericFloat *Set(float value) override;
+      hiro::gui::NumericFloat *Set(float value) override;
       //! Define the minimal value that can be set. Default -32768
-      NumericFloat *SetMin(float min_val);
+      hiro::gui::NumericFloat *SetMin(float min_val);
       //! Define the maximal value that can be set. Default 32767
-      NumericFloat *SetMax(float max_val);
+      hiro::gui::NumericFloat *SetMax(float max_val);
       /*!
         \brief Define the minimal and the maximal values that can be set.
 
         Default for minimal is -32768 and for maximal is 32767.
       */
-      NumericFloat *SetMinMax(float min, float max);
+      hiro::gui::NumericFloat *SetMinMax(float min, float max);
       //! Set step by which the value changes when clicked on the up and down. Default 0.1
-      NumericFloat *SetStep(float val_step);
+      hiro::gui::NumericFloat *SetStep(float val_step);
       //! Returns current value of numeric.
       float Get() const override;
       //! Get the minimal value that can be set.
@@ -345,23 +345,23 @@ namespace hiro
     /*!
       \brief  Slider that can be directly interpreted by float value.
     */
-    class HIRO_API SlidingFloat : public LinkedElement<float, SlidingFloat>
+    class HIRO_API SlidingFloat : public hiro::gui::LinkedElement<float, hiro::gui::SlidingFloat>
     {
     public:
       //! Set value to slider handle. Values outside of min max range are clipped. Default 0
-      SlidingFloat *Set(float value) override;
+      hiro::gui::SlidingFloat *Set(float value) override;
       //! Define the minimal value that can be set. Default 0
-      SlidingFloat *SetMin(float min_val);
+      hiro::gui::SlidingFloat *SetMin(float min_val);
       //! Define the maximal value that can be set. Default 1
-      SlidingFloat *SetMax(float max_val);
+      hiro::gui::SlidingFloat *SetMax(float max_val);
       /*!
         \brief Define the minimal and the maximal values that can be set.
 
         Default for minimal is 0 and for maximal is 1.
       */
-      SlidingFloat *SetMinMax(float min, float max);
+      hiro::gui::SlidingFloat *SetMinMax(float min, float max);
       //! Set step by which the slider moves when clicked out of handle bounds. Default 0.1
-      SlidingFloat *SetStep(float val_step);
+      hiro::gui::SlidingFloat *SetStep(float val_step);
       //! Returns current value defined by slider handle.
       float Get() const override;
       //! Get the minimal value that can be set.
@@ -386,23 +386,23 @@ namespace hiro
 
       Set min max values to define range. Default range is <0,10>.
     */
-    class HIRO_API SlidingInt : public LinkedElement<int32_t, SlidingInt>
+    class HIRO_API SlidingInt : public hiro::gui::LinkedElement<int32_t, hiro::gui::SlidingInt>
     {
     public:
       //! Set value to slider handle. Values outside of min max range are clipped. Default 0
-      SlidingInt *Set(int32_t value) override;
+      hiro::gui::SlidingInt *Set(int32_t value) override;
       //! Define the minimal value that can be set. Default 0
-      SlidingInt *SetMin(int32_t min_val);
+      hiro::gui::SlidingInt *SetMin(int32_t min_val);
       //! Define the maximal value that can be set. Default 10
-      SlidingInt *SetMax(int32_t max_val);
+      hiro::gui::SlidingInt *SetMax(int32_t max_val);
       /*!
         \brief Define the minimal and the maximal values that can be set.
 
         Default for minimal is 0 and for maximal is 10.
       */
-      SlidingInt *SetMinMax(int32_t min, int32_t max);
+      hiro::gui::SlidingInt *SetMinMax(int32_t min, int32_t max);
       //! Set step by which the slider moves when clicked out of handle bounds. Default 1
-      SlidingInt *SetStep(int32_t val_step);
+      hiro::gui::SlidingInt *SetStep(int32_t val_step);
       //! Returns current value defined by slider handle.
       int32_t Get() const override;
       //! Get the minimal value that can be set.
@@ -431,7 +431,7 @@ namespace hiro
 
       Each item has a value defined, that can be used to identify it.
     */
-    class HIRO_API Droplist : public LinkedElement<int32_t, Droplist>
+    class HIRO_API Droplist : public hiro::gui::LinkedElement<int32_t, hiro::gui::Droplist>
     {
     public:
       /*!
@@ -439,19 +439,19 @@ namespace hiro
 
         When there are multiple items with the same value, selects the first one in the list.
       */
-      Droplist *Set(const int32_t value) override;
+      hiro::gui::Droplist *Set(const int32_t value) override;
       //! Returns the value of currently selected item.
       int32_t Get() const override;
       //! Returns the text of currently selected item.
       std::string GetText() const;
       //! Adds a single item to the list and assigns it a specified value.
-      Droplist *AddItem(const std::string &name, int32_t value);
+      hiro::gui::Droplist *AddItem(const std::string &name, int32_t value);
       //! Adds a single item to the list. Position in the list determines the value.
-      Droplist *AddItemIndexed(const std::string &name);
+      hiro::gui::Droplist *AddItemIndexed(const std::string &name);
       //! Adds multiple items by pair <name,value>.
-      Droplist *AddItems(const std::vector<std::pair<std::string, int32_t>> &items);
+      hiro::gui::Droplist *AddItems(const std::vector<std::pair<std::string, int32_t>> &items);
       //! Adds multiple items by name. Position in the list determines value of item.
-      Droplist *AddItemsIndexed(const std::vector<std::string> &items);
+      hiro::gui::Droplist *AddItemsIndexed(const std::vector<std::string> &items);
 #ifdef HIRO_ENABLE_CEGUI
       Droplist(guip::Combobox *cegui_listbox);
     private:
@@ -465,7 +465,7 @@ namespace hiro
     /*!
       \brief List of checkbox elements that can be managed in a group.
     */
-    class HIRO_API CheckboxList : public TElement<CheckboxList>
+    class HIRO_API CheckboxList : public hiro::gui::TElement<hiro::gui::CheckboxList>
     {
     public:
       /*!
@@ -494,7 +494,7 @@ namespace hiro
         \param color
           Color used to highlight an item. Default black
       */
-      CheckboxList *SetItemColor(size_t id, const cogs::Color3f &color);
+      hiro::gui::CheckboxList *SetItemColor(size_t id, const cogs::Color3f &color);
       /*!
         \brief
           Subscribe callback function that will be invoked on item state change.
@@ -504,7 +504,7 @@ namespace hiro
         identifier of the checkbox whose state has been changed. The second
         parameter holds the new state of the checkbox.
       */
-      CheckboxList *SubscribeItems(std::function<void(uint32_t, bool)> func);
+      hiro::gui::CheckboxList *SubscribeItems(const std::function<void(uint32_t, bool)> &func);
 #ifdef HIRO_ENABLE_CEGUI
       CheckboxList(guip::ArrayPanel *array_panel);
     private:
@@ -514,16 +514,15 @@ namespace hiro
         CEGUI::ToggleButton *checkbox;
         CEGUI::Window *colorstripe;
       };
-      std::vector<Item> items_;
+      std::vector<hiro::gui::CheckboxList::Item> items_;
       std::vector<std::function<void(uint32_t, bool)>> item_callbacks_;
       guip::ArrayPanel *array_panel_;
       bool OnItemToggle(const CEGUI::EventArgs &e);
       bool OnSelectAll(const CEGUI::EventArgs &e);
       bool OnUnselectAll(const CEGUI::EventArgs &e);
-      void CreateNewItem(Item *item, size_t id);
+      void CreateNewItem(hiro::gui::CheckboxList::Item *item, size_t id);
 #endif
     };
-
 
   }
 

@@ -7,15 +7,14 @@ import math
 import matplotlib.pyplot as plt
 
 POWER_UP = True
-WEIGHT = 0.9
+WEIGHT = 1.0
 
 class Generator(keras.utils.Sequence):
-    def __init__(self, dataset_path, batch_size=2, shuffle_images=True, image_min_side=24):
+    def __init__(self, dataset_path, batch_size=2, shuffle_images=True):
         self.feature_images = []
         self.masks = []
         self.image_groups = []
         self.mask_groups = []
-        self.image_min_side = image_min_side
         self.batch_size = batch_size
         self.shuffle_images = shuffle_images
         self.load_data(dataset_path)

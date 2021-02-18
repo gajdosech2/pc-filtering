@@ -5,6 +5,7 @@
 */
 #pragma once
 #include <Utils/IniParser.h>
+#include <Utils/Ulog.h>
 
 
 
@@ -17,6 +18,12 @@ public:
   static std::string PopErrorLog()
   {
     return GetParser().PopErrorLog();
+  }
+
+  //! Get skipped unreadable (most likely non-ASCII) records.
+  static const std::unordered_set<std::string> &GetUnreadableRecords()
+  {
+    return GetParser().GetUnreadableRecords();
   }
 
   //! Loads config file into the config singleton.
@@ -41,6 +48,12 @@ public:
   static std::string GetStr(const std::string &key, const std::string &default_val = "")
   {
     auto str = GetParser().GetStr(key, default_val);
+    if (!std_ext::IsASCII(str))
+    {
+      ulog::Warn("Unsupported non-international character in config file: '" + key + "'. Using default value '" + default_val + "'.", "Config::GetStr");
+      return default_val;
+    }
+
 #if defined(REPO_DIR) && !defined(_DEPLOY)
     str = std_ext::Replace(str, "$REPO_DIR$", REPO_DIR);
 #endif
@@ -53,10 +66,17 @@ public:
     return GetParser().GetBool(key, default_val);
   }
 
-
+  //! Returns a size_t value for the key if the key does exist.
   static size_t GetSizeT(const std::string &key, const size_t default_val = 0)
   {
     return GetParser().GetSizeT(key, default_val);
+  }
+
+  //! Returns an unsigned integer value for the key if the key does exist.
+  template<typename T>
+  static T GetUint(const std::string &key, const T default_val = 0)
+  {
+    return GetParser().GetUint<T>(key, default_val);
   }
 
   //! Returns an int value for the key if the key does exist.
@@ -85,9 +105,27 @@ public:
   }
 
   //! Returns a std::vector<std::string> value for the key if the key does exist.
-  static std::vector<std::string> GetArray(const std::string &key)
+  static std::vector<std::string> GetArray(const std::string &key, const std::vector<std::string> &default_val = {})
   {
-    return GetParser().GetArray(key);
+    return GetParser().GetArray(key, default_val);
+  };
+
+  //! Returns a std::vector<float> value for the key if the key does exist.
+  static std::vector<float> GetFloatArray(const std::string &key, const std::vector<float> &default_val = {})
+  {
+    return GetParser().GetFloatArray(key, default_val);
+  };
+
+  //! Returns a std::vector<int> value for the key if the key does exist.
+  static std::vector<int> GetIntArray(const std::string &key, const std::vector<int> &default_val = {})
+  {
+    return GetParser().GetIntArray(key, default_val);
+  };
+
+  //! Returns a std::vector<bool> value for the key if the key does exist.
+  static std::vector<bool> GetBoolArray(const std::string &key, const std::vector<bool> &default_val = {})
+  {
+    return GetParser().GetBoolArray(key, default_val);
   };
 
 private:

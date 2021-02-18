@@ -15,7 +15,7 @@ namespace hiro::modules
 {
 
   //! Resource that allows visualization of a cogs::Mesh structure.
-  class HIRO_API MeshResource final : public Resource
+  class HIRO_API MeshResource final : public hiro::Resource
   {
   public:
     //! Holds information about a vertex float data  record.
@@ -46,7 +46,7 @@ namespace hiro::modules
     const cogs::MaterialModel *GetMaterial() const;
 
     //! Creates Gadget for this Resource object.
-    PGadget CreateGadget() override;
+    hiro::PGadget CreateGadget() override;
 
     //! Returns number of points.
     uint32_t GetPointCount() const;
@@ -86,7 +86,7 @@ namespace hiro::modules
       \param id
       id of the given point
     */
-    const DataRecord &GetFDataOption(const size_t id) const;
+    const hiro::modules::MeshResource::DataRecord &GetFDataOption(const size_t id) const;
 
     //! Returns names of float data properties.
     const std::vector<std::string> &GetFDataOptionNames() const;
@@ -102,7 +102,7 @@ namespace hiro::modules
     glm::vec3 center_of_mass_, camera_pos_;
     std::vector<std::vector<cogs::Color3f>> coloring_options_;
     std::vector<std::string> coloring_option_names_;
-    std::vector<DataRecord> fdata_options_;
+    std::vector<hiro::modules::MeshResource::DataRecord> fdata_options_;
     std::vector<std::string> fdata_option_names_;
 
     hiro::draw::PMeshRenderer renderer_;
@@ -112,9 +112,9 @@ namespace hiro::modules
   };
 
   //! Shared pointer to an object of the type MeshResource.
-  using PMeshResource = std::shared_ptr<MeshResource>;
+  using PMeshResource = std::shared_ptr<hiro::modules::MeshResource>;
 
   //! Creates new mesh resource from the specified and adds it to HIRO.
-  HIRO_API PMeshResource AddMesh(const std::string &name, const cogs::Mesh &mesh);
+  HIRO_API hiro::modules::PMeshResource AddMesh(const std::string &name, const cogs::Mesh &mesh);
 
 }

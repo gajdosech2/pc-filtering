@@ -84,12 +84,18 @@ namespace cogs
 
       struct DataBlockInfo
       {
-        //! Export version of data block in the file.
+        //! Exporter version of data block in the file.
         uint8_t version;
         //! Position of data block in the file.
         std::streampos position;
         //! Pointer to data block object.
         std::shared_ptr<DataBlock> block;
+        //! Casts data block to specified type.
+        template <typename T>
+        std::shared_ptr<T> CastBlock() const
+        {
+          return std::static_pointer_cast<T>(block);
+        }
       };
 
       std::shared_ptr<DataBlockManager> datablock_manager_;
@@ -101,14 +107,7 @@ namespace cogs
       [[nodiscard]] size_t GetDatablockCount(const DataBlockType &type) const;
 
       //! Returns data block of specified type and index. Returns null when no such block exists.
-      DataBlock *GoToDatablock(const DataBlockType &type, DataBlockIndex id = 0);
-
-      //! Returns data block of specified type and index. Returns null when no such block exists.
-      template <typename T>
-      T *GoToDatablock(const DataBlockType &type, DataBlockIndex id = 0)
-      {
-        return static_cast<T *>(GoToDatablock(type, id));
-      }
+      std::optional<DataBlockInfo> GoToDatablock(const DataBlockType &type, DataBlockIndex id = 0);
 
       //! Imports header information. Returns true if header is correct and version supported.
       bool ImportHeader(std::istream &in_s);

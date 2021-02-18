@@ -38,6 +38,17 @@ void ProcessMask(int argc, char* argv[])
     }
 }
 
+/*
+int main(int argc, char* argv[])
+{
+    ScanImager formatter;
+    formatter.Import("scan_0.cogs", true);
+    formatter.GenerateInput("");
+    return 0;
+}
+*/
+
+
 int main(int argc, char* argv[])
 {
     if (argc <= 1)

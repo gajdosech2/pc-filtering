@@ -165,7 +165,9 @@ namespace cogs
     //! black > white
     grayscale = 5,
     //! many colors
-    colorful = 6
+    colorful = 6,
+    //! many bright colors
+    colorful_bright = 7
   };
 
   //! Returns string representation of ColorMap enum value.
@@ -223,6 +225,8 @@ namespace cogs
     const Color3f FOREST = Color3b(31, 140, 69);
     //! bright green
     const Color3f LIME = Color3b(83, 252, 20);
+    //! blueish green
+    const Color3f EMERALD = Color3b(80, 220, 100);
     //! greenish blue
     const Color3f CYAN = Color3b(0, 245, 255);
     //! nicer pure blue
@@ -232,18 +236,20 @@ namespace cogs
     const Color3f PURPLE = Color3b(148, 14, 112);
     //! pinkish red
     const Color3f MAGENTA = Color3b(211, 19, 90);
+    const Color3f SALMON = Color3b(250, 128, 114);
     const Color3f PINK = Color3b(242, 131, 166);
     const Color3f GOLD = Color3b(255, 215, 0);
+    const Color3f CREAM_WHITE = Color3b(255, 252, 209);
 
-    //! skeletex dark blue
+    //! Skeletex dark blue
     const Color3f STX_NAVY = Color3b(34, 83, 120);
-    //! skeletex darker green
+    //! Skeletex darker green
     const Color3f STX_GREEN = Color3b(23, 150, 164);
-    //! skeletex light green
+    //! Skeletex light green
     const Color3f STX_LIME = Color3b(85, 203, 199);
-    //! skeletex bright yellow
+    //! Skeletex bright yellow
     const Color3f STX_VANILLA = Color3b(243, 255, 226);
-    //! skeletex orange
+    //! Skeletex orange
     const Color3f STX_ORANGE = Color3b(255, 150, 73);
   }
 }

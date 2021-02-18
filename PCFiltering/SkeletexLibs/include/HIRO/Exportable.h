@@ -4,6 +4,7 @@
 namespace hiro
 {
 
+  //! Object whose state can be written to and read from stream.
   class Exportable
   {
   public:
@@ -34,8 +35,8 @@ namespace hiro
     //! Override this method to specify custom data to be stored.
     virtual void WriteToStream(std::ostream &str) const;
 
-    Exportable &operator >>(std::istream &str);
-    Exportable &operator <<(std::ostream &str);
+    hiro::Exportable &operator >>(std::istream &str);
+    hiro::Exportable &operator <<(std::ostream &str);
   };
 
 }

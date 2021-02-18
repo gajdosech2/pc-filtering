@@ -30,6 +30,9 @@ namespace cogs
   class COGS_API PointCloud
   {
   public:
+    //! A predicate over points and normals. A function that returns true or false.
+    using PointNormalPredicate = std::function<bool(const glm::vec3 &, const glm::vec3 &)>;
+
     //! Common identifier for point positions.
     static const cogs::PointCloudProperty::Key POSITIONS;
     //! Common identifier for point normals.
@@ -72,14 +75,15 @@ namespace cogs
     virtual void ShrinkToFit();
     //! Removes all points from cloud.
     virtual void Clear();
+
     /*!
       \brief
         Removes points with specific indices from cloud.
 
         Every chunk of points that should be erased, is replaced with the points from the back
-        of cloud. This ensures the minimal copy operations as possible.
+        of cloud. This ensures minimal copy operations.
       \note
-        Method changes ordering of points.
+        Method changes point ordering.
         Memory for erased points is not released, you should call ShrinkToFit afterwards,
         to free excess memory.
       \param indices_to_erase
@@ -87,8 +91,25 @@ namespace cogs
       \param replacement_map
         Optional output parameter - vector representing the mapping old_index->new_index.
     */
-
     virtual bool Erase(std::vector<uint32_t> indices_to_erase, std::vector<int> *replacement_map = nullptr);
+
+    /*!
+      \brief
+        Removes all points from cloud that satisfy a specified condition.
+
+        Every chunk of points that should be erased, is replaced with the points from the back
+        of cloud. This ensures minimal copy operations.
+      \note
+        Method changes point ordering.
+        Memory for erased points is not released, you should call ShrinkToFit afterwards,
+        to free excess memory.
+      \param Predicate
+        The erase condition. A point is removed from the pointcloud if it returns true.
+      \param replacement_map
+        Optional output parameter - vector representing the mapping old_index->new_index.
+    */
+    virtual bool Erase(const PointNormalPredicate &Predicate, std::vector<int> *replacement_map = nullptr);
+
     /*!
       \brief
         Increments size of this by the size of pc and copies property data available in both.
@@ -106,6 +127,7 @@ namespace cogs
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::POSITIONS);
     */
     [[nodiscard]] glm::vec3 *GetPositions();
+
     /*!
       \brief
         Returns pointer to position data.
@@ -121,6 +143,7 @@ namespace cogs
         Equivalent to PointCloud::HasProperty(PointCloud::NORMALS);
     */
     [[nodiscard]] bool HasNormals() const;
+
     /*!
       \brief
         When normal property exists, returns the pointer to data, nullptr otherwise.
@@ -128,6 +151,7 @@ namespace cogs
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::NORMALS);
     */
     [[nodiscard]] glm::vec3 *GetNormals();
+
     /*!
       \brief
         When normal property exists, returns the pointer to data, nullptr otherwise.
@@ -135,6 +159,7 @@ namespace cogs
         Equivalent to PointCloud::GetData<glm::vec3>(PointCloud::NORMALS);
     */
     [[nodiscard]] const glm::vec3 *GetNormals() const;
+
     /*!
       \brief
         Creates PointCloud::NORMALS property buffer if it was not added already.
@@ -150,6 +175,7 @@ namespace cogs
         Equivalent to PointCloud::HasProperty(PointCloud::COLORS);
     */
     [[nodiscard]] bool HasColors() const;
+
     /*!
       \brief
         When color property exists, returns the pointer to data, nullptr otherwise.
@@ -157,6 +183,7 @@ namespace cogs
         Equivalent to PointCloud::GetData<COGS::Color3f>(PointCloud::COLORS);
     */
     [[nodiscard]] struct Color3f *GetColors();
+
     /*!
       \brief
       When color property exists, returns the pointer to data, nullptr otherwise.
@@ -164,6 +191,7 @@ namespace cogs
       Equivalent to PointCloud::GetData<COGS::Color3f>(PointCloud::COLORS);
     */
     [[nodiscard]] const struct Color3f *GetColors() const;
+
     /*!
       \brief
         Creates PointCloud::COLORS property buffer if it was not added already.
@@ -179,6 +207,7 @@ namespace cogs
         Equivalent to PointCloud::HasProperty(PointCloud::INTENSITIES);
     */
     [[nodiscard]] bool HasIntensities() const;
+
     /*!
       \brief
         When intensity property exists, returns the pointer to data, nullptr otherwise.
@@ -186,6 +215,7 @@ namespace cogs
         Equivalent to PointCloud::GetData<float>(PointCloud::INTENSITIES);
     */
     [[nodiscard]] float *GetIntensities();
+
     /*!
       \brief
         When intensity property exists, returns the pointer to data, nullptr otherwise.
@@ -193,6 +223,7 @@ namespace cogs
         Equivalent to PointCloud::GetData<float>(PointCloud::INTENSITIES);
     */
     [[nodiscard]] const float *GetIntensities() const;
+
     /*!
       \brief
         Creates PointCloud::INTENSITIES property buffer if it was not added already.
@@ -215,6 +246,7 @@ namespace cogs
         Newly created property.
     */
     const PointCloudProperty &AddProperty(const PointCloudProperty::Key &key, DataType type);
+
     /*!
       \brief
         Creates new property buffer.
@@ -291,10 +323,9 @@ namespace cogs
       const PointCloudProperty::Key &key,
       const std::variant<DataType, size_t> type_or_size);
     //! Converts indices to chunks. Sequential indices form a single chunk in the output.
-    [[nodiscard]] std::vector<Chunk> IndicesToChunks(const std::vector<uint32_t> &indices);
+    [[nodiscard]] std::vector<Chunk> IndicesToChunks(const std::vector<uint32_t> &indices) const;
     //! Creates copy commands to erase specified chunks.
-    [[nodiscard]] std::vector<CopyCommand> CreateEraseCopyCommands(
-      std::vector<Chunk> chunks_to_erases);
+    [[nodiscard]] std::vector<CopyCommand> CreateEraseCopyCommands(std::vector<Chunk> chunks_to_erases) const;
   };
 
 

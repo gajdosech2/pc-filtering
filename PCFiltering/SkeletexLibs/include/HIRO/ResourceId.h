@@ -21,7 +21,7 @@ namespace  hiro
   */
   struct HIRO_API ResourceId
   {
-    static const ResourceId INVALID; //!< Denotes invalid identifier.
+    static const hiro::ResourceId INVALID; //!< Denotes invalid identifier.
 
     std::string name { "" };     //!< Name of a specific Resource.
     std::string category { "" }; //!< Unique identifier for each Resource class derivate.
@@ -59,13 +59,13 @@ namespace  hiro
     std::string GetNamePath() const;
 
     //! Checks whether the provided identifier is equivalent.
-    bool operator==(const ResourceId &other) const;
+    bool operator==(const hiro::ResourceId &other) const;
 
     //! Checks whether the provided identifier is different.
-    bool operator!=(const ResourceId &other) const;
+    bool operator!=(const hiro::ResourceId &other) const;
 
     //! Checks whether the provided identifier ordering rank is higher.
-    bool operator<(const ResourceId &other) const;
+    bool operator<(const hiro::ResourceId &other) const;
   };
 
 }

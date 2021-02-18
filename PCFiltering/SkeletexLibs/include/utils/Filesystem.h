@@ -119,12 +119,13 @@ namespace fs
     return std::experimental::filesystem::remove(dir_path);
   }
 
-  //! Returns string representing file extension. Uses original case and no dot before extension
+  //! Returns string representing file extension, in lower case with no dot.
   inline std::string GetExtension(const std::string &filename)
   {
-    auto startpos = filename.find_first_of(".", filename.find_last_of(R"(/\)") + 1) + 1;
-    auto endpos = filename.length();
-    return filename.substr(startpos, endpos - startpos);
+    const auto startpos = filename.find_first_of(".", filename.find_last_of(R"(/\)") + 1) + 1;
+    const auto endpos = filename.length();
+    const auto ext = filename.substr(startpos, endpos - startpos);
+    return std_ext::Lowercase(ext);
   }
 
   //! Checks whether the file has a specific extension. An extension parameter is case sensitive and can be specified with or without a dot.
@@ -137,7 +138,7 @@ namespace fs
   //! Checks whether the file is of a specified type.
   inline bool IsFileType(const std::string &filename, const file_types::Type type)
   {
-    return HasExtenstion(filename, file_types::Ext(type));
+    return HasExtenstion(filename, file_types::GetExt(type));
   }
 
   //! Checks whether the file is any of the specified types.
@@ -150,9 +151,13 @@ namespace fs
   inline std::string FileToString(const std::string &file_name)
   {
     std::ifstream ifs(file_name);
-    std::string contents;
-    std::getline(ifs, contents, (char)ifs.eof());
-    return contents;
+    if (ifs.good())
+    {
+      std::string contents;
+      std::getline(ifs, contents, (char)ifs.eof());
+      return contents;
+    }
+    return "";
   }
 
   //! Exports the string to a text file.
@@ -163,6 +168,32 @@ namespace fs
     file << str;
     file.close();
   }
+
+
+  //! Loads contents of a text-based file and stores it in a vector. The file must contain only elements of templated type.
+  template <typename T>
+  inline std::vector<T> FileToVector(const std::string &file_name)
+  {
+    std::ifstream ifs(file_name);
+    if (ifs.good())
+    {
+      std::vector<T> values;
+      values.reserve(4);
+      while (!ifs.eof())
+      {
+        T value;
+        ifs >> value;
+        if (values.size() == values.capacity())
+        {
+          values.reserve(values.size() * 2);
+        }
+        values.push_back(value);
+      }
+      return values;
+    }
+    return {};
+  }
+
 
   //! Information about single system directory entry.
   struct FileDirContent
@@ -226,20 +257,26 @@ namespace fs
     {
       if (!item.is_directory)
       {
-        if (extension == "" || HasExtenstion(item.name, extension))
+        if (extension.empty() || HasExtenstion(item.name, extension))
         {
           result.emplace_back(item.name);
         }
       }
     }
     result.shrink_to_fit();
+    std_ext::SortAndRemoveDuplicates(result);
     return result;
   }
 
   //! Returns list of all file contents in a specified directory (ignores directories) with extension of the specified file type.
   inline std::vector<std::string> ListDirectoryFileNames(const std::string &direcory_path, const file_types::Type file_type)
   {
-    return ListDirectoryFileNames(direcory_path, file_types::Ext(file_type));
+    const auto ext = file_types::GetExt(file_type);
+    if (ext.empty())
+    {
+      return {};
+    }
+    return ListDirectoryFileNames(direcory_path, ext);
   }
 
   //! Checks specified directory if it contains file(s) of specified type.
@@ -308,7 +345,7 @@ namespace fs
   }
 
   //! Runs executable in command line
-  inline void RunExe(const std::string &exe_path, const std::string &cmd_arguments = "")
+  inline int RunExe(const std::string &exe_path, const std::string &cmd_arguments = "")
   {
 #ifdef _WIN32
     // additional information
@@ -338,24 +375,27 @@ namespace fs
 
     WaitForSingleObject(pi.hProcess, INFINITE);
 
+    // Get return value
+    DWORD exitCode;
+    const bool is_exit_code = GetExitCodeProcess(pi.hProcess, &exitCode);
+    const int commandReturnValue = is_exit_code ? static_cast<int>(exitCode) : -1;
+
     // Close process and thread handles.
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
+
+    return commandReturnValue;
+
 #elif __linux__
-    int commandReturnValue = -1;
-    if (exe_path[0] == '/')
-    {
-      commandReturnValue = system((exe_path + " " + cmd_arguments).c_str());
-    }
-    else
-    {
-      commandReturnValue = system(("./" + exe_path + " " + cmd_arguments).c_str());
-    }
+    const int commandReturnValue = (exe_path[0] == '/')
+      ? system((exe_path + " " + cmd_arguments).c_str())
+      : system(("./" + exe_path + " " + cmd_arguments).c_str());
 
     if (commandReturnValue < 0)
     {
       std::cout << "Command:  " << exe_path << " " << cmd_arguments << "  failed." << std::endl;
     }
+    return commandReturnValue;
 #else
 #error "platform not supported"
 #endif

@@ -17,6 +17,59 @@
 namespace hiro::draw
 {
 
+  //! Projection, camera and viewport parameters.
+  struct HIRO_DRAW_API ProjectionParams
+  {
+    //! Viewport offset from the top window border. In pixels.
+    int32_t top;
+    //! Viewport offset from the left window border. In pixels.
+    int32_t left;
+    //! Viewport offset from the bottom window border. In pixels.
+    int32_t bottom;
+    //! Viewport offset from the right window border. In pixels.
+    int32_t right;
+    //! Horizontal view angle. In radians.
+    float fov_x;
+    //! Vertical view angle, In radians.
+    float fov_y;
+    //! Distance to near projection plane.
+    float near_distance;
+    //! Distance to far projection plane.
+    float far_distance;
+    //! Camera view matrix.
+    glm_ext::TransMat4 view;
+    //! Projection matrix.
+    glm_ext::TransMat4 proj;
+    //! Horizontal pixel resolution of viewport.
+    float width;
+    //! Vertical pixel resolution of viewport.
+    float height;
+    //! Aspect ratio of a viewport (width/height);
+    float aspect;
+
+    /*!
+      \brief
+        Computes the direction of a ray casted form camera at a given 2D coordinates.
+      \brief clip_coords
+        2D coordinate in clip space used for ray generation.
+        If you wish to convert screen coordinates to clip coordinates, see ScreenToClipCoords.
+      \returns
+        Direction of a generated ray. A starting position of a ray is usually camera position.
+    */
+    glm::vec3 CastRay(const glm::vec2 &clip_coords) const;
+
+    /*!
+      \brief Converts screen coordinates to clip coordinates.
+
+      Screen coordinates are in pixels and are generated for example by mouse events.
+      Clip coordinates are in the range -1.0 and 1.0 range and relative to the viewport.
+    */
+    glm::vec2 ScreenToClipCoords(float x, float y) const;
+
+  };
+
+
+
   //! Mode for rendering ground grid lines.
   enum class GroundGrid
   {
@@ -41,7 +94,7 @@ namespace hiro::draw
     static const int32_t INVALID_INSTANCE_INDEX;
 
     bool render_world_axes = true; //! Whether to render world axes in this scene view.
-    GroundGrid render_ground_grid = GroundGrid::none; //! Current ground grid render mode.
+    hiro::draw::GroundGrid render_ground_grid = hiro::draw::GroundGrid::none; //! Current ground grid render mode.
     float ground_grid_scale = 1.0f; //! Size of an ground grid cell.
 
     //! Creates a scene.
@@ -65,7 +118,7 @@ namespace hiro::draw
     glm::vec3 MoveInProjectionSpace(const glm::vec3 &point, const glm::vec2 &proj_move_origin, const glm::vec2 &proj_move_end);
 
     //! Returns camera object.
-    VisualCamera *GetCamera();
+    hiro::draw::VisualCamera *GetCamera();
 
     //! Returns number of instances added to the scene.
     uint32_t GetInstanceCount();
@@ -79,7 +132,7 @@ namespace hiro::draw
           A non-negative index of instance. This index is unique for each instance in a single scene.
           If instance addition fails, function returns -1.
     */
-    int32_t AddInstance(const PRenderer object, const PStyle style, const uint8_t layer = 0);
+    int32_t AddInstance(const hiro::draw::PRenderer object, const hiro::draw::PStyle style, const uint8_t layer = 0);
 
     //! Removes instance by its index.
     void RemoveInstance(int32_t index);
@@ -136,14 +189,17 @@ namespace hiro::draw
     //! Compute the camera's aspect ratio (w/h);
     float GetAspectRatio() const;
 
+    //! Returns projection parameters of this scene.
+    ProjectionParams GetProjectionParams() const;
+
   private:
 
     struct HIRO_DRAW_API Instance
     {
     public:
       int32_t index;
-      PRenderer object;
-      PStyle style;
+      hiro::draw::PRenderer object;
+      hiro::draw::PStyle style;
       uint8_t layer;
     };
 
@@ -155,13 +211,13 @@ namespace hiro::draw
     };
 
     int32_t next_index_ = 0; //! index of instance which will be added next
-    std::deque<Instance> instances_; //! all instances which will be rendered in this scene
+    std::deque<hiro::draw::Scene::Instance> instances_; //! all instances which will be rendered in this scene
 
     geom::IRect viewport_; //! scene rendering viewport
 
-    VisualCamera camera_; //! camera view object
+    hiro::draw::VisualCamera camera_; //! camera view object
 
-    ProjectionType proj_type_ = ProjectionType::perspective; //! whether uses orthographic projection
+    hiro::draw::Scene::ProjectionType proj_type_ = hiro::draw::Scene::ProjectionType::perspective; //! whether uses orthographic projection
     float proj_ortho_sizing_ = 1.0f; //! scale of orthographic projection volume
     float proj_fov_ = QUAT_PI; //! field of view in radians
     float proj_near_plane_ = 0.01f; //! near projection volume plane
@@ -176,6 +232,6 @@ namespace hiro::draw
     void RecalculateProjection();
   };
 
-  using PScene = std::shared_ptr<Scene>;
+  using PScene = std::shared_ptr<hiro::draw::Scene>;
 
 }

@@ -1,16 +1,13 @@
 # bin generator will run for parts[i],bins[i],part_materials[i],blender_configs[i] combinations
-parts[0] = "data/part_wheel.ply"
-parts[1] = "data/part_wheel.ply"
-parts[2] = "data/part_wheel.ply"
+parts[0] = "data/part_thruster.stl"
+parts[1] = "data/part_cogwheel.stl"
 
-bins[0] = "data/bin_flat.stl"
-bins[1] = "data/bin_flat.stl"
-bins[2] = "data/bin_flat.stl"
+bins[0] = "data/bin_classic.stl"
+bins[1] = "data/bin_classic.stl"
 
 # possible materials: steel, brushed_steel, rough_brass, plaster, ceramic, glossy
 part_materials[0] = steel
-part_materials[1] = ceramic
-part_materials[2] = glossy
+part_materials[1] = steel
 
 # Blender executable path, for advanced rendering; you must have BinSimBlender addon installed
 blender_exe_path = ""
@@ -18,14 +15,14 @@ blender_exe_path = ""
 # Blender config files allow for advanced color image rendering; leave empty to disable
 blender_configs[0] = ""
 blender_configs[1] = ""
-blender_configs[2] = ""
+
 
 # if simulation doesn't converge in max_iterations, it will stop
 max_iterations = 50000
 # simulation updates every simulation_step milliseconds. Use higher values for faster simulation, lower values if parts are passing through the bin walls or through each other
 simulation_step = 5
 # number of scans taken in each simulation stage
-num_of_samples = 2
+num_of_samples = 1
 # directory where shaders and matcap files are stored
 asset_directory = resources/
 # base distance of the camera to the bin center of mass

@@ -21,10 +21,10 @@ namespace hiro
   class HIRO_API Resource
   {
   public:
-    const ResourceId ID; //!< Unique identifier of this object.
+    const hiro::ResourceId ID; //!< Unique identifier of this object.
 
     //! Constructor that assign specified ResourceId.
-    Resource(const hiro::ResourceId &id);
+    explicit Resource(const hiro::ResourceId &id);
 
     //! Constructor that creates ResourceId from the specified name and category parameters.
     Resource(const std::string &name, const std::string &category);
@@ -41,7 +41,7 @@ namespace hiro
       \param delta_time
         Specifies the number of seconds since the last Update call.
     */
-    virtual void Update(const float delta_time);
+    virtual void Update(float delta_time);
 
   protected:
     //! Tells the system to render on next update. Effect only when "optimized rendering" enabled.
@@ -50,6 +50,6 @@ namespace hiro
   };
 
   //! Shared pointer to Resource.
-  using PResource = std::shared_ptr<Resource>;
+  using PResource = std::shared_ptr<hiro::Resource>;
 
 }

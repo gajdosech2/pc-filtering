@@ -15,8 +15,8 @@ public:
   virtual ~IDialogInterface() {}
 
   virtual std::optional<std::string> GetPathFromDirectorySelectionDialog(const std::wstring &title, const std::string &default_path = "") const = 0;
-  virtual std::vector<std::string> GetPathsFromFileSelectionDialog(const std::wstring &title, const std::string &wildcard, bool enableMultiselect, const std::string &default_path = "") const = 0;
-  virtual std::optional<std::string> GetPathFromFileSaveDialog(const std::wstring &title, const std::string &wildcard, bool overwritePromptEnabled, const std::string &default_path = "") const = 0;
+  virtual std::vector<std::string> GetPathsFromFileSelectionDialog(const std::wstring &title, const std::string &wildcard, bool enable_multiselect, const std::string &default_path = "") const = 0;
+  virtual std::optional<std::string> GetPathFromFileSaveDialog(const std::wstring &title, const std::string &wildcard, bool overwrite_prompt_enabled, const std::string &default_path = "") const = 0;
   virtual void ShowErrorMessage(const std::wstring &message, const std::wstring &title = L"Message") const = 0;
   virtual void ShowWarningMessage(const std::wstring &message, const std::wstring &title = L"Message") const = 0;
   virtual void ShowInfoMessage(const std::wstring &message, const std::wstring &title = L"Message") const = 0;

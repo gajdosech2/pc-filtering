@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <glm/glm.hpp>
 
 #include <Utils/GeometryStructures.h>
@@ -63,5 +64,14 @@ namespace cogs
 
     //! Compute vertical plane. The normal vector is the right vector.
     geom::Plane GetVerticalPlane() const;
+
+    //! Compute corners of frustum slice quad, made in specified distance.
+    std::array<glm::vec3, 4> GetSliceCorners(float slice_distance) const;
+
+    //! Compute corners of frustum near plane quad.
+    std::array<glm::vec3, 4> GetNearCorners() const;
+
+    //! Compute corners of frustum far plane quad.
+    std::array<glm::vec3, 4> GetFarCorners() const;
   };
 }

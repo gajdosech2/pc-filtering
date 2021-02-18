@@ -38,7 +38,7 @@ namespace hiro::draw
     //! Size of point in screen pixels.
     float point_size = 10.0f;
     //! Color source used to colorize the points.
-    ColorSource color_source = ColorSource::material;
+    hiro::draw::ColorSource color_source = hiro::draw::ColorSource::material;
   };
 
 
@@ -62,12 +62,12 @@ namespace hiro::draw
     //! Material setting for the faces.
     hiro::shader::Material material;
     //! Color source used to colorize the faces.
-    ColorSource color_source = ColorSource::material;
+    hiro::draw::ColorSource color_source = hiro::draw::ColorSource::material;
     //! Albedo texture. To use, set color source to ColorSource::albedo_map.
     glw::PTexture2D albedo_texture = nullptr;
 
     //! Normal source used to calculate the lighting.
-    NormalSource normal_source = NormalSource::flat_normals;
+    hiro::draw::FacesStyle::NormalSource normal_source = hiro::draw::FacesStyle::NormalSource::flat_normals;
     //! Normal texture. To use, set normal source to NormalSource::normal_map.
     glw::PTexture2D normal_texture = nullptr;
 
@@ -116,13 +116,13 @@ namespace hiro::draw
       }
     \endcode
   */
-  class HIRO_DRAW_API ElementRenderer : public Renderer
+  class HIRO_DRAW_API ElementRenderer : public hiro::draw::Renderer
   {
   public:
-    ElementRenderer(const ElementRenderer &source) = delete;
-    ElementRenderer &operator=(const ElementRenderer &source) = delete;
-    ElementRenderer(ElementRenderer &&) noexcept = delete;
-    ElementRenderer &operator=(ElementRenderer &&) noexcept = delete;
+    ElementRenderer(const hiro::draw::ElementRenderer &source) = delete;
+    ElementRenderer &operator=(const hiro::draw::ElementRenderer &source) = delete;
+    ElementRenderer(hiro::draw::ElementRenderer &&) noexcept = delete;
+    ElementRenderer &operator=(hiro::draw::ElementRenderer &&) noexcept = delete;
     virtual ~ElementRenderer() = default;
 
   protected:
@@ -142,11 +142,11 @@ namespace hiro::draw
     virtual void OnRenderNormals();
 
     //! Prepares shader according to the style and renders points using the specified render_func.
-    void RenderPoints(const PointsStyle &style, std::function<void(void)> render_func);
+    void RenderPoints(const hiro::draw::PointsStyle &style, std::function<void(void)> render_func);
     //! Prepares shader according to the style and renders faces using the specified render_func.
-    void RenderFaces(const FacesStyle &style, std::function<void(void)> render_func);
+    void RenderFaces(const hiro::draw::FacesStyle &style, std::function<void(void)> render_func);
     //! Prepares shader according to the style and renders normals using the specified render_func.
-    void RenderNormals(const NormalsStyle &style, std::function<void(void)> render_func);
+    void RenderNormals(const hiro::draw::NormalsStyle &style, std::function<void(void)> render_func);
 
   private:
     //! Uniform buffer containing material information.

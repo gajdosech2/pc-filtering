@@ -34,6 +34,7 @@ namespace std_ext
 
   const std::string WHITESPACES = " \t\n\r\f\v";
 
+
   /*!
     \brief Convert single-byte std::string to std::wstring.
     \note #TEMP This will be replaced with QString when we have moved to Qt library.
@@ -42,6 +43,12 @@ namespace std_ext
   inline std::wstring ToWString(const std::string &text)
   {
     return std::wstring(text.begin(), text.end());
+  }
+
+  //! Convert std::wstring to std::string.
+  inline std::string ToStdString(const std::wstring &text)
+  {
+    return std::string(text.begin(), text.end());
   }
 
   //! Counts how many of specified key_to_search substrings does text contain.
@@ -250,6 +257,12 @@ namespace std_ext
   }
 
   //! Converts text into all uppercase.
+  inline void MakeUppercase(std::string &text)
+  {
+    MakeUppercase(const_cast<char *>(text.c_str()));
+  }
+
+  //! Converts text into all uppercase.
   inline std::string Uppercase(const std::string &text)
   {
     std::string upper = text;
@@ -264,11 +277,25 @@ namespace std_ext
   }
 
   //! Converts text into all lowercase.
+  inline void MakeLowercase(std::string &text)
+  {
+    MakeLowercase(const_cast<char *>(text.c_str()));
+  }
+
+  //! Converts text into all lowercase.
   inline std::string Lowercase(const std::string &text)
   {
     std::string lower = text;
     std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
     return lower;
+  }
+
+  //! Checks if the text ends with a string.
+  inline bool EndsWith(const std::string &ending, const std::string &text)
+  {
+    return
+      ending.size() <= text.size() &&
+      std::equal(ending.rbegin(), ending.rend(), text.rbegin());
   }
 
   //! Checks if the text contains substring.
@@ -306,14 +333,14 @@ namespace std_ext
 
   //! Check if the initializer list contains an element.
   template <typename T>
-  bool Contains(const T element, const std::initializer_list<T> &list)
+  bool Contains(const T &element, const std::initializer_list<T> &list)
   {
     return std::find(list.begin(), list.end(), element) != list.end();
   }
 
   //! Check if the vector contains an element.
   template <typename Type>
-  bool Contains(const Type element, const std::vector<Type> &vector)
+  bool Contains(const Type &element, const std::vector<Type> &vector)
   {
     return std::find(vector.begin(), vector.end(), element) != vector.end();
   }
@@ -428,13 +455,35 @@ namespace std_ext
     return indices;
   }
 
+  //! Execute a function for every element in the container.
+  template <typename T, typename F>
+  inline void Foreach(const T &container, const F &Function)
+  {
+    std::for_each(container.begin(), container.end(), Function);
+  }
+
+  //! Finds a maximum value in a vector, return an iterator pointing to it.
+  template <typename T>
+  [[nodiscard]]
+  inline auto MaxIt(const std::vector<T> &vector)
+  {
+    return std::max_element(vector.begin(), vector.end());
+  }
+
+  //! Finds a minimal value in a vector, return an iterator pointing to it.
+  template <typename T>
+  [[nodiscard]]
+  inline auto MinIt(const std::vector<T> &vector)
+  {
+    return std::min_element(vector.begin(), vector.end());
+  }
 
   //! Finds a maximum value in a vector.
   template <typename T>
   [[nodiscard]]
   inline T Max(const std::vector<T> &vector)
   {
-    return *std::max_element(vector.begin(), vector.end());
+    return *MaxIt(vector);
   }
 
   //! Finds a minimal value in a vector.
@@ -442,7 +491,7 @@ namespace std_ext
   [[nodiscard]]
   inline T Min(const std::vector<T> &vector)
   {
-    return *std::min_element(vector.begin(), vector.end());
+    return *MinIt(vector);
   }
 
   //! Finds a maximum value from a single element. Boundary case for the variadic expansion.
@@ -577,6 +626,22 @@ namespace std_ext
       : Sum(vector, function) / static_cast<float>(vector.size());
   }
 
+  //! Compute median value of a vector. In case of empty vector, return 0.
+  template <typename T>
+  [[nodiscard]]
+  inline auto Median(const std::vector<T> &vector)
+  {
+    if (vector.empty())
+    {
+      return static_cast<T>(0);
+    }
+
+    auto vec = vector;
+    const size_t n = vec.size() / 2;
+    std::nth_element(vec.begin(), vec.begin() + n, vec.end());
+    return vec[n];
+  }
+
 
   //! Insert the source vector to the back of target vector.
   template <typename Type>
@@ -598,6 +663,18 @@ namespace std_ext
   {
     target.insert(source.begin(), source.end());
   }
+
+
+  //! Emplace back an element if it is unique to the vector.
+  template <typename Type>
+  void EmplaceBackUnique(const Type &element, std::vector<Type> &vector)
+  {
+    if (!Contains(element, vector))
+    {
+      vector.emplace_back(element);
+    }
+  }
+
 
   //! Trims characters from beginning of string (left).
   inline std::string &TrimBegin(std::string &s, const std::string &t = WHITESPACES)
@@ -724,12 +801,12 @@ namespace std_ext
   }
 
   //! Simplified wrapper for std::transform.
-  template<class C, class P>
+  template<class C, class F>
   [[nodiscard]]
-  auto Transformed(const C &container, P Predicate)
+  auto Transformed(const C &container, F Function)
   {
-    std::vector<decltype(Predicate(std::declval<typename C::value_type>()))> result;
-    std::transform(container.begin(), container.end(), std::back_inserter(result), Predicate);
+    std::vector<decltype(Function(std::declval<typename C::value_type>()))> result;
+    std::transform(container.begin(), container.end(), std::back_inserter(result), Function);
     return result;
   }
 
@@ -745,6 +822,14 @@ namespace std_ext
   template<class C, class P>
   [[nodiscard]]
   auto AnyOf(const C &container, const P &Predicate)->bool
+  {
+    return std::any_of(container.begin(), container.end(), Predicate);
+  }
+
+  //! Simplified wrapper for std::any_of (writable).
+  template<class C, class P>
+  [[nodiscard]]
+  auto AnyOfW(C &container, const P &Predicate)->bool
   {
     return std::any_of(container.begin(), container.end(), Predicate);
   }
@@ -779,6 +864,14 @@ namespace std_ext
   auto FindIf(C &container, const P &Predicate)
   {
     return std::find_if(container.begin(), container.end(), Predicate);
+  }
+
+  //! Simplified wrapper for reversed std::find_if.
+  template<class C, class P>
+  [[nodiscard]]
+  auto RevFindIf(C &container, const P &Predicate)
+  {
+    return std::find_if(container.rbegin(), container.rend(), Predicate);
   }
 
   /*!
@@ -829,6 +922,58 @@ namespace std_ext
     return std::make_pair(result_true, result_false);
   }
 
+  /*!
+    \brief Finds all intervals on the vector where a given condition holds.
+    \return A vector of interval indices pairs.
+  */
+  template<class T, class P>
+  [[nodiscard]]
+  std::vector<std::pair<size_t, size_t>> FindIntervals(const std::vector<T> &vec, const P &Predicate)
+  {
+    std::vector<std::pair<size_t, size_t>> intervals;
+    std::optional<size_t> interval_start = std::nullopt;
+
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+      if (Predicate(vec[i]))
+      {
+        if (!interval_start)
+        {
+          interval_start = i;
+        }
+      }
+      else if (interval_start)
+      {
+        intervals.emplace_back(std::make_pair(*interval_start, i - 1));
+        interval_start = std::nullopt;
+      }
+    }
+
+    return intervals;
+  }
+
+  template<typename T>
+  std::vector<T> Joined(const std::vector<std::vector<T>> &vector_of_vectors)
+  {
+    std::vector<T> result;
+    for (const auto &vec : vector_of_vectors)
+    {
+      InsertBack(result, vec);
+    }
+    return result;
+  }
+
+  template<typename T, typename F>
+  std::vector<T> JoinTransformed(const std::vector<std::vector<T>> &vector_of_vectors, const F &Function)
+  {
+    std::vector<T> result;
+    for (const auto &vec : vector_of_vectors)
+    {
+      InsertBack(result, Transformed(vec, Function));
+    }
+    return result;
+  }
+
   //! Creates binding for an object method with a single argument.
   template<typename F, typename O>
   inline auto Bind1(F method, O object)
@@ -836,4 +981,13 @@ namespace std_ext
     return std::bind(method, object, std::placeholders::_1);
   }
 
+
+  //! Check std::string for non-ASCII characters.
+  inline bool IsASCII(const std::string &s)
+  {
+    return AllOf(s, [](unsigned char c)
+    {
+      return isprint(c);
+    });
+  }
 }

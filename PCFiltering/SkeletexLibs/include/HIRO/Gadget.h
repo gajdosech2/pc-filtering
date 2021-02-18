@@ -28,59 +28,6 @@ namespace hiro
 
 
 
-  //! Projection, camera and viewport parameters.
-  struct HIRO_API ProjectionParams
-  {
-    //! Viewport offset from the top window border. In pixels.
-    int32_t top;
-    //! Viewport offset from the left window border. In pixels.
-    int32_t left;
-    //! Viewport offset from the bottom window border. In pixels.
-    int32_t bottom;
-    //! Viewport offset from the right window border. In pixels.
-    int32_t right;
-    //! Horizontal view angle. In radians.
-    float fov_x;
-    //! Vertical view angle, In radians.
-    float fov_y;
-    //! Distance to near projection plane.
-    float near_distance;
-    //! Distance to far projection plane.
-    float far_distance;
-    //! Camera view matrix.
-    glm_ext::TransMat4 view;
-    //! Projection matrix.
-    glm_ext::TransMat4 proj;
-    //! Horizontal pixel resolution of viewport.
-    float width;
-    //! Vertical pixel resolution of viewport.
-    float height;
-    //! Aspect ratio of a viewport (width/height);
-    float aspect;
-
-    /*!
-      \brief
-        Computes the direction of a ray casted form camera at a given 2D coordinates.
-      \brief clip_coords
-        2D coordinate in clip space used for ray generation.
-        If you wish to convert screen coordinates to clip coordinates, see ScreenToClipCoords.
-      \returns
-        Direction of a generated ray. A starting position of a ray is usually camera position.
-    */
-    glm::vec3 CastRay(const glm::vec2 &clip_coords) const;
-
-    /*!
-      \brief Converts screen coordinates to clip coordinates.
-
-      Screen coordinates are in pixels and are generated for example by mouse events.
-      Clip coordinates are in the range -1.0 and 1.0 range and relative to the viewport.
-    */
-    glm::vec2 ScreenToClipCoords(float x, float y) const;
-
-  };
-
-
-
   /*!
     \brief Visual part of module. Provides options for visualization, that do not interfere with data stored in Resource.
 
@@ -90,7 +37,7 @@ namespace hiro
   {
   public:
     const hiro::ResourceId RESOURCE_ID;
-    Gadget(const hiro::Resource *res);
+    explicit Gadget(const hiro::Resource *res);
     virtual ~Gadget();
 
     //! Function invoked right after object creation to set up all properties.
@@ -123,7 +70,7 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus KeyPressed(
+    virtual hiro::EventStatus KeyPressed(
       hiro::Key key,
       const hiro::ModKeys &mods,
       hiro::EventStatus status
@@ -136,7 +83,7 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus KeyReleased(
+    virtual hiro::EventStatus KeyReleased(
       hiro::Key key,
       const hiro::ModKeys &mods,
       hiro::EventStatus status
@@ -149,7 +96,7 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus MouseButtonPressed(
+    virtual hiro::EventStatus MouseButtonPressed(
       hiro::MouseButton button,
       const hiro::ModKeys &mods,
       hiro::EventStatus status
@@ -162,8 +109,8 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus MouseButtonReleased(
-      MouseButton button,
+    virtual hiro::EventStatus MouseButtonReleased(
+      hiro::MouseButton button,
       const hiro::ModKeys &mods,
       hiro::EventStatus status
     );
@@ -174,7 +121,7 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus MouseWheel(
+    virtual hiro::EventStatus MouseWheel(
       float offset,
       hiro::EventStatus status
     );
@@ -186,7 +133,7 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus MouseMoved(
+    virtual hiro::EventStatus MouseMoved(
       float x,
       float y,
       hiro::EventStatus status
@@ -199,7 +146,7 @@ namespace hiro
       \param status Whether the event was already processed by other object.
       \returns When the event was handled, the function should return EventStatus::processed.
     */
-    virtual EventStatus ViewResized(
+    virtual hiro::EventStatus ViewResized(
       uint32_t width,
       uint32_t height,
       hiro::EventStatus status
@@ -234,7 +181,7 @@ namespace hiro
     void RemoveRenderer(int32_t renderer_id) const;
 
     //! Returns projection parameters for view where object exists.
-    hiro::ProjectionParams GetProjectionParams() const;
+    hiro::draw::ProjectionParams GetProjectionParams() const;
 
     //! Returns pointer to Resource object that was used to create this object.
     template <typename UnitType = Resource>
@@ -253,8 +200,12 @@ namespace hiro
       \note
         State is saved automatically when changes are made to gui.
         May negatively affect performance when used a lot.
+      \returns Whether saving was successful.
     */
-    void ForceSaveState() const;
+    bool SaveState() const;
+
+    //! Set near and far values of the viewarea
+    void SetNearFar(float near, float far) const;
 
   protected:
 
@@ -308,11 +259,11 @@ namespace hiro
     bool was_initialized_ = false;
     hiro::Viewarea *viewarea_;
     bool is_save_enabled_ = false;
-    bool SaveState() const;
-    bool TestInitialization(const std::string &calee_name) const;
+    bool TestInitialization(const std::string &callee_name) const;
+    std::string GetStateFileName() const;
   };
 
   //! Shared pointer to Gadget.
-  using PGadget = std::shared_ptr<Gadget>;
+  using PGadget = std::shared_ptr<hiro::Gadget>;
 
 }

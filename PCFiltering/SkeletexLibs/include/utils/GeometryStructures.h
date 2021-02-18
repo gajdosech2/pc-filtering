@@ -439,6 +439,12 @@ namespace geom
       return true;
     }
 
+    //! Checks if this bounding box is inside other Aabb.
+    bool IsInside(const TAabb &aabb) const
+    {
+      return aabb.IsIncluded(min) && aabb.IsIncluded(max);
+    }
+
     //! Enlarges aabb so that it covers also defined point.
     void Include(const Vec &point)
     {

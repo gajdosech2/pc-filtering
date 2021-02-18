@@ -34,7 +34,10 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
     const glm::uvec2 new_resolution(trim_values.max_x - trim_values.min_x + 1, trim_values.max_y - trim_values.min_y + 1);
     new_scan.SetResolution(new_resolution);
     new_scan.AddIntensities();
-    new_scan.AddNormals();
+    if (scan.HasNormals())
+    {
+        new_scan.AddNormals();
+    }
     new_scan.Reserve(new_resolution.x * new_resolution.y);
     new_scan.SetCameraPosition(scan.GetCameraPosition());
 
@@ -48,7 +51,10 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
                 auto new_id = new_scan.AddPointAt(x, y);
 
                 new_scan.GetPositions()[new_id] = scan.GetPositions()[old_id];
-                new_scan.GetNormals()[new_id] = scan.GetNormals()[old_id];
+                if (scan.HasNormals())
+                {
+                    new_scan.GetNormals()[new_id] = scan.GetNormals()[old_id];
+                }
                 new_scan.GetIntensities()[new_id] = scan.GetIntensities()[old_id];
             }
         }

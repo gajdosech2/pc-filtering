@@ -4,7 +4,6 @@
   Proprietary and confidential
 */
 #pragma once
-#include <Utils/LogWriter.h>
 #include <GLW/Texture.h>
 #include <GLW/FrameBuffer.h>
 

@@ -6,7 +6,7 @@
 #pragma once
 #include <GLW/Texture.h>
 #include <COGS/Color.h>
-#include <HIRO_DRAW/Renderer.h>
+#include <HIRO_DRAW/renderers/ImageRenderer.h>
 
 
 
@@ -14,15 +14,7 @@ namespace hiro::draw
 {
 
   //! Structure specifying how the raster should be rendered.
-  struct HIRO_DRAW_API RasterStyle : public Style
-  {
-    //! Denotes, whether to use nearest or linear filtering when rendering raster.
-    bool use_nearest_filtering{ false };
-    //! Import state from stream.
-    virtual bool ReadFromStream(std::istream &str) override;
-    //! Export state to stream.
-    virtual void WriteToStream(std::ostream &str) override;
-  };
+  using RasterStyle = ImageStyle;
 
 
 
@@ -38,36 +30,31 @@ namespace hiro::draw
     is changed and texture buffer invalidated. Before the rendering, if a texture buffer
     is invalid, the changes from work buffer are automatically introduced to the texture buffer.
   */
-  class HIRO_DRAW_API RasterRenderer : public hiro::draw::Renderer
+  class HIRO_DRAW_API RasterRenderer : public ImageRenderer
   {
   public:
-    //! Returns the current raster resolution.
-    const glm::uvec2 &GetResolution() const;
 
+    //! Sets current raster dimensions.
+    glm::uvec2 GetResolution() const override;
     //! Sets the raster dimensions and clear it to the clearcolor.
     void SetResolution(
       const glm::uvec2 &resolution,
       const cogs::Color3b &clearcolor = cogs::color::BLACK
     );
-
     //! Gets the pixel at given pixel coordinates.
     const cogs::Color3b &GetPixel(int x, int y) const;
-
     //! Sets a pixel in a working buffer at a given position to the given color.
     void SetPixel(int x, int y, const cogs::Color3b &color);
-
     //! Clears the working pixel buffer to the defined color.
     void Clear(const cogs::Color3b &color = cogs::color::BLACK);
+    //! When sync flag is set, copies data from working to display raster and resets the flag.
+    void SyncRastersIfNeeded();
 
   protected:
     //! Describes rendering behavior in 2D rendering pass.
     void Render2D(const std::string &program) override;
-
     //! Test whether specified style is compatible with object.
-    bool IsCompatibileWithStyle(const Style *style) override;
-
-    //! Loads shader programs required by this renderer.
-    void LoadRequiredShaderPrograms(glw::ProgramList *programs) override;
+    bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
 
   private:
     //! When the changes are introduced to the work buffer, sync is set to true.
@@ -76,19 +63,16 @@ namespace hiro::draw
     glm::uvec2 work_buffer_resolution_{ glm::uvec2(1, 1) };
     //! Work buffer for the raster.
     std::vector<cogs::Color3b> work_buffer_{ cogs::color::BLACK };
-    //! Texture buffer for the raster.
-    glw::PTexture2D texture_buffer_{ nullptr };
-    //! Sets the texture filtering based on the style preference.
-    void SetupFiltering();
-    //! When sync flag is set, copies data from working to display raster and resets the flag.
-    void SyncRastersIfNeeded();
+
+    using ImageRenderer::SetImage;
+    using ImageRenderer::LoadImageFile;
   };
 
 
 
   //! Shared pointer to an object of the type RasterStyle.
-  using PRasterStyle = std::shared_ptr<RasterStyle>;
+  using PRasterStyle = std::shared_ptr<hiro::draw::RasterStyle>;
   //! Shared pointer to an object of the type RasterRenderer.
-  using PRasterRenderer = std::shared_ptr<RasterRenderer>;
+  using PRasterRenderer = std::shared_ptr<hiro::draw::RasterRenderer>;
 
 }

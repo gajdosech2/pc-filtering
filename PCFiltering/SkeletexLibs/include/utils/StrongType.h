@@ -28,7 +28,7 @@ namespace utils
   {
 
   public:
-    explicit StrongType()
+    StrongType()
       : StrongType(static_cast<ValueType>(0))
     {}
 

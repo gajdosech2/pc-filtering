@@ -163,7 +163,7 @@ namespace hiro
     ModKeys(uint8_t state) : state_(state) {};
 
     //! Checks whether specified modifier key is pressed.
-    bool IsPressed(Mod modifier_key) const
+    bool IsPressed(hiro::Mod modifier_key) const
     {
       return state_ & static_cast<uint8_t>(modifier_key);
     }

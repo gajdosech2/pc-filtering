@@ -20,6 +20,20 @@
 
 namespace hiro::draw
 {
+  enum class AntiAliasing : uint8_t
+  {
+    none,
+    msaa2x,
+    msaa4x,
+    msaa8x,
+    msaa16x,
+    fxaa
+  };
+
+
+  const uint8_t DEFAULT_AXIS_OVERLAY_LAYER = 128;
+  const uint8_t DEFAULT_GROUND_OVERLAY_LAYER = 0;
+
 
   /*!
     \brief Class responsible for rendering loop implementation and its optimization.
@@ -27,10 +41,25 @@ namespace hiro::draw
   class HIRO_DRAW_API RenderSystem
   {
   public:
-    RenderSystem(const glm::uvec2 &size);
+
+    enum class Mode
+    {
+      /*!
+        System renders scenes and calculates lighting and other effects.
+        Final imagery is rendered to the currently bound frame buffer.
+      */
+      visualizer,
+      /*!
+        System renders scenes and write them to the G-buffer that can be downloaded.
+        No multi sample buffers are used in this mode, and no visual feedback is provided.
+      */
+      deferred_only,
+    };
+
+    RenderSystem(const glm::uvec2 &size, Mode mode = Mode::visualizer);
 
     //! Creates instance with shared shader program list.
-    RenderSystem(const glm::uvec2 &size, const glw::PProgramList &programlist_ptr);
+    RenderSystem(const glm::uvec2 &size, const glw::PProgramList &programlist_ptr, Mode mode);
 
     //! Set up size of output buffer, targeted for render.
     void SetFramebufferSize(const glm::uvec2 &size);
@@ -45,16 +74,19 @@ namespace hiro::draw
     hiro::draw::TextRenderer *GetTextRenderer();
 
     //! Add a scene to the list of scenes to be rendered. Returns scene index.
-    uint32_t AddScene(const PScene &scene);
+    uint32_t AddScene(const hiro::draw::PScene &scene);
 
     //! Removes the scene from the list of scenes to be rendered.
-    void RemoveScene(const PScene &scene);
+    void RemoveScene(const hiro::draw::PScene &scene);
 
     //! Returns scene from the list of scenes to be rendered, by scene index.
-    PScene GetScene(const uint32_t scene_id);
+    hiro::draw::PScene GetScene(const uint32_t scene_id);
 
-    //! Add light to the renderer, returns index of the added light .
+    //! Add light to the renderer, returns index of the added light.
     uint32_t AddLight(const hiro::shader::Light &light);
+
+    //! Chenge light with the specified id in the renderer.
+    void SetLight(uint32_t light_id, const hiro::shader::Light &light);
 
     //! Loads all not-loaded shaders required by renderer and all objects from added scenes.
     void LoadShaders();
@@ -66,19 +98,34 @@ namespace hiro::draw
     void Render();
 
     //! Set whether The renderer should use MSAA. Disabled by default.
-    void SetMsaaEnabled(bool enabled);
+    void SetAntiAliasingMethod(AntiAliasing method);
 
     //! Checks whether is MSAA currently in use.
-    bool IsMsaaEnabled();
-
-    //! Set number of samples to be used for MSAA. Default is 4.
-    bool SetMsaaSamples(uint8_t sample_count);
-
-    //! Returns number of samples currently used for MSAA.
-    uint32_t GetMsaaSamples();
+    AntiAliasing GetAntiAliasingMethod();
 
     //! Returns current resolution of render frame buffer.
     glm::uvec2 GetFrameBufferSize();
+
+    //! Enables shadow mapping and initializes shadow map buffer with specified resolution.
+    void EnableShadowing(const glm::uvec2 &shadowmap_buffer_resolution, bool light_areas_outside_shadowmap = true);
+
+    //! Disables shadow mapping.
+    void DisableShadowing();
+
+    //! Check if shadow mapping is enabled.
+    bool IsShadowingEnabled() const;
+
+    //! Returns the layer on which is axis overlay feature rendered.
+    uint8_t GetAxisLayer() const;
+
+    //! Changes the layer on which is axis overlay feature rendered. Default is equal to hiro::draw::DEFAULT_GROUND_OVERLAY_LAYER.
+    void SetAxisLayer(uint8_t layer);
+
+    //! Returns the layer on which is ground grid overlay feature rendered.
+    uint8_t GetGroundLayer() const;
+
+    //! Changes the layer on which is ground grid overlay feature rendered. Default is equal to hiro::draw::DEFAULT_AXIS_OVERLAY_LAYER.
+    void SetGroundLayer(uint8_t layer);
 
     /*!
       \brief Returns 4-channel texture of position and shininess parameters.
@@ -104,18 +151,31 @@ namespace hiro::draw
     */
     glw::PTexture2D GetColorsAndLightingTex() const;
 
+    /*!
+      \brief Returns 1-channel texture of shadow mask.
+
+      Stored data is of type uint8_norm.
+    */
+    glw::PTexture2D GetShadowMaskTex() const;
+
+    /*!
+      \brief When shadowmapping is enabled, returns shadow depth map.
+
+      This method will return nullptr until EnableShadowing is called.
+    */
+    glw::PTexture2D GetShadowmapTex() const;
+
+
+    /*!
+      \brief Returns 1-channel texture representing segmentation labels.
+
+      Stored data is of type uint32.
+    */
+    glw::PTexture2D GetLabelTex() const;
+
   private:
 
-    glm::uvec2 framebuffer_size_;
-
-    cogs::Color3b back_color_ = cogs::color::WHITE;
-
-    struct MatAndInv
-    {
-      MatAndInv(const glm::mat4 &mat);
-      glm::mat4 matrix;
-      glm::mat4 inverse;
-    };
+    using RenderPassSceneFunc = std::function<void(const PScene &, uint8_t, const std::string &)>;
 
     struct SceneData
     {
@@ -128,63 +188,81 @@ namespace hiro::draw
       glm::vec2 padding1;
     };
 
-    TextRenderer text_renderer_;
+    enum class RenderPass
+    {
+      other = 0,
+      shadow = 1,
+    };
+
+    enum class ShadowingMethod
+    {
+      disabled = 0, // No shadows are generated.
+      shadowed_scene = 1, // Scene is shadowed using the shadow map. Regions outside shadow map have no shadow.
+      lighten_scene = 2,  // Scene is lighten using the shadow map. Regions outside shadow map are fully shadowed.
+    };
+
+    hiro::draw::TextRenderer text_renderer_;
 
     glw::PProgramList programs_;
-    glw::FrameBuffer::Settings g_buf_settings_;
-    glw::PFrameBuffer g_buffer_;
-    glw::PFrameBuffer h_buffer_;
-    bool is_msaa_enabled_ = true;
-    uint8_t msaa_samples_ = 4;
+    glw::PFrameBuffer deferred_buffer_;
+    glw::PFrameBuffer combined_buffer_;
+    glw::PFrameBuffer fxaa_buffer_;
+    glw::PFrameBuffer shadowmap_buffer_;
+    AntiAliasing antialiasing_method_ = AntiAliasing::none;
 
+    const Mode mode_ = Mode::visualizer;
+    glm::uvec2 framebuffer_size_;
+    cogs::Color3b back_color_ = cogs::color::WHITE;
     std::vector<PScene> scenes_;
 
-    glw::UniformBuffer<MatAndInv> cameraview_buffer_;
+    glw::UniformBuffer<glm_ext::TransMat4> cameraview_buffer_;
+
+    uint8_t axis_layer_ = DEFAULT_AXIS_OVERLAY_LAYER;
+    uint8_t ground_layer_ = DEFAULT_GROUND_OVERLAY_LAYER;
 
     uint32_t added_light_count_ = 0u;
     glw::UniformBuffer<hiro::shader::Light> light_buffer_;
 
-    glw::UniformBuffer<SceneData> scenedata_buffer_;
+    glw::UniformBuffer<hiro::draw::RenderSystem::SceneData> scenedata_buffer_;
     glw::PArrayObject grid_buffer_;
+
+    std::vector<uint8_t> occupied_layers_;
+
+    RenderPass current_pass_{ RenderPass::other };
+    ShadowingMethod shadowing_method_{ ShadowingMethod::disabled };
 
     void CreateGridBuffer();
 
-    void UpdateCameraBuffers();
-    void UpdateSceneDataBuffers();
+    void UpdateCameraBuffers(bool use_2d);
+    void UpdateSceneDataBuffers(bool use_2d_projection);
+
+    void UpdateOccupiedLayers();
 
     void PrepareSceneForRender(const uint32_t scene_id);
 
-    void RenderGrid(uint32_t scne_id);
-    void RenderAxes(uint32_t i);
+    void RenderGrid(GroundGrid orientation, float scale);
+    void RenderAxes(const PScene &scene);
 
-    SceneData GetSceneData(const uint32_t scene_id);
+    SceneData GetSceneData(const uint32_t scene_id, bool use_2d_projection);
 
     void LoadSceneShaders(const uint32_t scene_id);
 
-    //! Return non-multi-sampled copy of g_buffer.
-    glw::PFrameBuffer GetNonMSgbuffer() const;
+    //! Re-create frame buffers for deferred rendering.
+    void ResetFrameBuffers();
 
-    //! Create G-Buffer for deferred rendering.
-    void CreateGBuffer();
+    //! Render specified buffer to currently bound, using the specified shader.
+    void RenderBufferPass(const glw::FrameBuffer &source_buffer, const std::string &shader);
 
-    //! Create an intermediate buffer between Screen buffer and G-Buffer.
-    void CreateHBuffer();
+    void RenderPassLayer(uint8_t layer, const RenderPassSceneFunc &RenderPassScene);
 
-    //! Use deferred rendering lighting path.
-    void MergeGBuffer();
-
-    //! Create a single multi-sampled texture from G-Buffer.
-    void MergeHBuffer();
+    void RenderPassAllLayers(const RenderPassSceneFunc &RenderPassScene);
 
     //! Bind the G-Buffer to render into.
     void InitDeferredRendering();
 
-    void Render3D(std::vector<uint8_t> &used_layers);
+    void Render3D(const PScene &scene, uint8_t layer, const std::string &shader);
 
-    //! Swap buffers G-Buffer, H-Buffer, Screen buffer
-    void MergeBuffers(const gl::GLint &fbo_bound);
-
-    void Render2D(std::vector<uint8_t> &used_layers);
+    void Render2D(const PScene &scene, uint8_t layer, const std::string &shader);
   };
 
 }

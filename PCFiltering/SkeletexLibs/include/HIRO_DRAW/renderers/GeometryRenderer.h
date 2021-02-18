@@ -15,7 +15,7 @@ namespace hiro::draw
 {
 
   //! Stylization of the rendered geometry.
-  struct HIRO_DRAW_API GeometryStyle : public Style
+  struct HIRO_DRAW_API GeometryStyle : public hiro::draw::Style
   {
     //! Available modes for rendering geometry.
     enum class RenderMode : int32_t
@@ -32,11 +32,11 @@ namespace hiro::draw
     {
       plaster, //!< White matte surface.
       golden, //!< Shiny yellowish surface.
-      colorized //!< Every surface direction of different color.
+      normals //!< Every surface direction of different color.
     };
 
     //! Mode currently used for rendering geometry.
-    RenderMode render_mode = RenderMode::faces;
+    hiro::draw::GeometryStyle::RenderMode render_mode = hiro::draw::GeometryStyle::RenderMode::faces;
 
     //! Material setting for the faces or points (depending on a selected render mode).
     hiro::shader::Material material;
@@ -47,12 +47,12 @@ namespace hiro::draw
     float point_size{ 10.0f };
 
     //! Color source used to colorize faces and points.
-    ColorSource color_source{ ColorSource::material };
+    hiro::draw::ColorSource color_source{ hiro::draw::ColorSource::material };
     //! Albedo texture. To use, set color source to ColorSource::albedo_map.
     glw::PTexture2D albedo_texture{ nullptr };
 
     //! Normal source used to calculate the lighting.
-    FacesStyle::NormalSource normal_source{ FacesStyle::NormalSource::flat_normals };
+    hiro::draw::FacesStyle::NormalSource normal_source{ hiro::draw::FacesStyle::NormalSource::flat_normals };
     //! Normal texture. To use, set normal source to NormalSource::normal_map.
     glw::PTexture2D normal_texture{ nullptr };
     //! When enabled, normal vector for every point is rendered.
@@ -72,8 +72,11 @@ namespace hiro::draw
     //! Matcap sampler. Used only when matcap rendering is enabled.
     glw::PTexture2D matcap_sampler{ nullptr };
 
+    //! Enables shaders to distinguish between various geometrical objects and instances.
+    uint32_t object_id{ 0u };
+
     //! Creates a new geometry style from the defined preset.
-    static hiro::draw::GeometryStyle GetPreset(PresetType type);
+    static hiro::draw::GeometryStyle GetPreset(hiro::draw::GeometryStyle::PresetType type);
 
     //! Imports state from stream.
     bool ReadFromStream(std::istream &str) override;
@@ -95,38 +98,45 @@ namespace hiro::draw
 
     When specifying your own geometry, vertices should have following attributes:
 
-    | Location | Type | Content            | Required                                             |
-    | -------- | ---- | ------------------ | ---------------------------------------------------- |
-    | 0        | vec3 | position           | yes                                                  |
-    | 1        | vec3 | normal             | when normal source is NormalSource::point_normals    |
-    | 2        | vec2 | texture coordinate | when using any type of texture                       |
-    | 3        | vec3 | custom color       | when color source is ColorSource::custom_colors      |
-    | 4        | vec4 | tangent            | when normal source is NormalSource::normal_texture   |
+    | Location | Type | Content            | Required When:                                  |
+    | -------- | ---- | ------------------ | ------------------------------------------------|
+    | 0        | vec3 | position           | always                                          |
+    | 1        | vec3 | normal             | normal source is NormalSource::point_normals    |
+    | 2        | vec2 | texture coordinate | using any type of texture                       |
+    | 3        | vec3 | custom color       | color source is ColorSource::custom_colors      |
+    | 4        | vec4 | tangent            | normal source is NormalSource::normal_texture   |
 
   */
-  class HIRO_DRAW_API GeometryRenderer : public ElementRenderer
+  class HIRO_DRAW_API GeometryRenderer : public hiro::draw::ElementRenderer
   {
   public:
     //! Creates empty geometry renderer without any geometry.
     GeometryRenderer() = default;
     //! Creates a renderer with the geometry.
-    GeometryRenderer(GeometryName geometry_name);
+    GeometryRenderer(hiro::draw::GeometryName geometry_name);
     //! Creates a renderer with the custom geometry.
     GeometryRenderer(glw::PArrayObject &vao);
 
-    GeometryRenderer(const GeometryRenderer &source) = delete;
-    GeometryRenderer &operator=(const GeometryRenderer &source) = delete;
-    GeometryRenderer(GeometryRenderer &&) noexcept = delete;
-    GeometryRenderer &operator=(GeometryRenderer &&) noexcept = delete;
+    GeometryRenderer(const hiro::draw::GeometryRenderer &source) = delete;
+    GeometryRenderer &operator=(const hiro::draw::GeometryRenderer &source) = delete;
+    GeometryRenderer(hiro::draw::GeometryRenderer &&) noexcept = delete;
+    GeometryRenderer &operator=(hiro::draw::GeometryRenderer &&) noexcept = delete;
     virtual ~GeometryRenderer() = default;
 
     //! Replaces the geometry in the renderer.
-    void Set(GeometryName geometry_name);
+    void Set(hiro::draw::GeometryName geometry_name);
     //! Replaces the geometry in the renderer.
     void Set(glw::PArrayObject &vao);
 
+    //! Changes rendering mode of instanced rendering.
+    void SetInstancingEnabled(bool instancing_enabled);
+    //! Set transformations of individual instances. Size of the array denotes number of instances.
+    void SetInstancingTransforms(const std::vector<glm::mat4> &transformations);
+    //! Set pre-instancing transformation that is applied before instancing.
+    void SetPreInstancingTransform(const glm::mat4 &transformation);
+
     //! Test whether specified style is compatible with the object.
-    bool IsCompatibileWithStyle(const Style *style) override;
+    bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
 
   protected:
     //! Defines behavior on face rendering.
@@ -137,17 +147,24 @@ namespace hiro::draw
     virtual void OnRenderNormals() override;
     //! Defines behavior on simple rendering.
     virtual void OnRenderSimple() override;
+    //! Obtains normal source, that is valid for current geometry and style combination.
+    FacesStyle::NormalSource GetValidNormalSource(const GeometryStyle &style);
 
   private:
     //! Array buffer used to store attributes of currently rendered geometry.
     glw::PArrayObject vao_;
+    bool has_geometry_point_normals_{ false };
+    bool is_instancing_enabled_{ false };
+    glw::UniformBuffer<glm::mat4> instances_transforms_;
+    glm::mat4 pre_instancing_transform_{ 1.0f };
+    void SetUpInstancing();
   };
 
 
 
   //! Shared pointer to an object of the type GeometryStyle.
-  using PGeometryStyle = std::shared_ptr<GeometryStyle>;
+  using PGeometryStyle = std::shared_ptr<hiro::draw::GeometryStyle>;
   //! Shared pointer to an object of the type GeometryRenderer.
-  using PGeometryRenderer = std::shared_ptr<GeometryRenderer>;
+  using PGeometryRenderer = std::shared_ptr<hiro::draw::GeometryRenderer>;
 
 }

@@ -87,6 +87,8 @@ namespace cogs
       \returns Whether load finished successfully, and output is valid.
     */
     bool GetMesh(cogs::Mesh &out_meshmodel, size_t id = 0) const;
+    //! Returns all meshes from the loaded file.
+    std::vector<cogs::Mesh> GetAllMeshes() const;
 
     //! Returns names of all loaded meshes. Not supported by cogs files.
     [[nodiscard]] std::vector<std::string> GetMeshNames() const;

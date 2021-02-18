@@ -70,7 +70,9 @@ namespace geom
 
   //float LineLineClosestsPoints(const geom::LineSegment3 &line1, const geom::LineSegment3 &line2, glm::vec3 *point1, glm::vec3 *point2);
 
-  GEOM_API bool GetIntersection(const Line2 &line1, const Line2 &line2, glm::vec2 *out_intersection_point);
+  GEOM_API std::optional<glm::vec2> GetIntersection(const geom::Line2 &line1, const geom::Line2 &line2);
+
+  GEOM_API bool GetIntersection(const geom::Line2 &line1, const geom::Line2 &line2, glm::vec2 *out_intersection_point);
   GEOM_API bool GetIntersection(const geom::Line3 &line, const geom::Plane &plane, glm::vec3 *out_intersection_point);
   GEOM_API bool GetIntersection(const geom::LineSegment3 &linesegment, const geom::Plane &plane, glm::vec3 *out_intersection_point);
   GEOM_API bool GetIntersection(const geom::Line3 &line, const geom::HalfPlane &half_plane, glm::vec3 *out_intersection_point);

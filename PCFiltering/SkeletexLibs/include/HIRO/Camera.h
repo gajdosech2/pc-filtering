@@ -13,14 +13,14 @@
 namespace hiro
 {
 
-  /*! 
-    \biref Denotes view on a scene.
+  /*!
+    \brief Denotes view on a scene.
 
     Camera pose is denoted by two points: camera position and "target" point. While both points can
     be set individually, the forward direction of the camera is always oriented towards the target.
 
-    The camera can rotate in two modes. Free rotation and fixed rotation, denoted by property 
-    "fixed rotation enabled". When the camera uses fixed rotation, up direction is always aligned 
+    The camera can rotate in two modes. Free rotation and fixed rotation, denoted by property
+    "fixed rotation enabled". When the camera uses fixed rotation, up direction is always aligned
     with fixed rotation axis, that can be also set manually.
   */
   class HIRO_API Camera
@@ -28,16 +28,18 @@ namespace hiro
   public:
 
     //! Holds information about camera pose.
-    struct Pose
+    struct HIRO_API Pose
     {
       glm::vec3 target;   //!< Point at which camera looks at.
       glm::vec3 position; //!< Position of a camera.
       glm::vec3 up;       //!< Camera up direction.
+      //! Calculates view matrix of current pose.
+      glm::mat4 GetViewMatrix() const;
     };
 
-    Camera(hiro::draw::Scene *scene);
-    Camera(const Camera &cp);
-    Camera &operator =(const Camera &cp);
+    explicit Camera(hiro::draw::Scene *scene);
+    Camera(const hiro::Camera &cp);
+    Camera &operator =(const hiro::Camera &cp);
     ~Camera();
 
     //! Returns the position of the camera.
@@ -65,9 +67,9 @@ namespace hiro
     void AlignUp(const glm::vec3 &up);
 
     /*!
-      \brief 
-        Modulates distance of camera position to target. 
-      \param factor 
+      \brief
+        Modulates distance of camera position to target.
+      \param factor
         A factor by which the distance is multiplied.
     */
     void Zoom(float factor);
@@ -121,10 +123,10 @@ namespace hiro
     void Reset();
 
     //! Returns current camera pose.
-    Pose GetPose();
+    hiro::Camera::Pose GetPose();
 
     //! Sets camera pose.
-    void SetPose(const Pose &pose);
+    void SetPose(const hiro::Camera::Pose &pose);
 
     //! Computes the camera's view frustum.
     cogs::Frustum ComputeViewFrustum() const;

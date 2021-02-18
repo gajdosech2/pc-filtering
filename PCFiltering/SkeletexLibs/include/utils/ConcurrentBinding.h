@@ -18,11 +18,12 @@ namespace utils
     and checked for finishing. Class can automatically notify user about finishing
     using PollEvents function of EventHandler super class.
   */
+  template<typename T>
   class ConcurrentBinding : public EventHandler
   {
   public:
     //! Execute provided function asynchronously from a caller thread.
-    void Run(const std::function<bool(void)> &func)
+    void Run(const std::function<T(void)> &func)
     {
       result_ = std::async(
           std::launch::async,
@@ -43,16 +44,16 @@ namespace utils
     }
 
     //! Set callback which will be called via PollEvents after asynchronous function is finished.
-    void SetCallbackOnFinish(const std::function<void(bool)> &func)
+    void SetCallbackOnFinish(const std::function<void(T)> &func)
     {
       callback_on_finish_ = func;
     }
 
   private:
-    std::function<void(bool)> callback_on_finish_;
-    std::future<bool> result_;
+    std::function<void(T)> callback_on_finish_;
+    std::future<T> result_;
 
-    bool ParallelFunction(const std::function<bool(void)> &func)
+    T ParallelFunction(const std::function<T(void)> &func)
     {
       const auto result = func();
       RegisterEvent("Finished");
@@ -61,7 +62,7 @@ namespace utils
 
     virtual void ProcessEvent(const Event *e) override
     {
-      if (e->id == "Finished" && callback_on_finish_)
+      if (e->id == "Finished" && callback_on_finish_ && result_.valid())
       {
         callback_on_finish_(result_.get());
       }

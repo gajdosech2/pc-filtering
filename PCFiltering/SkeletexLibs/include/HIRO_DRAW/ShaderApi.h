@@ -9,6 +9,7 @@
 #include <glbinding/gl/gl.h>
 #include <glm/glm.hpp>
 
+#include <Utils/GeometryStructures.h>
 #include <COGS/Color.h>
 #include <HIRO_DRAW/API.h>
 
@@ -30,35 +31,40 @@ namespace hiro::shader
   //! Maximal usable number of Renderer-Style pairs per scene.
   const int MAX_INSTANCE_COUNT{ 32 };
 
+  //! Location of integer identifier of current render system pass.
+  const int ULOC_RENDER_PASS{ 0 };
+  //! Location of integer identifier of shadowing method.
+  const int ULOC_SHADOWING_METHOD{ 1 };
   //! Location of model matrix stored in hiro::draw::Style::transform.
-  const int ULOC_MODEL_MATRIX{ 0 };
+  const int ULOC_MODEL_MATRIX{ 2 };
   //! Location of scene index, that currently renders.
-  const int ULOC_SCENE_ID{ 4 };
+  const int ULOC_SCENE_ID{ 6 };
   //! Location of boolean deciding whether instanced rendering is used.
-  const int ULOC_USE_INSTANCING{ 5 };
+  const int ULOC_USE_INSTANCING{ 7 };
   //! Location of a pre-instance matrix.
-  const int ULOC_PRE_INSTANCING_MATRIX{ 6 };
+  const int ULOC_PRE_INSTANCING_MATRIX{ 8 };
 
-  const int ULOC_CUSTOM_0{ 10 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_1{ 11 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_2{ 12 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_3{ 13 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_4{ 14 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_5{ 15 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_6{ 16 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_7{ 17 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_8{ 18 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_9{ 19 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_10{ 20 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_11{ 21 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_12{ 22 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_13{ 23 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_14{ 24 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_15{ 25 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_16{ 26 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_17{ 27 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_18{ 28 }; //!< Location usable for custom uniform.
-  const int ULOC_CUSTOM_19{ 29 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_BEGIN{ 12 }; //!< First location usable for custom uniform.
+  const int ULOC_CUSTOM_0{ ULOC_CUSTOM_BEGIN + 0 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_1{ ULOC_CUSTOM_BEGIN + 1 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_2{ ULOC_CUSTOM_BEGIN + 2 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_3{ ULOC_CUSTOM_BEGIN + 3 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_4{ ULOC_CUSTOM_BEGIN + 4 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_5{ ULOC_CUSTOM_BEGIN + 5 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_6{ ULOC_CUSTOM_BEGIN + 6 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_7{ ULOC_CUSTOM_BEGIN + 7 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_8{ ULOC_CUSTOM_BEGIN + 8 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_9{ ULOC_CUSTOM_BEGIN + 9 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_10{ ULOC_CUSTOM_BEGIN + 10 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_11{ ULOC_CUSTOM_BEGIN + 11 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_12{ ULOC_CUSTOM_BEGIN + 12 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_13{ ULOC_CUSTOM_BEGIN + 13 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_14{ ULOC_CUSTOM_BEGIN + 14 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_15{ ULOC_CUSTOM_BEGIN + 15 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_16{ ULOC_CUSTOM_BEGIN + 16 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_17{ ULOC_CUSTOM_BEGIN + 17 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_18{ ULOC_CUSTOM_BEGIN + 18 }; //!< Location usable for custom uniform.
+  const int ULOC_CUSTOM_19{ ULOC_CUSTOM_BEGIN + 19 }; //!< Location usable for custom uniform.
 
   //! Uniform binding location for instance matrices.
   const int UBIND_INSTANCING_MATRICES{ 0 };
@@ -108,6 +114,7 @@ namespace hiro::shader
   //! Definition of scene light.
   struct HIRO_DRAW_API Light
   {
+    glm::mat4 view{ 1.0f };
     //! Lighting position or direction (defined by homogeneous coordinate).
     glm::vec4 position{ 0.0f };
     //! Generated color influence of light.
@@ -116,26 +123,52 @@ namespace hiro::shader
     float ambient_intensity{ 0.1f };
     //! Whether is light position defined in camera space.
     float in_camera_space{ false };
-    glm::vec3 __padding{ 0.0f };
+    bool cast_shadow{ false };
+    uint8_t __padding0{ 0 };
+    uint16_t __padding1{ 0 };
+    glm::vec2 __padding2{ 0.0f };
 
-    static Light CreateLight(
+    static hiro::shader::Light CreateLight(
       const glm::vec4 &position,
       const cogs::Color3f &color,
       float ambient_intensity,
       bool in_camera_space);
 
-    static Light CreatePointLight(
+    static hiro::shader::Light CreatePointLight(
       const glm::vec3 &position,
       const cogs::Color3f &color,
       float ambient_intensity);
 
-    static Light CreateDirectionalLight(
+    static hiro::shader::Light CreateDirectionalLight(
       const glm::vec3 &direction,
       const cogs::Color3f &color,
       float ambient_intensity);
 
+
     //! A point light whose position is at the position of the camera, oriented in direction of view.
-    static Light CreateHeadLight(const cogs::Color3f &color);
+    static hiro::shader::Light CreateHeadLight(const cogs::Color3f &color);
+
+    //! An experimental version of directional light that is able to cast shadows.
+    static hiro::shader::Light CreateShadowSunLight(
+      const glm::vec3 &direction,
+      const cogs::Color3f &color,
+      float ambient_intensity,
+      const geom::Sphere &scene_bounds);
+
+    //! An experimental version of spot light that is able to cast shadows.
+    static hiro::shader::Light CreateShadowSpotlight(
+      const glm::vec3 &position,
+      const glm::mat4 &view,
+      const glm::mat4 &projection,
+      const cogs::Color3f &color);
+
+    //! An experimental version of point light that is able to cast shadows.
+    static hiro::shader::Light CreateShadowPointLight(
+      const glm::vec3 &position,
+      const cogs::Color3f &color,
+      float ambient_intensity,
+      const geom::Sphere &scene_bounds);
+
   };
 
   //! Matrix and its inverse.
@@ -163,5 +196,11 @@ namespace hiro::shader
     glm::ivec2 resolution;
     glm::vec2 __padding1{ 0.0f };
   };
+
+  //! Invokes draw for fullscreen.vert shader.
+  inline void DrawFullscreen()
+  {
+    gl::glDrawArrays(gl::GLenum::GL_TRIANGLE_FAN, 0, 4);
+  }
 
 }

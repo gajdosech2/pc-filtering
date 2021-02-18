@@ -58,7 +58,7 @@ namespace hiro::draw
     void Update(double delta_time);
 
     //! Changes behavioral mode for a camera of specified scene.
-    void SetCameraMode(uint32_t scene_id, CameraMode mode);
+    void SetCameraMode(uint32_t scene_id, hiro::draw::CameraMode mode);
 
     //! Returns behavioral mode for a camera of specified scene.
     hiro::draw::CameraMode GetCameraMode(uint32_t scene_id) const;
@@ -88,7 +88,7 @@ namespace hiro::draw
     void UpdateGroupedCameras(const uint32_t source_scene_id) const;
 
     //! Sets up optional callback function, which will be called each time a scene camera changes it's state.
-    void SubscribeEventCameraChanged(const OnCameraChangeCallback &func);
+    void SubscribeEventCameraChanged(const hiro::draw::VisualCameraController::OnCameraChangeCallback &func);
 
     void SetCameraSensitivity(float sens);
 
@@ -107,7 +107,7 @@ namespace hiro::draw
 
   private:
     struct Impl;
-    std::unique_ptr<Impl> m;
+    std::unique_ptr<hiro::draw::VisualCameraController::Impl> m;
 
     // Returns index of scene over whose viewport is mouse cursor. Returns -1 if cursor is not over any scene viewport.
     int32_t GetSceneUnderMousePos();

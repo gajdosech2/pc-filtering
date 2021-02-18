@@ -13,7 +13,7 @@ namespace hiro::draw
 {
 
   //! Stylization of the rendered billboard.
-  struct HIRO_DRAW_API BillboardStyle : public Style
+  struct HIRO_DRAW_API BillboardStyle : public hiro::draw::Style
   {
     //! Denotes, whether to use nearest or linear filtering when rendering image.
     bool use_nearest_filtering{ false };
@@ -25,7 +25,7 @@ namespace hiro::draw
 
 
   //! Renderer used for rendering images in 3D space.
-  class HIRO_DRAW_API BillboardRenderer : public ElementRenderer
+  class HIRO_DRAW_API BillboardRenderer : public hiro::draw::ElementRenderer
   {
   public:
     //! Creates a renderer with an empty image.
@@ -35,10 +35,10 @@ namespace hiro::draw
     //! Creates a renderer with an image stored in a provided texture.
     BillboardRenderer(const glw::PTexture2D &texture);
 
-    BillboardRenderer(const BillboardRenderer &source) = delete;
-    BillboardRenderer &operator=(const BillboardRenderer &source) = delete;
-    BillboardRenderer(BillboardRenderer &&) noexcept = delete;
-    BillboardRenderer &operator=(BillboardRenderer &&) noexcept = delete;
+    BillboardRenderer(const hiro::draw::BillboardRenderer &source) = delete;
+    BillboardRenderer &operator=(const hiro::draw::BillboardRenderer &source) = delete;
+    BillboardRenderer(hiro::draw::BillboardRenderer &&) noexcept = delete;
+    BillboardRenderer &operator=(hiro::draw::BillboardRenderer &&) noexcept = delete;
     virtual ~BillboardRenderer() = default;
 
     //! Replaces currently set image with a new one.
@@ -47,7 +47,7 @@ namespace hiro::draw
     glw::PTexture2D GetTexture() const;
 
     //! Test whether specified style is compatible with the object.
-    bool IsCompatibileWithStyle(const Style *style) override;
+    bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
 
   protected:
     //! Defines behavior on face rendering.

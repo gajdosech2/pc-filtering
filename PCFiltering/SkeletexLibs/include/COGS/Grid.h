@@ -21,7 +21,7 @@ namespace cogs
     Grid() = default;
 
     //! Creates exact copy of provided grid.
-    explicit Grid(const cogs::Grid<Type> &source)
+    Grid(const cogs::Grid<Type> &source)
     {
       width_ = source.width_;
       height_ = source.height_;
@@ -68,7 +68,7 @@ namespace cogs
       height_ = height;
     };
 
-    //! Sets all elements of grid to zero values.
+    //! Clears all elements and sets resolution to (0, 0).
     void Clear()
     {
       data_.clear();
@@ -172,6 +172,30 @@ namespace cogs
     void FlipY()
     {
       std::reverse(data_.begin(), data_.end());
+    }
+
+    //! Executes a specified function for every element in the grid.
+    void Foreach(std::function<void(size_t x, size_t y, const Type &value)> func) const
+    {
+      for (size_t y = 0; y < GetHeight(); y++)
+      {
+        for (size_t x = 0; x < GetWidth(); x++)
+        {
+          func(x, y, At(x, y));
+        }
+      }
+    }
+
+    //! Executes a specified function for every element in the grid.
+    void Foreach(std::function<void(size_t x, size_t y, Type &value)> func)
+    {
+      for (size_t y = 0; y < GetHeight(); y++)
+      {
+        for (size_t x = 0; x < GetWidth(); x++)
+        {
+          func(x, y, At(x, y));
+        }
+      }
     }
 
   private:

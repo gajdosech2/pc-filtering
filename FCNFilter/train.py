@@ -24,13 +24,13 @@ if __name__ == "__main__":
     model = generate_model()
 
     train_dir = 'data/train'
-    val_dir = 'data/test'
+    val_dir = 'data/val'
 
     BATCH_SIZE = 2
     train_generator = Generator(train_dir, BATCH_SIZE)
     val_generator = Generator(val_dir, BATCH_SIZE)
 
-    EPOCHS = 32
+    EPOCHS = 20
     start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
     print(f"Elapsed time: {time.time() - start} seconds")

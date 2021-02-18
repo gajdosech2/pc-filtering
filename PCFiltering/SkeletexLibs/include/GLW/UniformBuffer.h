@@ -10,6 +10,7 @@
 #include <memory>
 #include <glbinding/gl/gl.h>
 #include <glm/detail/func_common.hpp>
+#include <Utils/Ulog.h>
 
 namespace glw
 {
@@ -61,6 +62,7 @@ namespace glw
   private:
     uint32_t buffer_ = 0u;
     uint32_t actual_size_ = 0u;
+    static uint32_t GenerateBufferName();
   };
 
   template <typename T>
@@ -70,7 +72,7 @@ namespace glw
   template<typename T>
   void glw::UniformBuffer<T>::Resize(const uint32_t new_size)
   {
-    if (actual_size_ == new_size)
+    if (buffer_ == 0 || actual_size_ == new_size)
     {
       return;
     }
@@ -85,9 +87,7 @@ namespace glw
       return;
     }
 
-    gl::GLuint new_buffer;
-    gl::glGenBuffers(1, &new_buffer);
-    assert(new_buffer > 0);
+    const gl::GLuint new_buffer = GenerateBufferName();
 
     gl::glBindBuffer(gl::GLenum::GL_COPY_WRITE_BUFFER, new_buffer);
     gl::glBufferData(gl::GLenum::GL_COPY_WRITE_BUFFER, new_size * sizeof(T), nullptr, gl::GLenum::GL_STATIC_DRAW);
@@ -105,6 +105,11 @@ namespace glw
   template<typename T>
   void glw::UniformBuffer<T>::Reset(const std::vector<T> &data)
   {
+    if (buffer_ == 0)
+    {
+      return;
+    }
+
     actual_size_ = static_cast<uint32_t>(data.size());
     gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, buffer_);
     gl::glBufferData(gl::GLenum::GL_UNIFORM_BUFFER, actual_size_ * sizeof(T), nullptr, gl::GLenum::GL_STATIC_DRAW);
@@ -118,9 +123,8 @@ namespace glw
 
   template<typename T>
   UniformBuffer<T>::UniformBuffer()
+    : buffer_(GenerateBufferName())
   {
-    gl::glGenBuffers(1, &buffer_);
-    assert(buffer_ > 0);
   }
 
   template<typename T>
@@ -144,19 +148,61 @@ namespace glw
   template<typename T>
   void UniformBuffer<T>::SetData(const std::vector<T> &data, const uint32_t position)
   {
-    assert(data.size() + position <= actual_size_);
-    gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, buffer_);
-    gl::glBufferSubData(gl::GLenum::GL_UNIFORM_BUFFER, position * sizeof(T), data.size() * sizeof(T), &data.front());
-    gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, 0);
+    if (buffer_ == 0)
+    {
+      return;
+    }
+    if (data.size() + position <= actual_size_)
+    {
+      gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, buffer_);
+      gl::glBufferSubData(gl::GLenum::GL_UNIFORM_BUFFER, position * sizeof(T), data.size() * sizeof(T), &data.front());
+      gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, 0);
+    }
+    else
+    {
+      ulog::Fail("Can not set data to uniform buffer at position " + std::to_string(position)
+        + ". Out of current memory block range.", "glw::UniformBuffer::SetData");
+    }
   }
 
   template<typename T>
   void glw::UniformBuffer<T>::SetData(const T &data, const uint32_t position)
   {
-    assert(position + 1 <= actual_size_);
-    gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, buffer_);
-    gl::glBufferSubData(gl::GLenum::GL_UNIFORM_BUFFER, position * sizeof(T), sizeof(T), &data);
-    gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, 0);
+    if (buffer_ == 0)
+    {
+      return;
+    }
+    if (position + 1 <= actual_size_)
+    {
+      gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, buffer_);
+      gl::glBufferSubData(gl::GLenum::GL_UNIFORM_BUFFER, position * sizeof(T), sizeof(T), &data);
+      gl::glBindBuffer(gl::GLenum::GL_UNIFORM_BUFFER, 0);
+    }
+    else
+    {
+      ulog::Fail("Can not set data to uniform buffer at position " + std::to_string(position)
+        + ". Out of current memory block range.", "glw::UniformBuffer::SetData");
+    }
+  }
+
+
+  template<typename T>
+  uint32_t glw::UniformBuffer<T>::GenerateBufferName()
+  {
+    uint32_t name = 0;
+    try
+    {
+      gl::glGenBuffers(1, &name);
+      if (name == 0)
+      {
+        ulog::Fail("Could not generate OpenGL uniform buffer.", "glw::UniformBuffer::ctor");
+      }
+    }
+    catch (...)
+    {
+      ulog::Crash("Uniform buffer generation have crashed. Does OpenGL context exist?", "glw::UniformBuffer::ctor");
+    }
+    return name;
   }
 
 }

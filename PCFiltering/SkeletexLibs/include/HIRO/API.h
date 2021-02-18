@@ -4,7 +4,6 @@
   Proprietary and confidential
 */
 #pragma once
-#include <HIRO/Version.h>
 
 #ifdef _WIN32
 # ifdef HIRO_EXPORT

@@ -16,7 +16,7 @@ namespace hiro::modules
 {
 
   //! Resource that allows visualization of a cogs::PointCloud structure.
-  class HIRO_API PointCloudResource final : public Resource
+  class HIRO_API PointCloudResource : public hiro::Resource
   {
   public:
 
@@ -41,7 +41,7 @@ namespace hiro::modules
     PointCloudResource(const std::string &name, const cogs::PointCloud &pc);
 
     //! Creates PointCloudGadget. Function is handled by HIRO, non accessible by user.
-    PGadget CreateGadget() override;
+    hiro::PGadget CreateGadget() override;
 
     //! Returns number of points.
     uint32_t GetPointCount() const;
@@ -52,8 +52,8 @@ namespace hiro::modules
     //! Returns calculated center of mass.
     glm::vec3 GetCenterOfMass() const;
 
-    //! Returns camera position based on center of mass.
-    glm::vec3 GetCameraPos() const;
+    //! Returns approximation of object radius around center of mass.
+    float GetAproxRadius() const;
 
     //! Returns if coloring options for points are available.
     bool IsColoringAvailable() const;
@@ -78,7 +78,7 @@ namespace hiro::modules
       \param id
       id of the given point
     */
-    const DataRecord *GetFDataOption(const uint32_t id) const;
+    const hiro::modules::PointCloudResource::DataRecord *GetFDataOption(const uint32_t id) const;
 
     //! Returns names of float data properties.
     const std::vector<std::string> GetFDataOptionNames() const;
@@ -87,23 +87,24 @@ namespace hiro::modules
     bool HasNormals() const;
 
   protected:
-    PointCloudResource(const ResourceId &id);
+    PointCloudResource(const hiro::ResourceId &id);
     hiro::draw::PPointCloudRenderer vis_object_{ nullptr };
     uint32_t point_count_{ 0u };
-    void StoreNeededData(const cogs::PointCloud &pc);
+    void StoreData(const cogs::PointCloud &pc);
 
   private:
     void CalculateCenterOfMass(const cogs::PointCloud &pc);
     bool has_normals_;
-    glm::vec3 center_of_mass_, camera_pos_;
+    glm::vec3 center_of_mass_;
+    float aprox_radius_;
     std::vector<std::vector<cogs::Color3f>> coloring_options_;
     std::vector<std::string> coloring_option_names_;
-    std::vector<DataRecord> fdata_options_;
+    std::vector<hiro::modules::PointCloudResource::DataRecord> fdata_options_;
     std::vector<std::string> fdata_option_names_;
   };
 
   //! Shared pointer to an object of the type PointCloudResource.
-  using PPointCloudResource = std::shared_ptr<PointCloudResource>;
+  using PPointCloudResource = std::shared_ptr<hiro::modules::PointCloudResource>;
 
   //! Creates new point cloud resource from the specified and adds it to HIRO.
   HIRO_API PPointCloudResource AddPointCloud(const std::string &name, const cogs::PointCloud &pc);

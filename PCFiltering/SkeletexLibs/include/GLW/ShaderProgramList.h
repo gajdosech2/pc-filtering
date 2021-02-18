@@ -56,7 +56,7 @@ namespace glw
   {
   public:
 
-    static PProgramList Create();;
+    static PProgramList Create();
 
   public:
 

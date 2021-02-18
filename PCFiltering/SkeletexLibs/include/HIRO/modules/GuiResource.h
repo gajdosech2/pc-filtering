@@ -13,11 +13,11 @@ namespace hiro::modules
 {
 
   //! Enables creation of custom gui objects. Soon will be deprecated.
-  class HIRO_API GuiResource final : public Resource
+  class HIRO_API GuiResource final : public hiro::Resource
   {
   public:
     GuiResource(const std::string &name);
-    PGadget CreateGadget() override;
+    hiro::PGadget CreateGadget() override;
     void Setup(const std::string &layout_xml);
     CEGUI::Window *GetWindow(const std::string &name);
     CEGUI::Window *GetRootWindow();

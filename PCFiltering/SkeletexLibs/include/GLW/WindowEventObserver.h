@@ -34,7 +34,7 @@ namespace glw
     virtual void OnWindowIconify(int is_iconified);
     virtual void OnWindowFocus(int is_focused);
     virtual void OnWindowClose();
-    virtual void OnFilesDrop(std::vector<std::string> files);
+    virtual void OnFilesDropped(const std::vector<std::string> &files);
   };
 
 }

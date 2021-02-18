@@ -39,7 +39,7 @@ namespace cogs
       [[nodiscard]] virtual bool IsImportVersionSupported(uint8_t version) const = 0;
 
       //! Executes import form specified stream.
-      virtual bool Import(std::istream &in_s) = 0;
+      virtual bool Import(std::istream &in_s, uint8_t version) = 0;
 
       //! Executes export to specified stream.
       virtual bool Export(std::ostream &out_s) = 0;

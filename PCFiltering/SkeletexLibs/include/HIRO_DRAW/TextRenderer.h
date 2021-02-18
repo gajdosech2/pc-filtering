@@ -48,7 +48,7 @@ namespace hiro::draw
     friend class RenderSystem;
   public:
     TextRenderer();
-    TextRenderer(const TextRenderer &) = delete;
+    TextRenderer(const hiro::draw::TextRenderer &) = delete;
     ~TextRenderer();
     //! Load TTF font file from disk and returns unique identifier of the font.
     size_t LoadFont(const std::string &font_file, float font_height);
@@ -57,7 +57,7 @@ namespace hiro::draw
     //! Sets active color for the text.
     void SetColor(const cogs::Color4b &color);
     //! Sets active text alignment for the text.
-    void SetAlignment(TextAlignment alignment);
+    void SetAlignment(hiro::draw::TextAlignment alignment);
     //! Prints specified text with the alignment origin at the specified position.
     void Print(glm::ivec2 pos, const std::string &text);
     //! Sets active rendering context for the text. Not to be called by a user.
@@ -65,11 +65,47 @@ namespace hiro::draw
 
   private:
     struct Impl;
-    std::unique_ptr<Impl> m;
+    std::unique_ptr<hiro::draw::TextRenderer::Impl> m;
 
     glm::ivec2 AlignCoords(const std::string &text, glm::ivec2 coords) const;
     void LoadShaderPrograms(glw::ProgramList *program_list);
     void Render(glw::ProgramList *program_list, const glm::uvec2 &resolution);
   };
+
+
+
+  /*!
+    \brief Helper class for easier state printing to the top left corner of the viewport.
+
+    Outputs text records line by line, for every print call.
+    Use this class by wrapping hiro::draw::TextRenderer in your code, before printing:
+    \code{.cpp}
+      hiro::draw::StatePrinter printer(text_renderer);
+      printer.PrintStr("Hello World!");
+    \endcode
+  */
+  class HIRO_DRAW_API TextPrinter
+  {
+  public:
+    TextPrinter(hiro::draw::TextRenderer *t_renderer);
+    //! Print custom text line.
+    void PrintStr(const std::string &text);
+    //! Print text and boolean value. Text color changes according to the boolean state.
+    void PrintBool(const std::string &text, bool state);
+    //! Print text and value. Type of value parameter must be supported by any of the std::to_string overloads.
+    template<typename T> void PrintValue(const std::string &text, T value);
+
+  private:
+    float current_line_y_{ 10.0f };
+    hiro::draw::TextRenderer *renderer_{ nullptr };
+    void NewLine();
+    glm::vec2 GetCurrentLineOrigin() const;
+  };
+
+  template<typename T> void TextPrinter::PrintValue(const std::string &text, T value)
+  {
+    PrintStr(text + " : " + std::to_string(value));
+  };
+
 
 }

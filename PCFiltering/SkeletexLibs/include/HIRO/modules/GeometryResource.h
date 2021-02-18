@@ -17,7 +17,7 @@ namespace hiro::modules
   {
   public:
     //! Creates new resource object that displays default geometry.
-    GeometryResource(const std::string &name);
+    explicit GeometryResource(const std::string &name);
     //! Creates new resource object that displays specified geometry.
     GeometryResource(const std::string &name, hiro::draw::GeometryName geom_name);
     //! Changes geometry currently being used.

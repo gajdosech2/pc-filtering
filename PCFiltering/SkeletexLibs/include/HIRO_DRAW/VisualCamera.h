@@ -33,7 +33,7 @@ namespace hiro::draw
     VisualCamera();
 
     //! Sets up view to exactly match the one of specified camera.
-    void CopyView(const VisualCamera &source_camera);
+    void CopyView(const hiro::draw::VisualCamera &source_camera);
 
     //! Returns current view matrix.
     const glm_ext::TransMat4 &GetViewMatrix() const;
@@ -63,7 +63,7 @@ namespace hiro::draw
     void SetPositionAndLookAt(const glm::vec3 &camera_position, const glm::vec3 &point_of_interest, const glm::vec3 &up);
 
     //! Returns actual position of camera.
-    glm::vec3 GetPositon() const;
+    glm::vec3 GetPosition() const;
 
     //! Rotates camera by a specified quaternion.
     void Rotate(const glm::quat &rot);
@@ -96,7 +96,7 @@ namespace hiro::draw
     void WriteToStream(std::ostream &str);
 
     //! Subscribes specified function to be called whenever camera changes.
-    void SubscribeChange(const CallbackOnChange &listener);
+    void SubscribeChange(const hiro::draw::VisualCamera::CallbackOnChange &listener);
 
     //! Resets all camera values to default.
     void Reset();
@@ -106,7 +106,7 @@ namespace hiro::draw
     glm::vec3 basis_z_ = glm::vec3(0.0f, 0.0f, -1.0f); // camera backward direction
     glm::vec3 basis_y_ = glm::vec3(0.0f, 1.0f, 0.0f); // camera up direction
     glm_ext::TransMat4 view_matrix_;
-    std::vector<CallbackOnChange> listeners_;
+    std::vector<hiro::draw::VisualCamera::CallbackOnChange> listeners_;
     void UpdateCameraSpace();
   };
 

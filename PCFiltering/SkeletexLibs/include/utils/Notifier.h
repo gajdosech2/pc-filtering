@@ -8,6 +8,7 @@
 #include <vector>
 #include <functional>
 #include <mutex>
+#include <condition_variable>
 
 
 
@@ -72,7 +73,11 @@ namespace utils
     inline virtual void Notify(Args... args) override
     {
       std::lock_guard<std::mutex> lock(this->notifier_access_);
-      tuples_.emplace_back(std::tuple<Args...>(args...));
+      if (!this->callbacks_.empty())
+      {
+        tuples_.emplace_back(std::tuple<Args...>(args...));
+      }
+      notifier_condition_.notify_all();
     }
 
     //! Send all collected notifications at this moment.
@@ -87,10 +92,20 @@ namespace utils
         }
       }
       tuples_.clear();
+      notifier_condition_.notify_all();
+    }
+
+    //! Wait until all notifications are sent.
+    virtual void WaitUntilAllSent()
+    {
+      std::unique_lock<std::mutex> lock(this->notifier_access_);
+      notifier_condition_.wait(lock, [this]() { return tuples_.empty(); });
     }
 
   protected:
     //! The collected arguments to be executed on the next execution loop call.
     std::vector<std::tuple<Args...>> tuples_;
+    //! Condition variable to trigger rechecking conditions.
+    std::condition_variable notifier_condition_;
   };
 }

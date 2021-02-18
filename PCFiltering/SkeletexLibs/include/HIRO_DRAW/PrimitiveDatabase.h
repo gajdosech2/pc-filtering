@@ -31,7 +31,7 @@ namespace hiro::draw
   };
 
   //! Converts hiro::draw::GeometryName type to the text reprersentation.
-  HIRO_DRAW_API std::string ToString(GeometryName geom);
+  HIRO_DRAW_API std::string ToString(hiro::draw::GeometryName geom);
 
 
 
@@ -39,7 +39,7 @@ namespace hiro::draw
   struct Geometry
   {
     //! Identifier name.
-    GeometryName name;
+    hiro::draw::GeometryName name;
     //! Number of vertices which are entering vertex shader.
     uint32_t vertex_count;
     //! Number of rendered faces.
@@ -60,7 +60,7 @@ namespace hiro::draw
   };
 
   //! Converts hiro::draw::PrimitiveName type to text reprersentation.
-  HIRO_DRAW_API std::string ToString(PrimitiveName prim);
+  HIRO_DRAW_API std::string ToString(hiro::draw::PrimitiveName prim);
 
 
 
@@ -70,27 +70,27 @@ namespace hiro::draw
   class HIRO_DRAW_API PrimitiveDatabase
   {
   public:
-    PrimitiveDatabase(const PrimitiveDatabase &) = delete;
+    PrimitiveDatabase(const hiro::draw::PrimitiveDatabase &) = delete;
 
-    static PrimitiveDatabase &GetSingleton();
+    static hiro::draw::PrimitiveDatabase &GetSingleton();
 
     //! Request single draw call of a specified primitive.
-    void Draw(const PrimitiveName primitive) const;
+    void Draw(const hiro::draw::PrimitiveName primitive) const;
 
     //! Request single draw call of a specified geometry.
-    void Draw(const GeometryName geom) const;
+    void Draw(const hiro::draw::GeometryName geom) const;
 
     //! Request instanced draw call of a specified primitive.
-    void DrawInstanced(uint32_t count, const PrimitiveName primitive) const;
+    void DrawInstanced(uint32_t count, const hiro::draw::PrimitiveName primitive) const;
 
     //! Request instanced draw call of a specified geometry.
-    void DrawInstanced(uint32_t count, const GeometryName geom) const;
+    void DrawInstanced(uint32_t count, const hiro::draw::GeometryName geom) const;
 
     //! Request pointer to buffer object of primitive with specified name.
-    const glw::PArrayObject &Get(const PrimitiveName primitive) const;
+    const glw::PArrayObject &Get(const hiro::draw::PrimitiveName primitive) const;
 
     //! Request pointer to geometry object with specified name.
-    const Geometry &GetGeometry(const GeometryName geom) const;
+    const hiro::draw::Geometry &GetGeometry(const hiro::draw::GeometryName geom) const;
 
     //! Releases all allocated resources from video memory.
     void Free();
@@ -105,7 +105,7 @@ namespace hiro::draw
     PrimitiveDatabase();
     ~PrimitiveDatabase() = default;
     std::vector<glw::PArrayObject> primitives_;
-    std::vector<Geometry> geometries_;
+    std::vector<hiro::draw::Geometry> geometries_;
   };
 
 }

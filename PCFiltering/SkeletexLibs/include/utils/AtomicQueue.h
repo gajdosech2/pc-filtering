@@ -36,14 +36,20 @@ namespace std_ext
       this->queue_.push(value);
     }
     //! Check, whether the queue is empty.
-    bool IsEmpty()
+    bool IsEmpty() const
     {
       std::lock_guard<std::mutex> lock(mutex_);
       bool check = this->queue_.empty();
       return check;
     }
+    //! Get the number of records currently in the queue.
+    size_t GetSize() const
+    {
+      std::lock_guard<std::mutex> lock(mutex_);
+      return this->queue_.size();
+    }
   private:
-    std::mutex mutex_;
+    mutable std::mutex mutex_;
     std::queue<T> queue_;
   };
 

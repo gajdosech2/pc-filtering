@@ -22,7 +22,7 @@ namespace hiro
   {
   public:
 #ifdef HIRO_ENABLE_CEGUI
-    GuiGenerator(const ResourceId &id, CEGUI::Window *client);
+    GuiGenerator(const hiro::ResourceId &id, CEGUI::Window *client);
     GuiGenerator(CEGUI::Window *client);
 #endif
     virtual ~GuiGenerator();
@@ -45,55 +45,55 @@ namespace hiro
       \brief Creates a text label.
       \note Properties of element can be edited using returned object.
     */
-    gui::Label *AddLabel(const std::string &text);
+    hiro::gui::Label *AddLabel(const std::string &text);
 
     /*!
       \brief Creates a button.
       \note Properties of element can be edited using returned object.
     */
-    gui::Button *AddButton(const std::string &caption);
+    hiro::gui::Button *AddButton(const std::string &caption);
 
     /*!
       \brief Creates a checkbox.
       \note Properties of element can be edited using returned object.
     */
-    gui::Checkbox *AddCheckbox(const std::string &title);
+    hiro::gui::Checkbox *AddCheckbox(const std::string &title);
 
     /*!
       \brief Creates a drop list for selecting items.
       \note Properties of element can be edited using returned object.
     */
-    gui::Droplist *AddDroplist(const std::string &title);
+    hiro::gui::Droplist *AddDroplist(const std::string &title);
 
     /*!
       \brief Creates a numeric edit box for integer values.
       \note Properties of element can be edited using returned object.
     */
-    gui::NumericInt *AddNumericInt(const std::string &title);
+    hiro::gui::NumericInt *AddNumericInt(const std::string &title);
 
     /*!
       \brief Creates a numeric edit box for real values.
       \note Properties of element can be edited using returned object.
     */
-    gui::NumericFloat *AddNumericFloat(const std::string &title);
+    hiro::gui::NumericFloat *AddNumericFloat(const std::string &title);
 
     /*!
       \brief Creates slider on a real scale.
       \note Properties of element can be edited using returned object.
     */
-    gui::SlidingFloat *AddSlidingFloat(const std::string &title);
+    hiro::gui::SlidingFloat *AddSlidingFloat(const std::string &title);
 
     /*!
       \brief Creates slider on an integer scale.
       \note Properties of element can be edited using returned object.
     */
-    gui::SlidingInt *AddSlidingInt(const std::string &title);
+    hiro::gui::SlidingInt *AddSlidingInt(const std::string &title);
 
     /*!
       \brief Creates group of checkbox elements.
       \note Properties of element can be edited using returned object.
     */
-    gui::CheckboxList *AddCheckboxList();
+    hiro::gui::CheckboxList *AddCheckboxList();
 
     //! Creates vertical separator.
     void AddSeparator();
@@ -112,7 +112,7 @@ namespace hiro
 
   private:
     struct Impl;
-    std::unique_ptr<Impl> m;
+    std::unique_ptr<hiro::GuiGenerator::Impl> m;
 #ifdef HIRO_ENABLE_CEGUI
     void Construct(CEGUI::Window *client);
     void OnValueChange(const hiro::gui::Element *el);

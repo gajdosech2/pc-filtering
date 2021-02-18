@@ -1,9 +1,8 @@
 #pragma once
-#include <list>
-#include <typeinfo>
 #include <Utils/API.h>
 #include <Utils/LogEntry.h>
 #include <Utils/StrongType.h>
+#include <Utils/AtomicQueue.h>
 
 namespace ulog
 {
@@ -41,14 +40,19 @@ namespace ulog
     void AddMessage(ulog::Entry::Type type, ulog::Category categ, const std::string &msg, const std::string &caller) override;
     //! For every message stored in the pool, executes the specified function. Pool is empty afterwards.
     void ProcessEntries(std::function<void(const ulog::Entry &)> func);
+    //! Returns the number of log entries in the pool.
+    size_t GetEntryCount() const;
   private:
-    std::list<ulog::Entry> entries_; //!< Unprocessed log entries.
+    std_ext::AtomicQueue<ulog::Entry> entries_; //!< Unprocessed log entries.
   };
 
 
 
-  //! Replaces current log handler with the new one. When none specified, messages are logged to std::cerr.
+  //! Replaces current log handler with the new one. By default, messages are logged to std::cerr.
   UTILS_API void InstallHandler(const std::shared_ptr<LogHandler> &sink_to_use);
+
+  //! Replaces current log handler with the default one.
+  UTILS_API void ResetHandler();
 
   //! Creates a debug log message. Thread safe function.
   UTILS_API void Debug(const std::string &msg, const std::string &caller = "");

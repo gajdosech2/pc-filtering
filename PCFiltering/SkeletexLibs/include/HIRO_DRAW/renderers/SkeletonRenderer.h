@@ -21,7 +21,7 @@ namespace hiro::draw
 {
 
   //! Structure specifying how the skeleton should be rendered.
-  struct HIRO_DRAW_API SkeletonStyle : public Style
+  struct HIRO_DRAW_API SkeletonStyle : public hiro::draw::Style
   {
     //! Mode used to render skeleton.
     enum class RenderMode
@@ -37,7 +37,7 @@ namespace hiro::draw
     //! When enabled, also joints will be rendered.
     bool display_joints{ true };
     //! Specifies the mode used to render the skeleton.
-    RenderMode render_mode{ RenderMode::octahedral };
+    hiro::draw::SkeletonStyle::RenderMode render_mode{ hiro::draw::SkeletonStyle::RenderMode::octahedral };
     //! Import state from stream.
     bool ReadFromStream(std::istream &str) override;
     //! Export state to stream.
@@ -47,7 +47,7 @@ namespace hiro::draw
 
 
   //! Skeleton visualization with possibility to change poses.
-  class HIRO_DRAW_API SkeletonRenderer : public ElementRenderer
+  class HIRO_DRAW_API SkeletonRenderer : public hiro::draw::ElementRenderer
   {
   public:
     //! Number of bones in the skeleton.
@@ -56,10 +56,10 @@ namespace hiro::draw
     //! Creates a renderer with the specified skeleton.
     SkeletonRenderer(const cogs::Skeleton &skeleton);
 
-    SkeletonRenderer(const SkeletonRenderer &source) = delete;
-    SkeletonRenderer &operator=(const SkeletonRenderer &source) = delete;
-    SkeletonRenderer(SkeletonRenderer &&) noexcept = delete;
-    SkeletonRenderer &operator=(SkeletonRenderer &&) noexcept = delete;
+    SkeletonRenderer(const hiro::draw::SkeletonRenderer &source) = delete;
+    SkeletonRenderer &operator=(const hiro::draw::SkeletonRenderer &source) = delete;
+    SkeletonRenderer(hiro::draw::SkeletonRenderer &&) noexcept = delete;
+    SkeletonRenderer &operator=(hiro::draw::SkeletonRenderer &&) noexcept = delete;
     virtual ~SkeletonRenderer();
 
     //! Changes the pose in which the skeleton will be rendered.
@@ -67,7 +67,7 @@ namespace hiro::draw
 
   protected:
     //! Test whether specified style is compatible with object.
-    bool IsCompatibileWithStyle(const Style *style) override;
+    bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
     //! Renders the skeleton in the line mode.
     void OnRenderSimple() override;
     //! Renders the skeleton in the polygonal mode.
@@ -93,7 +93,7 @@ namespace hiro::draw
 
 
   //! Shared pointer to an object of the type SkeletonStyle.
-  using PSkeletonStyle = std::shared_ptr<SkeletonStyle>;
+  using PSkeletonStyle = std::shared_ptr<hiro::draw::SkeletonStyle>;
   //! Shared pointer to an object of the type SkeletonRenderer.
-  using PSkeletonRenderer = std::shared_ptr<SkeletonRenderer>;
+  using PSkeletonRenderer = std::shared_ptr<hiro::draw::SkeletonRenderer>;
 }

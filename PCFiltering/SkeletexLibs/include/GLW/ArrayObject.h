@@ -117,13 +117,13 @@ namespace glw
     uint64_t GetVertexCount() const;
 
     //! Binds this ArrayObject. Needs to be called before any changes and drawings are performed with this object.
-    void Bind();
+    void Bind() const;
 
     //! Unbinds this ArrayObject.
-    void Unbind();
+    void Unbind() const;
 
     //! Returns, whether this ArrayObject is currently bound.
-    bool IsBound();
+    bool IsBound() const;
 
     //! Creates new buffer in graphic memory, and fills it with data. Parameter per_vert_size defines data memory size (in bytes) for each vertex.
     BufferName AddBuffer(const void *data, size_t per_vert_size, DataUsage usage = DataUsage::dynamic_draw);
@@ -132,13 +132,19 @@ namespace glw
     void SetBuffer(BufferName vert_buffer, const void *data, size_t per_vert_size);
 
     //! Checks whether specified buffer name belongs to valid buffer.
-    bool IsBufferValid(BufferName vert_buffer);
+    bool IsBufferValid(BufferName vert_buffer) const;
 
     //! Creates shader binding for specified buffer. Attribute parameter defines how are data structured inside buffer.
     void SetBinding(const Attrib &att, uint32_t shader_location, BufferName buffer);
 
+    //! Return the name of buffer that is bound to shader location. If no such buffer exists, returns INVALID_NAME.
+    BufferName GetBinding(uint32_t shader_location) const;
+
+    //! Check if there is binding for a shader location;
+    bool ExistsBinding(uint32_t shader_location) const;
+
     //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib1f parameter.
-    BufferName AddBufferBinding1f(uint32_t location, const void *data);
+    BufferName AddBufferBinding1f(uint32_t shader_location, const void *data);
 
     //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib2f parameter.
     BufferName AddBufferBinding2f(uint32_t shader_location, const void *data);
@@ -148,6 +154,18 @@ namespace glw
 
     //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib4f parameter.
     BufferName AddBufferBinding4f(uint32_t shader_location, const void *data);
+
+    //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib1i parameter.
+    BufferName AddBufferBinding1i(uint32_t shader_location, const void *data);
+
+    //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib2i parameter.
+    BufferName AddBufferBinding2i(uint32_t shader_location, const void *data);
+
+    //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib3i parameter.
+    BufferName AddBufferBinding3i(uint32_t shader_location, const void *data);
+
+    //! Creates new buffer and sets shader binding. This function replaces call of SetBuffer and SetBinding with Attrib4i parameter.
+    BufferName AddBufferBinding4i(uint32_t shader_location, const void *data);
 
     //! Creates new element buffer which defines how primitives are structured.
     ElementBufferName AddElementBuffer(const uint32_t *data, size_t count);
@@ -164,6 +182,9 @@ namespace glw
     //! Draws vertices from buffer arrays.
     void DrawVertices(DrawMode mode) const;
 
+    //! Draws vertices from buffer arrays, the number of vertices drawn is num_vertices or vao vertex count, whichever is smaller.
+    void DrawVertices(size_t num_vertices, DrawMode mode) const;
+
     //! Draws vertices from buffer arrays multiple times.
     void DrawVerticesInstanced(uint32_t instance_count, DrawMode mode) const;
 
@@ -176,13 +197,14 @@ namespace glw
   protected:
     struct ElementBuffer
     {
-      uint32_t id;
-      size_t count;
+      uint32_t name;
+      size_t primitive_count;
     };
     uint32_t vao_ = 0;
     size_t vertex_count_ = 0;
     DrawMode default_mode_ = DrawMode::points;
-    std::vector<uint32_t> buffers_;
+    std::vector<uint32_t> buffer_names_;
+    std::unordered_map<uint32_t, BufferName> bindings_;
     std::vector<ElementBuffer> elements_;
   };
 

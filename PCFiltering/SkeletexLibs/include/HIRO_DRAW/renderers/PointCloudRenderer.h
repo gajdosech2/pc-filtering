@@ -19,7 +19,7 @@ namespace hiro::draw
 {
 
   //! Stylization of the rendered point cloud.
-  struct HIRO_DRAW_API PointCloudStyle : public Style
+  struct HIRO_DRAW_API PointCloudStyle : public hiro::draw::Style
   {
     //! Material setting for points.
     hiro::shader::Material material;
@@ -28,7 +28,7 @@ namespace hiro::draw
     //! Size of point in screen pixels.
     float point_size{ 10.0f };
     //! Color source used to colorize points.
-    ColorSource color_source{ ColorSource::material };
+    hiro::draw::ColorSource color_source{ hiro::draw::ColorSource::material };
 
     //! When enabled, normal vector for every point is rendered.
     bool display_normals{ false };
@@ -46,7 +46,7 @@ namespace hiro::draw
 
 
   //! Renderer used for rendering point clouds.
-  class HIRO_DRAW_API PointCloudRenderer : public ElementRenderer
+  class HIRO_DRAW_API PointCloudRenderer : public hiro::draw::ElementRenderer
   {
   public:
     //! Creates a renderer without point cloud.
@@ -54,10 +54,10 @@ namespace hiro::draw
     //! Creates a renderer with the specified point cloud.
     PointCloudRenderer(const cogs::PointCloud &pc);
 
-    PointCloudRenderer(const PointCloudRenderer &source) = delete;
-    PointCloudRenderer &operator=(const PointCloudRenderer &source) = delete;
-    PointCloudRenderer(PointCloudRenderer &&) noexcept = delete;
-    PointCloudRenderer &operator=(PointCloudRenderer &&) noexcept = delete;
+    PointCloudRenderer(const hiro::draw::PointCloudRenderer &source) = delete;
+    PointCloudRenderer &operator=(const hiro::draw::PointCloudRenderer &source) = delete;
+    PointCloudRenderer(hiro::draw::PointCloudRenderer &&) noexcept = delete;
+    PointCloudRenderer &operator=(hiro::draw::PointCloudRenderer &&) noexcept = delete;
     virtual ~PointCloudRenderer() = default;
 
     //! Replaces currently set point cloud with a new one.
@@ -66,7 +66,7 @@ namespace hiro::draw
     void SetColors(const std::vector<cogs::Color3f> &colors);
 
     //! Test whether specified style is compatible with the object.
-    virtual bool IsCompatibileWithStyle(const Style *style) override;
+    virtual bool IsCompatibileWithStyle(const hiro::draw::Style *style) override;
 
   protected:
     //! Defines behavior on point rendering.
@@ -84,8 +84,8 @@ namespace hiro::draw
 
 
   //! Shared pointer to an object of the type PointCloudStyle.
-  using PPointCloudStyle = std::shared_ptr<PointCloudStyle>;
+  using PPointCloudStyle = std::shared_ptr<hiro::draw::PointCloudStyle>;
   //! Shared pointer to an object of the type PointCloudRenderer.
-  using PPointCloudRenderer = std::shared_ptr<PointCloudRenderer>;
+  using PPointCloudRenderer = std::shared_ptr<hiro::draw::PointCloudRenderer>;
 
 }

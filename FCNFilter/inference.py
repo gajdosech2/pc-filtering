@@ -141,7 +141,7 @@ if __name__ == "__main__":
     cogs_files()
     stop = time.time()
     evaluation()
-    #clean_up()
+    clean_up()
     print(f"Elapsed time: {stop - start} seconds")
 
 

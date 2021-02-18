@@ -1,7 +1,8 @@
 import os
 #os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 
-import keras
+from keras import backend as K
+from keras.optimizers import Adam
 from keras.models import Model, load_model
 from keras.layers import Input, Reshape, UpSampling2D
 from keras.layers.core import Lambda
@@ -10,6 +11,32 @@ from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
 
 import tensorflow as tf
+
+def skippy(i):
+    c1 = Conv2D(8, 3, activation='relu', padding='same') (i)
+    c1 = Conv2D(8, 3, activation='relu', padding='same') (c1)
+    p1 = MaxPooling2D(2) (c1)
+
+    c2 = Conv2D(16, 3, activation='relu', padding='same') (p1)
+    c2 = Conv2D(16, 3, activation='relu', padding='same') (c2)
+    p2 = MaxPooling2D(2) (c2)
+    
+    c3 = Conv2D(32, 5, activation='relu', padding='same') (p2)
+    c3 = Conv2D(32, 5, activation='relu', padding='same') (c3)   
+    
+    u4 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c3)
+    u4 = concatenate([u4, c2])
+    c4 = Conv2D(16, 3, activation='relu', padding='same') (u4)
+    c4 = Conv2D(16, 3, activation='relu', padding='same') (c4)
+    
+    u5 = Conv2DTranspose(8, 2, strides=(2, 2), padding='same') (c4)
+    u5 = concatenate([u5, c1])
+    c5 = Conv2D(8, 3, activation='relu', padding='same') (u5)
+    c5 = Conv2D(8, 3, activation='relu', padding='same') (c5)
+    
+    o = Conv2D(1, 1, activation='sigmoid') (c5)
+    return o
+    
 
 def skip(i):
     c1 = Conv2D(8, (3, 3), activation='relu', padding='same') (i)
@@ -56,51 +83,59 @@ def skip(i):
     return o
 
 def autoencoder(i):
-    x = Conv2D(filters=8, kernel_size=3, padding = "same", activation='relu')(i)
-    x = MaxPooling2D(pool_size=2, strides=(2,2))(x)
-    
-    x = Conv2D(filters=16, kernel_size=3, padding = "same", activation='relu')(x)
+    x = Conv2D(filters=16, kernel_size=3, padding = "same", activation='relu')(i)
     x = MaxPooling2D(pool_size=2, strides=(2,2))(x)
     
     x = Conv2D(filters=32, kernel_size=3, padding = "same", activation='relu')(x)
     x = MaxPooling2D(pool_size=2, strides=(2,2))(x)
-
+    
+    x = Conv2D(filters=64, kernel_size=5, padding = "same", activation='relu')(x)
+    
     x = UpSampling2D(size=2)(x)
     x = Conv2D(filters=32, kernel_size=3, padding = "same", activation='relu')(x)
     
     x = UpSampling2D(size=2)(x)
     x = Conv2D(filters=16, kernel_size=3, padding = "same", activation='relu')(x)
-    
-    x = UpSampling2D(size=2)(x)
-    x = Conv2D(filters=8, kernel_size=3, padding = "same", activation='relu')(x)
     
     o = Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x) 
     
     return o
 
 def simple(i):
-    x = Conv2D(filters=8, kernel_size=3, activation='relu')(i)
-    x = Conv2D(filters=16, kernel_size=3, activation='relu')(x)
-    x = Conv2D(filters=32, kernel_size=3, activation='relu')(x)
-    
-    x = Conv2DTranspose(filters=32, kernel_size=3)(x)
-    x = Conv2DTranspose(filters=16, kernel_size=3)(x)
-    x = Conv2DTranspose(filters=8, kernel_size=3)(x)
+    #x = Conv2D(filters=8, kernel_size=3, activation='relu')(i)
+    #x = Conv2D(filters=16, kernel_size=3, activation='relu')(x)
+    #x = Conv2D(filters=32, kernel_size=3, activation='relu')(x)
+    #x = Conv2DTranspose(filters=32, kernel_size=3)(x)
+    #x = Conv2DTranspose(filters=16, kernel_size=3)(x)
+    #x = Conv2DTranspose(filters=8, kernel_size=3)(x)
+    x = Conv2D(filters=8, kernel_size=3, padding = "same", activation='relu')(i)
+    x = Conv2D(filters=16, kernel_size=5, padding = "same", activation='relu')(x)
+    x = Conv2D(filters=32, kernel_size=7, padding = "same", activation='relu')(x)
+    x = Conv2D(filters=64, kernel_size=3, padding = "same", activation='relu')(x)
     o = Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x)
     
     return o
+    
+    
+def weighted_binary_crossentropy(y_true, y_pred, from_logits=False):
+  y_pred = tf.convert_to_tensor(y_pred)
+  y_true = tf.cast(0.53 * y_true, y_pred.dtype)
+  
+  return K.mean(
+      K.binary_crossentropy(y_true, y_pred, from_logits=from_logits), axis=-1)
+      
 
 def generate_model():
     i = Input(shape=(None, None, 4))
-    o = autoencoder(i)
+    o = skippy(i)
    
     model = Model(inputs=i, outputs=o)
     
     print(model.summary())
     print(f'Total number of layers: {len(model.layers)}')
 
-    model.compile(optimizer=keras.optimizers.Adam(lr=0.0001),
-                  loss='binary_crossentropy',
+    model.compile(optimizer="adam", # optimizer='rmsprop' optimizer=Adam(lr=0.0001)
+                  loss=weighted_binary_crossentropy,
                   metrics=['accuracy'])
 
     return model

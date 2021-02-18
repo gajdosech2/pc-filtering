@@ -86,4 +86,8 @@ namespace func
 
   //! \brief Lambda function that return the x value of an object.
   const auto GetY = [](const auto &o) { return o.y; };
+
+  //! \brief StaticCast a value to a different type.
+  template<typename TypeIn, typename TypeOut>
+  const auto StaticCast = [](const TypeIn &value) { return static_cast<TypeOut>(value); };
 }

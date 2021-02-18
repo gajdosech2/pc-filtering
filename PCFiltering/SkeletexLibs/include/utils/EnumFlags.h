@@ -103,6 +103,16 @@ namespace utils
       return !(*this == value);
     }
 
+    //! Add other flags.
+    EnumFlags<T, TMask> &operator+=(const EnumFlags<T, TMask> &other)
+    {
+      for (const auto value : other.ToVector())
+      {
+        Set(value);
+      }
+      return *this;
+    }
+
   private:
     //! Compute the mask from a single enum value.
     inline typename EnumFlags<T, MaskType>::MaskType valueToMask(const T val) const
