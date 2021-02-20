@@ -7,7 +7,6 @@ import math
 import matplotlib.pyplot as plt
 
 POWER_UP = True
-WEIGHT = 1.0
 
 class Generator(keras.utils.Sequence):
     def __init__(self, dataset_path, batch_size=2, shuffle_images=True):
@@ -35,7 +34,7 @@ class Generator(keras.utils.Sequence):
                 self.feature_images.append(feature_image)
                 
                 mask_image = imageio.imread(dataset_path + "/" + file) / 255
-                mask_image = WEIGHT * mask_image
+                mask_image = mask_image
                 mask_image = np.expand_dims(mask_image, axis=2)
                 self.masks.append(mask_image)
 

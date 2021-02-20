@@ -102,12 +102,6 @@ def autoencoder(i):
     return o
 
 def simple(i):
-    #x = Conv2D(filters=8, kernel_size=3, activation='relu')(i)
-    #x = Conv2D(filters=16, kernel_size=3, activation='relu')(x)
-    #x = Conv2D(filters=32, kernel_size=3, activation='relu')(x)
-    #x = Conv2DTranspose(filters=32, kernel_size=3)(x)
-    #x = Conv2DTranspose(filters=16, kernel_size=3)(x)
-    #x = Conv2DTranspose(filters=8, kernel_size=3)(x)
     x = Conv2D(filters=8, kernel_size=3, padding = "same", activation='relu')(i)
     x = Conv2D(filters=16, kernel_size=5, padding = "same", activation='relu')(x)
     x = Conv2D(filters=32, kernel_size=7, padding = "same", activation='relu')(x)
