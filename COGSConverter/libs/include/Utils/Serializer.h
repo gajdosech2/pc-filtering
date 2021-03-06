@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_SERIALIZER_H
+#define UTILS_SERIALIZER_H
 
 #include <fstream>
 #include <cereal/archives/json.hpp>
@@ -186,3 +187,5 @@ namespace utils
   };
 
 }
+
+#endif /* !UTILS_SERIALIZER_H */

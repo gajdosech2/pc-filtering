@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_TRANSFORM_H
+#define COGS_TRANSFORM_H
 #include <functional>
 
 #include <glm/glm.hpp>
@@ -124,3 +125,4 @@ namespace cogs
   };
 
 }
+#endif /* !COGS_TRANSFORM_H */

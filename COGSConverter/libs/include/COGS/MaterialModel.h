@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_MATERIAL_MODEL_H
+#define COGS_MATERIAL_MODEL_H
 #include <array>
 
 #include <COGS/Color.h>
@@ -58,3 +59,4 @@ namespace cogs
   };
 
 }
+#endif /* !COGS_MATERIAL_MODEL_H */

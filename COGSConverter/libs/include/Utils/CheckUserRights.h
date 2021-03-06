@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_CHECK_USER_RIGHTS_H
+#define UTILS_CHECK_USER_RIGHTS_H
 #include <fstream>
 
 #include <Utils/Filesystem.h>
@@ -25,3 +26,4 @@ namespace utils
     return false;
   }
 }
+#endif /* !UTILS_CHECK_USER_RIGHTS_H */

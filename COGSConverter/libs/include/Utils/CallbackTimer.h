@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_CALLBACK_TIMER_H
+#define UTILS_CALLBACK_TIMER_H
 
 #include <atomic>
 #include <thread>
@@ -91,3 +92,5 @@ namespace utils
     std::thread thread_;
   };
 }
+
+#endif /* !UTILS_CALLBACK_TIMER_H */

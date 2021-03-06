@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_DICTIONARY_H
+#define UTILS_DICTIONARY_H
 #include <string>
 #include <array>
 #include <vector>
@@ -230,3 +231,4 @@ namespace utils
 
 
 }
+#endif /* !UTILS_DICTIONARY_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef GEOM_GRAPHS_H
+#define GEOM_GRAPHS_H
 
 #include <vector>
 
@@ -45,3 +46,5 @@ namespace geom
     };*/
 }
 
+
+#endif /* !GEOM_GRAPHS_H */

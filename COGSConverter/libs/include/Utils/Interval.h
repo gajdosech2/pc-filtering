@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_INTERVAL_H
+#define UTILS_INTERVAL_H
 
 #include "ExtGLM.h"
 
@@ -106,3 +107,5 @@ namespace utils
   };
 
 }
+
+#endif /* !UTILS_INTERVAL_H */

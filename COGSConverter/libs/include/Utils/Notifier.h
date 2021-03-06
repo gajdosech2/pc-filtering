@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_NOTIFIER_H
+#define UTILS_NOTIFIER_H
 
 #include <vector>
 #include <functional>
@@ -109,3 +110,5 @@ namespace utils
     std::condition_variable notifier_condition_;
   };
 }
+
+#endif /* !UTILS_NOTIFIER_H */

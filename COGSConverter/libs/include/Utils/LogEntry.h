@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_LOG_ENTRY_H
+#define UTILS_LOG_ENTRY_H
 #include <string>
 #include <vector>
 #include <Utils/API.h>
@@ -91,3 +92,5 @@ namespace utils
   };
 
 }
+
+#endif /* !UTILS_LOG_ENTRY_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef GEOM_DEPRICATED_H
+#define GEOM_DEPRICATED_H
 
 #include <vector>
 #include <memory>
@@ -24,3 +25,4 @@ namespace geom
 
   GEOM_API float DeterminantInPlane(const glm::vec3 &vVector1, const glm::vec3 &vVector2, const glm::vec3 &vVector3);
 }
+#endif /* !GEOM_DEPRICATED_H */

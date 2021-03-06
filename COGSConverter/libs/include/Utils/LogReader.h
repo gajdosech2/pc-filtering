@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_LOG_READER_H
+#define UTILS_LOG_READER_H
 
 #include <ostream>
 #include <mutex>
@@ -125,3 +126,5 @@ namespace utils
   };
 
 }
+
+#endif /* !UTILS_LOG_READER_H */

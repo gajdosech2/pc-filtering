@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_EXPORT_BVH_H
+#define COGS_EXPORT_BVH_H
 #define GLM_FORCE_RADIANS
 
 #include <glm/glm.hpp>
@@ -24,3 +25,4 @@ namespace cogs
   bool COGS_API ExportBVH( const std::string &filename, const cogs::Skeleton &skeleton);
 
 }
+#endif /* !COGS_EXPORT_BVH_H */

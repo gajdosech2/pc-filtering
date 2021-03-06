@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_STATISTICS_H
+#define UTILS_STATISTICS_H
 #include <glm/detail/func_common.hpp>
 #include <string>
 #include <vector>
@@ -138,3 +139,5 @@ namespace utils
   };
 
 }
+
+#endif /* !UTILS_STATISTICS_H */

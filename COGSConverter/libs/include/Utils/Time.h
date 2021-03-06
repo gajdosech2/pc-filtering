@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_TIME_H
+#define UTILS_TIME_H
 #include <string>
 #include <ctime>
 #include <chrono>
@@ -117,25 +118,20 @@ namespace time_m
 
 
 
-  //! Class for measuring time in milliseconds.
+  //! Class for measuring time in milliseconds [ms].
   class StopWatch
   {
   public:
+    //! Creates stopwatch and starts time measurement.
     StopWatch() = default;
-    void Start()
-    {
-      start = NowMs();
-    };
-    void Stop()
-    {
-      diff = NowMs() - start;
-    };
-    double GetFinalTime() { return diff; };
-    double GetActualTime() { return NowMs() - start; };
-    std::string GetFinalTimeStr() { return std::to_string(diff); };
-    std::string GetActualTimeStr() { return std::to_string(NowMs() - start); };
+    //! Resets time on stopwatch.
+    void Reset() { start_time_ = NowMs(); };
+    //! Returns current watch time. [ms]
+    double GetTime() { return NowMs() - start_time_; };
+    //! Returns current watch time as a text. [ms]
+    std::string GetTimeStr() { return std::to_string(GetTime()); };
   private:
-    double start, diff;
+    double start_time_{ NowMs() };
   };
 
 
@@ -289,10 +285,10 @@ namespace time_m
   inline ProfilingResult<T> ProfileFunctionRun(std::function<T()> Function)
   {
     StopWatch stop_watch;
-    stop_watch.Start();
     const auto result = Function();
-    stop_watch.Stop();
-    const auto time = std::chrono::milliseconds(static_cast<uint32_t>(std::round(stop_watch.GetFinalTime())));
+    const auto time = std::chrono::milliseconds(static_cast<uint32_t>(std::round(stop_watch.GetTime())));
     return time_m::ProfilingResult(result, time);
   }
 }
+
+#endif /* !UTILS_TIME_H */

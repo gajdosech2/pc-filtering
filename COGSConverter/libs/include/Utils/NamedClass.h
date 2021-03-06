@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_NAMED_CLASS_H
+#define UTILS_NAMED_CLASS_H
 
 #include <string>
 
@@ -24,3 +25,5 @@ namespace utils
   };
 
 }
+
+#endif /* !UTILS_NAMED_CLASS_H */

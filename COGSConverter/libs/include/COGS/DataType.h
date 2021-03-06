@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_DATA_TYPE_H
+#define COGS_DATA_TYPE_H
 #include <COGS/API.h>
 #include <cstddef>
 
@@ -26,3 +27,4 @@ namespace cogs
   //! Returns size of type denoted by DataType identifier.
   COGS_API std::size_t GetDataTypeSize(const DataType &dtype);
 }
+#endif /* !COGS_DATA_TYPE_H */

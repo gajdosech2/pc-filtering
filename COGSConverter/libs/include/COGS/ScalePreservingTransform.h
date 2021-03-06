@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_SCALE_PRESERVING_TRANSFORM_H
+#define COGS_SCALE_PRESERVING_TRANSFORM_H
 
 #include <glm/glm.hpp>
 #include <glm/gtx/quaternion.hpp>
@@ -31,3 +32,5 @@ namespace cogs
     glm::quat rotation;
   };
 }
+
+#endif /* !COGS_SCALE_PRESERVING_TRANSFORM_H */

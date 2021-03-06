@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef GEOM_REMAPPING_H
+#define GEOM_REMAPPING_H
 
 #include <iostream>
 #include <vector>
@@ -36,3 +37,5 @@ namespace geom
 
     GEOM_API void RefineRegionUVsHolidayBarycentric(meshes::IndexedFace &region, const float &max_tolerated_error);*/
 }
+
+#endif /* !GEOM_REMAPPING_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_ATOMIC_QUEUE_H
+#define UTILS_ATOMIC_QUEUE_H
 #include <queue>
 #include <mutex>
 
@@ -54,3 +55,4 @@ namespace std_ext
   };
 
 }
+#endif /* !UTILS_ATOMIC_QUEUE_H */

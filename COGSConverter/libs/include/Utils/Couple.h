@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_COUPLE_H
+#define UTILS_COUPLE_H
 #include <array>
 
 namespace utils
@@ -113,3 +114,4 @@ namespace utils
   };
 
 }
+#endif /* !UTILS_COUPLE_H */

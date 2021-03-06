@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_SCAN_H
+#define COGS_SCAN_H
 #include <COGS/PointCloud.h>
 #include <COGS/Grid.h>
 #include <COGS/ScanCameraParams.h>
@@ -84,9 +85,21 @@ namespace cogs
     //! Returns currently set camera position.
     [[nodiscard]] const glm::vec3 &GetCameraPosition() const;
     //! Sets camera basis to the new value.
-    void SetCameraBasis(const glm::mat3 &new_basis);
-    //! Returns currently set camera basis.
-    [[nodiscard]] const glm::mat3 &GetCameraBasis() const;
+    void SetCameraBasis(const glm::mat3 &new_basis, const utils::BasisDefinition &basis_def);
+    //! Returns currently set camera basis in the specified basis definition.
+    [[nodiscard]] glm::mat3 GetCameraBasis(const utils::BasisDefinition &basis_def) const;
+    //! Returns camera forward direction.
+    [[nodiscard]] glm::vec3 GetCameraForward() const;
+    //! Returns camera up direction.
+    [[nodiscard]] glm::vec3 GetCameraUp() const;
+
+    //! Returns current camera basis definition.
+    [[nodiscard]] utils::BasisDefinition GetCameraBasisDefinition() const;
+    //! Changes camera basis definition and transforms internal camera basis to the new one.
+    void ChangeCameraBasisDefinition(const utils::BasisDefinition &new_def);
+    //! Returns string representation of current camera basis definition.
+    std::string GetCameraBasisDefinitionId() const;
+
 
     //! Returns points coordinates.
     [[nodiscard]] const std::vector<Coords> &GetCoords() const;
@@ -112,8 +125,25 @@ namespace cogs
     //! Returns coordinate for given point.
     static bool GetCameraUV(const glm::vec3 &point, const ScanCameraParams &cam_params, glm::vec2 &result);
 
-    //! Transforms point cloud positions, normals and updates camera.
-    virtual void Transform(const glm::mat4 &transform) override;
+    /*!
+      \brief Transforms point positions and normals and camera parameters.
+      \param transformation   Transformation matrix applied on every point and camera parameter.
+      \param resulting_space  Resulting point cloud space after the transformation is applied.
+    */
+    virtual void Transform(
+      const glm::mat4 &transformation,
+      const std::optional<utils::SpaceDefinition> &resulting_space = std::nullopt) override;
+
+    //! Computes depth map from scan.
+    [[nodiscard]] static std::vector<std::vector<float>> ComputeDepthMap(const cogs::Scan &scan);
+
+    //! Computes depth map from scan and custom camera position.
+    [[nodiscard]] static std::vector<std::vector<float>> ComputeDepthMap(
+        const cogs::Scan &scan,
+        const glm::vec3 &camera_position);
+
+    //! Computes map of point indices from scan.
+    [[nodiscard]] static std::vector<std::vector<uint32_t>> ComputeIndexMap(const cogs::Scan &scan);
 
   protected:
 
@@ -127,8 +157,9 @@ namespace cogs
     cogs::Grid<uint32_t> index_grid_;
     std::vector<Coords> coords_;
 
-    glm::vec3 camera_position_;
-    glm::mat3 camera_basis_;
+    glm::vec3 camera_position_{ 0.0f };
+    glm::mat3 camera_basis_{ 1.0f };
+    utils::BasisDefinition camera_basis_definition_{ utils::COGS_CAMERA_SPACE };
     ScanCameraParams camera_params_;
 
     virtual bool Resize(uint32_t new_size) override;
@@ -144,3 +175,5 @@ namespace cogs
     [[nodiscard]] bool IsNullPointAt(const uint32_t x_coord, const uint32_t y_coord) const;
   };
 }
+
+#endif /* !COGS_SCAN_H */

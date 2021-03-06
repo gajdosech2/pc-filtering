@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_LOGGER_H
+#define UTILS_LOGGER_H
 #include <Utils/LogWriter.h>
 
 namespace utils
@@ -23,3 +24,4 @@ namespace utils
     const std::shared_ptr<LogWriter> log_;
   };
 }
+#endif /* !UTILS_LOGGER_H */

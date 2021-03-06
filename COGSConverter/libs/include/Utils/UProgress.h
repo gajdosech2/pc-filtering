@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_UPROGRESS_H
+#define UTILS_UPROGRESS_H
 #include <functional>
 #include <Utils/API.h>
 
@@ -33,3 +34,5 @@ namespace uprogress
   //! Unsubscribe all functions.
   UTILS_API void UnSubscribeAll();
 }
+
+#endif /* !UTILS_UPROGRESS_H */

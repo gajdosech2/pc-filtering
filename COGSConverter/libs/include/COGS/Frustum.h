@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_FRUSTUM_H
+#define COGS_FRUSTUM_H
 
 #include <array>
 #include <glm/glm.hpp>
@@ -75,3 +76,5 @@ namespace cogs
     std::array<glm::vec3, 4> GetFarCorners() const;
   };
 }
+
+#endif /* !COGS_FRUSTUM_H */

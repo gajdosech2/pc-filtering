@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_C_SCAN_H
+#define COGS_C_SCAN_H
 #include "API.h"
 #include <COGS/C_PointCloud.h>
 #include <COGS/ScanCameraParams.h>
@@ -65,7 +66,7 @@ namespace cogs
     //! Sets camera basis to the new value.
     void SetCameraBasis(const glm::mat3 &new_basis);
     //! Returns currently set camera basis.
-    const glm::mat3 &GetCameraBasis() const;
+    glm::mat3 GetCameraBasis() const;
 
     //! Returns points coordinates.
     const glm::uvec2 *GetCoords() const;
@@ -104,3 +105,5 @@ namespace cogs
 
 
 
+
+#endif /* !COGS_C_SCAN_H */

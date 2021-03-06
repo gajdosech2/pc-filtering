@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_SCALE_PRESERVING_TRANSFORM_SERIALIZER_H
+#define COGS_SCALE_PRESERVING_TRANSFORM_SERIALIZER_H
 
 #include <Utils/Serializer.h>
 #include <Utils/Serializables.h>
@@ -15,7 +16,7 @@
 namespace cogs
 {
 
-  class ScalePreservingTransformSerializable
+  class COGS_API ScalePreservingTransformSerializable
   {
   public:
     ScalePreservingTransformSerializable() = default;
@@ -58,3 +59,5 @@ namespace cogs
   }
 
 }
+
+#endif /* !COGS_SCALE_PRESERVING_TRANSFORM_SERIALIZER_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_WX_WIDGETS_DIALOG_H
+#define UTILS_WX_WIDGETS_DIALOG_H
 
 #include <Utils/DialogInterface.h>
 
@@ -95,3 +96,5 @@ public:
     return wxMessageBox(message, title, wxYES_NO | wxICON_EXCLAMATION, wxTheApp->GetTopWindow()) == wxYES;
   };
 };
+
+#endif /* !UTILS_WX_WIDGETS_DIALOG_H */

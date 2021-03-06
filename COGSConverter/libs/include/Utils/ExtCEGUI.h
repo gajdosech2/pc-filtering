@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_EXT_CEGUI_H
+#define UTILS_EXT_CEGUI_H
 #include <CEGUI/CEGUI.h>
 #include <Utils/ExtSTD.h>
 
@@ -22,3 +23,5 @@ namespace cegui_ext
     return std_ext::AllOf(strings, [](const CEGUI::String & str) { return IsASCII(str); });
   }
 }
+
+#endif /* !UTILS_EXT_CEGUI_H */

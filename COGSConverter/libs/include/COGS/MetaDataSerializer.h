@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_META_DATA_SERIALIZER_H
+#define COGS_META_DATA_SERIALIZER_H
 
 #include <Utils/Serializer.h>
 #include <Utils/Serializables.h>
@@ -181,3 +182,5 @@ namespace cogs
   }
 
 }
+
+#endif /* !COGS_META_DATA_SERIALIZER_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_CONCURRENT_BINDING_H
+#define UTILS_CONCURRENT_BINDING_H
 #include <future>
 #include <functional>
 #include "EventHandler.h"
@@ -70,3 +71,4 @@ namespace utils
   };
 
 }
+#endif /* !UTILS_CONCURRENT_BINDING_H */

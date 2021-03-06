@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_EXT_GLM_H
+#define UTILS_EXT_GLM_H
 
 #include <string>
 #include <vector>
@@ -130,10 +131,9 @@ namespace glm_ext
     {
       return false;
     }
-
     for (glm::length_t i = 0; i < N; ++i)
     {
-      out_vec[i] = std::stof(vals[i]);
+      std_ext::StringTo(vals[i], out_vec[i]);
     }
     return true;
   }
@@ -251,14 +251,15 @@ namespace glm_ext
   }
 
   //! Returns true if two values are equal within defined epsilon threshold.
-  inline bool AreEqual(const float val1, const float val2, const float epsilon = FLT_EPSILON)
+  template <typename T>
+  inline bool AreEqual(const T val1, const T val2, const T epsilon = std::numeric_limits<T>::epsilon())
   {
     return glm::epsilonEqual(val1, val2, epsilon);
   }
 
   //! Returns true if all components of two vectors are equal within defined epsilon threshold.
-  template <int N>
-  inline bool AreEqual(const glm::vec<N, float> &vec1, const glm::vec<N, float> &vec2, const float epsilon = FLT_EPSILON)
+  template <typename T, int N>
+  inline bool AreEqual(const glm::vec<N, T> &vec1, const glm::vec<N, T> &vec2, const  T epsilon = std::numeric_limits<T>::epsilon())
   {
     const auto not_equal = glm::epsilonNotEqual(vec1, vec2, epsilon);
     return !glm::any(not_equal);
@@ -272,8 +273,8 @@ namespace glm_ext
   }
 
   //! Returns true if all elements of two matrices are equal within defined epsilon threshold.
-  template <int N, int M>
-  inline bool AreEqual(const glm::mat<N, M, float> &mat1, const glm::mat<N, M, float> &mat2, const float epsilon = FLT_EPSILON)
+  template <typename T, int N, int M>
+  inline bool AreEqual(const glm::mat<N, M, T> &mat1, const glm::mat<N, M, T> &mat2, const T epsilon = std::numeric_limits<T>::epsilon())
   {
     for (auto i = 0; i < M; ++i)
     {
@@ -472,9 +473,41 @@ namespace glm_ext
     return glm::rotate(glm::quat(), RandomInRange(0, TWO_PI), RandomVec3());
   }
 
+  inline glm::mat4 CreateProjectionMatrix(const glm::uvec2 &resolution, const float fx, const float fy, const float cx, const float cy, const float near_plane = 0.01f, const float far_plane = 1000.0f)
+  {
+    glm::mat4 projection;
+
+    const auto width = float(resolution.x);
+    const auto height = float(resolution.y);
+
+    projection[0][0] = 2.0f * fx / width;
+    projection[0][1] = 0.0f;
+    projection[0][2] = 0.0f;
+    projection[0][3] = 0.0f;
+
+    projection[1][0] = 0.0f;
+    projection[1][1] = -2.0f * fy / height;
+    projection[1][2] = 0.0f;
+    projection[1][3] = 0.0f;
+
+    projection[2][0] = 1.0f - 2.0f * cx / width;
+    projection[2][1] = 1.0f - 2.0f * cy / height;
+    projection[2][2] = (far_plane + near_plane) / (near_plane - far_plane);
+    projection[2][3] = -1.0f;
+
+    projection[3][0] = 0.0f;
+    projection[3][1] = 0.0f;
+    projection[3][2] = 2.0f * far_plane * near_plane / (near_plane - far_plane);
+    projection[3][3] = 0.0f;
+
+    return projection;
+  }
+
   template <typename T>
   bool IsInRange(T value, T min, T max)
   {
     return value >= min && value <= max;
   }
 }
+
+#endif /* !UTILS_EXT_GLM_H */

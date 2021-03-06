@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_IMPORTER_H
+#define COGS_IMPORTER_H
 #include <vector>
 #include <string>
 #include <memory>
@@ -35,7 +36,7 @@ namespace cogs
     http://assimp.sourceforge.net/main_features_formats.html. However,
     compatibility is not guaranteed for all file formats.
 
-    Assimp import was tested on the following file formats: _in progress..._
+    Assimp import was tested on the following file formats:
     - Wavefront (.obj)
     - Autodesk Filmbox (.fbx)
     - COLLADA (.dae)
@@ -156,3 +157,4 @@ namespace cogs
   };
 
 }
+#endif /* !COGS_IMPORTER_H */

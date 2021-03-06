@@ -1,0 +1,45 @@
+target_sources(${PROJECT_NAME} PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/AabbHierarchy.h
+  ${CMAKE_CURRENT_LIST_DIR}/API.h
+  ${CMAKE_CURRENT_LIST_DIR}/Armature.h
+  ${CMAKE_CURRENT_LIST_DIR}/Bone.h
+  ${CMAKE_CURRENT_LIST_DIR}/BoneTransform.h
+  ${CMAKE_CURRENT_LIST_DIR}/C_PointCloud.h
+  ${CMAKE_CURRENT_LIST_DIR}/C_Scan.h
+  ${CMAKE_CURRENT_LIST_DIR}/Color.h
+  ${CMAKE_CURRENT_LIST_DIR}/DataType.h
+  ${CMAKE_CURRENT_LIST_DIR}/DynamicScan.h
+  ${CMAKE_CURRENT_LIST_DIR}/ExportBVH.h
+  ${CMAKE_CURRENT_LIST_DIR}/Exporter.h
+  ${CMAKE_CURRENT_LIST_DIR}/Frustum.h
+  ${CMAKE_CURRENT_LIST_DIR}/Grid.h
+  ${CMAKE_CURRENT_LIST_DIR}/Image.h
+  ${CMAKE_CURRENT_LIST_DIR}/Importer.h
+  ${CMAKE_CURRENT_LIST_DIR}/Interpolator.h
+  ${CMAKE_CURRENT_LIST_DIR}/KdTree.h
+  ${CMAKE_CURRENT_LIST_DIR}/MaterialModel.h
+  ${CMAKE_CURRENT_LIST_DIR}/Mesh.h
+  ${CMAKE_CURRENT_LIST_DIR}/MeshOperations.h
+  ${CMAKE_CURRENT_LIST_DIR}/MetaDataSerializer.h
+  ${CMAKE_CURRENT_LIST_DIR}/Octree.h
+  ${CMAKE_CURRENT_LIST_DIR}/PointCloud.h
+  ${CMAKE_CURRENT_LIST_DIR}/PointCloudProperty.h
+  ${CMAKE_CURRENT_LIST_DIR}/ScalePreservingTransform.h
+  ${CMAKE_CURRENT_LIST_DIR}/ScalePreservingTransformSerializer.h
+  ${CMAKE_CURRENT_LIST_DIR}/Scan.h
+  ${CMAKE_CURRENT_LIST_DIR}/ScanCameraParams.h
+  ${CMAKE_CURRENT_LIST_DIR}/Skeleton.h
+  ${CMAKE_CURRENT_LIST_DIR}/SkeletonAction.h
+  ${CMAKE_CURRENT_LIST_DIR}/SkeletonPose.h
+  ${CMAKE_CURRENT_LIST_DIR}/Table.h
+  ${CMAKE_CURRENT_LIST_DIR}/Transform.h
+  ${CMAKE_CURRENT_LIST_DIR}/Triangulation.h
+  ${CMAKE_CURRENT_LIST_DIR}/Version.h
+
+  ${CMAKE_CURRENT_LIST_DIR}/Conversions/PclConversions.h
+
+  ${CMAKE_CURRENT_LIST_DIR}/io/DataBlock.h
+  ${CMAKE_CURRENT_LIST_DIR}/io/DataBlockExporter.h
+  ${CMAKE_CURRENT_LIST_DIR}/io/DataBlockImporter.h
+  ${CMAKE_CURRENT_LIST_DIR}/io/DataBlockManager.h
+)

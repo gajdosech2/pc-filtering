@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_EXPORTER_H
+#define COGS_EXPORTER_H
 #include <vector>
 #include <memory>
 #include <string>
@@ -33,7 +34,7 @@ namespace cogs
     http://assimp.sourceforge.net/main_features_formats.html. However,
     compatibility is not guaranteed for all file formats.
 
-    Assimp export was tested on the following file formats: _in progress..._
+    Assimp export was tested on the following file formats:
     - Stanford Triangle Format (.ply)
     - Wavefront (.obj)
     - Stereo lithography (.stl)
@@ -72,3 +73,4 @@ namespace cogs
   };
 
 }
+#endif /* !COGS_EXPORTER_H */

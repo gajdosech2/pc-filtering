@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_GEOMETRY_STRUCTURES_H
+#define UTILS_GEOMETRY_STRUCTURES_H
 #include <stdexcept>
 
 #include <glm/glm.hpp>
@@ -57,6 +58,8 @@ namespace geom
   const static glm::vec4 Vec4Y = AxisToVec4(Axis::y);
   //! Definition of a unit 4D vector in Z axis
   const static glm::vec4 Vec4Z = AxisToVec4(Axis::z);
+
+
 
   //! Template line segment in an arbitrary dimension.
   template <size_t N>
@@ -142,6 +145,8 @@ namespace geom
 
   //! Definition of a line in a 3 dimensional space.
   using Line3 = Line<3>;
+
+
 
   //! Template ray in an arbitrary dimension.
   template <size_t N>
@@ -255,6 +260,8 @@ namespace geom
       return glm::normalize(glm::cross(points[1] - points[0], points[2] - points[0]));
     }
   };
+
+
 
   //! Template rectangle in an arbitrary dimension.
   template <typename T>
@@ -386,6 +393,8 @@ namespace geom
 
   //! Definition of an unsigned integer type rectangle.
   using URect = TRect<unsigned>;
+
+
 
   //! Template axis aligned bounding box in an arbitrary dimension.
   template <int dimensions, typename Type>
@@ -604,15 +613,16 @@ namespace geom
   using Aabb3 = TAabb<3, float>;
 
 
+
   //! Definition of a 3 dimensional plane.
   struct Plane
   {
     //! Distance from the origin in the direction of a normal.
-    float distance;
+    float distance{ 0.0f };
     //! Orientation of the plane.
-    glm::vec3 normal;
+    glm::vec3 normal{ 0.0f, 0.0f, 1.0f };
 
-    Plane() {};
+    Plane() = default;
     Plane(const glm::vec3 &origin, const glm::vec3 &normal)
     {
       this->normal = glm::normalize(normal);
@@ -627,6 +637,8 @@ namespace geom
       return !(*this == other);
     };
   };
+
+
 
   //! Definition of a 3 dimensional half-plane.
   struct HalfPlane
@@ -643,6 +655,8 @@ namespace geom
       this->direction = halfplane_direction;
     }
   };
+
+
 
   //! Definition of a 3 dimensional capsule.
   struct Capsule
@@ -662,6 +676,8 @@ namespace geom
       : central(point1, point2), radius(init_radius)
     {};
   };
+
+
 
   //! Definition of a 3 dimensional capsule with different radiuses at each end.
   struct ConicalCapsule
@@ -695,4 +711,172 @@ namespace geom
       return (1.f - factor) * radius1 + factor * radius2;
     };
   };
+
+
+
+  //! Definition of abstract k-DOP bounding volume structure.
+  class KDop
+  {
+  public:
+
+    KDop() = delete;
+
+    //! Set k-dop so that it covers all specified points.
+    void Set(const glm::vec3 *points, const size_t num_of_points)
+    {
+      for (size_t i = 0; i < num_of_points; i++)
+      {
+        for (size_t j = 0; j < axes.size(); j++)
+        {
+          const auto t = glm::dot(points[i], axes[j].direction);
+          axes[j].min = std::min(axes[j].min, t);
+          axes[j].max = std::max(axes[j].max, t);
+        }
+      }
+    }
+
+    //! Checks if all
+    bool IsValid() const
+    {
+      return !axes.empty() && std_ext::AllOf(axes, [](const auto & a) { return a.IsValid(); });
+    }
+
+    //! Checks if the k-dop has an intersection with other k-dop.
+    bool AreIntersected(const KDop &other)
+    {
+      for (size_t i = 0; i < axes.size(); i++)
+      {
+        if (axes[i].min > other.axes[i].max || axes[i].max < other.axes[i].min)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    //! Checks if point is included in range of k-dop.
+    bool IsIncluded(const glm::vec3 &point)
+    {
+      for (auto &axis : axes)
+      {
+        auto t = glm::dot(point, axis.direction);
+        if (axis.min > t || axis.max < t)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+
+  protected:
+
+    KDop(const std::vector<glm::vec3> &dirs)
+    {
+      axes.resize(dirs.size());
+      for (size_t i = 0; i < dirs.size(); i++)
+      {
+        axes[i].direction = glm::normalize(dirs[i]);
+      }
+    };
+
+  private:
+
+    struct PrincipalAxis
+    {
+      glm::vec3 direction;
+      float min{ std::numeric_limits<float>::max() };
+      float max{ std::numeric_limits<float>::min() };
+      bool IsValid() const
+      {
+        return glm_ext::IsLequal(min, max);
+      }
+    };
+
+    std::vector<PrincipalAxis> axes;
+  };
+
+  //! Directions that define default KDOP_3.
+  const static std::vector<glm::vec3> KDOP_3_DIRECTIONS
+  {
+    glm::vec3(1.0, 0.0, 0.0),
+    glm::vec3(0.0, 1.0, 0.0),
+    glm::vec3(0.0, 0.0, 1.0),
+  };
+  //! Directions that define default KDOP_4.
+  const static std::vector<glm::vec3> KDOP_4_DIRECTIONS
+  {
+    glm::vec3(1.0, 1.0, 1.0),
+    glm::vec3(1.0, 1.0, -1.0),
+    glm::vec3(1.0, -1.0, 1.0),
+    glm::vec3(1.0, -1.0, -1.0)
+  };
+  //! Directions that define default KDOP_7.
+  const static std::vector<glm::vec3> KDOP_7_DIRECTIONS
+  {
+    glm::vec3(1.0, 0.0, 0.0),
+    glm::vec3(0.0, 1.0, 0.0),
+    glm::vec3(0.0, 0.0, 1.0),
+
+    glm::vec3(1.0, 1.0, 1.0),
+    glm::vec3(1.0, 1.0, -1.0),
+    glm::vec3(1.0, -1.0, 1.0),
+    glm::vec3(1.0, -1.0, -1.0)
+  };
+  //! Directions that define default KDOP_13.
+  const static std::vector<glm::vec3> KDOP_13_DIRECTIONS
+  {
+    glm::vec3(1.0, 0.0, 0.0),
+    glm::vec3(0.0, 1.0, 0.0),
+    glm::vec3(0.0, 0.0, 1.0),
+
+    glm::vec3(1.0, 1.0, 1.0),
+    glm::vec3(1.0, 1.0, -1.0),
+    glm::vec3(1.0, -1.0, 1.0),
+    glm::vec3(1.0, -1.0, -1.0),
+
+    glm::vec3(0.0, 1.0, 1.0),
+    glm::vec3(0.0, 1.0, -1.0),
+    glm::vec3(1.0, 0.0, 1.0),
+    glm::vec3(1.0, 0.0, -1.0),
+    glm::vec3(1.0, 1.0, 0.0),
+    glm::vec3(1.0, -1.0, 0.0),
+  };
+
+  //! k-DOP bounding volume structure with 3 principal axes. It is essentially AABB.
+  class KDop3 : public KDop
+  {
+  public:
+    KDop3() : KDop(KDOP_3_DIRECTIONS)
+    {
+    };
+  };
+
+  //! k-DOP bounding volume structure with 4 principal axes.
+  class KDop4 : public KDop
+  {
+  public:
+    KDop4() : KDop(KDOP_4_DIRECTIONS)
+    {
+    };
+  };
+
+  //! k-DOP bounding volume structure with 7 principal axes.
+  class KDop7 : public KDop
+  {
+  public:
+    KDop7() : KDop(KDOP_7_DIRECTIONS)
+    {
+    };
+  };
+
+  //! k-DOP bounding volume structure with 13 principal axes.
+  class KDop13 : public KDop
+  {
+  public:
+    KDop13() : KDop(KDOP_13_DIRECTIONS)
+    {
+    };
+  };
 }
+
+#endif /* !UTILS_GEOMETRY_STRUCTURES_H */

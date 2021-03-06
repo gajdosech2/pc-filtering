@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_STRONG_TYPE_H
+#define UTILS_STRONG_TYPE_H
 
 #include <type_traits>
 #include <ostream>
@@ -62,3 +63,5 @@ namespace utils
     ValueType value_;
   };
 }
+
+#endif /* !UTILS_STRONG_TYPE_H */

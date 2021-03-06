@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_FILE_TYPES_H
+#define UTILS_FILE_TYPES_H
 
 #include <string>
 #include <vector>
@@ -189,9 +190,8 @@ namespace file_types
     return "";
   }
 
-  //! Get extension from a file type.
-  [[nodiscard]]
-  static inline std::optional<file_types::Type> GetType(const std::string &filename)
+  //! Get file type from a file name extension.
+  [[nodiscard]] static inline std::optional<file_types::Type> GetType(const std::string &filename)
   {
     static const std::unordered_map<std::string, Type> type_for_ext = []()
     {
@@ -221,3 +221,5 @@ namespace file_types
   }
 
 }
+
+#endif /* !UTILS_FILE_TYPES_H */

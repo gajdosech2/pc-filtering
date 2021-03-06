@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_LOG_WRITER_H
+#define UTILS_LOG_WRITER_H
 
 #include <Utils/Time.h>
 #include <Utils/ExtGLM.h>
@@ -243,3 +244,4 @@ namespace utils
   }
 
 }
+#endif /* !UTILS_LOG_WRITER_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_BONE_TRANSFORM_H
+#define COGS_BONE_TRANSFORM_H
 #include <glm/glm.hpp>
 #include <Utils/GeometryStructures.h>
 #include <COGS/Transform.h>
@@ -97,3 +98,5 @@ namespace cogs
   };
 
 }
+
+#endif /* !COGS_BONE_TRANSFORM_H */

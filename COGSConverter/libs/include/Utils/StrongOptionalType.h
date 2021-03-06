@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_STRONG_OPTIONAL_TYPE_H
+#define UTILS_STRONG_OPTIONAL_TYPE_H
 
 #include <optional>
 
@@ -38,3 +39,5 @@ namespace utils
     const ValueType &Value() const { return this->value_.value(); }
   };
 }
+
+#endif /* !UTILS_STRONG_OPTIONAL_TYPE_H */

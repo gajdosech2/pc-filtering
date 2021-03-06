@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_EVENT_HANDLER_H
+#define UTILS_EVENT_HANDLER_H
 #include <Utils/AtomicQueue.h>
 #include <memory>
 
@@ -52,3 +53,4 @@ namespace utils
   };
 
 }
+#endif /* !UTILS_EVENT_HANDLER_H */

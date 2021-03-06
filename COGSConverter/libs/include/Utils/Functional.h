@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_FUNCTIONAL_H
+#define UTILS_FUNCTIONAL_H
 
 #include <cstddef>
 
@@ -54,7 +55,13 @@ namespace func
 
   /*!
     \brief Lambda function that returns whether the object is empty.
-    \note Applies to any object that has a empty() function. (std::vector, std::string...).
+    \note Applies to any object that has an empty() function. (std::vector, std::string...).
+  */
+  const auto IsEmpty = [](const auto &obj)->bool { return obj.empty(); };
+
+  /*!
+    \brief Lambda function that returns whether the object is not empty.
+    \note Applies to any object that has an empty() function. (std::vector, std::string...).
   */
   const auto IsNotEmpty = [](const auto &obj)->bool { return !obj.empty(); };
 
@@ -91,3 +98,5 @@ namespace func
   template<typename TypeIn, typename TypeOut>
   const auto StaticCast = [](const TypeIn &value) { return static_cast<TypeOut>(value); };
 }
+
+#endif /* !UTILS_FUNCTIONAL_H */

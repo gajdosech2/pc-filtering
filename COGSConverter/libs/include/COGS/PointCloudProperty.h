@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_POINT_CLOUD_PROPERTY_H
+#define COGS_POINT_CLOUD_PROPERTY_H
 #include <string>
 #include <COGS/DataType.h>
 
@@ -26,3 +27,5 @@ namespace cogs
     bool HasEquivalentType(const PointCloudProperty &other) const;
   };
 }
+
+#endif /* !COGS_POINT_CLOUD_PROPERTY_H */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_DATA_BLOCK_H
+#define COGS_DATA_BLOCK_H
 #include <fstream>
 #include <memory>
 #include <limits>
@@ -55,3 +56,4 @@ namespace cogs
 
   }
 }
+#endif /* !COGS_DATA_BLOCK_H */

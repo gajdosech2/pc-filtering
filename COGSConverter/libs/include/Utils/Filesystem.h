@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_FILESYSTEM_H
+#define UTILS_FILESYSTEM_H
 #include <fstream>
 #include <vector>
 #include <codecvt>
@@ -268,7 +269,7 @@ namespace fs
     return result;
   }
 
-  //! Returns list of all file contents in a specified directory (ignores directories) with extension of the specified file type.
+  //! Returns a list of all file contents in a specified directory (ignores directories) with extension of the specified file type.
   inline std::vector<std::string> ListDirectoryFileNames(const std::string &direcory_path, const file_types::Type file_type)
   {
     const auto ext = file_types::GetExt(file_type);
@@ -277,6 +278,20 @@ namespace fs
       return {};
     }
     return ListDirectoryFileNames(direcory_path, ext);
+  }
+
+  //! Returns a list of all file contents in a specified directory (ignores directories) with any of the extensions of the specified file types.
+  inline std::vector<std::string> ListDirectoryFileNames(const std::string &direcory_path, const std::vector<file_types::Type> &file_types)
+  {
+    std::vector<std::string> result;
+
+    for (const auto &file_type : file_types)
+    {
+      const auto file_type_file_names = ListDirectoryFileNames(direcory_path, file_type);
+      result.insert(result.end(), file_type_file_names.begin(), file_type_file_names.end());
+    }
+
+    return result;
   }
 
   //! Checks specified directory if it contains file(s) of specified type.
@@ -291,7 +306,7 @@ namespace fs
     return std_ext::AnyOf(file_types, [&](const auto & file_type)->bool { return !ListDirectoryFileNames(direcory_path, file_type).empty(); });
   }
 
-  //! Takes specified file path and returns its directory path. Strips everything after the last directory separator.
+  //! Takes specified file path and strips everything after the last directory separator (including the separator).
   inline std::string GetDirectoryPathOfFile(const std::string &file_name_with_path)
   {
     auto pos = file_name_with_path.find_last_of(R"(/\)");
@@ -434,3 +449,5 @@ namespace fs
     });
   }
 }
+
+#endif /* !UTILS_FILESYSTEM_H */

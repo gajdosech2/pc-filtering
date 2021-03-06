@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_DIALOGS_H
+#define UTILS_DIALOGS_H
 #include <string>
 
 #ifdef _WIN32
@@ -81,3 +82,5 @@ namespace dialog
   }
 
 }
+
+#endif /* !UTILS_DIALOGS_H */

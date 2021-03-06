@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_DATA_BLOCK_EXPORTER_H
+#define COGS_DATA_BLOCK_EXPORTER_H
 #include <vector>
 #include <memory>
 #include <COGS/io/DataBlockManager.h>
@@ -136,3 +137,5 @@ namespace cogs
 
   }
 }
+
+#endif /* !COGS_DATA_BLOCK_EXPORTER_H */

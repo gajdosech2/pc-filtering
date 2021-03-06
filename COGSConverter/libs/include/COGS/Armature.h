@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_ARMATURE_H
+#define COGS_ARMATURE_H
 #include <COGS/Mesh.h>
 #include <COGS/Skeleton.h>
 #include <COGS/SkeletonAction.h>
@@ -42,3 +43,5 @@ namespace cogs
 
 
 }
+
+#endif /* !COGS_ARMATURE_H */

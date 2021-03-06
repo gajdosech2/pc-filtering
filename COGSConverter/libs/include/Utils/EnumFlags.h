@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_ENUM_FLAGS_H
+#define UTILS_ENUM_FLAGS_H
 
 #include <string>
 #include <vector>
@@ -179,3 +180,4 @@ namespace utils
   }
 
 }
+#endif /* !UTILS_ENUM_FLAGS_H */

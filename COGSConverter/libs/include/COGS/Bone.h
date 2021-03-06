@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_BONE_H
+#define COGS_BONE_H
 #include <Utils/GeometryStructures.h>
 
 #include <COGS/API.h>
@@ -182,3 +183,4 @@ namespace cogs
 
   std::vector<geom::LineSegment3> BonesToLines(const std::vector<cogs::Bone *> &bones);
 }
+#endif /* !COGS_BONE_H */

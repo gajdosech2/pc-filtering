@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_VERSION_H
+#define UTILS_VERSION_H
 #include <Utils/ExtSTD.h>
 
 //major and minor are macros in glibc <sys/sysmacros.h>
@@ -83,3 +84,4 @@ namespace utils
   }
 
 }
+#endif /* !UTILS_VERSION_H */

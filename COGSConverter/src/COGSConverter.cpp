@@ -3,6 +3,7 @@
 #include "ScanSegmentation.h"
 #include "ScanBoxes.h"
 #include "PointCleanNetFormatter.h"
+#include "PCDFormatter.h"
 #include <COGS/Scan.h>
 
 void Generate(int argc, char* argv[], ScanFormatter *formatter, bool trim = true)
@@ -38,16 +39,6 @@ void ProcessMask(int argc, char* argv[])
     }
 }
 
-/*
-int main(int argc, char* argv[])
-{
-    ScanImager formatter;
-    formatter.Import("scan_0.cogs", true);
-    formatter.GenerateInput("");
-    return 0;
-}
-*/
-
 
 int main(int argc, char* argv[])
 {
@@ -74,6 +65,11 @@ int main(int argc, char* argv[])
     {
         PointCleanNetFormatter formatter;
         Generate(argc, argv, &formatter);
+    }
+    else if ((std::string)argv[1] == "--pcd")
+    {
+        PCDFormatter formatter;
+        Generate(argc, argv, &formatter, false);
     }
     else if ((std::string)argv[1] == "--process")
     {

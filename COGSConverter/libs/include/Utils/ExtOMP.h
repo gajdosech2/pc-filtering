@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_EXT_OMP_H
+#define UTILS_EXT_OMP_H
 
 #include <functional>
 
@@ -35,3 +36,5 @@ namespace omp_ext
     return result;
   }
 }
+
+#endif /* !UTILS_EXT_OMP_H */

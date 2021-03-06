@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_THREADING_H
+#define UTILS_THREADING_H
 
 #include <string>
 
@@ -81,3 +82,5 @@ namespace utils
 #endif
 
 }
+
+#endif /* !UTILS_THREADING_H */

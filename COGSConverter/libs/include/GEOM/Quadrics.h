@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GEOM_QUADRICS_H
+#define GEOM_QUADRICS_H
 #include <Eigen/Core>
 
 namespace geom
@@ -12,3 +13,4 @@ namespace geom
     Eigen::VectorXf SolveSystem(Eigen::MatrixXf points, Eigen::MatrixXf normals, Eigen::VectorXf wPoints, Eigen::VectorXf wNormals);
   }
 }
+#endif /* !GEOM_QUADRICS_H */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_EIGEN_CONVERSIONS_H
+#define UTILS_EIGEN_CONVERSIONS_H
 #include <Eigen/Core>
 #include <Eigen/Eigen>
 #include <bullet3/LinearMath/btVector3.h>
@@ -9,7 +10,7 @@
 
 namespace utils
 {
-  //! Converts Eigen matrix to glm matrix
+  //! Converts Eigen matrix to glm matrix.
   template<typename T, int m, int n, typename OutT = float>
   inline glm::mat<m, n, OutT, glm::precision::highp> EigenToGlmMat(const Eigen::Matrix<T, m, n> &em)
   {
@@ -24,7 +25,7 @@ namespace utils
     return mat;
   }
 
-  //! Converts Eigen matrix to glm matrix
+  //! Converts glm matrix to Eigen matrix.
   template<typename T, int m, int n>
   inline Eigen::Matrix<T, m, n> GlmToEigenMat(const glm::mat<m, n, float, glm::precision::highp> &glm_mat)
   {
@@ -39,7 +40,7 @@ namespace utils
     return eigen_mat;
   }
 
-  //! Converts Eigen matrix to glm vector
+  //! Converts Eigen matrix to glm vector.
   template<typename T, int m>
   inline glm::vec<m, float, glm::precision::highp> EigenToGlmVec(const Eigen::Matrix<T, m, 1> &em)
   {
@@ -51,7 +52,7 @@ namespace utils
     return v;
   }
 
-  //! Converts Eigen quaternion to glm quaternion
+  //! Converts Eigen quaternion to glm quaternion.
   template<typename T>
   inline glm::quat EigenToGlmQuat(const Eigen::Quaternion<T> &q)
   {
@@ -62,7 +63,7 @@ namespace utils
         static_cast<float>(q.z()));
   }
 
-  //!Converts glm vector to Eigen vector
+  //! Converts glm vector to Eigen vector.
   inline Eigen::Vector3d GlmToEigenVec(const glm::vec3 &glm_vec)
   {
     Eigen::Vector3d eigen_vec;
@@ -71,6 +72,17 @@ namespace utils
       eigen_vec(j) = glm_vec[j];
     }
     return eigen_vec;
+  }
+
+  //! Converts glm quaternion to Eigen quaternion.
+  template<typename T>
+  Eigen::Quaternion<T> GlmToEigenQuat(const glm::quat &q)
+  {
+    return Eigen::Quaternion<T>(
+        static_cast<T>(q.w),
+        static_cast<T>(q.x),
+        static_cast<T>(q.y),
+        static_cast<T>(q.z));
   }
 
   //! Converts Eigen vector to bullet vector.
@@ -83,12 +95,15 @@ namespace utils
   }
 
   //! Converts Eigen quaternion to bullet quaternion.
-  inline btQuaternion EigenToBulletQuat(const Eigen::Quaterniond &eigen_quat)
+  template<typename T>
+  inline btQuaternion EigenToBulletQuat(const Eigen::Quaternion<T> &eigen_quat)
   {
     return btQuaternion(
-        static_cast<btScalar>(eigen_quat.w()),
         static_cast<btScalar>(eigen_quat.x()),
         static_cast<btScalar>(eigen_quat.y()),
-        static_cast<btScalar>(eigen_quat.z()));
+        static_cast<btScalar>(eigen_quat.z()),
+        static_cast<btScalar>(eigen_quat.w()));
   }
+
 }
+#endif /* !UTILS_EIGEN_CONVERSIONS_H */

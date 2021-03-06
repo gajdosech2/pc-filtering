@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_SKELETON_H
+#define COGS_SKELETON_H
 #include <map>
 #include <Utils/GeometryStructures.h>
 #include <COGS/SkeletonPose.h>
@@ -215,3 +216,5 @@ namespace cogs
   //! Returns bounding box wrapping all skeleton bones.
   COGS_API geom::Aabb3 GetAabb3(const Skeleton &skeleton);
 }
+
+#endif /* !COGS_SKELETON_H */

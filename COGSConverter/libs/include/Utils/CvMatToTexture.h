@@ -223,7 +223,7 @@ namespace utils
 
     texture->Unbind();
     return texture;
-  };
+  }
 
   cv::Mat TextureToMat(const glw::PTexture2D &texture, bool flip_vertically /*= false*/, const int mat_type /*= CV_8UC3*/)
   {

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef GEOM_MESHES_H
+#define GEOM_MESHES_H
 
 #include <vector>
 #include <set>
@@ -42,3 +43,4 @@ namespace geom
   GEOM_API glm::vec3 GetCentroid(std::vector<float> &vertices);
   GEOM_API glm::vec3 GetVertexLowestY(std::vector<float> &vertices);
 }
+#endif /* !GEOM_MESHES_H */

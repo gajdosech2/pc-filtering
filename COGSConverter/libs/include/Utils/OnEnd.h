@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_ON_END_H
+#define UTILS_ON_END_H
 #include <functional>
 
 namespace utils
@@ -59,3 +60,4 @@ namespace utils
     Callback F_;
   };
 }
+#endif /* !UTILS_ON_END_H */

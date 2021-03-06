@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_EXT_STD_H
+#define UTILS_EXT_STD_H
 #include <optional>
 #include <vector>
 #include <set>
@@ -35,9 +36,33 @@ namespace std_ext
   const std::string WHITESPACES = " \t\n\r\f\v";
 
 
+  inline void StringTo(const std::string &str, float &out)
+  {
+    out = std::stof(str);
+  }
+  inline void StringTo(const std::string &str, double &out)
+  {
+    out = std::stod(str);
+  }
+  inline void StringTo(const std::string &str, int32_t &out)
+  {
+    out = std::stoi(str);
+  }
+  inline void StringTo(const std::string &str, int64_t &out)
+  {
+    out = std::stol(str);
+  }
+  inline void StringTo(const std::string &str, uint32_t &out)
+  {
+    out = static_cast<unsigned>(std::stoul(str));
+  }
+  inline void StringTo(const std::string &str, uint64_t &out)
+  {
+    out = std::stoul(str);
+  }
+
   /*!
     \brief Convert single-byte std::string to std::wstring.
-    \note #TEMP This will be replaced with QString when we have moved to Qt library.
     \warning This only works if all the characters are single byte, i.e. ASCII or ISO-8859-1. Anything multi-byte will fail miserably, including UTF-8. (https://stackoverflow.com/a/8969776/2621721)
   */
   inline std::wstring ToWString(const std::string &text)
@@ -187,10 +212,10 @@ namespace std_ext
 
   //! Converts type to string with specified number of decimal digits.
   template <typename T>
-  inline std::string ToStringWithPrecision(const T a_value, const int n = 6)
+  inline std::string ToStringWithPrecision(const T value, const int n = 6)
   {
     std::ostringstream out;
-    out << std::setprecision(n) << a_value;
+    out << std::setprecision(n) << value;
     return out.str();
   }
 
@@ -644,22 +669,22 @@ namespace std_ext
 
 
   //! Insert the source vector to the back of target vector.
-  template <typename Type>
-  void InsertBack(std::vector<Type> &target, const std::vector<Type> &source)
+  template <typename T, typename S>
+  void InsertBack(T &target, const S &source)
   {
     target.insert(target.end(), source.begin(), source.end());
   }
 
   //! Insert the source vector to the front of target vector.
-  template <typename Type>
-  void InsertFront(std::vector<Type> &target, const std::vector<Type> &source)
+  template <typename T, typename S>
+  void InsertFront(T &target, const S &source)
   {
     target.insert(target.begin(), source.begin(), source.end());
   }
 
   //! Insert the source container to the target container.
-  template <typename TargerType, typename SopurceType>
-  void InsertTo(TargerType &target, const SopurceType &source)
+  template <typename T, typename S>
+  void InsertTo(T &target, const S &source)
   {
     target.insert(source.begin(), source.end());
   }
@@ -733,7 +758,7 @@ namespace std_ext
   template <typename T>
   inline void Read(T &val, std::istream &str)
   {
-    str.read((char *)(&val), sizeof(T));
+    str.read(reinterpret_cast<char *>(&val), sizeof(T));
   }
 
   //! Reads a value from the binary stream, number of bytes red is determined by a template type.
@@ -991,3 +1016,5 @@ namespace std_ext
     });
   }
 }
+
+#endif /* !UTILS_EXT_STD_H */

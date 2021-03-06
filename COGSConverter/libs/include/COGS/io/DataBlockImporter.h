@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_DATA_BLOCK_IMPORTER_H
+#define COGS_DATA_BLOCK_IMPORTER_H
 #include <unordered_map>
 #include <vector>
 #include <memory>
@@ -118,3 +119,5 @@ namespace cogs
 
   }
 }
+
+#endif /* !COGS_DATA_BLOCK_IMPORTER_H */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_DATA_BLOCK_MANAGER_H
+#define COGS_DATA_BLOCK_MANAGER_H
 #include <memory>
 #include <unordered_map>
 
@@ -76,3 +77,5 @@ namespace cogs
   }
 }
 
+
+#endif /* !COGS_DATA_BLOCK_MANAGER_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_IDENTIFIABLE_H
+#define UTILS_IDENTIFIABLE_H
 
 namespace utils
 {
@@ -25,3 +26,5 @@ namespace utils
     IdType id_;
   };
 }
+
+#endif /* !UTILS_IDENTIFIABLE_H */

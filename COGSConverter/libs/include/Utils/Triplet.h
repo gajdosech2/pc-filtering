@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_TRIPLET_H
+#define UTILS_TRIPLET_H
 #include <array>
 #include <Utils/ExtSTD.h>
 
@@ -127,3 +128,4 @@ namespace utils
   };
 
 }
+#endif /* !UTILS_TRIPLET_H */

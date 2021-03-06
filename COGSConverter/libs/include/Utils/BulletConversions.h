@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_BULLET_CONVERSIONS_H
+#define UTILS_BULLET_CONVERSIONS_H
 #include <bullet3/LinearMath/btVector3.h>
 #include <bullet3/LinearMath/btQuaternion.h>
 #include <glm/vec3.hpp>
@@ -50,3 +51,4 @@ namespace utils
   }
 
 }
+#endif /* !UTILS_BULLET_CONVERSIONS_H */

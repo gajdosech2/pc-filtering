@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_INI_PARSER_H
+#define UTILS_INI_PARSER_H
 #include <fstream>
 #include <Utils/ExtSTD.h>
 #include <Utils/ExtGLM.h>
@@ -45,7 +46,8 @@ namespace utils
 
       if (!ifs.is_open())
       {
-        throw std::runtime_error("Config file '" + file_name + "' was not found.");
+        ulog::Fail("Config file \"" + file_name + "\" was not found.");
+        return false;
       }
 
       std::string line;
@@ -290,3 +292,4 @@ namespace utils
   };
 
 }
+#endif /* !UTILS_INI_PARSER_H */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GEOM_API_H
+#define GEOM_API_H
 
 #ifdef _WIN32
 # ifdef GEOM_STATIC
@@ -11,3 +12,4 @@
 #else
 # define GEOM_API __attribute__ ((visibility("default")))
 #endif
+#endif /* !GEOM_API_H */

@@ -1,3 +1,11 @@
 *.idea
 *__pycache__
 *.ipynb_checkpoints
+
+FCNFilter/data/cogs/
+FCNFilter/process/
+FCNFilter/process - */
+FCNFilter/result/
+
+COGSConverter/.vs
+COGSConverter/out

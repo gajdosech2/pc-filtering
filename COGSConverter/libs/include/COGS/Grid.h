@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_GRID_H
+#define COGS_GRID_H
 #include <algorithm>
 
 #include <Utils/Exceptions.h>
@@ -205,3 +206,4 @@ namespace cogs
   };
 
 }
+#endif /* !COGS_GRID_H */

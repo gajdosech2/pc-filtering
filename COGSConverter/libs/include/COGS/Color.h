@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_COLOR_H
+#define COGS_COLOR_H
 #include <vector>
 #include <functional>
 
@@ -253,3 +254,5 @@ namespace cogs
     const Color3f STX_ORANGE = Color3b(255, 150, 73);
   }
 }
+
+#endif /* !COGS_COLOR_H */

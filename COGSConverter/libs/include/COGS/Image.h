@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_IMAGE_H
+#define COGS_IMAGE_H
 
 #include <string>
 #include <COGS/Color.h>
@@ -23,7 +24,7 @@ namespace cogs
 
     const cogs::Color4b GetPixel(int32_t x, int32_t y) const;
 
-    const void SetPixel(int32_t x, int32_t y, const cogs::Color3b &color);
+    void SetPixel(int32_t x, int32_t y, const cogs::Color3b &color);
 
   private:
     std::vector<cogs::Color4b> pixels_;
@@ -32,3 +33,5 @@ namespace cogs
     int32_t bpp_;
   };
 }
+
+#endif /* !COGS_IMAGE_H */

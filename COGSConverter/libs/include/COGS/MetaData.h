@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_META_DATA_H
+#define COGS_META_DATA_H
 
 #include <optional>
 #include <memory>
@@ -89,3 +90,5 @@ namespace cogs
     std::optional<CameraParams> camera_params;
   };
 }
+
+#endif /* !COGS_META_DATA_H */

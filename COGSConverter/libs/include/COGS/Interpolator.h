@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_INTERPOLATOR_H
+#define COGS_INTERPOLATOR_H
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
@@ -258,3 +259,5 @@ namespace cogs
   };
 
 }
+
+#endif /* !COGS_INTERPOLATOR_H */

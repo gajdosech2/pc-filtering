@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_ULOG_H
+#define UTILS_ULOG_H
 #include <Utils/API.h>
 #include <Utils/LogEntry.h>
 #include <Utils/StrongType.h>
@@ -25,7 +26,7 @@ namespace ulog
 
 
   //! Abstract class that can be inherited to create custom log message behavior.
-  class UTILS_API LogHandler
+  class LogHandler
   {
   public:
     //! Add message to the handler.
@@ -46,7 +47,18 @@ namespace ulog
     std_ext::AtomicQueue<ulog::Entry> entries_; //!< Unprocessed log entries.
   };
 
-
+  //! Log handler that ignores and discards all log messages.
+  class UTILS_API IgnorantHandler : public LogHandler
+  {
+  public:
+    IgnorantHandler() = default;
+    //! Creates the ignorant log handler, that ignores all messages with specied type or lower.
+    IgnorantHandler(ulog::Entry::Type maximal_ignored_type);
+    //! Add message to the handler.
+    void AddMessage(ulog::Entry::Type, ulog::Category, const std::string &, const std::string &) override;
+  private:
+    ulog::Entry::Type maximal_ignored_type_ = ulog::Entry::Type::info;
+  };
 
   //! Replaces current log handler with the new one. By default, messages are logged to std::cerr.
   UTILS_API void InstallHandler(const std::shared_ptr<LogHandler> &sink_to_use);
@@ -88,3 +100,5 @@ namespace ulog
 
 }
 
+
+#endif /* !UTILS_ULOG_H */

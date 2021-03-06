@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_STRONG_ID_H
+#define UTILS_STRONG_ID_H
 #include <vector>
 #include <string>
 #include <Utils/StrongType.h>
@@ -63,3 +64,5 @@ namespace utils
     }
   };
 }
+
+#endif /* !UTILS_STRONG_ID_H */

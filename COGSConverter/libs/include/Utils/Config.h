@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_CONFIG_H
+#define UTILS_CONFIG_H
 #include <Utils/IniParser.h>
 #include <Utils/Ulog.h>
 
@@ -146,3 +147,4 @@ private:
     return Self().parser_;
   }
 };
+#endif /* !UTILS_CONFIG_H */

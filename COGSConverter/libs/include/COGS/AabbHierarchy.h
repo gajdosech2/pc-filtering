@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_AABB_HIERARCHY_H
+#define COGS_AABB_HIERARCHY_H
 #include <memory>
 
 #include <Utils/GeometryStructures.h>
@@ -36,3 +37,4 @@ namespace cogs
     std::unique_ptr<TreeNode> tree;
   };
 }
+#endif /* !COGS_AABB_HIERARCHY_H */

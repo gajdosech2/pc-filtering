@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_API_H
+#define COGS_API_H
 
 #ifdef _WIN32
 # ifdef COGS_STATIC
@@ -14,3 +15,4 @@
 
 //! Namespace of "Computer Graphic Structures" library, which implement many core classes and structures.
 namespace cogs {}
+#endif /* !COGS_API_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_SERIALIZABLES_H
+#define UTILS_SERIALIZABLES_H
 
 #include <cereal/cereal.hpp>
 
@@ -60,3 +61,4 @@ namespace utils
   };
 
 }
+#endif /* !UTILS_SERIALIZABLES_H */

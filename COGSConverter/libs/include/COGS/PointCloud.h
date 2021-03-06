@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_POINT_CLOUD_H
+#define COGS_POINT_CLOUD_H
 #include <vector>
 #include <set>
 #include <unordered_map>
@@ -12,6 +13,7 @@
 
 #include <glm/glm.hpp>
 #include <Utils/GeometryStructures.h>
+#include <Utils/SpaceAndUnits.h>
 
 #include <COGS/DataType.h>
 #include <COGS/PointCloudProperty.h>
@@ -104,7 +106,7 @@ namespace cogs
         Memory for erased points is not released, you should call ShrinkToFit afterwards,
         to free excess memory.
       \param Predicate
-        The erase condition. A point is removed from the pointcloud if it returns true.
+        The erase condition. A point is removed from the point cloud if it returns true.
       \param replacement_map
         Optional output parameter - vector representing the mapping old_index->new_index.
     */
@@ -279,8 +281,25 @@ namespace cogs
     //! When property exists, returns the pointer to data of a template type, nullptr otherwise.
     template <typename T> [[nodiscard]] const T *GetData(const PointCloudProperty::Key &key) const;
 
-    //! Transforms point positions and normals
-    virtual void Transform(const glm::mat4 &transform);
+    /*!
+      \brief Transforms point positions and normals.
+      \param transformation   Transformation matrix applied on every point and camera parameter.
+      \param resulting_space  Resulting point cloud space after the transformation is applied.
+    */
+    virtual void Transform(
+      const glm::mat4 &transformation,
+      const std::optional<utils::SpaceDefinition> &resulting_space = std::nullopt);
+
+    //! Returns true, if there is a space defined for this structure.
+    bool HasSpace() const;
+    //! Returns current space definition, if there is one.
+    const std::optional<utils::SpaceDefinition> &GetSpace() const;
+    //! Returns string representation of current space definition. Returns "N/A" otherwise.
+    std::string GetSpaceId() const;
+    //! Assigns a new space definition to the structure, overwriting the previous one.
+    void SetSpace(const std::optional<utils::SpaceDefinition> &new_space);
+    //! Transforms the structure to the new space. Fails, if the current space is not defined.
+    bool TransformToSpace(const utils::SpaceDefinition &new_space);
 
   protected:
 
@@ -317,6 +336,7 @@ namespace cogs
     uint32_t size_;
     std::vector<PointCloudProperty> properties_;
     std::unordered_map<PointCloudProperty::Key, size_t> property_map_;
+    std::optional<utils::SpaceDefinition> space_definition_;
 
     //! Creates new property record without initialization.
     PointCloudProperty &AddProperty(
@@ -347,3 +367,5 @@ namespace cogs
 
 }
 
+
+#endif /* !COGS_POINT_CLOUD_H */

@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef GEOM_TRIANGULATION_H
+#define GEOM_TRIANGULATION_H
 #include <vector>
 
 #include <glm/glm.hpp>
@@ -22,3 +23,4 @@ namespace geom
   GEOM_API std::vector<glm::uvec3> GetDelaunayTrinagulation(const std::vector<glm::vec3> &points, const std::vector<std::vector<uint32_t>> &point_neighbours);
 #endif // FADE_ENABLE
 }
+#endif /* !GEOM_TRIANGULATION_H */

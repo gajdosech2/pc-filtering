@@ -4,7 +4,8 @@
   Proprietary and confidential
 */
 
-#pragma once
+#ifndef COGS_MESH_OPERATIONS_H
+#define COGS_MESH_OPERATIONS_H
 
 #include <COGS/API.h>
 #include <COGS/Mesh.h>
@@ -37,3 +38,5 @@ namespace cogs
   };
 
 }
+
+#endif /* !COGS_MESH_OPERATIONS_H */

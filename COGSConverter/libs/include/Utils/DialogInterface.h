@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_DIALOG_INTERFACE_H
+#define UTILS_DIALOG_INTERFACE_H
 
 #include <string>
 #include <optional>
@@ -22,3 +23,5 @@ public:
   virtual void ShowInfoMessage(const std::wstring &message, const std::wstring &title = L"Message") const = 0;
   virtual bool ShowConfirmationDialog(const std::wstring &message, const std::wstring &title = L"Confirmation") const = 0;
 };
+
+#endif /* !UTILS_DIALOG_INTERFACE_H */

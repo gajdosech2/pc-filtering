@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_TRIANGULATION_H
+#define COGS_TRIANGULATION_H
 #include <vector>
 
 #include <glm/gtc/type_ptr.hpp>
@@ -41,3 +42,4 @@ namespace cogs
   };
 
 }
+#endif /* !COGS_TRIANGULATION_H */

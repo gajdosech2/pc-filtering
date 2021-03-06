@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_KD_TREE_H
+#define COGS_KD_TREE_H
 #include <memory>
 #include <Utils/GeometryStructures.h>
 
@@ -39,3 +40,4 @@ namespace cogs
     uint32_t point_count_;
   };
 }
+#endif /* !COGS_KD_TREE_H */

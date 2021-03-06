@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_CLR_THREAD_HOLDER_H
+#define UTILS_CLR_THREAD_HOLDER_H
 #ifdef _WIN32
 #include <windows.h>
 #include <process.h>
@@ -97,3 +98,4 @@ namespace utils
 }
 
 #endif
+#endif /* !UTILS_CLR_THREAD_HOLDER_H */

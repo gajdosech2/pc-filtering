@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_API_H
+#define UTILS_API_H
 
 #ifdef _WIN32
 # ifdef UTILS_STATIC
@@ -11,3 +12,4 @@
 #else
 # define UTILS_API __attribute__ ((visibility("default")))
 #endif
+#endif /* !UTILS_API_H */

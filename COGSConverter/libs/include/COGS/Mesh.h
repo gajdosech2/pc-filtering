@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_MESH_H
+#define COGS_MESH_H
 #include <memory>
 
 #include <COGS/PointCloud.h>
@@ -55,3 +56,5 @@ namespace cogs
   cogs::Mesh COGS_API JoinMeshes(const std::vector<cogs::Mesh> &meshes_to_join);
 
 }
+
+#endif /* !COGS_MESH_H */

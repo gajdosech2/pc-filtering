@@ -140,7 +140,7 @@ if __name__ == "__main__":
     inference()
     cogs_files()
     stop = time.time()
-    evaluation()
+    #evaluation()
     clean_up()
     print(f"Elapsed time: {stop - start} seconds")
 

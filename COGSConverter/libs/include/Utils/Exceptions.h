@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef UTILS_EXCEPTIONS_H
+#define UTILS_EXCEPTIONS_H
 
 #include <stdexcept>
 #include <Utils/Ulog.h>
@@ -43,3 +44,5 @@ namespace std_ext
   };
 
 }
+
+#endif /* !UTILS_EXCEPTIONS_H */

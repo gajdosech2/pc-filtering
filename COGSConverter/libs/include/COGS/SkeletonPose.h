@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COGS_SKELETON_POSE_H
+#define COGS_SKELETON_POSE_H
 #include <COGS/BoneTransform.h>
 
 namespace cogs
@@ -21,3 +22,4 @@ namespace cogs
     void InterpolateWith(const SkeletonPose &target_pose, float target_weight, SkeletonPose *out_pose) const;
   };
 }
+#endif /* !COGS_SKELETON_POSE_H */

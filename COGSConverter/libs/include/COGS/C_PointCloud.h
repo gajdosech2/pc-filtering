@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef COGS_C_POINT_CLOUD_H
+#define COGS_C_POINT_CLOUD_H
 #include <glm/glm.hpp>
 #include <COGS/DataType.h>
 #include <COGS/API.h>
@@ -199,3 +200,5 @@ namespace cogs
 
 }
 
+
+#endif /* !COGS_C_POINT_CLOUD_H */

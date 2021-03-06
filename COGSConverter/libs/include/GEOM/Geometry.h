@@ -3,7 +3,8 @@
   Unauthorized copying of this file, via any medium is strictly prohibited
   Proprietary and confidential
 */
-#pragma once
+#ifndef GEOM_GEOMETRY_H
+#define GEOM_GEOMETRY_H
 
 #include <Utils/GeometryStructures.h>
 
@@ -11,65 +12,81 @@
 
 namespace geom
 {
-  // inflate each side of rectangle by specified margin
+  //! Inflate each side of the rectangle by specified margin.
   template <typename T>
   void InflateRectangle(geom::TRect<T> &rect, const T margin)
   {
     rect.x -= margin;
     rect.y -= margin;
-    rect.width += 2 * margin;
-    rect.height += 2 * margin;
+    rect.width += static_cast<T>(2) * margin;
+    rect.height += static_cast<T>(2) * margin;
   }
 
-  // deflate each side of rectangle by specified margin
+  //! Deflate each side of the rectangle by specified margin.
   template <typename T>
   void DeflateRectangle(geom::TRect<T> &rect, const T margin)
   {
     rect.x += margin;
     rect.y += margin;
-    rect.width -= 2 * margin;
-    rect.height -= 2 * margin;
+    rect.width -= static_cast<T>(2) * margin;
+    rect.height -= static_cast<T>(2) * margin;
   }
 
+  //! Fit a 3D plane to the point set.
+  GEOM_API Plane FitPlane(const std::vector<glm::vec3> &points);
 
-  /*
-      Returns parameter telling interpolation parameter of point projection on line.
-      Resulting parameter of value 0 tells the projection lays on segment line point1, and value 1 tells the projection lays on segment line point2.
+  //! Calculate mean point of the point set.
+  GEOM_API glm::vec3 GetCentroid(const std::vector<glm::vec3> &points);
+
+  /*!
+      \brief    Calculate interpolation parameter of point projection onto the line segment.
+      \return   Parameter value between -inf and inf.
+
+      Resulting parameter of value 0 tells the projection lays on segment line point1,
+      and value 1 tells the projection lays on segment line point2.
       Anything between 0 and 1 tells the point projection lays directly on line segment */
   GEOM_API float GetProjectionParameter(const glm::vec3 &point, const geom::LineSegment3 &line_segment);
 
-  /*
-      Returns parameter telling interpolation parameter of point projection on line.
-      Resulting parameter of value 0 tells the projection lays on segment line point1, and value 1 tells the projection lays on segment line point2.
+  /*!
+      \brief    Calculate interpolation parameter of point projection onto the line segment.
+      \return   Parameter value between 0 and 1.
+
+      Resulting parameter of value 0 tells the projection lays on segment line point1,
+      and value 1 tells the projection lays on segment line point2.
       Anything between 0 and 1 tells the point projection lays directly on line segment */
   GEOM_API float GetProjectionParameterClamped(const glm::vec3 &point, const geom::LineSegment3 &line_segment);
 
   //! Calculates the oriented distance of point to a plane. The value is positive if the point lies in the half-space pointed to by the plane normal.
   GEOM_API float GetOrientedDistance(const glm::vec3 &point, const Plane &plane);
 
-  // calculates a distance of point to a line
+  //! Calculates a distance of the point to the 3D line segment.
   GEOM_API float GetDistance(const glm::vec3 &point, const geom::LineSegment3 &line);
 
-  //! Calculate the distance of a point from plane.
+  //! Calculate the distance of the point from the plane.
   GEOM_API float GetDistance(const glm::vec3 &point, const Plane &plane);
 
+  //! Calculate the distance of the point from the 3D line.
   GEOM_API float GetDistance(const glm::vec3 &point, const geom::Line3 &line);
 
-  // distance of point to the capsule surface
-  // returns negative distance when point is inside capsule, zero when it is on surface and positive value otherwise
+  /*!
+    \brief    Calculate distance of point to the capsule surface.
+    \return   Negative distance when point is inside capsule,
+              zero when it is on surface and positive value otherwise. */
   GEOM_API float GetDistance(const glm::vec3 &point, const ConicalCapsule &conical_capsuile);
 
-  GEOM_API glm::vec3 GetProjection(const glm::vec3 &point, const ConicalCapsule &capsule);
+  //! Calculate projection of point onto a plane.
+  GEOM_API glm::vec3 GetProjection(const glm::vec3 &point, const Plane &plane);
 
+  //! Calculate projection of point onto a line segment in 3D.
   GEOM_API glm::vec3 GetProjection(const glm::vec3 &point, const LineSegment3 &line_segment);
 
+  //! Calculate projection of point onto a line in 3D.
   GEOM_API glm::vec3 GetProjection(const glm::vec3 &point, const Line3 &line);
 
-  // return whether a primitive contains specified point
-  GEOM_API bool Contains(const Aabb3 &aabb, const glm::vec3 &point);
+  //! Calculate projection of point onto a ConicalCapsule.
+  GEOM_API glm::vec3 GetProjection(const glm::vec3 &point, const ConicalCapsule &capsule);
 
-  //float LineLineClosestsPoints(const geom::LineSegment3 &line1, const geom::LineSegment3 &line2, glm::vec3 *point1, glm::vec3 *point2);
-
+  //! Get intersection point between two 2D planes.
   GEOM_API std::optional<glm::vec2> GetIntersection(const geom::Line2 &line1, const geom::Line2 &line2);
 
   GEOM_API bool GetIntersection(const geom::Line2 &line1, const geom::Line2 &line2, glm::vec2 *out_intersection_point);
@@ -82,7 +99,7 @@ namespace geom
 
   GEOM_API glm::vec3 Barycentric(const glm::vec3 &p, const Triangle3 &triangle);
 
-  struct GEOM_API CollisionResult
+  struct CollisionResult
   {
   public:
     bool is_collision;
@@ -97,3 +114,4 @@ namespace geom
 
   GEOM_API bool IsTriangleFacingToPoint(const glm::vec3 &point, const geom::Triangle3 &triangle);
 }
+#endif /* !GEOM_GEOMETRY_H */
