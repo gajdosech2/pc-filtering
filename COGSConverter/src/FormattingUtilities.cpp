@@ -40,6 +40,7 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
     }
     new_scan.Reserve(new_resolution.x * new_resolution.y);
     new_scan.SetCameraPosition(scan.GetCameraPosition());
+    new_scan.SetSpace(scan.GetSpace());
 
     for (uint32_t y = 0; y < new_resolution.y; y++)
     {
@@ -73,9 +74,4 @@ void FormattingUtilities::Trim(cogs::Scan &scan, bool use_last)
         Trim(scan, FindTrimValues(scan));
     }
 }
-
-void FormattingUtilities::Pad(cogs::Scan &scan, int size)
-{
-}
-
 

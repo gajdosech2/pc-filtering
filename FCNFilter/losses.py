@@ -1,13 +1,10 @@
-"""
-https://github.com/umbertogriffo/focal-loss-keras
-"""
 import numpy as np
 from keras import backend as K
 import tensorflow as tf
 
 
 
-def weighted_binary_crossentropy(alpha=25.0):
+def weighted_binary_crossentropy(alpha=10.0):
 
     def weighted_binary_crossentropy_fixed(y_true, y_pred):
         y_pred = tf.convert_to_tensor(y_pred)
@@ -36,6 +33,9 @@ def scaled_binary_crossentropy(alpha=0.52):
     return scaled_binary_crossentropy_fixed
 
 
+"""
+https://github.com/umbertogriffo/focal-loss-keras
+"""
 def binary_focal_loss(gamma=5., alpha=.25):
     """
     Binary form of focal loss.

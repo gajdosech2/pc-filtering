@@ -28,12 +28,12 @@ def skippy(i):
     c3 = Conv2D(48, 5, activation=LeakyReLU(), padding='same') (p2)
     c3 = Conv2D(48, 5, activation=LeakyReLU(), padding='same') (c3)   
     
-    u4 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c3)
+    u4 = Conv2DTranspose(24, 2, strides=(2, 2), padding='same') (c3)
     u4 = concatenate([u4, c2])
     c4 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (u4)
     c4 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (c4)
     
-    u5 = Conv2DTranspose(8, 2, strides=(2, 2), padding='same') (c4)
+    u5 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c4)
     u5 = concatenate([u5, c1])
     c5 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (u5)
     c5 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c5)
@@ -62,7 +62,7 @@ def skip(i):
     c5 = Conv2D(64, 3, activation=LeakyReLU(), padding='same') (p4)
     c5 = Conv2D(64, 3, activation=LeakyReLU(), padding='same') (c5)
 
-    u6 = Conv2DTranspose(64, 2, strides=(2, 2), padding='same') (c5)
+    u6 = Conv2DTranspose(48, 2, strides=(2, 2), padding='same') (c5)
     u6 = concatenate([u6, c4])
     c6 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (u6)
     c6 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (c6)
@@ -114,15 +114,15 @@ def simple(i):
 
 def generate_model(channels=5):
     i = Input(shape=(None, None, channels))
-    o = skippy(i)
+    o = skip(i)
    
     model = Model(inputs=i, outputs=o)
     
     print(model.summary())
     print('Total number of layers: {}'.format(len(model.layers)))
 
-    model.compile(optimizer='adam', # optimizer='rmsprop' optimizer=Adam(lr=0.0001)
-                  loss=binary_focal_loss(alpha=.05, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
+    model.compile(optimizer=Adam(lr=1e-6), # optimizer='rmsprop' optimizer=Adam(lr=1e-6)
+                  loss=binary_focal_loss(alpha=0.06, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
                   metrics=[#'accuracy',
                   Precision(),
                   Recall(),

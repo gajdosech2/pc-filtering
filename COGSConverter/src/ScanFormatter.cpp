@@ -7,6 +7,8 @@
 bool ScanFormatter::Import(std::string path, bool trim)
 {
     data_.Import(path);
+    //data_.SetSpace(utils::PHOXI_MARKER_SPACE);
+    //data_.TransformToSpace(utils::COGS_CAMERA_SPACE);
     if (trim)
     {
         FormattingUtilities::Trim(data_);

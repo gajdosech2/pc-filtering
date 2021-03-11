@@ -13,6 +13,7 @@ void ScanImager::GenerateInput(std::string out_path)
     }
     GenerateIntensityMap(out_path);
     GenerateDepthMap(out_path);
+    GenerateBinaryMap(data_, out_path, "_binarymap.png");
 }
 
 void ScanImager::GenerateTruth(std::string truth_path, std::string out_path)
@@ -34,9 +35,9 @@ void ScanImager::ProcessPrediction(std::string original_path, std::string predic
     scan.Import(original_path);
     auto trim_values = FormattingUtilities::FindTrimValues(scan);
     std::vector<uint32_t> to_delete;
-    for (uint32_t y = 0; y < height; y++)
+    for (unsigned y = 0; y < height; y++)
     {
-        for (uint32_t x = 0; x < width; x++)
+        for (unsigned x = 0; x < width; x++)
         {
             auto val = image[4 * width * y + 4 * x + 0];
             if (scan.IsPointAt(x + trim_values.min_x, y + trim_values.min_y) && val == 0)
@@ -54,16 +55,18 @@ void ScanImager::GenerateNormalMap(std::string out_path)
 {
     if (!out_path.empty()) out_path = out_path + "/";
 
-    auto a = (255) / (max_normal_ - min_normal_);
-    auto b = 255 - a * max_normal_;
+    const auto width = data_.GetWidth();
+    const auto height = data_.GetHeight();
 
-    auto width = data_.GetWidth();
-    auto height = data_.GetHeight();
+    const float a = (254) / (max_normal_ - min_normal_);
+    const float b = (254) - a * max_normal_;
+
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
     {
-        for (unsigned x = 0; x < width; x++) {
+        for (unsigned x = 0; x < width; x++)
+        {
             int nx, ny, nz;
             if (data_.IsPointAt(x, y))
             {
@@ -76,9 +79,9 @@ void ScanImager::GenerateNormalMap(std::string out_path)
             {
                 nx = ny = nz = 0;
             }
-            image[4 * width * y + 4 * x + 0] = nx;
-            image[4 * width * y + 4 * x + 1] = ny;
-            image[4 * width * y + 4 * x + 2] = nz;
+            image[4 * width * y + 4 * x + 0] = nx + 1;
+            image[4 * width * y + 4 * x + 1] = ny + 1;
+            image[4 * width * y + 4 * x + 2] = nz + 1;
             image[4 * width * y + 4 * x + 3] = 255;
         }
     }
@@ -90,27 +93,27 @@ void ScanImager::GenerateIntensityMap(std::string out_path)
 {
     if (!out_path.empty()) out_path = out_path + "/";
 
-    const int gray_levels = 255;
     const auto width = data_.GetWidth();
     const auto height = data_.GetHeight();
    
-    const float a = (gray_levels * 2) / (max_intensity_ - min_intensity_);
-    const float b = (gray_levels * 2) - a * max_intensity_;
+    const float a = (254 * 2) / (max_intensity_ - min_intensity_);
+    const float b = (254 * 2) - a * max_intensity_;
 
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
     {
-        for (unsigned x = 0; x < width; x++) {
+        for (unsigned x = 0; x < width; x++) 
+        {
             int n_i = 0;
             if (data_.IsPointAt(x, y))
             {
                 auto id = data_.GetPointAt(x, y);
-                n_i = std::min(255, (int)(a * data_.GetIntensities()[id] + b));
+                n_i = std::min(254, (int)(a * data_.GetIntensities()[id] + b));
             }
-            image[4 * width * y + 4 * x + 0] = n_i;
-            image[4 * width * y + 4 * x + 1] = n_i;
-            image[4 * width * y + 4 * x + 2] = n_i;
+            image[4 * width * y + 4 * x + 0] = n_i + 1;
+            image[4 * width * y + 4 * x + 1] = n_i + 1;
+            image[4 * width * y + 4 * x + 2] = n_i + 1;
             image[4 * width * y + 4 * x + 3] = 255;
         }
     }
@@ -122,18 +125,16 @@ void ScanImager::GenerateDepthMap(std::string out_path)
 {
     if (!out_path.empty()) out_path = out_path + "/";
 
-    const int gray_levels = 255;
     const auto width = data_.GetWidth();
     const auto height = data_.GetHeight();
 
-    const float a = (gray_levels) / (max_camdist_ - min_camdist_);
-    const float b = (gray_levels) - a * max_camdist_;
+    const float a = (254) / (max_camdist_ - min_camdist_);
+    const float b = (254) - a * max_camdist_;
+
+    const auto cam_pos = data_.GetCameraPosition();
 
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
-
-    auto cam_pos = data_.GetCameraPosition();
-
     for (unsigned y = 0; y < height; y++)
     {
         for (unsigned x = 0; x < width; x++) {
@@ -142,11 +143,11 @@ void ScanImager::GenerateDepthMap(std::string out_path)
             if (data_.IsPointAt(x, y))
             {
                 auto id = data_.GetPointAt(x, y);
-                n_d = 255 - std::min(255, (int)(a * glm::distance(cam_pos, data_.GetPositions()[id]) + b));
+                n_d = 254 - std::min(254, (int)(a * glm::distance(cam_pos, data_.GetPositions()[id]) + b));
             }
-            image[4 * width * y + 4 * x + 0] = n_d;
-            image[4 * width * y + 4 * x + 1] = n_d;
-            image[4 * width * y + 4 * x + 2] = n_d;
+            image[4 * width * y + 4 * x + 0] = n_d + 1;
+            image[4 * width * y + 4 * x + 1] = n_d + 1;
+            image[4 * width * y + 4 * x + 2] = n_d + 1;
             image[4 * width * y + 4 * x + 3] = 255;
         }
     }
@@ -154,17 +155,19 @@ void ScanImager::GenerateDepthMap(std::string out_path)
     if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path)
+void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path, std::string file_suffix)
 {
     if (!out_path.empty()) out_path = out_path + "/";
     
     const auto width = scan.GetWidth();
     const auto height = scan.GetHeight();
+
     std::vector<unsigned char> image;
     image.resize(width * height * 4);
     for (unsigned y = 0; y < height; y++)
     { 
-        for (unsigned x = 0; x < width; x++) {
+        for (unsigned x = 0; x < width; x++) 
+        {
             int value = scan.IsPointAt(x, y) * 255;
             image[4 * width * y + 4 * x + 0] = value;
             image[4 * width * y + 4 * x + 1] = value;
@@ -172,7 +175,50 @@ void ScanImager::GenerateBinaryMap(cogs::Scan scan, std::string out_path)
             image[4 * width * y + 4 * x + 3] = 255;
         }
     }
-    unsigned error = lodepng::encode(out_path + file_name_ + "_truthmask.png", image, width, height);
+    unsigned error = lodepng::encode(out_path + file_name_ + file_suffix, image, width, height);
+    if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+}
+
+void ScanImager::GenerateCombinedMap(std::string out_path)
+{
+    if (!out_path.empty()) out_path = out_path + "/";
+
+    const float  a_n = (254) / (max_normal_ - min_normal_);
+    const float b_n = 254 - a_n * max_normal_;
+
+    const float a_d = (254) / (max_camdist_ - min_camdist_);
+    const float b_d = 254 - a_d * max_camdist_;
+
+    const auto width = data_.GetWidth();
+    const auto height = data_.GetHeight();
+    const auto cam_pos = data_.GetCameraPosition();
+
+    std::vector<unsigned char> image;
+    image.resize(width * height * 4);
+    for (unsigned y = 0; y < height; y++)
+    {
+        for (unsigned x = 0; x < width; x++) 
+        {
+            int nx, ny, nz, d;
+            if (data_.IsPointAt(x, y))
+            {
+                auto id = data_.GetPointAt(x, y);
+                nx = std::max(0, (int)(a_n * data_.GetNormals()[id].x + b_n));
+                ny = std::max(0, (int)(a_n * data_.GetNormals()[id].y + b_n));
+                nz = std::max(0, (int)(a_n * data_.GetNormals()[id].z + b_n));
+                d = 254 - std::min(254, (int)(a_d * glm::distance(cam_pos, data_.GetPositions()[id]) + b_d));
+            }
+            else
+            {
+                nx = ny = nz = d = 0;
+            }
+            image[4 * width * y + 4 * x + 0] = nx + 1;
+            image[4 * width * y + 4 * x + 1] = ny + 1;
+            image[4 * width * y + 4 * x + 2] = nz + 1;
+            image[4 * width * y + 4 * x + 3] = d + 1;
+        }
+    }
+    unsigned error = lodepng::encode(out_path + file_name_ + "_datamap.png", image, width, height);
     if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
@@ -185,10 +231,10 @@ void ScanImager::FindNormalizingValues()
     min_camdist_ = std::numeric_limits<float>::max();
     max_camdist_ = std::numeric_limits<float>::min();
     
-    auto cam_pos = data_.GetCameraPosition();
-    for (uint32_t y = 0; y < data_.GetHeight(); y++)
+    const auto cam_pos = data_.GetCameraPosition();
+    for (unsigned y = 0; y < data_.GetHeight(); y++)
     {
-        for (uint32_t x = 0; x < data_.GetWidth(); x++)
+        for (unsigned x = 0; x < data_.GetWidth(); x++)
         {
             if (data_.IsPointAt(x, y))
             {

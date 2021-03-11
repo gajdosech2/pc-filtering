@@ -22,6 +22,7 @@ def train(model, train_generator, val_generator, epochs=50):
 
 if __name__ == "__main__":
     model = generate_model(channels=5)
+    model.load_weights("weights.keras")
 
     train_dir = 'data/train'
     val_dir = 'data/val'
@@ -30,7 +31,7 @@ if __name__ == "__main__":
     train_generator = Generator(train_dir, BATCH_SIZE)
     val_generator = Generator(val_dir, BATCH_SIZE)
 
-    EPOCHS = 12
+    EPOCHS = 32
     start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
     print(f"Elapsed time: {time.time() - start} seconds")

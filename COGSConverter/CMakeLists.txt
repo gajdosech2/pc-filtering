@@ -21,7 +21,7 @@ add_executable(${PROJECT_NAME}
     include/ScanFormatter.h
     include/ScanImager.h
     include/ScanSegmentation.h
-    include/ScanTabler.h
+    
 
     src/COGSConverter.cpp
     src/FormattingUtilities.cpp
@@ -30,7 +30,7 @@ add_executable(${PROJECT_NAME}
     src/ScanFormatter.cpp
     src/ScanImager.cpp
     src/ScanSegmentation.cpp
-)
+ "src/PCDFormatter.cpp")
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 

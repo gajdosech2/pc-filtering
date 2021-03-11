@@ -61,7 +61,3 @@ void PointCleanNetFormatter::GenerateTruth(std::string truth_path, std::string o
     std::cout << t << "/" << o << std::endl;
     outliers.close();
 }
-
-void PointCleanNetFormatter::ProcessPrediction(std::string original_path, std::string prediction_path, std::string out_path)
-{
-}

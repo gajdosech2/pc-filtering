@@ -60,48 +60,6 @@ void ScanBoxes::GenerateInput(std::string out_path)
     GenerateCombinedMap(out_path);
 }
 
-void ScanBoxes::GenerateCombinedMap(std::string out_path)
-{
-    if (!out_path.empty()) out_path = out_path + "/";
-
-    const float  a_n = (255) / (max_normal_ - min_normal_);
-    const float b_n = 255 - a_n * max_normal_;
-
-    const float a_d = (255) / (max_camdist_ - min_camdist_);
-    const float b_d = 255 - a_d * max_camdist_;
-
-    auto width = data_.GetWidth();
-    auto height = data_.GetHeight();
-    auto cam_pos = data_.GetCameraPosition();
-
-    std::vector<unsigned char> image;
-    image.resize(width * height * 4);
-
-    for (unsigned y = 0; y < height; y++)
-    {
-        for (unsigned x = 0; x < width; x++) {
-            int nx, ny, nz, d;
-            if (data_.IsPointAt(x, y))
-            {
-                auto id = data_.GetPointAt(x, y);
-                nx = std::max(0, (int)(a_n * data_.GetNormals()[id].x + b_n));
-                ny = std::max(0, (int)(a_n * data_.GetNormals()[id].y + b_n));
-                nz = std::max(0, (int)(a_n * data_.GetNormals()[id].z + b_n));
-                d = 255 - std::min(255, (int)(a_d * glm::distance(cam_pos, data_.GetPositions()[id]) + b_d));
-            }
-            else
-            {
-                nx = ny = nz = d = 0;
-            }
-            image[4 * width * y + 4 * x + 0] = nx;
-            image[4 * width * y + 4 * x + 1] = ny;
-            image[4 * width * y + 4 * x + 2] = nz;
-            image[4 * width * y + 4 * x + 3] = d;
-        }
-    }
-    unsigned error = lodepng::encode(out_path + file_name_ + "_datamap.png", image, width, height);
-    if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
-}
 
 void ScanBoxes::GenerateTruth(std::string truth_path, std::string out_path)
 {

@@ -2,6 +2,7 @@
 #include <string>
 #include "ScanImager.h"
 
+
 class ScanSegmentation : public ScanImager
 {
 public:
