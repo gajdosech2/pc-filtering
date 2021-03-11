@@ -12,6 +12,6 @@ private:
 	// should rescale the output images into DIMxDIM
 public:
 	void GenerateInput(std::string out_path) override;
-
+	void GenerateCombinedMap(std::string out_path);
 	void GenerateTruth(std::string truth_path, std::string out_path="") override;
 };

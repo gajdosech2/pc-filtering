@@ -1,6 +1,7 @@
 import os
-#os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+#os.environ['KERAS_BACKEND'] = 'plaidml.keras.backend'
 
+from keras.metrics import *
 from keras import backend as K
 from keras.optimizers import Adam
 from keras.models import Model, load_model
@@ -9,132 +10,130 @@ from keras.layers.core import Lambda
 from keras.layers.convolutional import Conv2D, Conv2DTranspose
 from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
+from keras.layers import LeakyReLU
+
+from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, binary_focal_loss
 
 import tensorflow as tf
 
 def skippy(i):
-    c1 = Conv2D(8, 3, activation='relu', padding='same') (i)
-    c1 = Conv2D(8, 3, activation='relu', padding='same') (c1)
+    c1 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (i)
+    c1 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c1)
     p1 = MaxPooling2D(2) (c1)
 
-    c2 = Conv2D(16, 3, activation='relu', padding='same') (p1)
-    c2 = Conv2D(16, 3, activation='relu', padding='same') (c2)
+    c2 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (p1)
+    c2 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (c2)
     p2 = MaxPooling2D(2) (c2)
     
-    c3 = Conv2D(32, 5, activation='relu', padding='same') (p2)
-    c3 = Conv2D(32, 5, activation='relu', padding='same') (c3)   
+    c3 = Conv2D(48, 5, activation=LeakyReLU(), padding='same') (p2)
+    c3 = Conv2D(48, 5, activation=LeakyReLU(), padding='same') (c3)   
     
     u4 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c3)
     u4 = concatenate([u4, c2])
-    c4 = Conv2D(16, 3, activation='relu', padding='same') (u4)
-    c4 = Conv2D(16, 3, activation='relu', padding='same') (c4)
+    c4 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (u4)
+    c4 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (c4)
     
     u5 = Conv2DTranspose(8, 2, strides=(2, 2), padding='same') (c4)
     u5 = concatenate([u5, c1])
-    c5 = Conv2D(8, 3, activation='relu', padding='same') (u5)
-    c5 = Conv2D(8, 3, activation='relu', padding='same') (c5)
+    c5 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (u5)
+    c5 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c5)
     
     o = Conv2D(1, 1, activation='sigmoid') (c5)
     return o
     
 
 def skip(i):
-    c1 = Conv2D(8, (3, 3), activation='relu', padding='same') (i)
-    c1 = Conv2D(8, (3, 3), activation='relu', padding='same') (c1)
-    p1 = MaxPooling2D((2, 2)) (c1)
+    c1 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (i)
+    c1 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (c1)
+    p1 = MaxPooling2D(2) (c1)
 
-    c2 = Conv2D(16, (3, 3), activation='relu', padding='same') (p1)
-    c2 = Conv2D(16, (3, 3), activation='relu', padding='same') (c2)
-    p2 = MaxPooling2D((2, 2)) (c2)
+    c2 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (p1)
+    c2 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c2)
+    p2 = MaxPooling2D(2) (c2)
 
-    c3 = Conv2D(32, (3, 3), activation='relu', padding='same') (p2)
-    c3 = Conv2D(32, (3, 3), activation='relu', padding='same') (c3)
-    p3 = MaxPooling2D((2, 2)) (c3)
+    c3 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (p2)
+    c3 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (c3)
+    p3 = MaxPooling2D(2) (c3)
 
-    c4 = Conv2D(64, (3, 3), activation='relu', padding='same') (p3)
-    c4 = Conv2D(64, (3, 3), activation='relu', padding='same') (c4)
-    p4 = MaxPooling2D(pool_size=(2, 2)) (c4)
+    c4 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (p3)
+    c4 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (c4)
+    p4 = MaxPooling2D(2) (c4)
 
-    c5 = Conv2D(128, (3, 3), activation='relu', padding='same') (p4)
-    c5 = Conv2D(128, (3, 3), activation='relu', padding='same') (c5)
+    c5 = Conv2D(64, 3, activation=LeakyReLU(), padding='same') (p4)
+    c5 = Conv2D(64, 3, activation=LeakyReLU(), padding='same') (c5)
 
-    u6 = Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same') (c5)
+    u6 = Conv2DTranspose(64, 2, strides=(2, 2), padding='same') (c5)
     u6 = concatenate([u6, c4])
-    c6 = Conv2D(64, (3, 3), activation='relu', padding='same') (u6)
-    c6 = Conv2D(64, (3, 3), activation='relu', padding='same') (c6)
+    c6 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (u6)
+    c6 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (c6)
 
-    u7 = Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same') (c6)
+    u7 = Conv2DTranspose(32, 2, strides=(2, 2), padding='same') (c6)
     u7 = concatenate([u7, c3])
-    c7 = Conv2D(32, (3, 3), activation='relu', padding='same') (u7)
-    c7 = Conv2D(32, (3, 3), activation='relu', padding='same') (c7)
+    c7 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (u7)
+    c7 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (c7)
 
-    u8 = Conv2DTranspose(16, (2, 2), strides=(2, 2), padding='same') (c7)
+    u8 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c7)
     u8 = concatenate([u8, c2])
-    c8 = Conv2D(16, (3, 3), activation='relu', padding='same') (u8)
-    c8 = Conv2D(16, (3, 3), activation='relu', padding='same') (c8)
+    c8 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (u8)
+    c8 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c8)
 
-    u9 = Conv2DTranspose(8, (2, 2), strides=(2, 2), padding='same') (c8)
-    u9 = concatenate([u9, c1], axis=3)
-    c9 = Conv2D(8, (3, 3), activation='relu', padding='same') (u9)
-    c9 = Conv2D(8, (3, 3), activation='relu', padding='same') (c9)
+    u9 = Conv2DTranspose(8, 2, strides=(2, 2), padding='same') (c8)
+    u9 = concatenate([u9, c1])
+    c9 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (u9)
+    c9 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (c9)
 
-    o = Conv2D(1, (1, 1), activation='sigmoid') (c9)
-    #o = Reshape((-1,))(o)
+    o = Conv2D(1, 1, activation='sigmoid') (c9)
     return o
 
 def autoencoder(i):
-    x = Conv2D(filters=16, kernel_size=3, padding = "same", activation='relu')(i)
-    x = MaxPooling2D(pool_size=2, strides=(2,2))(x)
+    x = Conv2D(filters=16, kernel_size=3, padding='same', activation=LeakyReLU())(i)
+    x = MaxPooling2D(pool_size=2, strides=(2, 2))(x)
     
-    x = Conv2D(filters=32, kernel_size=3, padding = "same", activation='relu')(x)
-    x = MaxPooling2D(pool_size=2, strides=(2,2))(x)
+    x = Conv2D(filters=32, kernel_size=3, padding='same', activation=LeakyReLU())(x)
+    x = MaxPooling2D(pool_size=2, strides=(2, 2))(x)
     
-    x = Conv2D(filters=64, kernel_size=5, padding = "same", activation='relu')(x)
-    
-    x = UpSampling2D(size=2)(x)
-    x = Conv2D(filters=32, kernel_size=3, padding = "same", activation='relu')(x)
+    x = Conv2D(filters=64, kernel_size=5, padding='same', activation=LeakyReLU())(x)
     
     x = UpSampling2D(size=2)(x)
-    x = Conv2D(filters=16, kernel_size=3, padding = "same", activation='relu')(x)
+    x = Conv2D(filters=32, kernel_size=3, padding='same', activation=LeakyReLU())(x)
+    
+    x = UpSampling2D(size=2)(x)
+    x = Conv2D(filters=16, kernel_size=3, padding='same', activation=LeakyReLU())(x)
     
     o = Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x) 
-    
     return o
 
 def simple(i):
-    x = Conv2D(filters=8, kernel_size=3, padding = "same", activation='relu')(i)
-    x = Conv2D(filters=16, kernel_size=5, padding = "same", activation='relu')(x)
-    x = Conv2D(filters=32, kernel_size=7, padding = "same", activation='relu')(x)
-    x = Conv2D(filters=64, kernel_size=3, padding = "same", activation='relu')(x)
+    x = Conv2D(filters=8, kernel_size=3, padding='same', activation=LeakyReLU())(i)
+    x = Conv2D(filters=16, kernel_size=5, padding='same', activation=LeakyReLU())(x)
+    x = Conv2D(filters=32, kernel_size=7, padding='same', activation=LeakyReLU())(x)
+    x = Conv2D(filters=64, kernel_size=3, padding='same', activation=LeakyReLU())(x)
     o = Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x)
-    
     return o
-    
-    
-def weighted_binary_crossentropy(y_true, y_pred, from_logits=False):
-  y_pred = tf.convert_to_tensor(y_pred)
-  y_true = tf.cast(0.53 * y_true, y_pred.dtype)
-  
-  return K.mean(
-      K.binary_crossentropy(y_true, y_pred, from_logits=from_logits), axis=-1)
       
 
-def generate_model():
-    i = Input(shape=(None, None, 4))
+def generate_model(channels=5):
+    i = Input(shape=(None, None, channels))
     o = skippy(i)
    
     model = Model(inputs=i, outputs=o)
     
     print(model.summary())
-    print(f'Total number of layers: {len(model.layers)}')
+    print('Total number of layers: {}'.format(len(model.layers)))
 
-    model.compile(optimizer="adam", # optimizer='rmsprop' optimizer=Adam(lr=0.0001)
-                  loss=weighted_binary_crossentropy,
-                  metrics=['accuracy'])
+    model.compile(optimizer='adam', # optimizer='rmsprop' optimizer=Adam(lr=0.0001)
+                  loss=binary_focal_loss(alpha=.05, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
+                  metrics=[#'accuracy',
+                  Precision(),
+                  Recall(),
+                  SpecificityAtSensitivity(0.5, num_thresholds=1, name='specificity'), 
+                  SensitivityAtSpecificity(0.5, num_thresholds=1, name='sensitivity')
+                  #TrueNegatives(), TruePositives(), FalseNegatives(), FalsePositives()
+                  ])
 
     return model
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     generate_model()
 

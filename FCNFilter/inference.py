@@ -11,6 +11,7 @@ from model import generate_model
 d = 'process/'
 e = 'result/'
 POWER_UP = True
+ALPHA = 1.0
 
 def show(result):
     plt.figure()
@@ -68,7 +69,8 @@ def clean_up():
 def generate_feature_image(f):
     intensity_image = imageio.imread(d + f + "_intensitymap.png") / 255
     normals_image = imageio.imread(d + f + "_normalmap.png") / 255
-    feature_image = np.dstack((intensity_image, normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
+    depth_image = imageio.imread(d + f + "_depthmap.png") / 255
+    feature_image = np.dstack((intensity_image, depth_image, normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
   
     if POWER_UP:
         shape = feature_image.shape
@@ -96,7 +98,7 @@ def inference():
             
             prediction = model.predict(feature_image)
            
-            prediction = np.round(prediction[0])
+            prediction = np.round(prediction[0] * ALPHA)
             prediction = prediction[:original_width, :original_height, :]
 
             imageio.imwrite(d + f + "_prediction.png", prediction)
@@ -135,13 +137,13 @@ def evaluation():
 
 
 if __name__ == "__main__":
+    #input_files()
     start = time.time()
-    input_files()
     inference()
     cogs_files()
     stop = time.time()
     #evaluation()
-    clean_up()
+    #clean_up()
     print(f"Elapsed time: {stop - start} seconds")
 
 

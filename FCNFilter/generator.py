@@ -27,9 +27,10 @@ class Generator(keras.utils.Sequence):
                 second_underscore = file[first_underscore + 1:].find("_")
                 name = file[:first_underscore + second_underscore + 1]
                 intensity_image = imageio.imread(dataset_path + "/" + name + "_intensitymap.png") / 255
+                depth_image = imageio.imread(dataset_path + "/" + name + "_depthmap.png") / 255
                 normals_image = imageio.imread(dataset_path + "/" + name + "_normalmap.png") / 255
   
-                feature_image = np.dstack((intensity_image,
+                feature_image = np.dstack((intensity_image, depth_image,
                                            normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
                 self.feature_images.append(feature_image)
                 
@@ -86,17 +87,21 @@ class Generator(keras.utils.Sequence):
 def show(image, mask):
     plt.figure(figsize=(4, 8))
 
-    plt.subplot(3, 1, 1)
+    plt.subplot(4, 1, 1)
     plt.axis('off')
     plt.imshow(mask[:, :, 0]).set_cmap('gray')
 
-    plt.subplot(3, 1, 2)
+    plt.subplot(4, 1, 2)
     plt.axis('off')
     plt.imshow(image[:, :, 0]).set_cmap('gray')
-
-    plt.subplot(3, 1, 3)
+    
+    plt.subplot(4, 1, 3)
     plt.axis('off')
-    plt.imshow(image[:, :, 1:])
+    plt.imshow(image[:, :, 1]).set_cmap('gray')
+
+    plt.subplot(4, 1, 4)
+    plt.axis('off')
+    plt.imshow(image[:, :, 2:])
     plt.show()
 
 

@@ -27,7 +27,7 @@ def process(datasets_path, export_path):
 
 if __name__ == "__main__":
   if len(sys.argv) == 1:
-    process('data/cogs/train/', 'data/train/')
+    process('data/_COGS/train/', 'data/train/')
   elif len(sys.argv) == 2:
-    process('data/cogs/' + sys.argv[1] + '/', 'data/' + sys.argv[1] + '/')
+    process('data/_COGS/' + sys.argv[1] + '/', 'data/' + sys.argv[1] + '/')
 

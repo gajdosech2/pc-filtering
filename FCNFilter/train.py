@@ -21,16 +21,16 @@ def train(model, train_generator, val_generator, epochs=50):
     return history
 
 if __name__ == "__main__":
-    model = generate_model()
+    model = generate_model(channels=5)
 
     train_dir = 'data/train'
     val_dir = 'data/val'
 
-    BATCH_SIZE = 2
+    BATCH_SIZE = 1
     train_generator = Generator(train_dir, BATCH_SIZE)
     val_generator = Generator(val_dir, BATCH_SIZE)
 
-    EPOCHS = 20
+    EPOCHS = 12
     start = time.time()
     history = train(model, train_generator, val_generator, epochs=EPOCHS)
     print(f"Elapsed time: {time.time() - start} seconds")
