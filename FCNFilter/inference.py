@@ -137,7 +137,8 @@ def evaluation():
 
 
 if __name__ == "__main__":
-    #input_files()
+    if (not any(".png" in f for f in os.listdir(d))):
+        input_files()
     start = time.time()
     inference()
     cogs_files()

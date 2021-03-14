@@ -4,9 +4,9 @@
 
 void ScanSegmentation::GenerateInput(std::string out_path)
 {
+    data_.TransformToSpace(utils::COGS_CAMERA_SPACE);
     FindNormalizingValues();
     GenerateNormalMap(out_path);
-    GenerateDepthMap(out_path);
 }
 
 void ScanSegmentation::GenerateTruth(std::string labels_path, std::string out_path)
@@ -16,6 +16,14 @@ void ScanSegmentation::GenerateTruth(std::string labels_path, std::string out_pa
     unsigned error = lodepng::decode(label_image, label_width, label_height, labels_path);
 
     auto trim_values = FormattingUtilities::last;
+    if (trim_values.min_x == -1)
+    {
+        trim_values.min_x = 0;
+        trim_values.min_y = 0;
+        trim_values.max_x = label_width - 1;
+        trim_values.max_y = label_height - 1;
+    }
+
     unsigned new_width = trim_values.max_x - trim_values.min_x + 1;
     unsigned new_height = trim_values.max_y - trim_values.min_y + 1;
     std::vector<unsigned char> image;
@@ -28,12 +36,7 @@ void ScanSegmentation::GenerateTruth(std::string labels_path, std::string out_pa
             auto label_y = y + trim_values.min_y;
             auto label_value = label_image[4 * label_width * label_y + 4 * label_x + 0];
 
-            int value = 0;
-            if (label_value >= 2)
-            {
-                value = 255;
-            }
-
+            unsigned value = (label_value >= 2) ? 255 : 0;
             image[4 * new_width * y + 4 * x + 0] = value;
             image[4 * new_width * y + 4 * x + 1] = value;
             image[4 * new_width * y + 4 * x + 2] = value;

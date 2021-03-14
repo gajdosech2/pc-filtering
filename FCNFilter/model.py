@@ -122,7 +122,7 @@ def generate_model(channels=5):
     print('Total number of layers: {}'.format(len(model.layers)))
 
     model.compile(optimizer=Adam(lr=1e-6), # optimizer='rmsprop' optimizer=Adam(lr=1e-6)
-                  loss=binary_focal_loss(alpha=0.06, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
+                  loss=binary_focal_loss(alpha=0.055, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
                   metrics=[#'accuracy',
                   Precision(),
                   Recall(),

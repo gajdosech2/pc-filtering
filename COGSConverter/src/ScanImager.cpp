@@ -183,7 +183,7 @@ void ScanImager::GenerateCombinedMap(std::string out_path)
 {
     if (!out_path.empty()) out_path = out_path + "/";
 
-    const float  a_n = (254) / (max_normal_ - min_normal_);
+    const float a_n = (254) / (max_normal_ - min_normal_);
     const float b_n = 254 - a_n * max_normal_;
 
     const float a_d = (254) / (max_camdist_ - min_camdist_);

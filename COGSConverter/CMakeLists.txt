@@ -16,21 +16,21 @@ add_executable(${PROJECT_NAME}
 
     include/FormattingUtilities.h   
     include/PCDFormatter.h
-    include/PointCleanNetFormatter.h
+    include/XYZFormatter.h
     include/ScanBoxes.h
     include/ScanFormatter.h
     include/ScanImager.h
     include/ScanSegmentation.h
     
-
     src/COGSConverter.cpp
     src/FormattingUtilities.cpp
-    src/PointCleanNetFormatter.cpp
+    src/XYZFormatter.cpp
     src/ScanBoxes.cpp
     src/ScanFormatter.cpp
     src/ScanImager.cpp
     src/ScanSegmentation.cpp
- "src/PCDFormatter.cpp")
+    src/PCDFormatter.cpp
+ )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 

@@ -9,25 +9,6 @@ from sklearn.metrics import recall_score, precision_score
 d = 'process/'
 e = 'result/'
 
-
-def input_files():
-    files = os.listdir(d)
-    for f in files:
-        if '.cogs' in f and 'processed' not in f and 'truth' not in f:
-            print("processing: " + f)
-            t = ""
-            if os.path.isfile(d + "truth_" + f):
-                t = d + "truth_" + f
-            if os.name == 'nt':
-                os.system('"utils\WCC.exe"' + 
-                            ' --generate ' + 
-                            d + f + ' ' + 
-                            d + ' ' +
-                            t)
-            else:
-                pass
-
-
 def cogs_files():
     files = os.listdir(d)
     os.makedirs(e, exist_ok=True)
@@ -104,7 +85,6 @@ def evaluage():
 
 
 if __name__ == "__main__":
-    #input_files()
     morphology()
     evaluage()
     #pcogs_files()

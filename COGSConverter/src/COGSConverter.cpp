@@ -2,7 +2,7 @@
 #include "ScanImager.h"
 #include "ScanSegmentation.h"
 #include "ScanBoxes.h"
-#include "PointCleanNetFormatter.h"
+#include "XYZFormatter.h"
 #include "PCDFormatter.h"
 #include <COGS/Scan.h>
 
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     else if ((std::string)argv[1] == "--segment")
     {
         ScanSegmentation formatter;
-        Generate(argc, argv, &formatter);
+        Generate(argc, argv, &formatter, false);
     }
     else if ((std::string)argv[1] == "--boxes")
     {
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
     }
     else if ((std::string)argv[1] == "--xyz")
     {
-        PointCleanNetFormatter formatter;
+        XYZFormatter formatter;
         Generate(argc, argv, &formatter);
     }
     else if ((std::string)argv[1] == "--pcd")

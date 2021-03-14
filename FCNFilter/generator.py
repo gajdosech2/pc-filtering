@@ -22,19 +22,19 @@ class Generator(keras.utils.Sequence):
     def load_data(self, dataset_path):
         files = os.listdir(dataset_path)
         for file in files:
-            if "truthmask" in file:
-                first_underscore = file.find("_")
-                second_underscore = file[first_underscore + 1:].find("_")
+            if 'truthmask' in file:
+                first_underscore = file.find('_')
+                second_underscore = file[first_underscore + 1:].find('_')
                 name = file[:first_underscore + second_underscore + 1]
-                intensity_image = imageio.imread(dataset_path + "/" + name + "_intensitymap.png") / 255
-                depth_image = imageio.imread(dataset_path + "/" + name + "_depthmap.png") / 255
-                normals_image = imageio.imread(dataset_path + "/" + name + "_normalmap.png") / 255
+                intensity_image = imageio.imread(dataset_path + '/' + name + '_intensitymap.png') / 255
+                depth_image = imageio.imread(dataset_path + '/' + name + '_depthmap.png') / 255
+                normals_image = imageio.imread(dataset_path + '/' + name + '_normalmap.png') / 255
   
                 feature_image = np.dstack((intensity_image, depth_image,
                                            normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
                 self.feature_images.append(feature_image)
                 
-                mask_image = imageio.imread(dataset_path + "/" + file) / 255
+                mask_image = imageio.imread(dataset_path + '/' + file) / 255
                 mask_image = mask_image
                 mask_image = np.expand_dims(mask_image, axis=2)
                 self.masks.append(mask_image)
@@ -78,6 +78,7 @@ class Generator(keras.utils.Sequence):
     def __getitem__(self, index):
         image_group = self.image_groups[index]
         mask_group = self.mask_groups[index]
+        print(np.array(image_group).shape)
         image_batch = self.construct_batch(image_group)
         mask_batch = self.construct_batch(mask_group)
 
@@ -105,7 +106,7 @@ def show(image, mask):
     plt.show()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     train_generator = Generator('data/train')
     print(len(train_generator))
     
