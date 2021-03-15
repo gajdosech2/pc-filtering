@@ -50,6 +50,7 @@ Sources
 *Keras:*
  - https://towardsdatascience.com/step-by-step-implementation-3d-convolutional-neural-network-in-keras-12efbdd7b130
  - https://towardsdatascience.com/implementing-a-fully-convolutional-network-fcn-in-tensorflow-2-3c46fb61de3b
+ - https://keras.io/examples/
 
 *Python Documentation:*
  - https://stackoverflow.com/questions/3898572/what-is-the-standard-python-docstring-format
@@ -62,5 +63,4 @@ Sources
  
  *Loss Functions:*
  - https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a
- - https://towardsdatascience.com/cross-entropy-for-dummies-5189303c7735
  - https://towardsdatascience.com/intuitive-explanation-of-cross-entropy-5d45fc9fd240
