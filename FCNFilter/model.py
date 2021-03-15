@@ -5,16 +5,67 @@ from keras.metrics import *
 from keras import backend as K
 from keras.optimizers import Adam
 from keras.models import Model, load_model
-from keras.layers import Input, Reshape, UpSampling2D
+from keras.layers import Input, Reshape, UpSampling2D, LeakyReLU
 from keras.layers.core import Lambda
 from keras.layers.convolutional import Conv2D, Conv2DTranspose
 from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
-from keras.layers import LeakyReLU
+from keras import layers
+from keras.utils import plot_model
 
 from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, binary_focal_loss
 
 import tensorflow as tf
+
+def xception(i):
+    ### [First half of the network: downsampling inputs] ###
+
+    x = layers.Conv2D(8, 3, strides=2, padding="same")(i)
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation("relu")(x)
+
+    previous_block_activation = x  # Set aside residual
+
+    for filters in [16, 32, 64]:
+        x = layers.Activation("relu")(x)
+        x = layers.SeparableConv2D(filters, 3, padding="same")(x)
+        x = layers.BatchNormalization()(x)
+
+        x = layers.Activation("relu")(x)
+        x = layers.SeparableConv2D(filters, 3, padding="same")(x)
+        x = layers.BatchNormalization()(x)
+
+        x = layers.MaxPooling2D(3, strides=2, padding="same")(x)
+
+        # Project residual
+        residual = layers.Conv2D(filters, 1, strides=2, padding="same")(
+            previous_block_activation
+        )
+        x = layers.add([x, residual])  # Add back residual
+        previous_block_activation = x  # Set aside next residual
+
+    ### [Second half of the network: upsampling inputs] ###
+    
+    for filters in [96, 64, 32, 16]:
+        x = layers.Activation("relu")(x)
+        x = layers.Conv2DTranspose(filters, 3, padding="same")(x)
+        x = layers.BatchNormalization()(x)
+
+        x = layers.Activation("relu")(x)
+        x = layers.Conv2DTranspose(filters, 3, padding="same")(x)
+        x = layers.BatchNormalization()(x)
+
+        x = layers.UpSampling2D(2)(x)
+
+        # Project residual
+        residual = layers.UpSampling2D(2)(previous_block_activation)
+        residual = layers.Conv2D(filters, 1, padding="same")(residual)
+        x = layers.add([x, residual])  # Add back residual
+        previous_block_activation = x  # Set aside next residual
+
+    o = Conv2D(1, 1, activation='sigmoid') (x)
+    return o
+    
 
 def skippy(i):
     c1 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (i)
@@ -114,14 +165,19 @@ def simple(i):
 
 def generate_model(channels=5):
     i = Input(shape=(None, None, channels))
-    o = skip(i)
+    o = xception(i)
    
     model = Model(inputs=i, outputs=o)
     
     print(model.summary())
     print('Total number of layers: {}'.format(len(model.layers)))
+    
+    try:
+        plot_model(model, show_shapes=True)
+    except:
+        print("Install pydot and graphviz to get the diagram of the network!")
 
-    model.compile(optimizer=Adam(lr=1e-6), # optimizer='rmsprop' optimizer=Adam(lr=1e-6)
+    model.compile(optimizer=Adam(lr=1e-5), # optimizer='rmsprop' optimizer=Adam(lr=1e-6)
                   loss=binary_focal_loss(alpha=0.055, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
                   metrics=[#'accuracy',
                   Precision(),

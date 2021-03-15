@@ -30,6 +30,7 @@ TrimValues FormattingUtilities::FindTrimValues(cogs::Scan &scan)
 void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
 {
     last = trim_values;
+
     cogs::Scan new_scan;
     const glm::uvec2 new_resolution(trim_values.max_x - trim_values.min_x + 1, trim_values.max_y - trim_values.min_y + 1);
     new_scan.SetResolution(new_resolution);
@@ -40,7 +41,6 @@ void FormattingUtilities::Trim(cogs::Scan &scan, TrimValues trim_values)
     }
     new_scan.Reserve(new_resolution.x * new_resolution.y);
     new_scan.SetCameraPosition(scan.GetCameraPosition());
-    new_scan.SetSpace(scan.GetSpace());
 
     for (uint32_t y = 0; y < new_resolution.y; y++)
     {

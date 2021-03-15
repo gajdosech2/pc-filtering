@@ -4,6 +4,7 @@
 #include <limits>
 #include <glm/gtc/matrix_transform.hpp>
 
+
 void ScanImager::GenerateInput(std::string out_path)
 {
     FindNormalizingValues();

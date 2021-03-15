@@ -11,7 +11,7 @@ class ScanFormatter
 public:
 	ScanFormatter() = default;
 	ScanFormatter(std::string path, bool trim = true) { Import(path, trim); };
-	bool Import(std::string path, bool trim = true);
+	bool Import(std::string path, bool trim = true, bool transform = false);
 
 	virtual void GenerateInput(std::string out_path) = 0;
 	virtual void GenerateTruth(std::string truth_path, std::string out_path) = 0;

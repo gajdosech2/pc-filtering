@@ -78,7 +78,6 @@ class Generator(keras.utils.Sequence):
     def __getitem__(self, index):
         image_group = self.image_groups[index]
         mask_group = self.mask_groups[index]
-        print(np.array(image_group).shape)
         image_batch = self.construct_batch(image_group)
         mask_batch = self.construct_batch(mask_group)
 

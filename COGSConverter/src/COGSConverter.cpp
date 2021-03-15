@@ -6,10 +6,10 @@
 #include "PCDFormatter.h"
 #include <COGS/Scan.h>
 
-void Generate(int argc, char* argv[], ScanFormatter *formatter, bool trim = true)
+void Generate(int argc, char* argv[], ScanFormatter *formatter, bool trim = true, bool transform = false)
 {
     // ./CC --MODE INPUT_FILE EXPORT_PATH GROUND_TRUTH_FILE 
-    formatter->Import(argv[2], trim);
+    formatter->Import(argv[2], trim, transform);
     std::string out = "";
     switch (argc)
     {
@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     if ((std::string)argv[1] == "--generate")
     {
         ScanImager formatter;
-        Generate(argc, argv, &formatter);
+        Generate(argc, argv, &formatter, true, true);
     }
     else if ((std::string)argv[1] == "--segment")
     {

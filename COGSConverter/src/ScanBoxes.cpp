@@ -4,30 +4,17 @@
 
 #include <fstream>
 
-namespace
-{
-    const int NO_BOX_IN_CELL = -1;
-}
-
 struct Box
 {
 public:
-    int id;
     unsigned x1, y1, x2, y2;
 
     Box()
-    {
-        id = NO_BOX_IN_CELL;
-        x1 = x2 = y1 = y2 = NO_BOX_IN_CELL;
-    }
-
-    Box(int id)
     {
         x1 = std::numeric_limits<unsigned>::max();
         y1 = std::numeric_limits<unsigned>::max();
         x2 = std::numeric_limits<unsigned>::min();
         y2 = std::numeric_limits<unsigned>::min();
-        this->id = id;
     }
 
     int GetCenterX()
@@ -80,10 +67,9 @@ void ScanBoxes::GenerateTruth(std::string truth_path, std::string out_path)
     }
 
     std::vector<Box> boxes;
-
     for (int i = 0; i < lines_count; i++)
     {
-        boxes.push_back(Box(i + 2));
+        boxes.push_back(Box());
     }
 
     std::vector<unsigned char> image;
