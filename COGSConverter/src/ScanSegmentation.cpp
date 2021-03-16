@@ -7,6 +7,7 @@ void ScanSegmentation::GenerateInput(std::string out_path)
     data_.TransformToSpace(utils::COGS_CAMERA_SPACE);
     FindNormalizingValues();
     GenerateNormalMap(out_path);
+    GenerateDepthMap(out_path);
 }
 
 void ScanSegmentation::GenerateTruth(std::string labels_path, std::string out_path)
