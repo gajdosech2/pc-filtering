@@ -1,9 +1,8 @@
 import os
 #os.environ['KERAS_BACKEND'] = 'plaidml.keras.backend'
 
-from keras.metrics import *
 from keras import backend as K
-from keras.optimizers import Adam
+
 from keras.models import Model, load_model
 from keras.layers import Input, Reshape, UpSampling2D, LeakyReLU
 from keras.layers.core import Lambda
@@ -12,8 +11,6 @@ from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
 from keras import layers
 from keras.utils import plot_model
-
-from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, binary_focal_loss
 
 import tensorflow as tf
 
@@ -165,7 +162,7 @@ def simple(i):
 
 def generate_model(channels=5):
     i = Input(shape=(None, None, channels))
-    o = xception(i)
+    o = skip(i)
    
     model = Model(inputs=i, outputs=o)
     
@@ -176,16 +173,6 @@ def generate_model(channels=5):
         plot_model(model, show_shapes=True)
     except:
         print("Install pydot and graphviz to get the diagram of the network!")
-
-    model.compile(optimizer=Adam(lr=1e-5), # optimizer='rmsprop' optimizer=Adam(lr=1e-6)
-                  loss=binary_focal_loss(alpha=0.055, gamma=5), #loss=binary_focal_loss(alpha=.1, gamma=5)
-                  metrics=[#'accuracy',
-                  Precision(),
-                  Recall(),
-                  SpecificityAtSensitivity(0.5, num_thresholds=1, name='specificity'), 
-                  SensitivityAtSpecificity(0.5, num_thresholds=1, name='sensitivity')
-                  #TrueNegatives(), TruePositives(), FalseNegatives(), FalsePositives()
-                  ])
 
     return model
 

@@ -101,7 +101,7 @@ def inference():
             prediction = np.round(prediction[0] * ALPHA)
             prediction = prediction[:original_width, :original_height, :]
 
-            imageio.imwrite(d + f + "_prediction.png", prediction)
+            imageio.imwrite(d + f + "_prediction.png", prediction.astype(np.uint8) * 255)
             
             
 def evaluation():
@@ -115,8 +115,8 @@ def evaluation():
             size += 1
             name = truth[:-14]
             prediction = name + "_prediction.png"
-            prediction = np.asarray(imageio.imread(d + prediction) / 255, dtype=np.int)
-            truth = np.asarray(imageio.imread(d + truth) / 255, dtype=np.int)
+            prediction = np.asarray(imageio.imread(d + prediction) / 255, dtype=np.uint8)
+            truth = np.asarray(imageio.imread(d + truth) / 255, dtype=np.uint8)
             
             intersection = np.sum(prediction * truth)
             union = np.sum(truth) + np.sum(prediction) - intersection
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     inference()
     cogs_files()
     stop = time.time()
-    #evaluation()
+    evaluation()
     #clean_up()
     print(f"Elapsed time: {stop - start} seconds")
 

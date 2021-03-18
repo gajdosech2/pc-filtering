@@ -33,7 +33,7 @@ def morphology():
             print("processing: " + f)
             binary_map = cv2.imread(d + f + "_binarymap.png", cv2.IMREAD_GRAYSCALE)
             
-            kernel = np.ones((5, 5), np.uint8)
+            kernel = np.ones((7, 7), np.uint8)
             morph = cv2.erode(binary_map, kernel, iterations = 1)
             #morph = cv2.morphologyEx(binary_map, cv2.MORPH_OPEN, kernel)
             cv2.imwrite(d + f + "_morphology.png", morph) 
@@ -56,9 +56,17 @@ def evaluage():
             f = '_'.join(f.split('_')[:2])
             print("evaluating: " + f)
             
-            truth_mask = cv2.imread(d + f + "_truthmask.png", cv2.IMREAD_GRAYSCALE) // 255
-            morph_mask = cv2.imread(d + f + "_morphology.png", cv2.IMREAD_GRAYSCALE) // 255
-            net_mask = cv2.imread(d + f + "_prediction.png", cv2.IMREAD_GRAYSCALE) // 255
+            truth_mask = cv2.imread(d + f + "_truthmask.png", cv2.IMREAD_GRAYSCALE) 
+            morph_mask = cv2.imread(d + f + "_morphology.png", cv2.IMREAD_GRAYSCALE)
+            net_mask = cv2.imread(d + f + "_prediction.png", cv2.IMREAD_GRAYSCALE)
+                      
+            #kernel = np.ones((7, 7), np.uint8)
+            #morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
+            #net_mask = cv2.dilate(net_mask, kernel, iterations = 1)
+            
+            truth_mask = truth_mask / 255
+            morph_mask = morph_mask / 255
+            net_mask = net_mask / 255
             
             morph_iou.append(iou(morph_mask, truth_mask))
             net_iou.append(iou(net_mask, truth_mask)) 
@@ -87,5 +95,5 @@ def evaluage():
 if __name__ == "__main__":
     morphology()
     evaluage()
-    #pcogs_files()
+    #cogs_files()
 
