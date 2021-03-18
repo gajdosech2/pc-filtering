@@ -1,6 +1,7 @@
 import tensorflow as tf
 import time
 import os
+import sys
 
 from model import generate_model
 from generator import Generator
@@ -19,26 +20,22 @@ def enable_gpu():
             tf.config.experimental.set_memory_growth(gpu, True)
 
 
-def train():
-    BATCH_SIZE = 1
-    EPOCHS = 16
-    STEPS = 6
-    lr = 1e-3
+def train(batch_size=1, epochs=16, steps=6, lr=1e-3):
     WEIGHTS_FILE = 'weights.keras'
     
     model = generate_model(channels=5)  
     if (os.path.exists(WEIGHTS_FILE)):
         model.load_weights(WEIGHTS_FILE)
 
-    train_generator = Generator('data/train', BATCH_SIZE)
-    val_generator = Generator('data/val', BATCH_SIZE)
+    train_generator = Generator('data/train', batch_size)
+    val_generator = Generator('data/val', batch_size)
 
     callbacks = [
         ModelCheckpoint(WEIGHTS_FILE, save_best_only=True)
     ]
 
     start = time.time()  
-    for i in range(STEPS): 
+    for i in range(steps): 
         model.compile(optimizer=Adam(lr=lr),
                       loss=binary_focal_loss(alpha=0.08, gamma=4),
                       metrics=[#'accuracy',
@@ -51,7 +48,7 @@ def train():
     
         history = model.fit(train_generator,
                             steps_per_epoch=len(train_generator),
-                            epochs=EPOCHS,
+                            epochs=epochs,
                             validation_data=val_generator,
                             validation_steps=len(val_generator))
         
@@ -64,4 +61,5 @@ def train():
 
 
 if __name__ == '__main__':
-    train()
+    print('\n ARGUMENTS: ' + str(sys.argv) + '\n')
+    train(*map(int, sys.argv[1:]))
