@@ -22,7 +22,7 @@ def setup_gpu():
             print(e)
 
 
-def train(gpu_init=False, batch_size=1, epochs=16, steps=6, lr=1e-3):
+def train(gpu_init=0, batch_size=1, epochs=16, steps=6, lr=1e-3):
     if gpu_init:
         setup_gpu()
         
