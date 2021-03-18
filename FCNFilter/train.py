@@ -9,18 +9,23 @@ from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam
 from keras.metrics import *
 
-
 from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, binary_focal_loss
 
 
-def enable_gpu():
-    gpus = tf.config.experimental.list_physical_devices('GPU')
+def setup_gpu():
+    gpus = tf.config.list_physical_devices('GPU')
     if gpus:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+        except RuntimeError as e:
+            print(e)
 
 
-def train(batch_size=1, epochs=16, steps=6, lr=1e-3):
+def train(gpu_init=False, batch_size=1, epochs=16, steps=6, lr=1e-3):
+    if gpu_init:
+        setup_gpu()
+        
     WEIGHTS_FILE = 'weights.keras'
     
     model = generate_model(channels=5)  
