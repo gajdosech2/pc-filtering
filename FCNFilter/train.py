@@ -40,7 +40,7 @@ def train_simple(batch_size=1, epochs=8, lr=5):
                                    decay_rate=0.85,
                                    staircase=True)
     
-    model.compile(optimizer=Adam(learning_rate=1e-6),
+    model.compile(optimizer=Adam(learning_rate=lr),
                   loss=binary_focal_loss(alpha=0.08, gamma=3),
                   metrics=[Precision(name='precision'), Recall(name='recall')])
     
