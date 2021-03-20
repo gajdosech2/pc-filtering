@@ -25,7 +25,7 @@ def setup_gpu():
             print(e)   
 
 
-def train_simple(gpu_init=0, batch_size=1, epochs=8, lr=1e-4):      
+def train_simple(batch_size=1, epochs=8, lr=1e-4):      
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -47,7 +47,7 @@ def train_simple(gpu_init=0, batch_size=1, epochs=8, lr=1e-4):
     model.save_weights(WEIGHTS_FILE)
 
 
-def train(gpu_init=0, batch_size=1, epochs=32, lr=1e-3):
+def train(batch_size=1, epochs=32, lr=1e-3):
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
