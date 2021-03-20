@@ -61,7 +61,7 @@ def evaluage():
             net_mask = cv2.imread(d + f + "_prediction.png", cv2.IMREAD_GRAYSCALE)
                       
             kernel = np.ones((7, 7), np.uint8)
-            morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
+            #morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
             #net_mask = cv2.dilate(net_mask, kernel, iterations = 1)
             
             truth_mask = truth_mask / 255

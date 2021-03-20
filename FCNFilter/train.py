@@ -27,6 +27,7 @@ def setup_gpu():
 
 def train_simple(batch_size=1, epochs=8, lr=5):      
     lr = 10**(-lr)
+    lr = 1e-5
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -41,7 +42,7 @@ def train_simple(batch_size=1, epochs=8, lr=5):
                                    staircase=True)
     
     model.compile(optimizer=Adam(learning_rate=lr),
-                  loss=binary_focal_loss(alpha=0.08, gamma=3),
+                  loss=binary_focal_loss(alpha=0.07, gamma=4),
                   metrics=[Precision(name='precision'), Recall(name='recall')])
     
     history = model.fit(train_generator,
