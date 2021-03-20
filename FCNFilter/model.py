@@ -174,15 +174,14 @@ def generate_model(channels=5):
     
     print(model.summary())
     print('Total number of layers: {}'.format(len(model.layers)))
-    
-    try:
-        plot_model(model, show_shapes=True)
-    except:
-        print("Install pydot and graphviz to get the diagram of the network!")
 
     return model
 
 
 if __name__ == '__main__':
-    generate_model()
+    model = generate_model()
+    try:
+        plot_model(model, show_shapes=True)
+    except:
+        print("Install pydot and graphviz to get the diagram of the network!")
 
