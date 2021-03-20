@@ -6,7 +6,7 @@ FCNFilter/data/
 FCNFilter/process/
 FCNFilter/process - */
 FCNFilter/result/
-FCNFilter/weights.keras*
+FCNFilter/*_weights.h5
 
 COGSConverter/.vs
 COGSConverter/out

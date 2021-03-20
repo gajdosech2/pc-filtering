@@ -87,7 +87,7 @@ def generate_feature_image(f):
             
 def inference():
     model = generate_model()
-    model.load_weights("weights.keras")
+    model.load_weights("weights.h5")
 
     files = os.listdir(d)    
     for i, f in enumerate(files):

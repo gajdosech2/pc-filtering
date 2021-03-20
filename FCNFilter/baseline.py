@@ -60,8 +60,8 @@ def evaluage():
             morph_mask = cv2.imread(d + f + "_morphology.png", cv2.IMREAD_GRAYSCALE)
             net_mask = cv2.imread(d + f + "_prediction.png", cv2.IMREAD_GRAYSCALE)
                       
-            #kernel = np.ones((7, 7), np.uint8)
-            #morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
+            kernel = np.ones((7, 7), np.uint8)
+            morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
             #net_mask = cv2.dilate(net_mask, kernel, iterations = 1)
             
             truth_mask = truth_mask / 255
@@ -78,6 +78,9 @@ def evaluage():
             net_recall.append(recall_score(truth_mask.flatten(), net_mask.flatten()))
            
     samples = len(morph_iou)
+    if not samples:
+        print('No GT data found!')
+        return 
     avg_morph_iou, avg_morph_precision, avg_morph_recall = sum(morph_iou)/samples, sum(morph_precision)/samples, sum(morph_recall)/samples
     avg_net_iou, avg_net_precision, avg_net_recall = sum(net_iou)/samples, sum(net_precision)/samples, sum(net_recall)/samples        
     

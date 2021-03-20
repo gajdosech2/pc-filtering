@@ -65,26 +65,26 @@ def xception(i):
     
 
 def skippy(i):
-    c1 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (i)
-    c1 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c1)
+    c1 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (i)
+    c1 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (c1)
     p1 = MaxPooling2D(2) (c1)
 
-    c2 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (p1)
-    c2 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (c2)
+    c2 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (p1)
+    c2 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c2)
     p2 = MaxPooling2D(2) (c2)
     
-    c3 = Conv2D(48, 5, activation=LeakyReLU(), padding='same') (p2)
-    c3 = Conv2D(48, 5, activation=LeakyReLU(), padding='same') (c3)   
+    c3 = Conv2D(64, 5, activation=LeakyReLU(), padding='same') (p2)
+    c3 = Conv2D(64, 5, activation=LeakyReLU(), padding='same') (c3)   
     
-    u4 = Conv2DTranspose(24, 2, strides=(2, 2), padding='same') (c3)
+    u4 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c3)
     u4 = concatenate([u4, c2])
-    c4 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (u4)
-    c4 = Conv2D(24, 3, activation=LeakyReLU(), padding='same') (c4)
+    c4 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (u4)
+    c4 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c4)
     
-    u5 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c4)
+    u5 = Conv2DTranspose(8, 2, strides=(2, 2), padding='same') (c4)
     u5 = concatenate([u5, c1])
-    c5 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (u5)
-    c5 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c5)
+    c5 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (u5)
+    c5 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (c5)
     
     o = Conv2D(1, 1, activation='sigmoid') (c5)
     return o
