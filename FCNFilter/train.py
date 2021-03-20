@@ -25,7 +25,8 @@ def setup_gpu():
             print(e)   
 
 
-def train_simple(batch_size=1, epochs=8, lr=1e-4):      
+def train_simple(batch_size=1, epochs=8, lr=5):      
+    lr = 10**(-lr)
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -34,8 +35,13 @@ def train_simple(batch_size=1, epochs=8, lr=1e-4):
     train_generator = Generator('data/train', batch_size)
     val_generator = Generator('data/val', batch_size) 
     
-    model.compile(optimizer=Adam(learning_rate=lr),
-                  loss=binary_focal_loss(alpha=0.07, gamma=5),
+    lr_schedule = ExponentialDecay(initial_learning_rate=lr, 
+                                   decay_steps=len(train_generator),
+                                   decay_rate=0.85,
+                                   staircase=True)
+    
+    model.compile(optimizer=Adam(learning_rate=1e-6),
+                  loss=binary_focal_loss(alpha=0.08, gamma=3),
                   metrics=[Precision(name='precision'), Recall(name='recall')])
     
     history = model.fit(train_generator,
@@ -47,7 +53,8 @@ def train_simple(batch_size=1, epochs=8, lr=1e-4):
     model.save_weights(WEIGHTS_FILE)
 
 
-def train(batch_size=1, epochs=32, lr=1e-3):
+def train(batch_size=1, epochs=32, lr=3):
+    lr = 10**(-lr)
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
