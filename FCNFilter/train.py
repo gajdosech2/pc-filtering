@@ -1,34 +1,22 @@
-import tensorflow as tf
 import time
 import os
 import sys
-
-from model import generate_model
-from generator import Generator
 from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam
 from keras.optimizers.schedules import ExponentialDecay
 from keras.metrics import *
-from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, binary_focal_loss
 
+from model import generate_model, setup_gpu
+from generator import Generator
+from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, binary_focal_loss
 
 WEIGHTS_FILE = 'weights.h5'
 
 
-def setup_gpu():
-    gpus = tf.config.list_physical_devices('GPU')
-    if gpus:
-        try:
-            for gpu in gpus:
-                tf.config.experimental.set_memory_growth(gpu, True)
-        except RuntimeError as e:
-            print(e)   
-
-
 def train_simple(batch_size=1, epochs=8, lr=5):      
     lr = 10**(-lr)
-    lr = 1e-5
-    model = generate_model(channels=5)  
+    #lr = 1e-5
+    model = generate_model()  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
         model.load_weights(WEIGHTS_FILE)
@@ -36,13 +24,8 @@ def train_simple(batch_size=1, epochs=8, lr=5):
     train_generator = Generator('data/train', batch_size)
     val_generator = Generator('data/val', batch_size) 
     
-    lr_schedule = ExponentialDecay(initial_learning_rate=lr, 
-                                   decay_steps=len(train_generator),
-                                   decay_rate=0.85,
-                                   staircase=True)
-    
     model.compile(optimizer=Adam(learning_rate=lr),
-                  loss=binary_focal_loss(alpha=0.07, gamma=4),
+                  loss=binary_focal_loss(alpha=0.03, gamma=5),
                   metrics=[Precision(name='precision'), Recall(name='recall')])
     
     history = model.fit(train_generator,
@@ -56,7 +39,7 @@ def train_simple(batch_size=1, epochs=8, lr=5):
 
 def train(batch_size=1, epochs=32, lr=3):
     lr = 10**(-lr)
-    model = generate_model(channels=5)  
+    model = generate_model()  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
         model.load_weights(WEIGHTS_FILE)
@@ -84,7 +67,7 @@ def train(batch_size=1, epochs=32, lr=3):
                           metrics=[#'accuracy',
                           Precision(name='precision'),
                           Recall(name='recall'),
-                          #SpecificityAtSensitivity(0.5, num_thresholds=1, name='specificity'), 
+                          #SpecificityAtSensitivity(0.5, num_thresholds=1, name='specificity'),
                           #SensitivityAtSpecificity(0.5, num_thresholds=1, name='sensitivity'),
                           #TrueNegatives(), TruePositives(), FalseNegatives(), FalsePositives()
                           ])
@@ -109,5 +92,3 @@ if __name__ == '__main__':
         train(*map(int, sys.argv[2:]))
     else:
         train_simple(*map(int, sys.argv[2:]))
-    
-    

@@ -1,12 +1,12 @@
 import os
-
 import numpy as np
-import imageio
+import cv2
 import keras
 import math
 import matplotlib.pyplot as plt
 
 POWER_UP = True
+
 
 class Generator(keras.utils.Sequence):
     def __init__(self, dataset_path, batch_size=2, shuffle_images=True):
@@ -25,17 +25,17 @@ class Generator(keras.utils.Sequence):
             if 'truthmask' in file:
                 first_underscore = file.find('_')
                 second_underscore = file[first_underscore + 1:].find('_')
-                name = file[:first_underscore + second_underscore + 1]
-                intensity_image = imageio.imread(dataset_path + '/' + name + '_intensitymap.png') / 255
-                depth_image = imageio.imread(dataset_path + '/' + name + '_depthmap.png') / 255
-                normals_image = imageio.imread(dataset_path + '/' + name + '_normalmap.png') / 255
+                n = file[:first_underscore + second_underscore + 1]
+                intensity_image = cv2.imread(dataset_path + '/' + n + '_intensitymap.png', cv2.IMREAD_GRAYSCALE) / 255
+                depth_image = cv2.imread(dataset_path + '/' + n + '_depthmap.png', cv2.IMREAD_GRAYSCALE) / 255
+                normals_image = cv2.imread(dataset_path + '/' + n + '_normalmap.png', cv2.IMREAD_UNCHANGED)
+                normals_image = cv2.cvtColor(normals_image, cv2.COLOR_BGR2RGB) / 255
   
                 feature_image = np.dstack((intensity_image, depth_image,
                                            normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
                 self.feature_images.append(feature_image)
-                
-                mask_image = imageio.imread(dataset_path + '/' + file) / 255
-                mask_image = mask_image
+
+                mask_image = cv2.imread(dataset_path + '/' + file, cv2.IMREAD_GRAYSCALE) / 255
                 mask_image = np.expand_dims(mask_image, axis=2)
                 self.masks.append(mask_image)
 
@@ -60,7 +60,7 @@ class Generator(keras.utils.Sequence):
             i2 = 2**math.ceil(math.log2(max_shape[1])) - max_shape[1]
             max_shape = (max_shape[0]+i1, max_shape[1]+i2, max_shape[2])
 
-        batch = np.zeros((self.batch_size,) + max_shape, dtype='float32')
+        batch = np.zeros((self.batch_size,) + max_shape, dtype=np.float32)
 
         for image_index, image in enumerate(image_group):
             if len(image.shape) == 1:

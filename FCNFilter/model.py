@@ -1,21 +1,25 @@
-import os
-#os.environ['KERAS_BACKEND'] = 'plaidml.keras.backend'
-
-from keras import backend as K
-
-from keras.models import Model, load_model
-from keras.layers import Input, Reshape, UpSampling2D, LeakyReLU
-from keras.layers.core import Lambda
+from keras.models import Model
+from keras.layers import Input, UpSampling2D, LeakyReLU
 from keras.layers.convolutional import Conv2D, Conv2DTranspose
 from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
 from keras import layers
 from keras.utils import plot_model
-
 import tensorflow as tf
 
+
+def setup_gpu():
+    gpus = tf.config.list_physical_devices('GPU')
+    if gpus:
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+        except RuntimeError as e:
+            print(e)
+
+
 def xception(i):
-    ### [First half of the network: downsampling inputs] ###
+    # [First half of the network: downsampling inputs]
 
     x = layers.Conv2D(8, 3, strides=2, padding="same")(i)
     x = layers.BatchNormalization()(x)
@@ -41,7 +45,7 @@ def xception(i):
         x = layers.add([x, residual])  # Add back residual
         previous_block_activation = x  # Set aside next residual
 
-    ### [Second half of the network: upsampling inputs] ###
+    # [Second half of the network: upsampling inputs]
     
     for filters in [96, 64, 32, 16]:
         x = layers.Activation("relu")(x)
@@ -133,6 +137,7 @@ def skip(i):
     o = Conv2D(1, 1, activation='sigmoid') (c9)
     return o
 
+
 def autoencoder(i):
     x = Conv2D(filters=16, kernel_size=3, padding='same', activation=LeakyReLU())(i)
     x = MaxPooling2D(pool_size=2, strides=(2, 2))(x)
@@ -150,6 +155,7 @@ def autoencoder(i):
     
     o = Conv2D(filters=1, kernel_size=1, activation='sigmoid')(x) 
     return o
+
 
 def simple(i):
     x = Conv2D(filters=8, kernel_size=3, padding='same', activation=LeakyReLU())(i)
