@@ -12,6 +12,8 @@ d = 'process/'
 e = 'result/'
 POWER_UP = True
 ALPHA = 1.0
+WEIGHTS_FILE = 'weights.h5'
+
 
 def show(result):
     plt.figure()
@@ -20,11 +22,14 @@ def show(result):
     plt.show()
     
     
-def enable_gpu():
-    gpus = tf.config.experimental.list_physical_devices('GPU')
+def setup_gpu():
+    gpus = tf.config.list_physical_devices('GPU')
     if gpus:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+        except RuntimeError as e:
+            print(e)   
             
             
 def cogs_files():
@@ -36,7 +41,7 @@ def cogs_files():
                 os.system('"utils\WCC.exe"' + 
                             ' --process ' + 
                             d + f + ' ' + 
-                            d + f[:-5] + "_prediction.png" + ' ' + 
+                            d + f[:-5] + '_prediction.png' + ' ' + 
                             e)
             else:
                 pass
@@ -48,8 +53,8 @@ def input_files():
         if '.cogs' in f and 'processed' not in f and 'truth' not in f:
             print("processing: " + f)
             t = ""
-            if os.path.isfile(d + "truth_" + f):
-                t = d + "truth_" + f
+            if os.path.isfile(d + 'truth_' + f):
+                t = d + 'truth_' + f
             if os.name == 'nt':
                 os.system('"utils\WCC.exe"' + 
                             ' --generate ' + 
@@ -67,9 +72,9 @@ def clean_up():
 
             
 def generate_feature_image(f):
-    intensity_image = imageio.imread(d + f + "_intensitymap.png") / 255
-    normals_image = imageio.imread(d + f + "_normalmap.png") / 255
-    depth_image = imageio.imread(d + f + "_depthmap.png") / 255
+    intensity_image = imageio.imread(d + f + '_intensitymap.png') / 255
+    normals_image = imageio.imread(d + f + '_normalmap.png') / 255
+    depth_image = imageio.imread(d + f + '_depthmap.png') / 255
     feature_image = np.dstack((intensity_image, depth_image, normals_image[:, :, 0], normals_image[:, :, 1], normals_image[:, :, 2]))
   
     if POWER_UP:
@@ -87,13 +92,13 @@ def generate_feature_image(f):
             
 def inference():
     model = generate_model()
-    model.load_weights("weights.h5")
+    model.load_weights(WEIGHTS_FILE)
 
     files = os.listdir(d)    
     for i, f in enumerate(files):
-        if "intensitymap" in f: 
+        if 'intensitymap' in f: 
             f = '_'.join(f.split('_')[:2])
-            print("processing: " + f)
+            print('processing: ' + f)
             feature_image, original_width, original_height = generate_feature_image(f)
             
             prediction = model.predict(feature_image)
@@ -101,7 +106,7 @@ def inference():
             prediction = np.round(prediction[0] * ALPHA)
             prediction = prediction[:original_width, :original_height, :]
 
-            imageio.imwrite(d + f + "_prediction.png", prediction.astype(np.uint8) * 255)
+            imageio.imwrite(d + f + '_prediction.png', prediction.astype(np.uint8) * 255)
             
             
 def evaluation():
@@ -111,10 +116,10 @@ def evaluation():
     min_metric = 1
     files = os.listdir(d)
     for truth in files:
-        if "truthmask" in truth:
+        if 'truthmask' in truth:
             size += 1
             name = truth[:-14]
-            prediction = name + "_prediction.png"
+            prediction = name + '_prediction.png'
             prediction = np.asarray(imageio.imread(d + prediction) / 255, dtype=np.uint8)
             truth = np.asarray(imageio.imread(d + truth) / 255, dtype=np.uint8)
             
@@ -124,20 +129,21 @@ def evaluation():
             metric += iou
             max_metric = max(iou, max_metric)
             min_metric = min(iou, min_metric)
-            with open (e + name + "_eval.txt", "w") as result:
+            with open (e + name + '_eval.txt', 'w') as result:
                 print(iou, file=result)
     
     if size > 0:
         metric /= size
-        print("Average IoU: " + str(metric))
-        print("Max IoU: " + str(max_metric))
-        print("Min IoU: " + str(min_metric))
-        with open (e + "average_iou.txt", "w") as result:
+        print('Average IoU: ' + str(metric))
+        print('Max IoU: ' + str(max_metric))
+        print('Min IoU: ' + str(min_metric))
+        with open (e + 'average_iou.txt', 'w') as result:
             print(metric, file=result)
 
 
-if __name__ == "__main__":
-    if (not any(".png" in f for f in os.listdir(d))):
+if __name__ == '__main__':
+    setup_gpu()
+    if (not any('.png' in f for f in os.listdir(d))):
         input_files()
     start = time.time()
     inference()
@@ -145,6 +151,6 @@ if __name__ == "__main__":
     stop = time.time()
     evaluation()
     #clean_up()
-    print(f"Elapsed time: {stop - start} seconds")
+    print(f'Elapsed time: {stop - start} seconds')
 
 
