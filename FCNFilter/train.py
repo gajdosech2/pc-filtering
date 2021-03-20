@@ -25,10 +25,7 @@ def setup_gpu():
             print(e)   
 
 
-def train_simple(gpu_init=0, batch_size=1, epochs=32, lr=1e-3):
-    if gpu_init:
-        setup_gpu()
-        
+def train_simple(gpu_init=0, batch_size=1, epochs=8, lr=1e-3):      
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -38,7 +35,7 @@ def train_simple(gpu_init=0, batch_size=1, epochs=32, lr=1e-3):
     val_generator = Generator('data/val', batch_size) 
     
     model.compile(optimizer=Adam(learning_rate=lr),
-                  loss=binary_focal_loss(alpha=0.06, gamma=5),
+                  loss=binary_focal_loss(alpha=0.07, gamma=5),
                   metrics=[Precision(name='precision'), Recall(name='recall')])
     
     history = model.fit(train_generator,
@@ -51,9 +48,6 @@ def train_simple(gpu_init=0, batch_size=1, epochs=32, lr=1e-3):
 
 
 def train(gpu_init=0, batch_size=1, epochs=32, lr=1e-3):
-    if gpu_init:
-        setup_gpu()
-    
     model = generate_model(channels=5)  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -101,4 +95,11 @@ def train(gpu_init=0, batch_size=1, epochs=32, lr=1e-3):
 
 if __name__ == '__main__':
     print('\n ARGUMENTS: ' + str(sys.argv) + '\n')
-    train(*map(int, sys.argv[1:]))
+    setup_gpu()
+    
+    if int(sys.argv[1]) == 1:
+        train(*map(int, sys.argv[2:]))
+    else:
+        train_simple(*map(int, sys.argv[2:]))
+    
+    
