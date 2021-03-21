@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 from sklearn.metrics import recall_score, precision_score
+from statistics import mean
 
 d = 'process/'
 e = 'result/'
@@ -49,22 +50,27 @@ def evaluage():
     files = os.listdir(d)
     morph_iou, morph_precision, morph_recall = [], [], []
     net_iou, net_precision, net_recall = [], [], []
+    gt_iou = []
     for f in files:
         if 'truthmask' in f:
             f = '_'.join(f.split('_')[:2])
             print('evaluating: ' + f)
             
+            raw_map = cv2.imread(d + f + '_binarymap.png', cv2.IMREAD_GRAYSCALE) 
             truth_mask = cv2.imread(d + f + '_truthmask.png', cv2.IMREAD_GRAYSCALE) 
             morph_mask = cv2.imread(d + f + '_morphology.png', cv2.IMREAD_GRAYSCALE)
             net_mask = cv2.imread(d + f + '_prediction.png', cv2.IMREAD_GRAYSCALE)
                       
-            #kernel = np.ones((7, 7), np.uint8)
-            #morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
+            kernel = np.ones((7, 7), np.uint8)
+            morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
             #net_mask = cv2.dilate(net_mask, kernel, iterations = 1)
             
+            raw_map = raw_map / 255
             truth_mask = truth_mask / 255
             morph_mask = morph_mask / 255
             net_mask = net_mask / 255
+            
+            gt_iou.append(iou(raw_map, truth_mask))
             
             morph_iou.append(iou(morph_mask, truth_mask))
             net_iou.append(iou(net_mask, truth_mask)) 
@@ -75,15 +81,13 @@ def evaluage():
             morph_recall.append(recall_score(truth_mask.flatten(), morph_mask.flatten()))
             net_recall.append(recall_score(truth_mask.flatten(), net_mask.flatten()))
            
-    samples = len(morph_iou)
-    if not samples:
+    if len(morph_iou) == 0:
         print('No GT data found!')
-        return 
-    avg_morph_iou, avg_morph_precision, avg_morph_recall = sum(morph_iou)/samples, sum(morph_precision)/samples, sum(morph_recall)/samples
-    avg_net_iou, avg_net_precision, avg_net_recall = sum(net_iou)/samples, sum(net_precision)/samples, sum(net_recall)/samples        
+        return  
     
-    print (f'\nAVG Morph - iou: {avg_morph_iou}, precision: {avg_morph_precision}, recall: {avg_morph_recall}')
-    print (f'AVG Netwo - iou: {avg_net_iou}, precision: {avg_net_precision}, recall: {avg_net_recall}\n')
+    print (f'\nNoisiness rate (avg IOU between RAW and GT): {mean(gt_iou)}\n')
+    print (f'AVG Morph - iou: {mean(morph_iou)}, precision: {mean(morph_precision)}, recall: {mean(morph_recall)}')
+    print (f'AVG Netwo - iou: {mean(net_iou)}, precision: {mean(net_precision)}, recall: {mean(net_recall)}\n')
     print (f'MAX Morph - iou: {max(morph_iou)}, precision: {max(morph_precision)}, recall: {max(morph_recall)}')
     print (f'MAX Netwo - iou: {max(net_iou)}, precision: {max(net_precision)}, recall: {max(net_recall)}\n')
     print (f'MIN Morph - iou: {min(morph_iou)}, precision: {min(morph_precision)}, recall: {min(morph_recall)}')

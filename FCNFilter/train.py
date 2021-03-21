@@ -13,9 +13,8 @@ from losses import scaled_binary_crossentropy, weighted_binary_crossentropy, bin
 WEIGHTS_FILE = 'weights.h5'
 
 
-def train_simple(batch_size=1, epochs=8, lr=5):      
-    lr = 10**(-lr)
-    #lr = 1e-5
+def train_simple(batch_size=1, epochs=8, lr_exp=4):      
+    lr = 10**(-lr_exp)
     model = generate_model()  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -25,7 +24,7 @@ def train_simple(batch_size=1, epochs=8, lr=5):
     val_generator = Generator('data/val', batch_size) 
     
     model.compile(optimizer=Adam(learning_rate=lr),
-                  loss=binary_focal_loss(alpha=0.03, gamma=5),
+                  loss=binary_focal_loss(alpha=0.05, gamma=5),
                   metrics=[Precision(name='precision'), Recall(name='recall')])
     
     history = model.fit(train_generator,
@@ -35,10 +34,11 @@ def train_simple(batch_size=1, epochs=8, lr=5):
                         validation_steps=len(val_generator))
         
     model.save_weights(WEIGHTS_FILE)
+    return history
 
 
-def train(batch_size=1, epochs=32, lr=3):
-    lr = 10**(-lr)
+def train(batch_size=1, epochs=32, lr_exp=4):
+    lr = 10**(-lr_exp)
     model = generate_model()  
     if os.path.exists(WEIGHTS_FILE):
         print('Loading saved weights!')
@@ -47,7 +47,7 @@ def train(batch_size=1, epochs=32, lr=3):
     train_generator = Generator('data/train', batch_size)
     val_generator = Generator('data/val', batch_size) 
     
-    checkpoint_callback = ModelCheckpoint(filepath='{precision:.4f}_{recall:.4f}_weights.h5', 
+    checkpoint_callback = ModelCheckpoint(filepath='weights/{precision:.4f}_{recall:.4f}_weights.h5', 
                                           save_weights_only=True,
                                           monitor='precision',
                                           mode='max',
@@ -79,7 +79,7 @@ def train(batch_size=1, epochs=32, lr=3):
                                 validation_steps=len(val_generator),
                                 callbacks=[checkpoint_callback])
         
-            model.save_weights(f'gamma={g}_alpha={a}_weights.h5')
+            model.save_weights(f'weights/gamma={g}_alpha={a}_weights.h5')
             
     print(f'Elapsed time: {time.time() - start} seconds')
 

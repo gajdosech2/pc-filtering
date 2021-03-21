@@ -4,6 +4,7 @@
 
 FCNFilter/model.png
 FCNFilter/data/
+FCNFilter/weights/
 FCNFilter/process/
 FCNFilter/process - */
 FCNFilter/result/

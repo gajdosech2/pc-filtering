@@ -10,7 +10,7 @@ d = 'process/'
 e = 'result/'
 POWER_UP = True
 WEIGHTS_FILE = 'weights.h5'
-ALPHA = 1.0
+ALPHA = 1.025
 CLEAN_UP = False
 
             
@@ -82,8 +82,12 @@ def inference():
     model = generate_model()
     model.load_weights(WEIGHTS_FILE)
 
-    files = os.listdir(d)    
-    for i, f in enumerate(files):
+    start = time.time()
+    ready, ready_time = False, 0
+    files = os.listdir(d)   
+    for f in files:
+        if ready and ready_time == 0:
+            ready_time = time.time() - start
         if 'intensitymap' in f: 
             f = '_'.join(f.split('_')[:2])
             print('processing: ' + f)
@@ -92,8 +96,13 @@ def inference():
             prediction = model.predict(feature_image)
             prediction = np.round(prediction[0] * ALPHA)
             prediction = prediction[:original_width, :original_height, :]
+            ready = True
+            #kernel = np.ones((1, 1), np.uint8)
+            #prediction = cv2.erode(prediction, kernel, iterations = 1)
 
             cv2.imwrite(d + f + '_prediction.png', prediction.astype(np.uint8) * 255)
+    print(f'Ready time: {ready_time} seconds')
+    
             
             
 def evaluation():
