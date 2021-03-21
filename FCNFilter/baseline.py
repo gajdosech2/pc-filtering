@@ -85,7 +85,7 @@ def evaluage():
         print('No GT data found!')
         return  
     
-    print (f'\nNoisiness rate (avg IOU between RAW and GT): {mean(gt_iou)}\n')
+    print (f'\nNoisiness rate (1 - avg IOU between RAW and GT): {1 - mean(gt_iou)}\n')
     print (f'AVG Morph - iou: {mean(morph_iou)}, precision: {mean(morph_precision)}, recall: {mean(morph_recall)}')
     print (f'AVG Netwo - iou: {mean(net_iou)}, precision: {mean(net_precision)}, recall: {mean(net_recall)}\n')
     print (f'MAX Morph - iou: {max(morph_iou)}, precision: {max(morph_precision)}, recall: {max(morph_recall)}')
