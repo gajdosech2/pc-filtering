@@ -143,8 +143,8 @@ if __name__ == '__main__':
         input_files()
     start = time.time()
     inference()
-    cogs_files()
     stop = time.time()
+    cogs_files()
     evaluation()
     if CLEAN_UP:
         clean_up()

@@ -3,7 +3,7 @@ import os
 import sys
 from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam
-from keras.optimizers.schedules import ExponentialDecay
+from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from keras.metrics import *
 
 from model import generate_model, setup_gpu

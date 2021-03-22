@@ -5,17 +5,19 @@ from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
 from keras import layers
 from keras.utils import plot_model
+from packaging import version
 import tensorflow as tf
 
 
 def setup_gpu():
-    gpus = tf.config.list_physical_devices('GPU')
-    if gpus:
-        try:
-            for gpu in gpus:
-                tf.config.experimental.set_memory_growth(gpu, True)
-        except RuntimeError as e:
-            print(e)
+    if (version.parse(tf.__version__) >= version.parse('2.0')):   
+        gpus = tf.config.list_physical_devices('GPU')
+        if gpus:
+            try:
+                for gpu in gpus:
+                    tf.config.experimental.set_memory_growth(gpu, True)
+            except RuntimeError as e:
+                print(e)
 
 
 def xception(i):
