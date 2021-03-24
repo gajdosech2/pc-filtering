@@ -16,34 +16,16 @@ public:
         x2 = std::numeric_limits<unsigned>::min();
         y2 = std::numeric_limits<unsigned>::min();
     }
-
-    int GetCenterX()
-    {
-        return x1 + GetWidth()/2;
-    }
-
-    int GetCenterY()
-    {
-        return y1 + GetHeight()/2;
-    }
-
-    int GetWidth()
-    {
-        return x2 - x1;
-    }
-
-    int GetHeight()
-    {
-        return y2 - y1;
-    }
 };
 
 void ScanBoxes::GenerateInput(std::string out_path)
 {
-    data_.TransformToSpace(utils::COGS_CAMERA_SPACE);
+    data_.TransformToSpace(utils::PHOXI_CAMERA_SPACE);
 
+    FindNormalizingValues();
     GenerateNormalMap(out_path);
     GenerateDepthMap(out_path);
+    GenerateZMap(out_path);
     GenerateCombinedMap(out_path);
 }
 
@@ -97,7 +79,7 @@ void ScanBoxes::GenerateTruth(std::string truth_path, std::string out_path)
     {
         for (Box& box : boxes)
         {
-            out_file << box.GetCenterX() << "," << box.GetCenterY() << "," << box.GetWidth() << "," << box.GetHeight() << ",0\n";
+            out_file << box.x1 << "," << box.y1 << "," << box.x2 << "," << box.y2 << "," << class_id << std::endl;
         }
         out_file.close();
     }

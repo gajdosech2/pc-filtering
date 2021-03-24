@@ -14,9 +14,10 @@ protected:
 	void GenerateNormalMap(std::string out_path);
 	void GenerateIntensityMap(std::string out_path);
 	void GenerateDepthMap(std::string out_path);
+	void GenerateZMap(std::string out_path);
 	void GenerateCombinedMap(std::string out_path);
 	void GenerateBinaryMap(cogs::Scan scan, std::string out_path, std::string file_suffix = "_truthmask.png");
 	void FindNormalizingValues();
 
-	float min_intensity_, max_intensity_, min_normal_, max_normal_, min_depth_, max_depth_, min_camdist_, max_camdist_;
+	float min_intensity_, max_intensity_, min_normal_, max_normal_, min_z_, max_z_, min_camdist_, max_camdist_;
 };

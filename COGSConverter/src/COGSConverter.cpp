@@ -8,7 +8,7 @@
 
 void Generate(int argc, char* argv[], ScanFormatter *formatter, bool trim = true, bool transform = false)
 {
-    // ./CC --MODE INPUT_FILE EXPORT_PATH GROUND_TRUTH_FILE 
+    // ./CC --MODE INPUT_PATH EXPORT_PATH GROUND_TRUTH_PATH 
     formatter->Import(argv[2], trim, transform);
     std::string out = "";
     switch (argc)
@@ -24,7 +24,7 @@ void Generate(int argc, char* argv[], ScanFormatter *formatter, bool trim = true
     formatter->GenerateInput(out);
 }
 
-void ProcessMask(int argc, char* argv[])
+void ProcessOutput(int argc, char* argv[])
 {
     // ./CC --process COGS_FILE SEGMENTATION_MASK EXPORT_PATH
     ScanImager formatter;
@@ -58,7 +58,15 @@ int main(int argc, char* argv[])
     else if ((std::string)argv[1] == "--boxes")
     {
         ScanBoxes formatter;
-        Generate(argc, argv, &formatter, false);
+        if (argc <= 3)
+        {
+            Generate(argc, argv, &formatter, false);
+        }
+        else
+        {
+            formatter.class_id = atoi(argv[5]);
+            Generate(5, argv, &formatter, false);
+        }
     }
     else if ((std::string)argv[1] == "--xyz")
     {
@@ -72,7 +80,7 @@ int main(int argc, char* argv[])
     }
     else if ((std::string)argv[1] == "--process")
     {
-        ProcessMask(argc, argv);
+        ProcessOutput(argc, argv);
     }
     return 0;
 }
