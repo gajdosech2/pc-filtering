@@ -12,3 +12,6 @@ FCNFilter/*_weights.h5
 
 COGSConverter/.vs
 COGSConverter/out
+
+HIROVisualizer/.vs
+HIROVisualizer/out
