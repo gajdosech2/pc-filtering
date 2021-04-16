@@ -1,5 +1,6 @@
 from keras.models import Model
 from keras.layers import Input, UpSampling2D, LeakyReLU
+from keras.layers.normalization import BatchNormalization
 from keras.layers.convolutional import Conv2D, Conv2DTranspose
 from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import concatenate
@@ -99,39 +100,55 @@ def skippy(i):
 def skip(i):
     c1 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (i)
     c1 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (c1)
+    #c1 = BatchNormalization() (c1)
     p1 = MaxPooling2D(2) (c1)
+    #p1 = Conv2D(8, 3, strides=(2,2), padding='same') (c1)
 
     c2 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (p1)
     c2 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c2)
+    #c2 = BatchNormalization() (c2)
     p2 = MaxPooling2D(2) (c2)
+    #p2 = Conv2D(16, 3, strides=(2,2), padding='same') (c2)
 
     c3 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (p2)
     c3 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (c3)
+    #c3 = BatchNormalization() (c3)
     p3 = MaxPooling2D(2) (c3)
+    #p3 = Conv2D(32, 3, strides=(2,2), padding='same') (c3)
 
     c4 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (p3)
     c4 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (c4)
+    #c4 = BatchNormalization() (c4)
     p4 = MaxPooling2D(2) (c4)
+    #p4 = Conv2D(48, 3, strides=(2,2), padding='same') (c4)
 
     c5 = Conv2D(64, 3, activation=LeakyReLU(), padding='same') (p4)
     c5 = Conv2D(64, 3, activation=LeakyReLU(), padding='same') (c5)
+    #c5 = BatchNormalization() (c5)
 
     u6 = Conv2DTranspose(48, 2, strides=(2, 2), padding='same') (c5)
+    #u6 = UpSampling2D(2) (c5)
     u6 = concatenate([u6, c4])
     c6 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (u6)
     c6 = Conv2D(48, 3, activation=LeakyReLU(), padding='same') (c6)
+    #c6 = BatchNormalization() (c6)
 
     u7 = Conv2DTranspose(32, 2, strides=(2, 2), padding='same') (c6)
+    #u7 = UpSampling2D(2) (c6)
     u7 = concatenate([u7, c3])
     c7 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (u7)
     c7 = Conv2D(32, 3, activation=LeakyReLU(), padding='same') (c7)
+    #c7 = BatchNormalization() (c7)
 
     u8 = Conv2DTranspose(16, 2, strides=(2, 2), padding='same') (c7)
+    #u8 = UpSampling2D(2) (c7)
     u8 = concatenate([u8, c2])
     c8 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (u8)
     c8 = Conv2D(16, 3, activation=LeakyReLU(), padding='same') (c8)
+    #c8 = BatchNormalization() (c8)
 
     u9 = Conv2DTranspose(8, 2, strides=(2, 2), padding='same') (c8)
+    #u9 = UpSampling2D(2) (c8)
     u9 = concatenate([u9, c1])
     c9 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (u9)
     c9 = Conv2D(8, 3, activation=LeakyReLU(), padding='same') (c9)

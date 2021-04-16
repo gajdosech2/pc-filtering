@@ -32,7 +32,7 @@ def morphology():
             print('processing: ' + f)
             binary_map = cv2.imread(d + f + '_binarymap.png', cv2.IMREAD_GRAYSCALE)
             
-            kernel = np.ones((7, 7), np.uint8)
+            kernel = np.ones((5, 5), np.uint8)
             morph = cv2.erode(binary_map, kernel, iterations = 1)
             #morph = cv2.morphologyEx(binary_map, cv2.MORPH_OPEN, kernel)
             cv2.imwrite(d + f + '_morphology.png', morph) 

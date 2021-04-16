@@ -6,58 +6,61 @@ import math
 
 from model import generate_model, setup_gpu
 
-d = 'process/'
-e = 'result/'
-POWER_UP = True
+#os.environ["CUDA_VISIBLE_DEVICES"]="-1"    
+
+PROCESS_PATH = 'process/'
+RESULT_PATH = 'result/'
 WEIGHTS_FILE = 'weights.h5'
-ALPHA = 1.025
+
+SCALE_FACTOR = 2.0
+ALPHA = 0.95
 CLEAN_UP = False
 
             
 def cogs_files():
-    files = os.listdir(d)
-    os.makedirs(e, exist_ok=True)
+    files = os.listdir(PROCESS_PATH)
+    os.makedirs(RESULT_PATH, exist_ok=True)
     for f in files:
         if '.cogs' in f and 'processed' not in f and 'truth' not in f:
             if os.name == 'nt':
                 os.system('"utils\WCC.exe"' + 
                           ' --process ' +
-                          d + f + ' ' +
-                          d + f[:-5] + '_prediction.png' + ' ' +
-                          e)
+                          PROCESS_PATH + f + ' ' +
+                          PROCESS_PATH + f[:-5] + '_prediction.png' + ' ' +
+                          RESULT_PATH)
             else:
                 print('OS other than Windows is currently not supported.')
                 
                 
 def input_files():
-    files = os.listdir(d)
+    files = os.listdir(PROCESS_PATH)
     for f in files:
         if '.cogs' in f and 'processed' not in f and 'truth' not in f:
             print("processing: " + f)
             t = ""
-            if os.path.isfile(d + 'truth_' + f):
-                t = d + 'truth_' + f
+            if os.path.isfile(PROCESS_PATH + 'truth_' + f):
+                t = PROCESS_PATH + 'truth_' + f
             if os.name == 'nt':
                 os.system('"utils\WCC.exe"' + 
                           ' --generate ' +
-                          d + f + ' ' +
-                          d + ' ' +
+                          PROCESS_PATH + f + ' ' +
+                          PROCESS_PATH + ' ' +
                           t)
             else:
                 print('OS other than Windows is currently not supported.')
 
 
 def clean_up():
-    files = os.listdir(d)
+    files = os.listdir(PROCESS_PATH)
     for f in files:
         if '.png' in f:
-            os.remove(d + f)
+            os.remove(PROCESS_PATH + f)
 
             
 def generate_feature_image(f):
-    intensity_image = cv2.imread(d + f + '_intensitymap.png', cv2.IMREAD_GRAYSCALE) / 255
-    depth_image = cv2.imread(d + f + '_depthmap.png', cv2.IMREAD_GRAYSCALE) / 255
-    normals_image = cv2.imread(d + f + '_normalmap.png', cv2.IMREAD_UNCHANGED)
+    intensity_image = cv2.imread(PROCESS_PATH + f + '_intensitymap.png', cv2.IMREAD_GRAYSCALE) / 255
+    depth_image = cv2.imread(PROCESS_PATH + f + '_depthmap.png', cv2.IMREAD_GRAYSCALE) / 255
+    normals_image = cv2.imread(PROCESS_PATH + f + '_normalmap.png', cv2.IMREAD_UNCHANGED)
     normals_image = cv2.cvtColor(normals_image, cv2.COLOR_BGR2RGB) / 255
     feature_image = np.dstack((intensity_image,
                                depth_image,
@@ -65,44 +68,41 @@ def generate_feature_image(f):
                                normals_image[:, :, 1],
                                normals_image[:, :, 2]))
   
-    if POWER_UP:
-        shape = feature_image.shape
-        i1 = 2**math.ceil(math.log2(shape[0])) - shape[0]
-        i2 = 2**math.ceil(math.log2(shape[1])) - shape[1]
-        shape = (shape[0]+i1, shape[1]+i2, shape[2])
-        resized = np.zeros(shape, dtype=np.float32)
-        resized[:feature_image.shape[0], :feature_image.shape[1], :] = feature_image
-        feature_image = resized
+    shape = feature_image.shape
+    i1 = 2**math.ceil(math.log2(shape[0])) - shape[0]
+    i2 = 2**math.ceil(math.log2(shape[1])) - shape[1]
+    shape = (shape[0]+i1, shape[1]+i2, shape[2])
+    resized = np.zeros(shape, dtype=np.float32)
+    resized[:feature_image.shape[0], :feature_image.shape[1], :] = feature_image
     
+    feature_image = cv2.resize(resized, (0,0), fx=SCALE_FACTOR, fy=SCALE_FACTOR)
     feature_image = np.expand_dims(feature_image, axis=0)
     return feature_image, intensity_image.shape[0], intensity_image.shape[1]
            
             
 def inference():
+    start = time.time()
     model = generate_model()
     model.load_weights(WEIGHTS_FILE)
+    print(f'Load time: {time.time() - start} seconds')
 
-    start = time.time()
-    ready, ready_time = False, 0
-    files = os.listdir(d)   
+    files = os.listdir(PROCESS_PATH)   
     for f in files:
-        if ready and ready_time == 0:
-            ready_time = time.time() - start
         if 'intensitymap' in f: 
             f = '_'.join(f.split('_')[:2])
             print('processing: ' + f)
             feature_image, original_width, original_height = generate_feature_image(f)
             
+            start = time.time()
             prediction = model.predict(feature_image)
+            print(f'Inference time: {time.time() - start} seconds')
             prediction = np.round(prediction[0] * ALPHA)
-            prediction = prediction[:original_width, :original_height, :]
-            ready = True
+            prediction = cv2.resize(prediction, (0,0), fx=1/SCALE_FACTOR, fy=1/SCALE_FACTOR)
+            prediction = prediction[:original_width, :original_height]
             #kernel = np.ones((1, 1), np.uint8)
             #prediction = cv2.erode(prediction, kernel, iterations = 1)
 
-            cv2.imwrite(d + f + '_prediction.png', prediction.astype(np.uint8) * 255)
-    print(f'Ready time: {ready_time} seconds')
-    
+            cv2.imwrite(PROCESS_PATH + f + '_prediction.png', prediction.astype(np.uint8) * 255)
             
             
 def evaluation():
@@ -110,14 +110,14 @@ def evaluation():
     metric = 0
     max_metric = 0
     min_metric = 1
-    files = os.listdir(d)
+    files = os.listdir(PROCESS_PATH)
     for truth in files:
         if 'truthmask' in truth:
             size += 1
             name = truth[:-14]
             prediction = name + '_prediction.png'
-            prediction = cv2.imread(d + prediction, cv2.IMREAD_GRAYSCALE) / 255
-            truth = cv2.imread(d + truth, cv2.IMREAD_GRAYSCALE) / 255
+            prediction = cv2.imread(PROCESS_PATH + prediction, cv2.IMREAD_GRAYSCALE) / 255
+            truth = cv2.imread(PROCESS_PATH + truth, cv2.IMREAD_GRAYSCALE) / 255
             
             intersection = np.sum(prediction * truth)
             union = np.sum(truth) + np.sum(prediction) - intersection
@@ -125,7 +125,7 @@ def evaluation():
             metric += iou
             max_metric = max(iou, max_metric)
             min_metric = min(iou, min_metric)
-            with open (e + name + '_eval.txt', 'w') as result:
+            with open (RESULT_PATH + name + '_eval.txt', 'w') as result:
                 print(iou, file=result)
     
     if size > 0:
@@ -133,21 +133,21 @@ def evaluation():
         print('Average IoU: ' + str(metric))
         print('Max IoU: ' + str(max_metric))
         print('Min IoU: ' + str(min_metric))
-        with open (e + 'average_iou.txt', 'w') as result:
+        with open (RESULT_PATH + 'average_iou.txt', 'w') as result:
             print(metric, file=result)
 
 
 if __name__ == '__main__':
     setup_gpu()
-    if not any('.png' in f for f in os.listdir(d)):
-        input_files()
     start = time.time()
+    if not any('.png' in f for f in os.listdir(PROCESS_PATH)):
+        input_files()
     inference()
-    stop = time.time()
     cogs_files()
+    stop = time.time()
     evaluation()
     if CLEAN_UP:
         clean_up()
-    print(f'Inference time: {stop - start} seconds')
+    print(f'Total time: {stop - start} seconds')
 
 

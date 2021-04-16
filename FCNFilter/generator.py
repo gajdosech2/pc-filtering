@@ -4,9 +4,7 @@ import cv2
 import keras
 import math
 import matplotlib.pyplot as plt
-
-POWER_UP = True
-
+from random import randrange as rr
 
 class Generator(keras.utils.Sequence):
     def __init__(self, dataset_path, batch_size=2, shuffle_images=True):
@@ -41,7 +39,7 @@ class Generator(keras.utils.Sequence):
 
     def create_image_groups(self):
         if self.shuffle_images:
-            seed = 4321
+            seed = rr(1, 8192)
             np.random.seed(seed)
             np.random.shuffle(self.feature_images)
             np.random.seed(seed)
@@ -55,10 +53,9 @@ class Generator(keras.utils.Sequence):
     def construct_batch(self, image_group):
         max_shape = tuple(max(image.shape[d] for image in image_group) for d in range(len(image_group[0].shape)))
         
-        if POWER_UP:
-            i1 = 2**math.ceil(math.log2(max_shape[0])) - max_shape[0]
-            i2 = 2**math.ceil(math.log2(max_shape[1])) - max_shape[1]
-            max_shape = (max_shape[0]+i1, max_shape[1]+i2, max_shape[2])
+        i1 = 2**math.ceil(math.log2(max_shape[0])) - max_shape[0]
+        i2 = 2**math.ceil(math.log2(max_shape[1])) - max_shape[1]
+        max_shape = (max_shape[0]+i1, max_shape[1]+i2, max_shape[2])
 
         batch = np.zeros((self.batch_size,) + max_shape, dtype=np.float32)
 

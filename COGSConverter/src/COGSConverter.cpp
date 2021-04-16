@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
     else if ((std::string)argv[1] == "--boxes")
     {
         ScanBoxes formatter;
-        if (argc <= 3)
+        if (argc <= 4)
         {
             Generate(argc, argv, &formatter, false);
         }
