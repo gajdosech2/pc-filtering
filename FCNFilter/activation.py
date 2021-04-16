@@ -6,8 +6,8 @@ import os
 from model import generate_model, setup_gpu
 from inference import generate_feature_image
 
-d = 'process/'
-e = 'result/'
+PROCESS_PATH = 'process/'
+RESULT_PATH = 'result/'
 POWER_UP = True
 WEIGHTS_FILE = 'weights.h5'
 
@@ -17,7 +17,7 @@ def activation_maps():
     model.load_weights(WEIGHTS_FILE)
     model = keras.Model(inputs=model.inputs, outputs=model.layers[1].output)
 
-    files = os.listdir(d)    
+    files = os.listdir(PROCESS_PATH)
     for i, f in enumerate(files):
         if 'intensitymap' in f: 
             f = '_'.join(f.split('_')[:2])
@@ -29,7 +29,7 @@ def activation_maps():
             prediction = prediction[:original_width, :original_height, :]
 
             for j in range(prediction.shape[2]):
-                cv2.imwrite(d + f + '_activation' + str(j) + '.png', prediction[:, :, j].astype(np.uint8) * 255)
+                cv2.imwrite(PROCESS_PATH + f + '_activation' + str(j) + '.png', prediction[:, :, j].astype(np.uint8) * 255)
 
 
 if __name__ == "__main__":

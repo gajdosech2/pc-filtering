@@ -1,12 +1,13 @@
 import os
 import numpy as np
 import cv2
-import keras
+from keras.utils import Sequence
 import math
 import matplotlib.pyplot as plt
 from random import randrange as rr
 
-class Generator(keras.utils.Sequence):
+
+class Generator(Sequence):
     def __init__(self, dataset_path, batch_size=2, shuffle_images=True):
         self.feature_images = []
         self.masks = []
@@ -110,5 +111,3 @@ if __name__ == '__main__':
     print(image_batch.shape)
     print(mask_batch.shape)
     show(image_batch[0], mask_batch[0])
-
-

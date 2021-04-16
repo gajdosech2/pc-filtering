@@ -11,7 +11,7 @@ import tensorflow as tf
 
 
 def setup_gpu():
-    if (version.parse(tf.__version__) >= version.parse('2.0')):   
+    if version.parse(tf.__version__) >= version.parse('2.0'):
         gpus = tf.config.list_physical_devices('GPU')
         if gpus:
             try:
@@ -203,4 +203,3 @@ if __name__ == '__main__':
         plot_model(model, show_shapes=True)
     except:
         print("Install pydot and graphviz to get the diagram of the network!")
-
