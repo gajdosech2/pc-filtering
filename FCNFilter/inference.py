@@ -12,8 +12,8 @@ PROCESS_PATH = 'process/'
 RESULT_PATH = 'result/'
 WEIGHTS_FILE = 'weights.h5'
 
-SCALE_FACTOR = 2.0
-ALPHA = 0.95
+SCALE_FACTOR = 1.0
+ALPHA = 1.0
 CLEAN_UP = False
 
             

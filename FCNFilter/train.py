@@ -1,7 +1,8 @@
 import time
 import os
 import sys
-from keras.callbacks import ModelCheckpoint
+import json
+from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 from keras.optimizers import Adam
 from keras.metrics import *
 
@@ -38,7 +39,7 @@ def train_simple(batch_size=1, epochs=8, lr_exp=4):
     return history
 
 
-def train(batch_size=1, epochs=4, lr_exp=4):
+def train(batch_size=1, epochs=40, lr_exp=5):
     lr = 10**(-lr_exp)
     model = generate_model()  
     if os.path.exists(WEIGHTS_FILE):
@@ -52,31 +53,41 @@ def train(batch_size=1, epochs=4, lr_exp=4):
                                           save_weights_only=True,
                                           monitor='precision',
                                           mode='max',
-                                          save_best_only=True)
-
+                                          save_best_only=True)                                  
+    #reduce_lr = ReduceLROnPlateau(monitor='loss', factor=0.25, patience=4, verbose=1)
+    early_stopping = EarlyStopping(monitor='loss', min_delta=0.0001, patience=8, verbose=1)
     start = time.time()  
     
-    for step in range(6):
+    history = dict()
+    for param in ['val_loss', 'val_precision', 'val_recall', 'loss', 'precision', 'recall']:
+        history[param] = list()
+        
+    for step in range(4):
         model.compile(optimizer=Adam(learning_rate=lr),
-                              loss=binary_focal_loss(alpha=0.07, gamma=5),
-                              metrics=[#'accuracy',
-                              Precision(name='precision'),
-                              Recall(name='recall'),
-                              #SpecificityAtSensitivity(0.5, num_thresholds=1, name='specificity'),
-                              #SensitivityAtSpecificity(0.5, num_thresholds=1, name='sensitivity'),
-                              #TrueNegatives(), TruePositives(), FalseNegatives(), FalsePositives()
-                              ])
+                      loss=binary_focal_loss(alpha=0.07, gamma=5),
+                      metrics=[#'accuracy',
+                      Precision(name='precision'),
+                      Recall(name='recall'),
+                      #SpecificityAtSensitivity(0.5, num_thresholds=1, name='specificity'),
+                      #SensitivityAtSpecificity(0.5, num_thresholds=1, name='sensitivity'),
+                      #TrueNegatives(), TruePositives(), FalseNegatives(), FalsePositives()
+                      ])
         
-        history = model.fit(train_generator,
-                            steps_per_epoch=len(train_generator),
-                            epochs=epochs,
-                            validation_data=val_generator,
-                            validation_steps=len(val_generator),
-                            callbacks=[])
+        h = model.fit(train_generator,
+                      steps_per_epoch=len(train_generator),
+                      epochs=epochs,
+                      validation_data=val_generator,
+                      validation_steps=len(val_generator),
+                      callbacks=[early_stopping])
         
-        lr = lr * 1/5
+        for param in ['val_loss', 'val_precision', 'val_recall', 'loss', 'precision', 'recall']:
+            history[param] += [float(v) for v in h.history[param]]
+        
+        lr = lr / 5
         train_generator.create_image_groups()
         
+    with open('training/history.json', 'w') as histfile:
+        json.dump(history, histfile)
     model.save_weights(f'weights.h5')          
             
     print(f'Elapsed time: {time.time() - start} seconds')
