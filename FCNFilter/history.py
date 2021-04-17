@@ -23,7 +23,7 @@ def plot_param(history, param):
     
     plt.legend(['train', 'val'])
     plt.minorticks_on()
-    plt.xticks(range(1, 130, 10))
+    #plt.xticks(range(1, 130, 10))
     #plt.yticks([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
     plt.grid(b=True, which='minor', color='#999999', linestyle='-', alpha=0.2)
     plt.grid(b=True, which='major', color='#666666', linestyle='-', alpha=0.4)
@@ -34,12 +34,12 @@ def plot_param(history, param):
 if __name__ == '__main__':
     with open(HIST_FILE, 'r') as histfile:
         history = json.load(histfile)
-    
-    calculate_f1(history)
+     
     plot_param(history, 'loss')
-    plot_param(history, 'precision')
-    plot_param(history, 'recall')
-    plot_param(history, 'f1')
+    #calculate_f1(history)
+    #plot_param(history, 'precision')
+    #plot_param(history, 'recall')
+    #plot_param(history, 'f1')
     
 
        
