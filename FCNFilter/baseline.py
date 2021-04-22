@@ -61,7 +61,7 @@ def evaluate():
             morph_mask = cv2.imread(PROCESS_PATH + f + '_morphology.png', cv2.IMREAD_GRAYSCALE)
             net_mask = cv2.imread(PROCESS_PATH + f + '_prediction.png', cv2.IMREAD_GRAYSCALE)
                       
-            kernel = np.ones((7, 7), np.uint8)
+            kernel = np.ones((5, 5), np.uint8)
             morph_mask = cv2.dilate(morph_mask, kernel, iterations = 1)
             #net_mask = cv2.dilate(net_mask, kernel, iterations = 1)
             
