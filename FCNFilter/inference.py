@@ -13,7 +13,7 @@ RESULT_PATH = 'result/'
 WEIGHTS_FILE = 'weights.h5'
 
 SCALE_FACTOR = 1.0
-ALPHA = 0.975
+ALPHA = 1.05
 CLEAN_UP = False
 
             
