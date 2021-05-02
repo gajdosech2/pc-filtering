@@ -6,14 +6,14 @@ import math
 
 from model import generate_model, setup_gpu
 
-#os.environ["CUDA_VISIBLE_DEVICES"]="-1"    
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"    
 
 PROCESS_PATH = 'process/'
 RESULT_PATH = 'result/'
 WEIGHTS_FILE = 'weights.h5'
 
-SCALE_FACTOR = 1.0
-ALPHA = 1.05
+SCALE_FACTOR = 2.0
+ALPHA = 1.025
 CLEAN_UP = False
 
             
@@ -26,7 +26,7 @@ def cogs_files():
                 os.system('"utils\WCC.exe"' + 
                           ' --process ' +
                           PROCESS_PATH + f + ' ' +
-                          PROCESS_PATH + f[:-5] + '_morphology.png' + ' ' +
+                          PROCESS_PATH + f[:-5] + '_prediction.png' + ' ' +
                           RESULT_PATH)
             else:
                 print('OS other than Windows is currently not supported.')
